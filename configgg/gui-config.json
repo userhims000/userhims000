@@ -1,0 +1,13 @@
+{
+    "configs": [
+        {
+            "method": "chacha20-ietf-poly1305",
+            "password": "RNuv3[[hQqNu",
+            "remarks": "Bastion",
+            "server": "136.144.242.150",
+            "server_port": 8388
+        }
+    ],
+    "localPort": 1080,
+    "shareOverLan": false
+}
