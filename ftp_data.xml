@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FileZilla3 version="3.15.0.2" platform="*nix">
+	<Servers>
+		<Folder expanded="1">My Sites<Server>
+				<Host>ftp.drpenny.nl</Host>
+				<Port>21</Port>
+				<Protocol>6</Protocol>
+				<Type>0</Type>
+				<User>en-masse@drpenny.nl</User>
+				<Pass encoding="base64">djdRdEdtb2FI</Pass>
+				<Logontype>1</Logontype>
+				<TimezoneOffset>0</TimezoneOffset>
+				<PasvMode>MODE_DEFAULT</PasvMode>
+				<MaximumMultipleConnections>0</MaximumMultipleConnections>
+				<EncodingType>Auto</EncodingType>
+				<BypassProxy>0</BypassProxy>
+				<Name>DrPenny</Name>
+				<Comments>v7QtGmoaH</Comments>
+				<LocalDir />
+				<RemoteDir />
+				<SyncBrowsing>0</SyncBrowsing>
+				<DirectoryComparison>0</DirectoryComparison>DrPenny</Server>
+			<Server>
+				<Host>62.84.245.170</Host>
+				<Port>21</Port>
+				<Protocol>4</Protocol>
+				<Type>0</Type>
+				<User>dev@mediquipt.nl</User>
+				<Pass encoding="base64">V1V3Q0ZIc3lOTEM2SmNLRWFNQVU=</Pass>
+				<Logontype>1</Logontype>
+				<TimezoneOffset>0</TimezoneOffset>
+				<PasvMode>MODE_DEFAULT</PasvMode>
+				<MaximumMultipleConnections>0</MaximumMultipleConnections>
+				<EncodingType>Auto</EncodingType>
+				<BypassProxy>0</BypassProxy>
+				<Name>Mediquipt</Name>
+				<Comments />
+				<LocalDir />
+				<RemoteDir />
+				<SyncBrowsing>0</SyncBrowsing>
+				<DirectoryComparison>0</DirectoryComparison>Mediquipt</Server>
+			<Server>
+				<Host>62.84.245.170</Host>
+				<Port>21</Port>
+				<Protocol>0</Protocol>
+				<Type>0</Type>
+				<User>dev@staging.drpenny.nl</User>
+				<Pass encoding="base64">NkVLQmJMemVZWW41OEZobnQ0RTU=</Pass>
+				<Logontype>1</Logontype>
+				<TimezoneOffset>0</TimezoneOffset>
+				<PasvMode>MODE_DEFAULT</PasvMode>
+				<MaximumMultipleConnections>0</MaximumMultipleConnections>
+				<EncodingType>Auto</EncodingType>
+				<BypassProxy>0</BypassProxy>
+				<Name>New site</Name>
+				<Comments />
+				<LocalDir />
+				<RemoteDir />
+				<SyncBrowsing>0</SyncBrowsing>
+				<DirectoryComparison>0</DirectoryComparison>New site</Server>
+			<Server>
+				<Host>woocommerce.en-masse.nl</Host>
+				<Port>21</Port>
+				<Protocol>6</Protocol>
+				<Type>0</Type>
+				<User>woocommerce@en-masse.nl</User>
+				<Pass encoding="base64">NHpucTdhRjRTNkVTNFZ3OFBrVlM=</Pass>
+				<Logontype>1</Logontype>
+				<TimezoneOffset>0</TimezoneOffset>
+				<PasvMode>MODE_DEFAULT</PasvMode>
+				<MaximumMultipleConnections>0</MaximumMultipleConnections>
+				<EncodingType>Auto</EncodingType>
+				<BypassProxy>0</BypassProxy>
+				<Name>New site 3</Name>
+				<Comments />
+				<LocalDir />
+				<RemoteDir />
+				<SyncBrowsing>0</SyncBrowsing>
+				<DirectoryComparison>0</DirectoryComparison>New site 3</Server>
+			<Server>
+				<Host>web01.en-masse.nl</Host>
+				<Port>21</Port>
+				<Protocol>6</Protocol>
+				<Type>0</Type>
+				<User>dennendonc</User>
+				<Pass encoding="base64">c3FxbjhkSVBS</Pass>
+				<Logontype>1</Logontype>
+				<TimezoneOffset>0</TimezoneOffset>
+				<PasvMode>MODE_DEFAULT</PasvMode>
+				<MaximumMultipleConnections>0</MaximumMultipleConnections>
+				<EncodingType>Auto</EncodingType>
+				<BypassProxy>0</BypassProxy>
+				<Name>dennendonck</Name>
+				<Comments />
+				<LocalDir />
+				<RemoteDir />
+				<SyncBrowsing>0</SyncBrowsing>
+				<DirectoryComparison>0</DirectoryComparison>dennendonck</Server>
+			<Server>
+				<Host>appserver.dev.7bba45fa-ae29-484f-af1a-12d4cd073385.drush.in</Host>
+				<Port>2222</Port>
+				<Protocol>1</Protocol>
+				<Type>0</Type>
+				<User>dev.7bba45fa-ae29-484f-af1a-12d4cd073385</User>
+				<Pass encoding="base64">QmVpbmdIdW1hbkAyMzQ=</Pass>
+				<Logontype>1</Logontype>
+				<TimezoneOffset>0</TimezoneOffset>
+				<PasvMode>MODE_DEFAULT</PasvMode>
+				<MaximumMultipleConnections>0</MaximumMultipleConnections>
+				<EncodingType>Auto</EncodingType>
+				<BypassProxy>0</BypassProxy>
+				<Name>dyviq</Name>
+				<Comments />
+				<LocalDir />
+				<RemoteDir />
+				<SyncBrowsing>0</SyncBrowsing>
+				<DirectoryComparison>0</DirectoryComparison>dyviq</Server>
+			<Server>
+				<Host>web01.en-masse.nl</Host>
+				<Port>21</Port>
+				<Protocol>4</Protocol>
+				<Type>0</Type>
+				<User>ebvn</User>
+				<Pass encoding="base64">akhqOEM2dkZFenNIdzNMa3chS2g=</Pass>
+				<Logontype>1</Logontype>
+				<TimezoneOffset>0</TimezoneOffset>
+				<PasvMode>MODE_DEFAULT</PasvMode>
+				<MaximumMultipleConnections>0</MaximumMultipleConnections>
+				<EncodingType>Auto</EncodingType>
+				<BypassProxy>0</BypassProxy>
+				<Name>ebvn</Name>
+				<Comments>jHj8C6vFEzsHw3Lkw!Kh</Comments>
+				<LocalDir />
+				<RemoteDir />
+				<SyncBrowsing>0</SyncBrowsing>
+				<DirectoryComparison>0</DirectoryComparison>ebvn</Server>
+			<Server>
+				<Host>81.18.160.213</Host>
+				<Port>22</Port>
+				<Protocol>1</Protocol>
+				<Type>0</Type>
+				<User>www</User>
+				<Keyfile>/home/user/.ssh/id_rsa</Keyfile>
+				<Logontype>5</Logontype>
+				<TimezoneOffset>0</TimezoneOffset>
+				<PasvMode>MODE_DEFAULT</PasvMode>
+				<MaximumMultipleConnections>0</MaximumMultipleConnections>
+				<EncodingType>Auto</EncodingType>
+				<BypassProxy>0</BypassProxy>
+				<Name>faceland</Name>
+				<Comments />
+				<LocalDir />
+				<RemoteDir />
+				<SyncBrowsing>0</SyncBrowsing>
+				<DirectoryComparison>0</DirectoryComparison>faceland</Server>
+			<Server>
+				<Host>w019b39c.kasserver.com</Host>
+				<Port>21</Port>
+				<Protocol>6</Protocol>
+				<Type>0</Type>
+				<User>f0168c81</User>
+				<Pass encoding="base64">UExaYllWWk1SamN0NjRCaWViZ0o=</Pass>
+				<Logontype>1</Logontype>
+				<TimezoneOffset>0</TimezoneOffset>
+				<PasvMode>MODE_DEFAULT</PasvMode>
+				<MaximumMultipleConnections>0</MaximumMultipleConnections>
+				<EncodingType>Auto</EncodingType>
+				<BypassProxy>0</BypassProxy>
+				<Name>locationbuchung</Name>
+				<Comments>PLZbYVZMRjct64BiebgJ</Comments>
+				<LocalDir />
+				<RemoteDir />
+				<SyncBrowsing>0</SyncBrowsing>
+				<DirectoryComparison>0</DirectoryComparison>locationbuchung</Server>
+			<Server>
+				<Host>180.149.245.62</Host>
+				<Port>21</Port>
+				<Protocol>6</Protocol>
+				<Type>0</Type>
+				<User>mobileuatphpdev</User>
+				<Pass encoding="base64">Q140K3dmZzt1d0hB</Pass>
+				<Logontype>1</Logontype>
+				<TimezoneOffset>0</TimezoneOffset>
+				<PasvMode>MODE_DEFAULT</PasvMode>
+				<MaximumMultipleConnections>0</MaximumMultipleConnections>
+				<EncodingType>Auto</EncodingType>
+				<BypassProxy>0</BypassProxy>
+				<Name>mobileneosofttech</Name>
+				<Comments />
+				<LocalDir />
+				<RemoteDir />
+				<SyncBrowsing>0</SyncBrowsing>
+				<DirectoryComparison>0</DirectoryComparison>mobileneosofttech</Server>
+			<Server>
+				<Host>web01.en-masse.nl</Host>
+				<Port>2222</Port>
+				<Protocol>6</Protocol>
+				<Type>0</Type>
+				<User>wetravel</User>
+				<Pass encoding="base64">Y2M2TUJWN2lLcDla</Pass>
+				<Logontype>1</Logontype>
+				<TimezoneOffset>0</TimezoneOffset>
+				<PasvMode>MODE_DEFAULT</PasvMode>
+				<MaximumMultipleConnections>0</MaximumMultipleConnections>
+				<EncodingType>Auto</EncodingType>
+				<BypassProxy>0</BypassProxy>
+				<Name>wetravel</Name>
+				<Comments>cc6MBV7iKp9Z</Comments>
+				<LocalDir />
+				<RemoteDir />
+				<SyncBrowsing>0</SyncBrowsing>
+				<DirectoryComparison>0</DirectoryComparison>wetravel</Server>
+		</Folder>
+	</Servers>
+</FileZilla3>
