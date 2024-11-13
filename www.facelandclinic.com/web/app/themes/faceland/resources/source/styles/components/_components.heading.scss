@@ -1,0 +1,20 @@
+.c-heading--icon {
+    position: relative;
+
+    &::before {
+        @include offset(absolute, 50%, null, null, 0);
+        transform: translateY(-50%);
+        content: '';
+    }
+}
+
+.c-heading--agenda {
+    padding-left: rhythm(2);
+
+    &::before {
+        @include square(52px);
+        border-radius: 50%;
+        background-color: $color-tertiary;
+        background-position: -480px -384px;
+    }
+}

@@ -1,0 +1,29 @@
+.c-language {
+    position: relative;
+
+    &:hover {
+
+        .c-language__dropdown {
+            display: block;
+        }
+    }
+}
+
+.c-language__dropdown {
+    @include offset(absolute, null, null, 0, 50%);
+    @include rhythm-padding(.25);
+    @include contain-padding(rhythm(.5));
+    display: none;
+    transform: translate(-50%, 100%);
+    border-radius: 4px;
+    background-color: $color-white;
+    text-align: center;
+    box-shadow: 0 0 14px 0 rgba($color-black, .05);
+    z-index: $layer-3;
+
+    a {
+        @include contain-padding(rhythm(.25));
+        @include rhythm-padding(.25);
+        display: block;
+    }
+}

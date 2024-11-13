@@ -1,0 +1,13 @@
+
+{% block panorama %}
+    {% include 'parts/panorama-default.twig' with { panorama : post.panorama } %}
+{% endblock %}
+
+{% block content %}
+    <div class="o-contain o-contain-padding">
+        <article class="c-copy">
+            {% include 'parts/content-modules.twig' %}
+            {% block afterContent %}{% endblock %}
+        </article>
+    </div>
+{% endblock %}

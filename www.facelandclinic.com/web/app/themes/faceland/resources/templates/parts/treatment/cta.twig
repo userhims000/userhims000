@@ -1,0 +1,11 @@
+{% if cta|length > 0 and (cta.0.title or cta.1.title) %}
+    <div class="c-cta-wrapper">
+        <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of2--lg">
+            {% for card in cta %}
+                <div class="o-grid__cell">
+                    {% include "parts/cards/card-treatment-cta.twig" %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

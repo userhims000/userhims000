@@ -1,0 +1,10 @@
+{% if related|length > 0 %}
+    <div class="c-related  c-related--mt u-bg-tertiary-light js-toggle-wrapper">
+        {% include "parts/comments/wrapper.twig" with { post : post } %}
+        {% include "parts/mask.twig" with { classes : 'c-mask--tertiary-light u-bg-white' } %}
+        <div class="o-contain o-contain-padding">
+            <h2 class="c-related__heading u-text-size-giga u-text-bold u-text-center">{{pll__('Ook interessant...')|upper}}</h2>
+            {% include "parts/collection.twig" with { posts : related,  gridSize: 'u-1of1--sm u-1of2--md u-1of3--lg', cardType: 'article', gutterSize : 'o-grid--with-gutter o-grid--with-gutter-vertical' } %}
+        </div>
+    </div>
+{% endif %}

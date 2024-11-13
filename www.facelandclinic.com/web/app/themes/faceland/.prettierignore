@@ -1,0 +1,77 @@
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+
+# OS or Editor folders
+.DS_Store
+._*
+*[Tt]humbs.db
+.cache
+.project
+.settings
+.tmproj
+nbproject
+*.sublime-project
+*.sublime-workspace
+
+*.twig
+
+# Dreamweaver added files
+_notes
+dwsync.xml
+
+# Komodo
+*.komodoproject
+.komodotools
+
+# Espresso
+*.esproj
+*.espressostorage
+
+# Rubinius
+*.rbc
+
+# Folders to ignore
+.hg
+.svn
+.CVS
+intermediate
+publish
+.idea
+
+# Grunt workflow
+node_modules
+
+# Bower directories
+bower_components
+
+# Codekit files
+*.codekit
+codekit-config.json
+
+# Assets dist folder
+/resources/assets/
+
+# markdown file with todo info
+TODO.md
+/resources/source/images/assets.svg
+
+/app/customfields/
+
+*.php
+*.css
+*.sketch
+*.jpg
+*.png
+*.svg
+.gitkeep
+
+.git/**/*

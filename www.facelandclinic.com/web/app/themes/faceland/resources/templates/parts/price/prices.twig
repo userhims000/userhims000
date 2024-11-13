@@ -1,0 +1,258 @@
+{% if prices|length > 0 %}
+    {% set contentDoctor            = tooltips.doctor ? "<div><h3 class='u-text-size-delta u-text-bold'>" ~ tooltips.doctor.title ~ "</h3><p>" ~ tooltips.doctor.text|replace({'"':'\''})|raw ~ "</p></div>" %}
+    {% set modalContentDoctor       = tooltips.doctor ? 'data-featherlight="' ~ contentDoctor|replace({'"':'\''})|raw ~ '"' %}
+    {% set tooltipDoctor            = tooltips.doctor ? '<span class="c-tooltip info" ' ~ modalContentDoctor ~ '>' ~ pll__("Tooltip icon") ~ '</span>' %}
+
+    {% set contentFacecard          = tooltips.facecard ? "<div><h3 class='u-text-size-delta u-text-bold'>" ~ tooltips.facecard.title ~ "</h3><p>" ~ tooltips.facecard.text|replace({'"':'\''})|raw ~ "</p></div>" %}
+    {% set modalContentFacecard     = tooltips.facecard ? 'data-featherlight="' ~ contentFacecard|replace({'"':'\''})|raw ~ '"' %}
+    {% set tooltipFacecard          = tooltips.facecard ? '<span class="c-tooltip info" ' ~ modalContentFacecard ~ '>' ~ pll__("Tooltip icon") ~ '</span>' %}
+
+
+    {% set price_settings  = fn('rokit_price_settings') %}    
+    {% set facecard  = price_settings.facecard %}
+    {% set show_christmas_prices  = price_settings.show_christmas_price_list %}   
+    {% set show_christmas_price_column_count  = price_settings.show_christmas_price_list_column %}   
+    {% set show_christmas_price_column_heading  = price_settings.show_christmas_price_list_column_heading %}   
+    {% if overview %}
+        {% set gridClass =  facecard ? 'u-cell-1of2--md' : 'u-cell-3of4--md'  %}
+        <div class="c-prices__item price-page-section">
+            {% if price_list_image.first_price_list_image != '' or price_list_image.christmas_price_list_image != '' %}
+                <div class="price-list-image">
+                     {{ rokit_get_image(price_list_image.first_price_list_image) }}
+                     {{ rokit_get_image(price_list_image.christmas_price_list_image) }}
+                </div>
+            {% endif %}
+            {% if title or intro %}
+                <div class="c-price__intro">
+                    <div class="o-grid">
+                        <div class="o-grid__cell u-cell-1of1--cp {{ gridClass }}">
+                            {% if title %}
+                                <h3 class="c-price__heading u-text-size-delta u-text-bold">{{ title|upper }}</h3>
+                            {% endif %}
+                            {% if intro %}
+                                <span class="c-price__heading-sub">{{ intro }}</span>
+                            {% endif %}
+                        </div>
+                        {% if get_query_object.slug != 'borstcorrectie' %}
+                            {% if price_settings.toggle %}
+                                <div class="toggle-switch-data">
+                                    {% if is_ch == true %}
+                                        {% set practitionerTitle = 'Spezialist' %}
+                                    {% elseif is_be_fr == true  %}
+                                        {% set practitionerTitle = 'Premium praticiens' %}    
+                                    {% else %}
+                                        {% set practitionerTitle = 'Premium behandelaars' %}    
+                                    {% endif %}    
+                                        <span class="premium-doctors">{{ pll__(practitionerTitle) }}</span>
+                                    <label class="switch">
+                                      <input type="checkbox" value="1" id="toggleswitch">
+                                      <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            {% endif %}
+                        {% endif %} 
+                        {% if get_query_object.slug != 'borstcorrectie' %}
+                            <div class="o-grid__cell u-cell-1of1--sm u-cell-1of4--cp">
+                                {% if price_settings.toggle %}
+                                    <div class="c-prices__button-switch u-text-bold u-text-color-tertiary-lighter u-bg-switch-toggle o-grid__cell u-cell-1of1--sm c-prices__button-switch-buttons">
+                                        <div class="o-grid">
+                                            <button class="o-grid__cell u-cell-1of2--sm js-toggle-1 u-cell-1of2--lg u-text-center u-text-gray-darkest js-switch button-js-toggle-1 active" data-id="1"></button>
+                                            <button class="o-grid__cell u-cell-1of2--sm js-toggle-2 u-cell-1of2--lg u-text-center u-text-gray-darkest js-switch button-js-toggle-2" data-id="2"></button>
+                                        </div>
+                                        {{ tooltipDoctor }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            <ul class="o-list-plain c-list c-list--seamless  doctor-prices-lables">
+                {% if price_settings.toggle == false and facecard == false %}
+                    {% set noToggledCls = 'single-no-toggle' %}
+                {% elseif price_settings.toggle == false and get_query_object.slug != 'borstcorrectie' %}
+                    {% set noToggledCls = 'no-toggle' %}
+                {% endif %}    
+                <li class="c-list__item js-block {{ noToggledCls }}">
+                    {% if show_christmas_prices != true %}
+                        <div class="c-list__header c-prices_new-grid mobile-prices_new-grid">
+                            {% if facecard == false %}
+                                {% set cls1 = "second-title-hide" %}
+                            {% endif %}
+                            {% if get_query_object.slug == 'borstcorrectie' %}
+                                {% set borstcorrectieFirstTitle = 'Chirurg'  %}
+                                {% set borstcorrectieSecondTitle = 'Facecard'  %}
+                            {% else %}
+                                {% if is_ch == true %}
+                                    {% set borstcorrectieFirstTitle = 'Preise Facecard'  %}
+                                {% elseif is_be_fr == true  %}       
+                                    {% set borstcorrectieFirstTitle = 'Praticien Facecard'  %}
+                                {% else %}       
+                                    {% set borstcorrectieFirstTitle = 'Behandelaar Facecard'  %}
+                                {% endif %}
+                                {% if is_be_fr == true  %}
+                                    {% set borstcorrectieSecondTitle = 'Praticien premium Facecard'  %}
+                                {% else %}    
+                                    {% set borstcorrectieSecondTitle = 'Premium Facecard'  %}
+                                {% endif %}
+                            {% endif %}
+                            <div class="o-grid o-grid--with-gutter {{ noToggledCls }}">
+                                <div class="o-grid__cell u-cell-1of2--sm u-cell-1of2--md titles first-blank-cls">&nbsp;</div>
+                                {% if price_settings.toggle == false and facecard != false and get_query_object.slug != 'borstcorrectie' %}
+                                    <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md titles {{ noToggledCls }} premium-price {{ (is_be_fr == true and facecard == true) ? 'm-left-10' :''  }} ">
+                                        {% if is_ch == true %}   
+                                            <strong>{{ 'Preise' }}</strong>
+                                        {% elseif is_be_fr == true  %}       
+                                            <strong>{{ 'Praticien' }}</strong>
+                                        {% else %}    
+                                            <strong>{{ 'Behandelaar' }}</strong>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                                <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md titles {{ cls1 }} second-blank-cls {{ noToggledCls }}">
+                                    {% if facecard == true %}
+                                        {% if is_be_fr == true and price_settings.toggle == true %}
+                                            <strong>{{ pll__(borstcorrectieFirstTitle) }}</strong>
+                                            <span class="tooltip-icon">{{ tooltipDoctor }}</span>
+                                        {% elseif is_be_fr != true and is_be != true or is_be == true and price_settings.toggle == true %}
+                                            <strong>{{ pll__(borstcorrectieFirstTitle) }}</strong>
+                                            <span class="tooltip-icon">{{ tooltipDoctor }}</span>
+                                        {% endif %}
+                                        {% set cls = "" %}
+                                        {% set Titlelable = borstcorrectieSecondTitle %}    
+                                    {% elseif facecard == false and price_settings.toggle == true or facecard == false and price_settings.toggle == false  %}
+                                        {% set cls = "p-left" %}
+                                        {% if is_ch == true %}
+                                            {% set Titlelable = 'Preise' %}   
+                                        {% elseif is_be_fr == true  %}
+                                            {% set Titlelable = 'Praticien' %}
+                                        {% else %}    
+                                            {% set Titlelable = 'Behandelaar' %}   
+                                        {% endif %}    
+                                    {% else %}
+                                        {% set cls = "p-left" %}
+                                        {% set Titlelable = borstcorrectieFirstTitle %}
+                                    {% endif %}
+                                </div>
+                                {% if price_settings.toggle == false and facecard != false and get_query_object.slug != 'borstcorrectie' and get_query_object.slug != 'chirurgie'  %}
+                                    <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md titles {{ noToggledCls }}">
+                                        {% if is_be_fr == true %}
+                                            <strong>{{ 'Praticiens Premium' }}</strong>
+                                        {% elseif is_ch == true %}
+                                            <strong>{{ 'Premium Handler' }}</strong>
+                                        {% else %}
+                                            <strong>{{ 'Premium Behandelaar' }}</strong>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                                {% if price_settings.toggle == false and facecard == false  %}
+                                    {% set onlyPriceClass = "single-price-column" %}
+                                {% endif %}
+                                {% if Titlelable == 'Premium Facecard'  %}
+                                    {% set fcls = 'premium-facecard' %}
+                                {% endif %}
+                                {% if get_query_object.slug != "chirurgie" and facecard == true   %}
+                                    <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md titles {{onlyPriceClass}} {{ fcls }}">
+                                        {% if is_be_fr == true and price_settings.toggle == true %}
+                                            <strong>{{ pll__(Titlelable) }}</strong>
+                                        {% elseif is_be_fr != true and is_be != true or is_be == true and price_settings.toggle == true %}
+                                            <strong>{{ pll__(Titlelable) }}</strong>
+                                        {% endif  %}
+                                        {% if Titlelable == 'Premium Facecard'  %}
+                                            <span class="tooltip-icon">{{ tooltipFacecard }}</span>
+                                        {% endif %}
+                                    </div>
+                                {% elseif get_query_object.slug == "chirurgie" and price_settings.toggle == true and facecard != true  %}
+                                    <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md titles {{onlyPriceClass}} {{ fcls }}">
+                                        {% if is_be_fr == true and price_settings.toggle == true %}
+                                            <strong>{{ pll__(Titlelable) }}</strong>
+                                        {% elseif is_be_fr != true or is_be != true %}
+                                            <strong>{{ pll__(Titlelable) }}</strong>
+                                        {% endif  %}
+                                        {% if Titlelable == 'Premium Facecard'  %}
+                                            <span class="tooltip-icon">{{ tooltipFacecard }}</span>
+                                        {% endif %}
+                                    </div> 
+                                {% elseif get_query_object.slug == "chirurgie" and price_settings.toggle != true and facecard != true  %}
+                                    <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md titles {{onlyPriceClass}} {{ fcls }} 3">
+                                        {% if is_be_fr == true and price_settings.toggle == true  %}
+                                            <strong>{{ pll__(Titlelable) }}</strong>
+                                        {% elseif is_be_fr != true or is_be != true %}
+                                            <strong>{{ pll__(Titlelable) }}</strong>
+                                        {% endif  %}
+                                        {% if Titlelable == 'Premium Facecard'  %}
+                                            <span class="tooltip-icon">{{ tooltipFacecard }}</span>
+                                        {% endif %}
+                                    </div> 
+                                {% else %}
+                                    {% if get_query_object.slug != "chirurgie" %}
+                                    <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md titles {{onlyPriceClass}} {{ fcls }} 4">
+                                        {% if is_be_fr == true and price_settings.toggle == true or is_be_fr == true and price_settings.toggle == false  %}
+                                            <strong>{{ pll__(Titlelable) }}</strong>
+                                        {% elseif is_be_fr != true or is_be != true %}
+                                            <strong>{{ pll__(Titlelable) }}</strong>
+                                        {% endif  %}
+                                        {% if Titlelable == 'Premium Facecard'  %}
+                                            <span class="tooltip-icon">{{ tooltipFacecard }}</span>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if show_christmas_prices == true %}
+                        <div class="c-list__header c-prices_new-grid mobile-prices_new-grid christmas-price-list show-col-{{ show_christmas_price_column_count }} ">
+                            <div class="o-grid o-grid--with-gutter no-toggle">
+                               <div class="o-grid__cell u-cell-1of2--sm u-cell-1of2--md titles first-blank-cls">&nbsp;</div>
+                                {% if show_christmas_price_column_heading.first %} 
+                                   <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md titles no-toggle premium-price">
+                                      <strong>{{ show_christmas_price_column_heading.first }}</strong>
+                                   </div>
+                                {% endif %}
+                                {% if show_christmas_price_column_heading.second %}
+                                   <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md titles  second-blank-cls no-toggle">
+                                      <strong>{{ show_christmas_price_column_heading.second }}</strong>
+                                   </div>
+                               {% endif %}
+                               {% if show_christmas_price_column_heading.third %}
+                                   <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md titles no-toggle">
+                                      <strong>{{ show_christmas_price_column_heading.third }}</strong>
+                                   </div>
+                               {% endif %}
+                               {% if show_christmas_price_column_heading.fourth %}
+                                   <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md titles  premium-facecard">
+                                      <strong>{{ show_christmas_price_column_heading.fourth }}</strong>
+                                   </div>
+                               {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </li>
+            </ul>
+            <ul class="o-list-plain c-list c-list--seamless mb-50">
+                {% for card in prices %}
+                    {% include "parts/cards/card-price.twig" with { card : card, overview : overview} %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %} {# Detail page #}
+        <div class="c-prices__item">
+            {% if title or intro %}
+                <div class="c-price__intro">
+                    {% if title %}
+                        <h2 class="c-price__heading u-text-size-delta u-text-bold">{{ title|upper }}</h2>
+                    {% endif %}
+                    {% if intro %}
+                        <span class="c-price__heading-sub">{{intro}}</span>
+                    {% endif %}
+                </div>
+            {% endif %}
+            <ul class="o-list-plain c-list c-list--big c-list--seamless">
+                {% for card in prices %}
+                    {% include "parts/cards/card-price.twig" with { card : card, overview : overview} %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endif %}

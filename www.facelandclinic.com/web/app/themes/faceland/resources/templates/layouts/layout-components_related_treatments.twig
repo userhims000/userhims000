@@ -1,0 +1,37 @@
+{% if is_mobile %}
+    <div class="o-contain o-contain-padding news-section-wrap related-treatment-section" bg-image-url="">
+        <div class="c-intro--column">
+                <div class="u-text-center">
+                {% if layout.related_treatment_section_title %}
+                        <h2 class="u-text-bold section-sub-title">{{ layout.related_treatment_section_title }}</h2>
+                {% endif %}
+                {% if layout.related_treatment_section_description %}
+                    <p>{{ layout.related_treatment_section_description }}</p>
+                {% endif %}
+                </div>
+        </div>
+        <div class="news-listing-wrap">
+            {% for list in layout.treatments %}
+            {% set attachmentId = list.treatment_panorama_thumbnail %}
+            {% set attachmentUrl = function('wp_get_attachment_url', attachmentId) %}
+            {% set postPermalink = function('rokit_get_post_permalink', list.id) %}
+                <a class="news-link" href="{{ postPermalink }}"><div class="news-section">
+                    <div class="news-left"> 
+                        {% if attachmentUrl %}
+                            <img class="" data-src-retina="" title="{{ list.post_title }}" alt="{{ list.post_title }}" src="{{ attachmentUrl }}">
+                        {% endif %}
+                    </div>
+                    <div class="news-right">
+                        {% set postTitle = list.post_title %}
+                        {% set postTitleLower = postTitle | capitalize %}
+                        {% set bodyPart = function('rokit_get_treatment_bodypart', list.id) %}
+                        <h5 class="news-title">{{ postTitleLower }}</h5>
+                        {% for bodyPartValues in bodyPart %}
+                            <p class="news-description">{{ bodyPartValues.term_name }}</p>
+                        {% endfor %}
+                    </div>
+                </div></a>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

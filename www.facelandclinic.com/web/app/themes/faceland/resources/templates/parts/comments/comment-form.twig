@@ -1,0 +1,47 @@
+{% set wrapperClass = not isModal ? 'c-form-wrapper--wide' %}
+<div class='c-form-wrapper js-form-wrapper {{wrapperClass}}'>
+    <span class='c-form-wrapper__alert u-text-size-zeta u-text-left u-text-color-white u-text-bold js-succes-message'>{{pll__('Bedankt voor je reactie! Je reactie wordt geplaatst nadat die is goedgekeurd.')}}</span>
+    <span class='c-form-wrapper__alert is-error u-text-size-zeta u-text-left u-text-color-white u-text-bold js-error-message'>{{pll__('Er is een fout opgetreden. Controleer de velden nogmaals')}}</span>
+
+    <form class='c-form comment-form js-validate js-to-hide' method='post' action='{{ site.site_url~'/wp-comments-post.php' }}'>
+        <fieldset class='c-form__fieldset'>
+            <div class='c-form__item u-text-left js-form-item'>
+                <label class='c-form__label u-text-size-nano u-text-bold' for='author'>{{ pll__('Naam')|upper }}</label>
+                <input class='c-form__input u-bg-white u-text-primary' name='author' id='author' type='text' required>
+            </div>
+        </fieldset>
+
+        <fieldset class='c-form__fieldset'>
+            <div class='c-form__item u-text-left js-form-item'>
+                <label class='c-form__label u-text-size-nano u-text-bold' for='email'>{{ pll__('E-mailadres')|upper }}</label>
+                <input class='c-form__input u-bg-white u-text-primary' name='email' id='email' type='email' required>
+            </div>
+        </fieldset>
+
+        <fieldset class='c-form__fieldset'>
+            <div class='c-form__item u-text-left js-form-item'>
+                <label class='c-form__label u-text-size-nano u-text-bold' for='comment'>{{ pll__('Schrijf een reactie')|upper }}</label>
+                <textarea class='c-form__input c-form__input--textarea u-bg-white u-text-primary' name='comment' id='comment' type='text' required></textarea>
+            </div>
+        </fieldset>
+
+        <fieldset class='c-form__fieldset'>
+            <div class='o-grid o-grid--with-gutter u-1of1--sm u-1of2--lg'>
+                <div class='o-grid__cell'>
+                    <span class='o-input-set__label'>
+                        <input class='o-form__checkbox' type='checkbox' name='optin' value='optin' id='comment-optin-{{ comment.ID|default('0') }}' required>
+                        <label class='o-form__label c-form__label--checkbox u-text-size-zeta u-text-left' for='comment-optin-{{ comment.ID|default('0') }}'>
+                            <span>{{commentoptin}}</span>
+                        </label>
+                    </span>
+                </div>
+                <div class='o-grid__cell u-flex u-flex-center-y'>
+                    <button type='submit' name='Submit' class='c-btn c-btn--gray-darker u-bg-gray-darker u-text-size-zeta u-text-medium u-align-right-lg'>{{ pll__('Plaats reactie')|upper }}</button>
+                </div>
+            </div>
+        </fieldset>
+
+        <input name='comment_post_ID' value='{{ post.id }}' type='hidden'>
+        <input name='comment_parent'  value='{{ comment.ID|default('0') }}' type='hidden'>
+    </form>
+</div>

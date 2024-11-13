@@ -1,0 +1,153 @@
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% set maskClass =  contacts.online|length > 0 ? 'c-mask--smoke-white' %}
+    {% include 'parts/panorama-default.twig' with { panorama : post.panorama, maskClass : maskClass} %}
+{% endblock %}
+
+{% block content %}
+    <div class="u-bg-smoke-white">
+
+        {% if post.questions.items|length > 0 %}
+            <div class="o-contain o-contain-padding">
+                {% if post.questions.title %}
+                    <div class="c-intro u-text-size-mega u-text-color-gray-dark u-text-center">{{ post.questions.title }}</div>
+                {% endif %}
+                <div class="o-grid o-grid--with-gutter-tiny o-grid--center-y u-1of4--md u-1of12--lg">
+                    {% for card in post.questions.items %}
+                        <div class="o-grid__cell o-grid__cell--center js-animation-element a-fade-in-up" {{ card.featherlight ? 'data-featherlight="#' ~ card.featherlight ~ '"'}}>
+                            <div class="c-contacts">
+                                <h2 class="c-btn c-btn--gray-darker u-bg-gray-darker u-text-size-zeta u-text-medium u-flex-center">{{ card.title }}</h2>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if contacts.online|length > 0 %}
+            <div class="o-contain o-contain-padding">
+                <div class="c-cards c-cards--narrow">
+                    {% if post.intro %}
+                        <div class="c-intro u-text-size-mega u-text-color-gray-dark u-text-center">{{ post.intro }}</div>
+                    {% endif %}
+                    <div class="o-grid o-grid--center-y o-grid--with-gutter-tiny u-1of1--sm u-1of2--md u-1of3--lg">
+                        {% for key, card in contacts.online %}
+                            {% if key == "appointment" %}
+                                {% set className = "show-appointment-modal" %}
+                            {% else %}
+                                {% set className = "" %}    
+                            {% endif %}                                    
+                            {% if card|length > 0 and card.show %}
+                                <div class="o-grid__cell js-animation-element a-fade-in-up {{ className }} {{ card.open_chat ? 'js-open-chat'}}" {{ card.featherlight ? 'data-featherlight="#' ~ card.featherlight ~ '"'}}>
+                                    <div class="o-card c-card--simple c-card--bordered u-cursor-pointer">
+                                        {% if card.label and card.show_label %}
+                                            <span class="o-card__label o-label u-bg-gray-darker u-text-center u-text-color-white u-text-size-nano u-text-bold">{{ card.label|upper }}</span>
+                                        {% endif %}
+
+                                        {% if card.image %}
+                                            <figure class="o-card__image">
+                                                {{ rokit_get_image(card.image, 'card', card.titles.title) }}
+                                                {% include "parts/mask.twig" with { classes : 'c-mask--white c-mask--bordered' } %}
+                                            </figure>
+                                        {% endif %}
+                                        {% if card.titles|length > 0 %}
+                                            <div class="o-card__content u-bg-white u-text-center">
+                                                <h4 class="o-card__heading u-text-size-delta u-text-bold">{{ card.titles.title }}</h4>
+                                                <p class="o-card__text u-text-size-epsilon">{{ card.titles.subtitle }}</p>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% for modalkey, modal in contacts.online %}
+                {% if modal.featherlight %}
+                    {% include "parts/modalbox.twig" %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        {% if post.contacts.items|length > 0 %}
+            {% if post.contacts.title %}
+                <div class="c-intro c-intro--small u-text-size-mega u-text-color-gray-dark u-text-center">{{ post.contacts.title }}</div>
+            {% endif %}
+
+            <div class="o-grid o-grid--with-gutter-tiny o-grid--center-y u-1of6--md u-1of12--lg">
+                {% for card in post.contacts.items %}
+                    <div class="o-grid__cell o-grid__cell--center js-animation-element a-fade-in-up" {{ card.featherlight ? 'data-featherlight="#' ~ card.featherlight ~ '"'}}>
+                        <div class="c-contacts">
+                            <div class="c-contacts-wrapper">
+                                {{ rokit_get_static_image('images/icons/' ~ card.icon ~ '.svg', null, card.label, 'c-contacts__icon', false) }}
+                            </div>
+                            <h2 class="o-card__heading u-text-size-delta u-text-bold u-text-center">{{ card.label }}</h2>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="modal__wrapper">
+            {% for card in post.contacts.items %}
+                <div id="{{ card.featherlight }}">
+
+                    <h3 class='u-text-size-delta u-text-bold'>{{ card.popup_title }}</h3>
+                    {{card.popup_text}}
+                </div>
+            {% endfor %}
+            {% for card in post.questions.items %}
+            <div id="{{ card.featherlight }}">
+                <h3 class='u-text-size-delta u-text-bold'>{{ card.popup_title }}</h3>
+                <p>{{card.popup_text}}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+
+    {% if post.fixed_days.items|length > 0 %}
+        <div class="o-contain o-contain-padding">
+            {% include 'parts/intro.twig' with { intro : {title : post.fixed_days.titles.title, subtitle : post.fixed_days.titles.intro }, subtitleClass : 'u-text-color-gray' } %}
+
+            <div class="o-grid o-grid--with-gutter o-grid--with-gutter-vertical u-1of1--sm u-1of2--md u-1of3--lg">
+                {% for card in post.fixed_days.items %}
+                    <div class="o-grid__cell js-animation-element a-fade-in-up">
+                        <div class="o-card c-card--simple c-card--bordered c-card--centered js-block">
+                            {% if card.image %}
+                                <figure class="o-card__image u-flex u-flex-center">
+                                        {{ rokit_get_image(card.image, 'card-location', card.title) }}
+                                        {% include "parts/mask.twig" with { classes : 'c-mask--white' } %}
+                                </figure>
+                            {% endif %}
+                            {% if card.title or card.subtitle %}
+                                <div class="o-card__content u-text-center">
+                                    {% if card.title %}
+                                        <h2 class="o-card__heading u-text-size-beta u-text-bold">{{card.title|upper}}</h2>
+                                    {% endif %}
+                                    {% if card.subtitle %}
+                                        <p class="o-card__text u-text-size-epsilon">{{ card.subtitle }}</p>
+                                    {% endif %}
+                                    {% include "parts/button.twig" with { button : card.button, classes: 'c-btn--gray-darker u-bg-gray-darker u-text-size-zeta u-text-medium u-flex-center', upperFilter : true} %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if post.content_modules|length > 0 %}
+        <div class="o-contain o-contain-padding">
+            <article class="c-copy c-copy--mt">
+                {% include 'parts/content-modules.twig' %}
+            </article>
+        </div>
+    {% endif %}
+{% endblock %}

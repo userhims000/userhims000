@@ -1,0 +1,80 @@
+{% if general or intro %}
+    <div class="o-panorama c-panorama--background c-panorama--treatment c-new-panorama--treatment f-bg-primary-bg u-margin-trailer-base">
+        <div class="o-contain o-contain-padding">
+
+            {# {% include "parts/breadcrumbs.twig" with { breadcrumbsClass : 'u-text-color-gray' } %} #}
+                {% if is_nl == true %}    
+                    {% set title =  current_page_slug  %}
+                    {% if title == "traangootjes" %}
+                        {% set pageArgument =  'traangootjes'  %}    
+                    {% endif %}
+                {% endif  %}
+    
+            <div class="o-panorama__content u-text-center">
+                {% if post.action_label %}
+                    <span class="c-panorama__label o-label u-bg-primary u-text-size-nano u-text-bold u-text-uppercase u-text-color-white">{{post.action_label}}</span>
+                {% endif %}
+
+                <h1 class="c-panorama__heading  u-text-bold u-text-size-tera js-animation-element a-fade-in">{{post.title}}</h1>
+                <div class="treatment-panorama-description">
+                    {{ post.treatment_panorama_description }}
+                </div>
+                {% if post.media.type != 'no-media' %}
+                    <div class="o-panorama__media js-animation-element a-fade-in-up">
+                        {% include "parts/media.twig" with { media : post.media } %}
+                    </div>
+                {% endif %}
+                <div class="treatment-thumbanil-image">
+                    {{rokit_get_image(post.thumbnail, 'thumbnail', post.title)}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="o-panorama c-panorama--background c-panorama--treatment u-margin-trailer-base">
+        <div class="o-panorama__trait_content u-text-center">
+            <div class="o-panorama__triats c-traits js-animation-element a-fade-in-up">
+                {% for item in general %}
+                    {% if item.value != ''  %}
+                        <div class="c-traits__item">
+                            <span class="c-traits__type u-text-size-epsilon">{{item.label}}</span>
+                            {% if item.link %}
+                                <a href="{{ item.link }}" title="{{ item.label }}">
+                            {% endif %}
+                            {% if item.value is iterable %}
+                                <span class="c-traits__value u-text-size-beta u-text-bold">
+                                {% if item.value.price_lowest_price_doctor_url is not null %}
+                                    {% set linkURL = item.value.price_lowest_price_doctor_url %}
+                                {% else %}                
+                                    {% set linkURL = 'javascript:;' %}
+                                {% endif %}                
+                                    <a href="{{ linkURL }}" target="{{ item.value.price_lowest_price_doctor_external }}">{{ item.value.allvoor }}  {{item.value.price_lowest_price_doctor }}</a>
+                                </span>
+                            {% else %}    
+                                <span class="c-traits__value u-text-size-beta u-text-bold">{{item.value}}</span>
+                            {% endif %}    
+                            {% if item.link %}
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="intro c-btn-group js-animation-element a-fade-in-up">
+                {% if post.cta_button|length > 0 and post.cta_button.url != '' %}
+                    {% include "parts/button.twig" with { button: { url : post.cta_button.url, label : pll__(post.cta_button.label), external : post.cta_button.external }, classes: 'c-btn--gray-darker u-bg-gray-darker u-text-size-zeta' } %}
+                {% endif %}
+
+                {#
+                  {% if is_be != true %}
+                {% if post.related_price_link|length > 0 %}
+                    {% include "parts/button.twig" with { button: { url : post.related_price_link, label : pll__('Bekijk prijzen')}, classes: 'c-btn--transparent u-text-size-zeta u-text-color-gray-darker' } %}
+                {% endif %}
+                {% endif %} #}
+
+                {% if post.pricelist|length > 0 %}
+                    {% include "parts/button.twig" with { button: {url : post.pricelist, label : pll__('Download prijslijst'), external : true}, classes: 'c-btn--transparent u-text-size-zeta u-text-color-gray-darker' } %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,61 @@
+<div class="o-contain o-contain-padding specialist-section reviews-display">
+    <div class="c-intro--column c-d-global-section">
+        <div class="u-text-center">
+         {% if reviews.title %}
+            {% set titleTag = reviews.review_tag ? reviews.review_tag : 'h2' %}
+            <{{ titleTag }} class="u-text-bold section-sub-title">{{ reviews.title }}</{{ titleTag }}>
+         {% endif %}
+        </div>    
+    </div>
+    <div class="reviews__section">
+        {% if reviews.data|length > 0 %}
+            {% if (not is_mobile and reviews.data|length > 2) or (reviews.data|length > 1 and is_mobile) %}
+                <button type="button" class="slick-prev slick-arrow c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--prev js-carousel-prev"><i class="arrow left"></i></button>
+                <button type="button" class="slick-next slick-arrow c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--next js-carousel-next"><i class="arrow right"></i></button>
+            {% endif %}
+
+            <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of2--lg {{ (reviews.data|length > 2) or (is_mobile and reviews.data|length > 1) ? 'reviews-slide' : '' }}">
+               {% for data in reviews.data %}
+                    <div class="o-grid__cell">
+                        <div class="c-cta js-match-height u-bg-tertiary">                    
+                            <div class="c-cta__content u-text-center js-animation-element a-fade-in a-inview">
+                                <div class="review__circle"><span>{{ data.rating_display }}</span></div>
+                                <div class="c-cta__text u-text-size-epsilon u-text-color-gray-dark">
+                                    {{ data.review_description }}
+                                </div>
+                                <div class="review__author">
+                                    <div class="author__name">{{ data.review_author }}</div>
+                                    <div class="author__date"><i>{{ data.review_date }}</i></div>
+                                    <div class="review__stars">
+                                        {% if rokit_is_decimal( data.rating_count ) %}
+                                            {% set parts = data.rating_count|number_format(2, '.', '')|split('.') %}
+                                            {% set wholeNumber = parts[0] %}
+                                            {% set decimal      = parts[1] %}
+                                            {% set rating       = data.rating_count + 0.5 %}
+                                            {% set ratingEmpty  = 5 - rating %}
+                                            {% for number in range(1, wholeNumber) %}
+                                                <span class="fa fa-star checked"></span>
+                                            {% endfor %}
+                                            <span class="fas fa-star-half-alt checked"></span>
+                                            {% for number in range(1, ratingEmpty) %}
+                                                <span class="fa fa-star"></span>
+                                            {% endfor %}
+                                        {% else %}
+                                            {% for number in range(1, 5) %}
+                                                {% if number <= data.rating_count %}
+                                                    <span class="fa fa-star checked"></span>
+                                                {% else %}
+                                                    <span class="fa fa-star"></span>
+                                                {% endif %}
+                                            {% endfor %}        
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}    
+            </div>
+        {% endif %}
+    </div>
+</div>

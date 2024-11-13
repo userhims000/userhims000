@@ -1,0 +1,32 @@
+{% if layout|length > 0 and (layout.title or layout.sub_title or layout.description or layout.deals_and_facecards) %}
+    <div class="o-contain o-contain-padding">
+        <div class="c-intro--column c-d-global-section">
+            <div class="u-text-center">
+                <h1 class="u-text-bold section-title">{{ layout.title }}</h1>
+                <i class="arrow down"></i>
+                <h2 class="u-text-bold section-sub-title">{{ layout.sub_title }}</h3>
+                <p class="u-text-size-alpha u-text-color-gray section-description">{{ layout.description }}</p>
+            </div>
+            <div class="c-cards-wrapper">
+                <div class="c-cards">
+                    <div class="o-grid js-filter-wrapper u-1of1--sm u-1of2--md u-1of4--lg o-grid--with-gutter o-grid--with-gutter-vertical">
+                        {% for details in layout.deals_and_facecards %}
+                            <div class="o-grid__cell  a-inview">
+                                <div class="o-card">
+                                    <figure class="o-card__image">
+                                        <img class="js-lazy-load is-lazy-loaded" data-src="{{ details.image.sizes.card }}" data-src-retina="" title="{{ details.image.title }}" alt="{{ details.image.alt }}" src="{{ details.image.sizes.card }}">
+                                    </figure>
+                                    <div class="o-card__content u-bg-white js-match-height u-text-center">
+                                        {% set external = details.external ? ' rel="external" data-router-disabled' %}
+                                        <h3 class="o-card__heading u-text-size-beta u-text-bold ">{{ details.title }}</h3>
+                                        <a class="c-btn u-text-medium f-bg-primary-bg cta-button"  href="{{ details.url }}" title="{{ details.label }}" {{ external }}>{{ details.label }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,5 @@
+{% include 'parts/intro.twig' with { intro : action.titles, removeMarginTop : true } %}
+
+{% if action.item|length > 0 %}
+    {% include 'parts/home/action-item.twig' with { item : action.item } %}
+{% endif %}

@@ -1,0 +1,17 @@
+{% if treatments|length > 0 %}
+    <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of3--lg">
+        {% for treatmentType in treatments %}
+            {% if rokit_get_query_param('debug') != 'development' %}
+                <div class="o-grid__cell {{  get_clinic_post_type_slug == true ? 'o-grid__cell_mg' : 'o-grid__cell' }}">
+                    {% include "parts/cards/card-treatment-type-list.twig" with { fallback : post.fallback(treatmentType) } %}
+                </div>
+            {% endif %}
+
+            {% if rokit_get_query_param('debug') == 'development' %}
+                <div class="o-grid__cell {{  get_clinic_post_type_slug == true ? 'o-grid__cell_mg' : 'o-grid__cell' }}">
+                    {% include "parts/cards/card-treatment-type-list.twig" with { fallback : post.fallback(treatmentType) } %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}

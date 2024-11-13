@@ -1,0 +1,105 @@
+.c-review-intro {
+
+    .c-review-avatar {
+        margin-top: rhythm(1);
+    }
+
+    @include breakpoint(medium) {
+
+        .c-review-avatar {
+            margin-top: 0;
+        }
+    }
+}
+
+.c-review-intro__heading {
+    margin-bottom: rhythm(.5);
+}
+
+.c-review-intro__text a {
+    text-decoration: underline;
+}
+
+.c-review-intro__image {
+    margin-top: rhythm(.75);
+}
+
+.c-review__avatar,
+.c-review-avatar {
+    display: inline-block;
+    position: relative;
+    border-radius: 50%;
+    box-shadow: 0 2px 29px 0 rgba($color-black, .14);
+}
+
+.c-review-avatar__icon {
+    @include offset(absolute, 0, null, null, 50%);
+    @include square(36px);
+    @include is-hidden-text(skm);
+    transform: translate(-50%, -50%);
+    background-position: 0 -672px;
+    content: '';
+    z-index: $layer-1;
+}
+
+.c-review-avatar__image {
+    position: relative;
+    overflow: hidden;
+
+    span {
+        @include offset(absolute, 50%, null, null, 50%);
+        transform: translate(-50%, -50%);
+        z-index: $layer-1;
+    }
+}
+
+.c-review-avatar__image--dark {
+
+    &::after {
+        @include offset(absolute, 0, null, null, 0);
+        @include square(100%);
+        background-color: rgba($color-gray-darker, .6);
+        content: '';
+    }
+}
+
+.c-review {
+    position: relative;
+
+    & + & {
+        margin-top: rhythm(1.125);
+    }
+}
+
+.c-review__avatar {
+    @include offset(absolute, 0, null, null, 0);
+    transform: translate(-25%, -25%);
+
+    @include breakpoint(medium) {
+        position: static;
+        margin-right: rhythm(.75);
+        transform: translate(0, 0);
+    }
+}
+
+.c-review__body {
+    width: 100%;
+    padding: rhythm(1.5) rhythm(1.125) rhythm(.75) rhythm(1.125);
+    border: 1px solid $color-gray-lighter;
+    border-radius: 6px;
+    box-shadow: rgba($color-black, .05) 0 2px 4px 0;
+
+    @include breakpoint(medium) {
+        padding-top: rhythm(.75);
+    }
+}
+
+.c-review__heading {
+    margin-bottom: rhythm(.5);
+}
+
+.c-review__info {
+    margin-top: rhythm(.625);
+    padding-top: rhythm(.25);
+    border-top: 1px solid $color-gray-lighter;
+}

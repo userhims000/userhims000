@@ -1,0 +1,5 @@
+{% if media.type == 'video' %}
+    {% include "layouts/layout-video.twig" with { layout : media.video } %}
+{% elseif media.type == 'image' %}
+    {% include "layouts/layout-image.twig" with { layout : { image : media.image } } %}
+{% endif %}

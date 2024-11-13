@@ -1,0 +1,222 @@
+/*----------------------------------------------------------------------------*\
+    #COMPONENTS NAVIGATION
+\*----------------------------------------------------------------------------*/
+
+.c-nav-main {
+    @include offset(fixed, 0, null, null, 0);
+    width: 100%;
+    min-height: 100vh;
+    transition: .24s ease-in;
+    transition-property: opacity, visibility;
+    background-color: $color-white;
+    opacity: 0;
+    overflow: visible;
+    visibility: hidden;
+    z-index: $layer-5;
+
+    &.is-open {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .c-btn-wrapper {
+        margin: rhythm(.25);
+    }
+
+    .c-btn {
+        @include rhythm-padding(.33, .38);
+    }
+
+    @include breakpoint(wide) {
+        @include offset(sticky, 0, null, null, 0);
+        width: auto;
+        min-height: auto;
+        margin-left: rhythm(2);
+        background-color: $color-white;
+        opacity: 1;
+        visibility: visible;
+        z-index: $layer-3;
+
+        > .o-contain {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        &,
+        &.is-open {
+            max-height: none;
+        }
+    }
+
+    @include breakpoint(huge) {
+
+        .c-btn {
+            @include rhythm-padding(.25, .3);
+        }
+    }
+}
+
+.c-nav-sub {
+    @include rhythm-padding(.5);
+    border-bottom: 1px solid $color-gray-lighter;
+
+    .c-hamburger {
+        margin-left: rhythm(.125);
+    }
+
+    .c-languages {
+        margin-left: rhythm(.5);
+    }
+
+    li {
+        vertical-align: bottom;
+    }
+}
+
+// .c-nav-main__list { }
+
+.c-nav-main__item {
+    display: block; // Need this to stack the navigation for mobile
+    position: relative;
+    transition: color .24s ease-in;
+    border-top: 1px solid $color-gray-lighter;
+
+    &:hover {
+        color: $color-gray-darker;
+    }
+
+    .c-link--arrow-inline {
+        @include offset(absolute, rhythm(.5), rhythm(.5), null, null);
+        transform: rotate(180deg);
+        transition: transform .24s ease-in;
+    }
+
+    &.is-open {
+
+        .c-nav__list-sub {
+            display: block;
+        }
+
+        .c-link--arrow-inline {
+            transform: rotate(0);
+        }
+    }
+
+    &.is-active > a,
+    .c-nav__list-sub__item.is-active {
+        color: $color-gray-darkest;
+        font-weight: 700;
+    }
+
+    @include breakpoint(wide) {
+        display: inline-block; // Reset the navigation to inline for desktop
+        position: relative;
+        border-top: 0;
+
+        &:hover {
+
+            .c-nav__list-sub {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        @include first-child() {
+
+            .c-nav-main__link {
+                margin-left: 0; // Remove padding first-child for aligning navigation
+            }
+        }
+    }
+}
+
+.c-nav-main__link {
+    @include contain-margin(rhythm(.5));
+    @include rhythm-padding(.5);
+    display: block;
+    position: relative;
+    max-width: calc(100% - 60px);
+    z-index: $layer-2;
+
+    @include breakpoint(wide) {
+        @include rhythm-padding(0);
+        max-width: none;
+        line-height: 66px;
+        text-align: center;
+
+        &:hover {
+
+            &::after {
+                height: 2px;
+            }
+        }
+
+        &::after {
+            @include offset(absolute, null, null, 0, 50%);
+            @include size(100%, 0);
+            transform: translateX(-50%);
+            transition: .24s ease-in;
+            transition-property: height;
+            background-color: $color-primary;
+            content: '';
+
+            z-index: $layer-5;
+        }
+    }
+}
+
+.c-nav__list-sub {
+    @include offset(absolute, null, null, rhythm(0), 0);
+    @include contain-padding(rhythm(.75));
+    min-width: rhythm(9.75);
+    transform: translateY(100%);
+    border: 1px solid $color-gray-lighter;
+    border-radius: 6px;
+    box-shadow: 0 25px 54px 0 rgba($color-black, .05);
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+    z-index: $layer-2;
+}
+
+.c-nav__list-sub__item {
+    @include rhythm-padding(.5);
+    display: block;
+
+    & + & {
+        border-top: 1px solid $color-gray-lighter;
+    }
+
+    @include breakpoint(wide) {
+        margin-bottom: rhythm(1);
+
+        a {
+            color: $color-primary;
+            text-decoration: underline;
+        }
+
+        & + & {
+            border-top: 0;
+        }
+    }
+}
+
+.c-nav__list-sub__heading,
+.c-nav__list-sub__heading-sub {
+    @include breakpoint(wide) {
+        font-weight: 700;
+    }
+}
+
+.c-nav__list-sub__heading {
+    margin-bottom: rhythm(.5);
+}
+
+.c-nav__list-sub--right {
+    @include breakpoint(wide) {
+        right: 0;
+        left: auto;
+        width: auto;
+    }
+}

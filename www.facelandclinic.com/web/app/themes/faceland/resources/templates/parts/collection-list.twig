@@ -1,0 +1,39 @@
+{% set cardType = cardType ? cardType : 'academy' %}
+
+<div class="c-list-wrapper">
+
+    {% if title or subtitle %}
+        <div class="c-list__intro c-heading--icon c-heading--agenda">
+            {% if title %}
+                <{{ tag ? tag : 'h2'  }} class="c-list__intro-heading c-heading u-text-bold u-text-size-beta">{{title|upper}}</{{ tag ? tag : 'h2'  }}>
+            {% endif %}
+            {% if subtitle %}
+                <span class="c-list__intro-heading-sub">{{subtitle}}</span>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <div class="u-flex u-flex-center-x">
+        <ul class="o-list-plain c-list c-list--seamless c-list--accordion c-list--big u-flex u-flex-direction-column js-match-min-height {{ isFoldable ? 'js-toggle-wrapper'}}" data-multiple="true">
+            {% for list in posts %}
+                {% include "parts/lists/list-"~cardType~".twig" %}
+
+                {% if loop.last and items.button.url and items.button.label %}
+                    <li class="c-list__item u-text-center" style="margin-top: auto;">
+                        <div class="c-list__header">
+                            <a class="u-text-color-gray-darker u-text-bold u-text-size-zeta" href="{{items.button.url}}" title="{{items.button.label}}">{{items.button.label|upper}}</a>
+                        </div>
+                    </li>
+                {% endif %}
+
+            {% else %}
+                <li class="c-list__item u-text-size-epsilon u-flex u-flex-center u-stretch-height">
+                    <div class="c-list__header u-text-center">
+                        <p>{{ pll__('Geen %s gevonden')|format(title|lower) }}</p>
+                    </div>
+                <li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</div>

@@ -1,0 +1,16 @@
+{% if cta.text and cta.button %}
+    <div class="c-cta c-cta--wide">
+        <div class="c-cta__content u-text-center">
+            {% if cta.text %}
+                <h3 class="c-cta__heading u-text-size-mega">{{cta.text}}</h3>
+            {% endif %}
+            <div class="u-flex-sm u-flex-center-x">
+                <div class="c-btn-group">
+                    {% if cta.show_button %}
+                        {% include "parts/button.twig" with { button: cta.button, classes : 'c-btn--gray-darker u-bg-gray-darker u-text-size-zeta' } %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

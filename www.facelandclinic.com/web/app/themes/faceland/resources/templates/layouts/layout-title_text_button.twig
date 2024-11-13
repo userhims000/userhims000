@@ -1,0 +1,16 @@
+{% if layout|length > 0 %}
+    {% set class = layout.left ? 'u-flex u-flex-end-x' %}
+    <div class="o-card c-card--half c-copy__maxwidth {{class}}">
+        <div class="o-card__content u-size-1of2--md">
+            {% if layout.title %}
+                <h3 class="o-card__heading u-text-size-beta u-text-bold u-title-campaign">{{layout.title}}</h3>
+            {% endif %}
+            {% if layout.text %}
+                <div class="o-card__text u-text-campaign">{{ layout.text }}</div>
+            {% endif %}
+            {% if layout.button|length > 0 %}
+                {% include "parts/button.twig" with { button : layout.button, classes : 'c-btn--gray-darker c-btn--tall u-text-size-zeta u-bg-cta-campaign', upperFilter : true} %}
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

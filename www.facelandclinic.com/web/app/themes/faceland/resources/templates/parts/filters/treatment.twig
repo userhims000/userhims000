@@ -1,0 +1,32 @@
+{% set filters = taxonomy.bodyparts %}
+{% set filters_data = taxonomy.filterdetails %}
+{% set filters_bodyparts_data = filters_data.filter_bodyparts ? filters_data.filter_bodyparts : filters %}
+{% if filters|length > 0 %}
+    <div class="u-text-center specialist-section">
+        {% set titleTag = filters_data.filter_tag ? filters_data.filter_tag : 'h1' %}
+       <{{ titleTag }} class="u-text-bold section-sub-title">{{ filters_data.title }}</{{ titleTag }}>
+    </div>
+    <div class="u-flex u-flex-center-x">
+        <div class="c-filters c-filters--select u-flex-md u-flex-center-y u-flex-center-x u-text-size-beta">
+            <span>{{ pll__('Ik ben op zoek naar een behandeling voor:') }}</span>
+            <label class="c-select c-select--inline">
+                <select class="js-select js-filter-bodypart" placeholder="{{ pll__('Kies een onderwerp') }}" id="treatment_bodyparts" name="treatment_bodyparts">
+                    <option value="all">{{ pll__('Selecteer lichaamsdeel') }}</option>
+                    {% for item in filters_bodyparts_data %}
+
+                        <option value="{{item.slug}}">{% if not is_ch == true or is_de == true  %}{{  pll__('Mijn') }} {% endif %} {{item.name|lower}}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            {% if is_mobile == true %}
+            <div class="c-btn-group" id="treatment_bodyparts_list">
+                <a class="c-btn u-text-small f-bg-primary-bg cta-button" href="javascript:;" data-type="all">{{ 'Alle' }}</a>
+                {% for item in filters_bodyparts_data %}
+                    <a class="c-btn u-text-small f-bg-primary-bg cta-button" href="javascript:;" data-type="{{item.slug}}">{% if not is_ch == true or is_de == true  %}{{  pll__('Mijn') }} {% endif %} {{item.name|lower}}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+    

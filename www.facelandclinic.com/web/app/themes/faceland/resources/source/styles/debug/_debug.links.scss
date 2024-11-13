@@ -1,0 +1,34 @@
+/*----------------------------------------------------------------------------*\
+    #DEBUG LINKS
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Links sometimes, though not always, benefit from `title` attributes. Links
+ * without are never invalid but it’s a good idea to check.
+ */
+
+a { outline: 5px solid yellow; }
+
+a[title] { outline: none; }
+
+
+/**
+ * Double-check any links whose `href` is something questionable.
+ */
+
+a[href='#'],
+a[href*='javascript'] {
+    @include debug-text('href is # or javascript');
+    outline: 5px solid yellow;
+}
+
+
+/**
+ * The `target` attribute ain’t too nice...
+ */
+
+a[target] {
+    @include debug-text('th does not have scope');
+    outline: 5px solid yellow;
+}
+

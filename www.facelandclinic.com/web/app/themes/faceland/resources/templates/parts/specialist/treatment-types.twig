@@ -1,0 +1,5 @@
+{% if treatmentTypes|length > 0 %}
+    {% for button in treatmentTypes %}
+        <a class="o-label u-bg-secondary u-text-size-nano u-text-bold" href="{{button.link}}" title="{{button.name|upper}}">{{button.name|upper}}</a>
+    {% endfor %}
+{% endif %}

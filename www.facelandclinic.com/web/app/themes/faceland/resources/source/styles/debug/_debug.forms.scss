@@ -1,0 +1,39 @@
+/*----------------------------------------------------------------------------*\
+    #DEBUG FORMS
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Various form-field types have required attributes. `input`s need `type`
+ * attributes, `textarea`s need `rows` and `cols` attributes and submit buttons
+ * need a `value` attribute.
+ */
+
+input {
+    @include debug-text('no type attribute');
+    outline: 5px solid red;
+}
+
+textarea {
+    @include debug-text('no rows / cols');
+    outline: 5px solid red;
+}
+
+input[type] {
+    @include no-debug-text();
+    outline: none;
+}
+
+textarea[rows][cols] {
+    @include no-debug-text();
+    outline: none;
+}
+
+input[type=submit] {
+    @include debug-text('no type submit');
+    outline: 5px solid red;
+}
+
+input[type=submit][value] {
+    @include no-debug-text();
+    outline: none;
+}

@@ -1,0 +1,67 @@
+{% set cards = related.specialists ? related.specialists : related.locations %}
+{% if cards|length > 0 or post.treatments|length > 0 %}
+    {% set buttonLabel = related.specialists ?  pll__('Specialisten') : pll__('Klinieken') %}
+    {% set buttonClass1 = cards|length > 0  ? 'js-toggle-trigger js-toggle-default' : 'is-disabled' %}
+    {% set buttonClass2 = post.treatments|length > 0 ? 'js-toggle-trigger' : 'is-disabled' %}
+    {% set buttonClassActive2 = cards|length == 0 and post.treatments|length > 0  ? 'js-toggle-default' %}
+    <div class="c-related c-related--mt u-bg-tertiary-light js-toggle-wrapper">
+        {% include "parts/mask.twig" with { classes : 'c-mask--tertiary-light u-bg-white' } %}
+
+        {% if related.title or related.subtitle %}
+            <div class="o-contain o-contain-padding">
+                <{{ related.title_tag ? related.title_tag : 'h2'  }} class="c-related__heading u-text-size-giga u-text-bold u-text-center">{{related.title|upper}}</{{ related.title_tag ? related.title_tag : 'h2'  }}>
+                <div class="u-text-size-alpha u-text-color-gray u-text-center">{{related.subtitle}}</div>
+            </div>
+        {% endif %}
+
+        {% if show_toggle %}
+        <div class="js-toggle-wrapper">
+                <div class="o-contain o-contain-padding">
+                    <div class="u-flex-md u-flex-center-x">
+                        <div class="c-filters c-filters--button c-filters--bordered c-filters--square-sm u-flex u-flex-center-y u-flex-space-around-x u-text-size-epsilon u-text-color-gray u-bg-white">
+                            <div class="c-filters__wrapper">
+                                <button class="c-filter u-text-center {{buttonClass1}}" data-close="false" data-parent-id="card-toggle-1">{{ buttonLabel }}</button>
+                                <button class="c-filter u-text-center js-toggle-trigger {{ buttonClass2 }} {{ buttonClassActive2 }}" data-close="false" data-parent-id="card-toggle-2">{{ pll__('Behandelingen') }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        {% endif %}
+
+            <div class="c-cards-wrapper">
+                {% if show_toggle %}
+                    <div class="js-toggle-parent" id="card-toggle-1">
+                {% endif %}
+
+                    {% if cards|length > 0 %}
+                        {% if cards|length > 3 %}
+                            {% include "parts/carousel.twig" with { items : cards, cardType : cardType}%}
+                        {% else %}
+                            <div class="o-contain o-contain-padding">
+                                {% include "parts/collection.twig" with { posts : cards, gridSize: 'u-1of1--sm u-1of2--md u-1of3--lg u-flex-center-x', cardType: cardType } %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if show_toggle %}
+                        </div>
+                    {% endif %}
+
+                {% if show_toggle %}
+                    <div class="js-toggle-parent" id="card-toggle-2">
+                        <div class="o-contain o-contain-padding">
+                            {% include "parts/treatments-list.twig" with { treatments : post.treatments } %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+        {% if show_toggle %}
+            </div>
+        {% endif %}
+
+        {% if cta|length > 0 %}
+            {% include "parts/cta-appointment.twig" with { cta : cta } %}
+        {% endif %}
+    </div>
+{% endif %}

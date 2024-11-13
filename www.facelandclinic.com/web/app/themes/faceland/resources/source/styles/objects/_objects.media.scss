@@ -1,0 +1,58 @@
+/*----------------------------------------------------------------------------*\
+    #OBJECTS MEDIA OBJECT
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Place any image- and text-like content side-by-side, as per:
+ * https://philipwalton.github.io/solved-by-flexbox/demos/media-object/
+ */
+
+.o-media {
+    display: flex;
+    align-items: flex-start;
+}
+
+.o-media__image {
+    margin-right: rhythm(.5);
+
+    img {
+        vertical-align: bottom;
+    }
+}
+
+.o-media__body {
+    flex: 1;
+}
+
+.o-media--lg {
+    display: block;
+
+    @include breakpoint(medium) {
+        display: flex;
+
+        .o-media__image {
+            margin-right: rhythm(1.5);
+        }
+    }
+}
+
+/* Align content center inside media object */
+
+.o-media--center {
+    align-items: center;
+}
+
+/* Align content bottom inside media object */
+
+.o-media--bottom {
+    align-items: bottom;
+}
+
+/* Reversed image location (right instead of left). */
+
+.o-media--reverse {
+
+    > .o-media__image {
+        order: 1;
+    }
+}

@@ -1,0 +1,116 @@
+/* -------------------------------------------------------------------------- *\
+    #VENDORS FEATHERLIGHT (https://github.com/noelboss/featherlight)
+\* -------------------------------------------------------------------------- */
+
+.featherlight {
+    @include offset(fixed, 0, 0, 0, 0);
+    display: none;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    z-index: $layer-6;
+
+    &::before {
+        display: inline-block;
+        height: 100%;
+        content: '';
+        vertical-align: middle;
+    }
+
+    &:last-of-type {
+        background: rgba($color-black, .8);
+    }
+
+    .featherlight-inner {
+        display: block;
+    }
+}
+
+.featherlight-content {
+    @include contain-padding();
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    max-width: 680px;
+    max-height: 95%;
+    white-space: normal;
+    cursor: auto;
+    overflow: auto;
+    vertical-align: middle;
+
+    h3 {
+        @include responsive-text-size('delta');
+        font-weight: 700;
+    }
+
+    h2,
+    h3,
+    p,
+    ul,
+    ol,
+    iframe {
+        @include contain-padding(rhythm(1.25));
+        text-align: left;
+    }
+
+    p,
+    ul,
+    ol {
+        @include responsive-text-size('epsilon');
+        color: $color-gray-dark;
+    }
+
+    @include breakpoint(large) {
+        @include contain-padding(0);
+    }
+}
+
+.featherlight-iframe {
+
+    .featherlight-content {
+        @include contain-padding(0);
+    }
+}
+
+.featherlight-inner {
+    @include rhythm-padding(1.25);
+    display: block;
+    border-radius: 5px;
+    background-color: $color-white;
+
+    a {
+        color: $color-primary;
+        text-decoration: underline;
+    }
+
+    strong {
+        font-weight: 700;
+    }
+
+    > *:not(.featherlight-close) + * {
+        margin-top: rhythm(.5);
+    }
+
+    > h2 + p,
+    > h3 + p {
+        margin-top: rhythm(.75) !important;
+    }
+}
+
+iframe.featherlight-inner {
+    @include rhythm-padding(0);
+}
+
+.featherlight-close-icon {
+    @include offset(fixed, rhythm(1), rhythm(1), null, null);
+    @include square(22px);
+    @include is-hidden-text();
+    padding: 0;
+    border: 2px solid $color-white;
+    border-radius: 50%;
+    outline: none;
+    background-color: transparent;
+    background-position: -192px -480px;
+    cursor: pointer;
+    z-index: $layer-2;
+}

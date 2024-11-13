@@ -1,0 +1,75 @@
+/*----------------------------------------------------------------------------*\
+    #COMPONENTS RADIO
+\*----------------------------------------------------------------------------*/
+
+input[type='radio'] {
+    @include square(0);
+    position: absolute;
+    appearance: none;
+}
+
+.c-form__label--radio {
+    display: inline-block;
+    position: relative;
+    padding-left: rhythm(1);
+    line-height: 1;
+    cursor: pointer;
+
+    &::before {
+        @include offset(absolute, 4px, null, null, 0);
+        @include square(16px);
+        border: 1px solid $color-gray-light;
+        border-radius: 50%;
+        background-color: $color-white;
+        content: '';
+    }
+
+    &::after {
+        @include offset(absolute, 8px, null, null, 4px);
+        @include square(8px);
+        transition: opacity .24s ease-in;
+        border-radius: 50%;
+        background-color: $color-gray-darker;
+        content: '';
+        opacity: 0;
+    }
+}
+
+input[type='radio']:checked + .c-form__label--radio::after {
+    text-align: center;
+    opacity: 1;
+}
+
+.c-form__label--radio-color {
+    @include square(32px);
+    display: inline-block;
+    position: relative;
+    border-radius: 50%;
+    line-height: 1;
+    cursor: pointer;
+    overflow: hidden;
+
+    &::before,
+    &::after {
+        @include offset(absolute, 50%, null, null, 50%);
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        content: '';
+    }
+
+    &::before {
+        @include square(32px);
+        transition: border-color .24s ease-in;
+        border: 1px solid $color-gray-lighter;
+        background-color: $color-white;
+    }
+
+    &::after {
+        @include square(14px);
+        background-color: inherit;
+    }
+}
+
+input[type='radio']:checked + .c-form__label--radio-color::before {
+    border-color: $color-gray;
+}

@@ -1,0 +1,87 @@
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {# {% include 'parts/panorama-default.twig' with { panorama : post.panorama } %} #}
+    <!-- christmas-banner start -->
+    <div class="o-panorama christmas-banner-section pb-24 pb-md-0">
+        <div class="o-contain-padding">
+          <div class="d-md-flex mb-n-24 justify-content-around">
+            {% if christmas_panorama.christmas_animation_bulb_image %}
+              <div class="pl-md-20 pr-md-20 mt-0 mb-20 d-none d-lg-block align-self-center">
+                <div class="christmas-banner-img christmas-banner-img-left">
+                  {{ rokit_get_image(christmas_panorama.christmas_animation_bulb_image, 'full', '') }}
+                </div>
+              </div>
+            {% endif %}
+            <div class="pl-md-20 pr-md-20 mt-0 mb-20 u-text-center">
+              <div class="pb-20 pb-md-32 pb-xl-56 christmas-banner-content">
+                <div class="save-up-text d-lg-none mb-20"><p>{{ christmas_panorama.christmas_discount_save_upto_text }}</p></div>
+                {% if christmas_panorama.title %}
+                <{{ christmas_panorama.title_tag ? christmas_panorama.title_tag : 'h1' }} class="c-panorama__heading u-text-bold u-text-size-tera js-animation-element a-fade-in mb-20 a-inview">
+                  {{ christmas_panorama.title }}
+                </{{ christmas_panorama.title_tag ? christmas_panorama.title_tag : 'h1' }}>
+                {% endif %}
+                
+                {% if christmas_panorama.christmas_discount_save_upto_text %}
+                  <div class="save-up-text d-none d-lg-inline-block mb-20"><p>{{ christmas_panorama.christmas_discount_save_upto_text }}</p></div>
+                {% endif %}
+                
+                {% if christmas_panorama.christmas_panorama_description %}
+                  <div class="c-panorama__text">
+                    {{ christmas_panorama.christmas_panorama_description }}
+                  </div>
+                {% endif %}
+                
+                {% if christmas_panorama.christmas_animation_bulb_image %}
+                  <div class="mt-20 d-lg-none">
+                    {{ rokit_get_image(christmas_panorama.christmas_animation_bulb_image, 'full', '') }}
+                  </div>
+                {% endif %}
+                
+                <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of1--md u-1of2--lg mt-20 mb-n-12">
+                  {% if christmas_panorama.primary_cta.label %}
+                    <div class="o-grid__cell mt-0 mb-12">
+                      <a href="{{ christmas_panorama.primary_cta.url }}" class="c-btn u-text-medium c-btn--gray-darker c-btn-gradient w-100" title="{{ christmas_panorama.primary_cta.label }}" {{ christmas_panorama.primary_cta.external == true ? 'target=_blank' : '' }} >
+                        <span class="btn-content">{{ christmas_panorama.primary_cta.label }}</span>
+                      </a>
+                    </div>
+                  {% endif %}
+                  
+                  {% if christmas_panorama.secondary_cta.label %}
+                    <div class="o-grid__cell mt-0 mb-12"><a href="{{ christmas_panorama.secondary_cta.url }}" class="c-btn c-btn--border c-btn-secondary c-btn--border-black u-text-medium c-btn--gray-darker w-100"  title="Secondary" {{ christmas_panorama.secondary_cta.external == true ? 'target=_blank' : '' }} >{{ christmas_panorama.secondary_cta.label }}</a>
+                    </div>
+                  {% endif %}
+                </div>                    
+              </div>
+            </div>
+            
+            {% if christmas_panorama.christmas_animation_bulb_image %}
+              <div class="pl-md-20 pr-md-20 mt-0 mb-20 d-none d-lg-block align-self-center">
+                <div class="christmas-banner-img christmas-banner-img-right">
+                  {{ rokit_get_image(christmas_panorama.christmas_animation_bulb_image, 'full', '') }}
+                </div>
+              </div>
+            {% endif %}
+          
+          </div>
+        </div>
+        <div class="half-round-shape d-none d-md-block">
+          <svg width="1512" height="149" viewBox="0 0 1512 149" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0L10.8837 2.68287C503.986 124.234 1019.34 123.313 1512 0V149H761.775H0V0Z" fill="#fff"/>
+            </svg>
+        </div>
+    </div>  
+    <!-- christmas-banner end -->
+{% endblock %}
+
+{% block content %}
+    <div class="page-christmas">
+      <!-- christmas-banner end -->
+        <article class="c-copy mt-0 p-0  mt-20 mt-lg-56">
+
+          {% include 'parts/content-modules.twig' %}
+          
+          {% block afterContent %}{% endblock %}
+        </article>
+    </div>
+{% endblock %}

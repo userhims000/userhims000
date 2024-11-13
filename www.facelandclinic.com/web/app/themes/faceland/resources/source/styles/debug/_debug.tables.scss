@@ -1,0 +1,52 @@
+/*----------------------------------------------------------------------------*\
+    #DEBUG TABLES
+\*----------------------------------------------------------------------------*/
+
+/**
+ * It’s always nice to give `th`s `scope` attributes.
+ */
+
+th {
+    @include debug-text('th does not have scope');
+    outline: 5px solid yellow;
+}
+
+th[scope] {
+    @include no-debug-text();
+    outline: none;
+}
+
+
+/**
+ * `tr`s as children of `table`s ain’t great, did you need a `thead`/`tbody`?
+ */
+
+table > tr {
+    @include debug-text('tr not inside thead or tbody');
+    outline: 5px solid yellow;
+}
+
+
+/**
+ * `tfoot` needs to come *before* `tbody`.
+ */
+
+tbody + tfoot {
+    @include debug-text('tfoot needs to be before tbody');
+    outline: 5px solid yellow;
+}
+
+
+/**
+ * Forms require `action` attributes.
+ */
+
+form {
+    @include debug-text('no action attribute');
+    outline: 5px solid red;
+}
+
+form[action] {
+    @include no-debug-text();
+    outline: none;
+}

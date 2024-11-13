@@ -1,0 +1,18 @@
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% include 'parts/panorama-default.twig' with { panorama : post.panorama} %}
+{% endblock %}
+
+{% block content %}
+    <div class="o-contain o-contain-padding">
+        <div class="c-copy">
+            {% include "layouts/layout-title_text.twig" with { layout : post.intro } %}
+            {% for card in post.items %}
+                {% include "parts/collection-list.twig" with { title : card.treatment.title, posts : card.items, cardType : 'surgery-day' } %}
+            {% endfor %}
+            {% include "layouts/layout-title_text.twig" with { layout : post.appointment } %}
+            {% include "parts/connect.twig" with { contacts : contacts.online  } %}
+        </div>
+    </div>
+{% endblock %}

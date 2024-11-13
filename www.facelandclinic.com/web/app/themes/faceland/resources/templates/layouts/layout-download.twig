@@ -1,0 +1,26 @@
+<div class="o-card c-card--simple c-card--bordered c-card--horizontal js-block">
+    {% if layout.show and layout.image %}
+        <div class="o-grid">
+            <div class="o-grid__cell u-cell-1of4--cp">
+                <figure class="o-card__image">
+                    {{ rokit_get_image(layout.image, 'download', layout.title) }}
+                </figure>
+            </div>
+            <div class="o-grid__cell o-grid__cell--center u-cell-3of4--cp">
+                {% endif %}
+                <div class="o-card__content u-bg-white">
+                    {% if layout.title %}
+                        <h3 class="o-card__heading u-text-size-delta u-text-bold">{{layout.title}}</h3>
+                    {% endif %}
+                    {% if layout.subtitle %}
+                        <p>{{layout.subtitle}}</p>
+                    {% endif %}
+                    {% if layout.label and layout.file %}
+                        <a class="o-link u-text-size-nano u-text-bold u-text-color-gray-darker" rel="external" data-router-disabled href="{{ layout.file }}" title="{{layout.label}}">{{layout.label|upper}}</a>
+                    {% endif %}
+                </div>
+                {% if layout.show and layout.image %}
+            </div>
+        </div>
+    {% endif %}
+</div>

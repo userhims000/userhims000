@@ -1,0 +1,15 @@
+<div class="o-card c-card--big js-match-height">
+    <div class="o-card__content">
+        <h2 class="o-card__heading u-text-size-beta u-text-bold">{{card.title}}</h2>
+        <p class="o-card__text u-text-size-epsilon">{{card.intro.short}}</p>
+
+        {% if card.highlighted %}
+            <div class="c-btn-group">
+                {% for row in card.highlighted %}
+                    <a class="c-btn c-btn--border c-btn--icon c-btn--arrow-next u-text-size-epsilon u-text-color-gray-darker u-text-medium u-bg-white" href="{{row.link}}" data-router-disabled data-featherlight="{{row.modal|replace({'"':'\''})|raw}}" title="{{row.title}}">{{row.title}}</a>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% include "parts/button.twig" with { button : card.button, classes : 'c-btn--gray-darker u-bg-gray-darker u-text-size-zeta u-text-medium' } %}
+    </div>
+</div>

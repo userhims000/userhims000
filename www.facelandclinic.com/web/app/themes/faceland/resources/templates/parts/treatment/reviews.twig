@@ -1,0 +1,30 @@
+{% if content.titles > 0 %}
+    <div class="c-review-intro">
+        <div class="o-grid o-grid--with-gutter">
+            <div class="o-grid__cell u-cell-1of1--sm u-cell-2of3--md">
+                <h2 class="c-review-intro__heading u-text-size-delta u-text-bold u-text-uppercase">{{ content.titles.title }}</h2>
+                <div class="c-review-intro__text">{{ content.titles.subtitle }}</div>
+            </div>
+            <div class="o-grid__cell u-cell-1of1--sm u-cell-1of3--md">
+                <div class="u-flex-sm u-flex-center-x">
+                    <div class="c-review-avatar">
+                        <div class="o-image o-image--round o-image--little c-review-avatar__image u-bg-primary">
+                            <span class="u-text-size-giga u-text-color-white u-text-bold">{{content.grade}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="u-text-center">
+                    {{ rokit_get_static_image('images/hi_kliniek.png', '.11827957', site.name, 'c-review-intro__image') }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if content.reviews|length > 0 %}
+    <div class="c-reviews">
+        {% for review in content.reviews %}
+            {% include "parts/treatment/review.twig" with { review : review } %}
+        {% endfor %}
+    </div>
+{% endif %}

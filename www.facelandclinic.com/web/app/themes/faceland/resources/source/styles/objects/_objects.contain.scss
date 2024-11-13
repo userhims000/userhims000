@@ -1,0 +1,27 @@
+/*----------------------------------------------------------------------------*\
+    #OBJECTS CONTAIN
+\*----------------------------------------------------------------------------*/
+
+.o-contain {
+    @include contain-margin(auto);
+
+    @include breakpoint(wide) {
+        max-width: $page-max-width-wd;
+    }
+
+    @include breakpoint(huge) {
+        max-width: $page-max-width-hg;
+    }
+
+    @include breakpoint(mega) {
+        max-width: $page-max-width-mg;
+    }
+}
+
+.o-contain-padding {
+    @include contain-padding();
+
+    @include breakpoint(wide) {
+        @include contain-padding(0);
+    }
+}

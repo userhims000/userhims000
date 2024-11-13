@@ -1,0 +1,310 @@
+
+{% if function('is_singular', 'location') != true and function('is_singular', 'ba_album') != true %}
+    {% if layout.title or layout.sub_title or layout.content %}
+        <div class="o-contain o-contain-padding treatment-title-content {{ is_mobile == true and get_clinic_post_type_slug == true ? 'clinic-page-title-content' : '' }}" id="{{ layout.scroll_section_element }}">
+            {% if layout.title %}
+                <div class="title u-text-bold {{ function('is_singular', 'location') == true and is_mobile != true ? 'u-text-left' : '' }} {{ function('is_singular', 'location') == true and is_mobile == true ? 'u-text-center' : '' }}">
+                    <{{ layout.title_heading_tag }}>{{ layout.title }}</{{ layout.title_heading_tag }}>
+                </div>
+            {% endif %}
+            {% if layout.sub_title %}
+                <div class="sub-title u-text-bold {{ function('is_singular', 'location') == true and is_mobile != true ? 'u-text-left' : '' }}">
+                    <{{ layout.sub_title_tag }}>{{ layout.sub_title }}</{{ layout.sub_title_tag }}>
+                </div>
+            {% endif %}
+            <div class="treatment-two-col-content {{ (layout.content|length == 1) ? 'single-col' : '' }} {{ function('is_singular', 'location') == true and is_mobile == true ? 'u-text-center' : '' }}">
+                {% if is_mobile != true %}
+                    {% for content in layout.content %}
+                        {% if content %}
+                            <div class="treatment-content-description">
+                                {{ content.content_description }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+                {% if is_mobile == true %}
+                    {% set loopData = [] %}
+                    {% for content in layout.content %}
+                        {% if content %}
+                            {% if not function('is_singular', 'blog_article')   %}                        
+                                <div class="treatment-content-description">
+                                    <div class="show-paragraph-content 1">
+                                        {% if content.content_description|length > 200 %}
+                                            {# {{ content.content_description|slice(0, 150) ~ '...' }} #}
+                                            {% set truncated_content = content.content_description|slice(0, 200) %}
+                                            {% set words = truncated_content|split(' ') %}
+                                            {% set highlight_count = 5 %}
+                                            {% set total_words = words|length %}
+                                            {% set start_highlight_index = total_words > highlight_count ? total_words - highlight_count : 0 %}
+                                            {% set before_highlight_words = words|slice(0, start_highlight_index)|join(' ') %}
+                                            {% set highlight_words = words|slice(start_highlight_index, highlight_count)|join(' ') %}
+                                            {{ before_highlight_words ~ ' <span class="grey-highlight">' ~ highlight_words ~ '...</span>' }}
+                                        {% else %}
+                                            {{ content.content_description }}
+                                        {% endif %}
+                                    </div>
+                                    <div class="read-more-content">
+                                        {{ content.content_description }}
+                                    </div>
+                                    {% if  content.content_description|length > 150 %}
+                                        {% set loopData = ['yes'] %}
+                                    {% endif %}    
+                                </div>
+                            {% endif %}
+                            {% if function('is_singular', 'blog_article')  %}
+                                <div class="treatment-content-description">
+                                    {{ content.content_description }}
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            {% if is_mobile == true %}
+                {% if loopData is not empty %}
+                    {% if not function('is_singular', 'blog_article')  %}
+                        <div class="read-more-button" id="toggleReadMoreButton">
+                            <div class="showMore">
+                                 {{  (function('is_singular', 'location') != true) ? '<span> ' ~ pll__('Meer lezen') ~ ' </span>'  : '' }} <span><i class="arrow down"></i></span>  
+                            </div>
+                            <div class="showLess">
+                                {{  (function('is_singular', 'location') != true) ? '<span> ' ~  pll__('Minder lezen') ~ '  </span>' : '' }}<span><i class="arrow up"></i></span>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+
+        </div> 
+    {% endif %}
+{% endif %}
+
+{% if function('is_singular', 'location') == true %}
+     {% if layout.title or layout.sub_title or layout.content %}
+        <section class="mt-20 mt-lg-72 mb-20 mb-lg-72">
+            <div class="o-contain o-contain-padding treatment-title-content new-clinic-p" id="{{ layout.scroll_section_element }}">
+
+                {% if layout.title %}
+                    <div class="title u-text-bold u-text-center p-0 mb-16 mb-lg-32">
+                        <{{ layout.title_heading_tag }}>{{ layout.title }}</{{ layout.title_heading_tag }}>
+                    </div>
+                {% endif %}
+                {% if layout.sub_title %}
+                    <div class="sub-title u-text-bold u-text-center p-0 mb-16 mb-lg-32">
+                        <{{ layout.sub_title_tag }}>{{ layout.sub_title }}</{{ layout.sub_title_tag }}>
+                    </div>
+                {% endif %}
+                {% if layout.content|length == 1 %}
+                    <div class="treatment-two-col-content {{ (layout.content|length == 1) ? 'single-col' : '' }} pb-0">
+                        <div class="border border-pink rounded py-16 px-24 px-lg-72 py-lg-32">
+                            {% set loopData = [] %}
+                                {% for content in layout.content %}
+                                    {% if content.do_you_show_small_title_with_content == true %}
+                                        <h5 class="small-title u-text-center">
+                                            {% if content.small_title_image %}
+                                                <img src="{{ content.small_title_image }}">
+                                            {% endif %}
+                                            <span>{{ content.small_title }}</span>
+                                        </h5>
+                                    {% endif %}
+                                    
+                                    {% if is_mobile != true %}
+                                        {{ content.content_description }}
+                                    {% endif %}
+                                    {% if is_mobile == true %}
+                                    <div class="treatment-content-description">
+                                        <div class="show-paragraph-content location-content-description">
+                                            {% if content.content_description|length > 200 %}
+                                                {# {{ content.content_description|slice(0, 200) ~ '...' }} #}
+                                                {% set truncated_content = content.content_description|slice(0, 200) %}
+                                                {% set words = truncated_content|split(' ') %}
+                                                {% set highlight_count = 5 %}
+                                                {% set total_words = words|length %}
+                                                {% set start_highlight_index = total_words > highlight_count ? total_words - highlight_count : 0 %}
+                                                {% set before_highlight_words = words|slice(0, start_highlight_index)|join(' ') %}
+                                                {% set highlight_words = words|slice(start_highlight_index, highlight_count)|join(' ') %}
+                                                {{ before_highlight_words ~ ' <span class="grey-highlight">' ~ highlight_words ~ '...</span>' }}
+                                            {% else %}
+                                                {{ content.content_description }}
+                                            {% endif %}
+                                        </div>
+                                        <div class="read-more-content">
+                                            {{ content.content_description }}
+                                        </div>
+                                        {% if  content.content_description|length > 200 %}
+                                            {% set loopData = ['yes'] %}
+                                        {% endif %}    
+                                    </div>
+                                    {% endif %}
+
+                                {% endfor %}
+
+                            {% if is_mobile == true %}
+                                <div class="read-more-button load-more-arrow" id="toggleReadMoreButton">
+                                            <div class="showMore">
+                                                 {{  (function('is_singular', 'location') != true) ? '<span> ' ~ pll__('Meer lezen') ~ ' </span>'  : '' }} <span><i class="arrow down"></i></span>  
+                                            </div>
+                                           {#  <div class="showLess">
+                                                {{  (function('is_singular', 'location') != true) ? '<span> ' ~  pll__('Minder lezen') ~ '  </span>' : '' }}<span><i class="arrow up"></i></span>
+                                            </div> #}
+                                        </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                {% elseif layout.content|length > 1 %}
+                    <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of2--md u-1of2--lg mb-n-20 multiple-col-layout">
+                        {% for key, content in layout.content %}
+                            <div class="o-grid__cell mt-0 mb-20 ml-content-section" id="current-data-{{ key }}">                                             
+                              <div class="border border-pink rounded py-16 px-24 px-lg-44 py-lg-40 h-100">
+                                {% if content.do_you_show_small_title_with_content == true %}
+                                    <h5 class="small-title u-text-center">
+                                        {% if content.small_title_image %}
+                                            <img src="{{ content.small_title_image }}">
+                                        {% endif %}
+                                        <span>{{ content.small_title }}</span>
+                                    </h5>
+                                {% endif %}
+                                    {% if is_mobile != true %}
+                                        {{ content.content_description }}
+                                    {% endif %}
+                                    {% if is_mobile == true %}
+                                    <div class="treatment-content-description">
+                                        <div class="show-paragraph-content">
+                                            {% if content.content_description|length > 200 %}
+                                                {# {{ content.content_description|slice(0, 200) ~ '...' }} #}
+                                                {% set truncated_content = content.content_description|slice(0, 200) %}
+                                                {% set words = truncated_content|split(' ') %}
+                                                {% set highlight_count = 5 %}
+                                                {% set total_words = words|length %}
+                                                {% set start_highlight_index = total_words > highlight_count ? total_words - highlight_count : 0 %}
+                                                {% set before_highlight_words = words|slice(0, start_highlight_index)|join(' ') %}
+                                                {% set highlight_words = words|slice(start_highlight_index, highlight_count)|join(' ') %}
+                                                {{ before_highlight_words ~ ' <span class="grey-highlight">' ~ highlight_words ~ '...</span>' }}
+                                            {% else %}
+                                                {{ content.content_description }}
+                                            {% endif %}
+                                        </div>
+                                        <div class="read-more-content">
+                                            {{ content.content_description }}
+                                        </div>
+                                        {% if  content.content_description|length > 200 %}
+                                            {% set loopData = ['yes'] %}
+                                        {% endif %}    
+                                    </div>
+                                    {% endif %}
+                                    {% if is_mobile == true %}
+                                        <div class="read-more-button load-more-arrow" id="toggleReadMoreButton">
+                                            <div class="showMore">
+                                                 {{  (function('is_singular', 'location') != true) ? '<span> ' ~ pll__('Meer lezen') ~ ' </span>'  : '' }} <span><i class="arrow down"></i></span>  
+                                            </div>
+                                           {#  <div class="showLess">
+                                                {{  (function('is_singular', 'location') != true) ? '<span> ' ~  pll__('Minder lezen') ~ '  </span>' : '' }}<span><i class="arrow up"></i></span>
+                                            </div> #}
+                                        </div>
+                                    {% endif %}
+                              </div>
+                            </div>
+                        {% endfor %}
+                  </div>    
+                {% endif %}
+            </div>
+        </section>
+  {% endif %}
+{% endif %}
+
+
+{% if function('is_singular', 'ba_album') == true %}
+    <section class="mt-20 mt-lg-72 mb-20 mb-lg-72">
+        <div class="treatment-title-content new-clinic-p">                 
+          <div class="treatment-two-col-content single-col pb-0">
+            <div class="border border-pink rounded py-16 px-24 px-lg-32 py-lg-24">
+              {% if layout.title %}
+                    <div class="title u-text-bold u-text-center p-0 mb-24">
+                        <{{ layout.title_heading_tag }}>{{ layout.title }}</{{ layout.title_heading_tag }}>
+                    </div>
+                {% endif %}
+                {% if layout.sub_title %}
+                    <div class="sub-title u-text-bold u-text-center p-0 mb-16 mb-lg-32">
+                        <{{ layout.sub_title_tag }}>{{ layout.sub_title }}</{{ layout.sub_title_tag }}>
+                    </div>
+                {% endif %}
+
+                {% set loopData = [] %}
+                {% for content in layout.content %}
+                    {% if content.do_you_show_small_title_with_content == true %}
+                        <h5 class="small-title u-text-center">
+                            {% if content.small_title_image %}
+                                <img src="{{ content.small_title_image }}">
+                            {% endif %}
+                            <span>{{ content.small_title }}</span>
+                        </h5>
+                    {% endif %}
+                    
+                    {% if is_mobile != true %}
+                        {{ content.content_description }}
+                    {% endif %}
+                    {% if is_mobile == true %}
+                    <div class="treatment-content-description">
+                        <div class="show-paragraph-content location-content-description">
+                            {% if content.content_description|length > 200 %}
+                                {# {{ content.content_description|slice(0, 200) ~ '...' }} #}
+                                {% set truncated_content = content.content_description|slice(0, 200) %}
+                                {% set words = truncated_content|split(' ') %}
+                                {% set highlight_count = 5 %}
+                                {% set total_words = words|length %}
+                                {% set start_highlight_index = total_words > highlight_count ? total_words - highlight_count : 0 %}
+                                {% set before_highlight_words = words|slice(0, start_highlight_index)|join(' ') %}
+                                {% set highlight_words = words|slice(start_highlight_index, highlight_count)|join(' ') %}
+                                {{ before_highlight_words ~ ' <span class="grey-highlight">' ~ highlight_words ~ '...</span>' }}
+                            {% else %}
+                                {{ content.content_description }}
+                            {% endif %}
+                        </div>
+                        <div class="read-more-content">
+                            {{ content.content_description }}
+                        </div>
+                        {% if  content.content_description|length > 200 %}
+                            {% set loopData = ['yes'] %}
+                        {% endif %}    
+                    </div>
+                    {% endif %}
+
+                    {% if is_mobile == true %}
+                        <div class="read-more-button load-more-arrow" id="toggleReadMoreButton">
+                            <div class="showMore">
+                                 <span><i class="arrow down"></i></span>  
+                            </div>
+                           {#  <div class="showLess">
+                                {{  (function('is_singular', 'location') != true) ? '<span> ' ~  pll__('Minder lezen') ~ '  </span>' : '' }}<span><i class="arrow up"></i></span>
+                            </div> #}
+                        </div>
+                    {% endif %}
+
+                    <div class="last-btn-div mt-24 mb-0 flex-wrap u-flex-center-x">
+                        {% set external = content.cta_button_one_external ? ' rel="external" data-router-disabled' %}    
+                        {% if content.cta_button_one_label %}
+                            <a href="{{ content.cta_button_one_url ? content.cta_button_one_url : 'javascript:;' }}" class="c-btn u-text-medium c-btn--gray-darker u-bg-gray-darker u-text-size-zeta one-btn f-bg-primary-bg">
+                              <svg class="i-svg" xmlns="http://www.w3.org/2000/svg" version="1.1 " xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 308 308" xml:space="preserve">
+                              <g>
+                                <path d="M227.904 176.981c-.6-.288-23.054-11.345-27.044-12.781-1.629-.585-3.374-1.156-5.23-1.156-3.032 0-5.579 1.511-7.563 4.479-2.243 3.334-9.033 11.271-11.131 13.642-.274.313-.648.687-.872.687-.201 0-3.676-1.431-4.728-1.888-24.087-10.463-42.37-35.624-44.877-39.867-.358-.61-.373-.887-.376-.887.088-.323.898-1.135 1.316-1.554 1.223-1.21 2.548-2.805 3.83-4.348a140.77 140.77 0 0 1 1.812-2.153c1.86-2.164 2.688-3.844 3.648-5.79l.503-1.011c2.344-4.657.342-8.587-.305-9.856-.531-1.062-10.012-23.944-11.02-26.348-2.424-5.801-5.627-8.502-10.078-8.502-.413 0 0 0-1.732.073-2.109.089-13.594 1.601-18.672 4.802C90 87.918 80.89 98.74 80.89 117.772c0 17.129 10.87 33.302 15.537 39.453.116.155.329.47.638.922 17.873 26.102 40.154 45.446 62.741 54.469 21.745 8.686 32.042 9.69 37.896 9.69h.001c2.46 0 4.429-.193 6.166-.364l1.102-.105c7.512-.666 24.02-9.22 27.775-19.655 2.958-8.219 3.738-17.199 1.77-20.458-1.348-2.216-3.671-3.331-6.612-4.743z" fill="#000000" opacity="1" data-original="#000000"></path>
+                                <path d="M156.734 0C73.318 0 5.454 67.354 5.454 150.143c0 26.777 7.166 52.988 20.741 75.928L.212 302.716a3.998 3.998 0 0 0 4.999 5.096l79.92-25.396c21.87 11.685 46.588 17.853 71.604 17.853C240.143 300.27 308 232.923 308 150.143 308 67.354 240.143 0 156.734 0zm0 268.994c-23.539 0-46.338-6.797-65.936-19.657a3.996 3.996 0 0 0-3.406-.467l-40.035 12.726 12.924-38.129a4.002 4.002 0 0 0-.561-3.647c-14.924-20.392-22.813-44.485-22.813-69.677 0-65.543 53.754-118.867 119.826-118.867 66.064 0 119.812 53.324 119.812 118.867.001 65.535-53.746 118.851-119.811 118.851z" fill="#000000" opacity="1" data-original="#000000"></path>
+                              </g>
+                              </svg>
+                              {{ content.cta_button_one_label ? content.cta_button_one_label : '' }}
+                            </a>
+                        {% endif %}
+                        {% if content.cta_button_two_label %}
+                            <a href="{{ content.cta_button_two_url ? content.cta_button_two_url : 'javascript:;' }}" class="c-btn u-text-medium c-btn--gray-darker u-bg-gray-darker u-text-size-zeta two-btn">
+                              {{ content.cta_button_two_label ? content.cta_button_two_label : '' }}
+                            </a> 
+                        {% endif %}
+                    </div>
+
+                {% endfor %}
+            </div>
+          </div>
+        </div>
+      </section>
+{% endif %}

@@ -1,0 +1,40 @@
+{# about us #}
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% include 'parts/panorama-default.twig' with { panorama : post.panorama } %}
+{% endblock %}
+
+{% block content %}
+
+    {% if post.content_modules|length > 0 %}
+        <div class="o-contain o-contain-padding">
+            <article class="c-copy">
+                {% include 'parts/content-modules.twig' %}
+            </article>
+        </div>
+    {% endif %}
+
+    {% if post.more_information.subjects|length > 0 %}
+        <div class="c-related c-related--mt u-bg-tertiary-light js-toggle-wrapper">
+            {% include "parts/mask.twig" with { classes : 'c-mask--tertiary-light u-bg-white' } %}
+            {% if post.more_information.titles.title or post.more_information.titles.intro %}
+                <div class="o-contain o-contain-padding">
+                    {% if post.more_information.titles.title %}
+                        <{{ post.more_information.titles.title_tag ? post.more_information.titles.title_tag : 'h2' }} class="c-related__heading u-text-size-giga u-text-bold u-text-center">{{post.more_information.titles.title|upper}}</{{ post.more_information.titles.title_tag ? post.more_information.titles.title_tag : 'h2' }}>
+                    {% endif %}
+                    {% if post.more_information.titles.intro %}
+                        <span class="c-related__heading-sub u-text-size-mega u-text-center">{{post.more_information.titles.intro}}</span>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            <div class="c-cards-wrapper">
+                <div class="o-contain o-contain-padding">
+                    {% include "parts/collection.twig" with { posts : post.more_information.subjects, gridSize: 'u-1of1--sm u-1of2--md u-1of3--lg'} %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

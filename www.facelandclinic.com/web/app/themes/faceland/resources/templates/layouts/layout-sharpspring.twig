@@ -1,0 +1,14 @@
+{% if layout.form_id %}
+    {% set formHeight = layout.form_height ? layout.form_height : '1000' %}
+    
+    <div class="o-form--sharpspring js-trigger-reload">
+        <!-- SharpSpring Form -->
+        <script type="text/javascript">
+            var ss_form = {'account': 'MzawMDE3MzMxBwA', 'formID': '{{ layout.form_id }}'};
+            ss_form.width = '100%';
+            ss_form.height = {{ formHeight }};
+            ss_form.domain = 'app-3QNJIEKQ16.marketingautomation.services';
+        </script>
+        <script type="text/javascript" src="https://koi-3QNJIEKQ16.marketingautomation.services/client/form.js?ver=2.0.1"></script>
+    </div>
+{% endif %}

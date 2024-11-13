@@ -1,0 +1,77 @@
+/*----------------------------------------------------------------------------*\
+    #OBJECTS FORMS
+\*----------------------------------------------------------------------------*/
+
+// .o-form { }
+
+/* Fieldset */
+
+/**
+ * Group sets of form fieldsets in a (ordered) list, e.g.:
+ * <form class="o-form">
+ *    <fieldset>
+ *      <div class="o-form__item o-form__item--stacked">
+ *          <label class="o-form__label" for="text">...</label>
+ *          <input class="o-form__input" id="text" type="text">
+ *      </div>
+ *      <div class="o-form__item o-form__item--stacked">
+ *          ...
+ *      </div>
+ *      <div class="o-form__item o-form__item--stacked">
+ *          ...
+ *      </div>
+ *    </fieldset>
+ * </form>
+ */
+
+.o-form--inline {
+
+    .c-form__item {
+        display: inline-block;
+        margin-right: rhythm(1);
+    }
+}
+
+.c-form-wrapper {
+
+    .c-form {
+
+        .o-form__label {
+            color: $color-gray-dark;
+        }
+    }
+
+    iframe {
+        margin-top: rhythm(1);
+    }
+}
+
+.c-form {
+
+    &.is-loading {
+        opacity: .4;
+    }
+}
+
+// .c-form__heading + .o-input-set__label {
+//     margin-top: 200px;
+// }
+
+// .o-form__item--stacked .o-form__label {
+//     display: block;
+//     margin-bottom: rhythm(.5);
+// }
+
+.o-form__input {
+    font-family: $primary-font;
+}
+
+.o-form__input--full {
+    width: 100%;
+}
+
+/**
+ * Error handling (inline).
+ */
+
+// .o-form__helper--error { display: inline-block; }

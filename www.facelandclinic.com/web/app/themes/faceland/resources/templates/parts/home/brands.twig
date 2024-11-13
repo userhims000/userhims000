@@ -1,0 +1,14 @@
+{% if brands.items|length > 0%}
+    {% include 'parts/intro.twig' with { intro : { title : brands.title}, titleClass : 'u-text-color-gray-darker u-text-bold u-text-size-nano u-text-center', upperFilter : true } %}
+    <div class="c-logos">
+        <div class="o-grid o-grid--with-gutter u-1of6--lg u-1of3--md u-1of2--sm">
+            {% for brand in brands.items %}
+                <div class="o-grid__cell">
+                    <a href="{{ brand.link }}" title="{{ brand.title }}">
+                        {{rokit_get_image(brand.logo, 'brand', card.title, 'c-logos__item')}}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

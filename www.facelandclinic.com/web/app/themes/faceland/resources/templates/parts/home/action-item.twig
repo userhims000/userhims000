@@ -1,0 +1,18 @@
+{% if item|length > 0 %}
+    <div class="o-panorama c-panorama--image c-panorama--narrow c-panorama--light-background">
+        <figure class="o-panorama__image">
+            {{ rokit_get_image(item.image, 'campaign-thumbnail', item.title) }}
+        </figure>
+
+        <div class="o-panorama__content u-text-center">
+            <div class="o-contain o-contain-padding">
+                {% if  item.title  %}
+                    <h1 class="c-panorama__heading u-text-bold u-text-size-tera u-text-color-white js-animation-element a-fade-in">{{ item.title }}</h1>
+                {% endif %}
+                <div class="c-btn-group">
+                    {% include "parts/button.twig" with { button : item.button, classes : 'c-btn--white u-text-size-epsilon u-text-color-white', upperFilter : true} %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

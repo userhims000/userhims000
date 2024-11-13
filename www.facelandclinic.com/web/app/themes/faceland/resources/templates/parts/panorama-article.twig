@@ -1,0 +1,31 @@
+{# {% if is_authenticate  %} #}
+    {% set cls = 'blog-panorama' %}
+{# {% else %}
+    {% set cls = '' %}
+{% endif %}   #}
+<div class="o-panorama c-panorama--background c-panorama--news u-bg-tertiary-light {{ cls }}">
+    <div class="o-panorama__content u-text-center">
+        <div class="o-contain o-contain-padding">
+            {% if label %}
+                <span class="o-label u-bg-primary u-text-size-pico u-text-bold u-text-color-white js-animation-element a-fade-in a-delay">{{ label|upper }}</span>
+            {% endif %}
+            <h1 class="c-panorama__heading u-text-size-tera js-animation-element a-fade-in u-text-bold">{{title}}</h1>
+            <span class="c-panorama__heading-sub u-text-color-gray-dark js-animation-element a-fade-in a-delay-lg"> <time datetime="{{ date }}">{{ date}}</time>{% if post.post_type == 'blog_article' %} - {{author}}{% endif %}</span>
+            {# {% if is_authenticate  %} #}
+              {% if image %}
+                  <div class="o-panorama__avatar o-image--mg js-animation-element a-fade-in a-delay-lg">
+                      {{ rokit_get_image(image, 'avatar-mg', title, 'o-image o-image--mg o-image--shadow') }}
+                  </div>
+              {% endif %}
+            {# {% endif %} #}
+        </div>
+    </div>
+
+    {# {% if not is_authenticate  %}
+      {% if image %}
+          <div class="o-panorama__avatar o-image--mg js-animation-element a-fade-in a-delay-lg">
+              {{ rokit_get_image(image, 'avatar-mg', title, 'o-image o-image--round o-image--mg o-image--shadow') }}
+          </div>
+      {% endif %}
+    {% endif %} #}      
+</div>

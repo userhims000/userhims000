@@ -1,0 +1,106 @@
+.woocommerce-message {
+    @include offset(fixed, null, null, rhythm(3), 50%);
+    @include responsive-text-size('epsilon');
+    width: 88vw;
+    padding: rhythm(.375) rhythm(7) rhythm(.375) rhythm(.375);
+    transform: translateX(-100%);
+    border: 1px solid $color-gray-lighter;
+    border-radius: 3px;
+    background-color: $color-white;
+    box-shadow: 0 6px 14px 0 rgba($color-black, .05);
+    opacity: 0;
+    z-index: $layer-2;
+    animation: slide-in 8s 1.25s alternate;
+
+    &::before {
+        @include offset(absolute, 50%, null, null, 0);
+        transform: translateY(-50%);
+        content: '';
+    }
+
+    @keyframes slide-in {
+
+        0% {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+
+        10% {
+            transform: translateX(-50%);
+            opacity: 1;
+        }
+
+        90% {
+            transform: translateX(-50%);
+            opacity: 1;
+        }
+
+        100% {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+    }
+
+    a {
+        @include responsive-text-size('nano');
+        @include offset(absolute, 50%, rhythm(1), null, null);
+        transform: translateY(-50%);
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    @include breakpoint(large) {
+        bottom: rhythm(1);
+        left: rhythm(1);
+        width: auto;
+        animation: slide-in-desktop 8s .5s alternate;
+
+        @keyframes slide-in-desktop {
+
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+
+            10% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            90% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+        }
+    }
+}
+
+.woocommerce-error {
+    @include responsive-text-size('epsilon');
+    margin-bottom: rhythm(2);
+    padding: rhythm(.5) rhythm(.625);
+    border: 1px solid rgb(229, 0, 0);
+    border-radius: 5px;
+    background-color: rgba($color-negative, .08);
+    color: rgb(229, 0, 0);
+
+    ul {
+
+        li {
+
+            &::before {
+                @include offset(absolute, null, null, null, 0);
+                content: '-';
+            }
+        }
+    }
+
+    @include breakpoint(large) {
+        width: percentage(2/3);
+    }
+}

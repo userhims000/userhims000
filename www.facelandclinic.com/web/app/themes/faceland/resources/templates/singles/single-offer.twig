@@ -1,0 +1,19 @@
+{# action single #}
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% include "parts/panorama-default.twig" with { panorama : post.panorama } %}
+{% endblock %}
+
+{% block content %}
+    <div class="o-contain o-contain-padding u-margin-rhythm-base">
+        <article class="c-copy">
+            {% include 'parts/content-modules.twig' %}
+            {% include "parts/share.twig" with { share : post.share, title : post.share_title } %}
+        </article>
+    </div>
+{% endblock %}
+
+{% block related %}
+    {% include "parts/offer/related.twig" with { related : post.related } %}
+{% endblock %}

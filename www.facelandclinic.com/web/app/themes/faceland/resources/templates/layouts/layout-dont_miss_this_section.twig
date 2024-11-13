@@ -1,0 +1,40 @@
+{% if layout|length > 0 and ( layout.title or layout.academy_and_surgery_list|length  ) %}
+    <div class="o-contain o-contain-padding">
+        <div class="c-intro--column dont-miss-section">
+            {% if  layout.title or layout.academy_and_surgery_list|length  %}    
+                <div class="c-cards-wrapper">
+                    <div class="c-cards">
+                        <div class="title-section">
+                            <h2 class="u-text-bold u-text-center">{{ layout.title }}</h2>
+                        </div>
+                        <div class="o-grid js-filter-wrapper u-1of1--sm u-1of2--md u-1of4--lg o-grid--with-gutter o-grid--with-gutter-vertical">
+                            {% for academy_and_surgery_details in layout.academy_and_surgery_list %}
+                                <div class="o-grid__cell a-inview">
+                                    <div class="o-card">
+                                        {% if academy_and_surgery_details.choose_image_or_title == false %}
+                                        <div class="no-background-image">
+                                            <div class="title-with-bg-section">
+                                                <h2 class="u-text-size-giga u-text-bold u-text-center">{{ academy_and_surgery_details.title }}</h2>
+                                            </div>                                                
+                                        </div>
+                                        {% endif  %}
+                                        {% if academy_and_surgery_details.choose_image_or_title == true  %}
+                                            <figure class="o-card__image">
+                                                <img class="js-lazy-load is-lazy-loaded" data-src="{{ academy_and_surgery_details.image.url }}" data-src-retina="" title="{{ academy_and_surgery_details.image.title }}" alt="{{ academy_and_surgery_details.image.alt }}" src="{{ academy_and_surgery_details.image.url }}">
+                                            </figure>
+                                        {% endif %}  
+                                        <div class="o-card__content u-bg-white js-match-height u-text-center">
+                                            {% set external = ( academy_and_surgery_details.external == true ) ? '_blank' : '_self' %}
+                                            <h3 class="o-card__heading u-text-size-beta u-text-bold ">{{ academy_and_surgery_details.sub_title }}</h3>
+                                            <a class="c-btn u-text-medium f-bg-primary-bg cta-button"  href="{{ academy_and_surgery_details.url }}" title="{{ academy_and_surgery_details.label }}" target="{{ external }}">{{ academy_and_surgery_details.label }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>    
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

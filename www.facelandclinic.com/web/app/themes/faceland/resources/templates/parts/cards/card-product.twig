@@ -1,0 +1,22 @@
+<div class="o-card c-card--simple c-card--centered c-card--clean js-block {{ fn('post_class', ['$classes', 'entry'] ) }}">
+    {{ fn('timber_set_product', card) }}
+    <figure class="o-card__image u-flex u-flex-center u-bg-gray-lightest">
+        {{rokit_get_image(card.thumbnail.id, 'full', card.title)}}
+        {% if card.is_on_sale %}
+            <span class="o-card__label o-label c-label--square u-bg-primary u-text-size-zeta u-text-bold u-text-color-white">
+                {{ card.discount_percent|round }}% korting
+            </span>
+        {% endif %}
+        {% include "parts/mask.twig" with { classes : 'c-mask--white' } %}
+    </figure>
+
+    <div class="o-card__content u-text-center">
+        <h2 class="o-card__heading u-text-size-delta u-text-bold u-text-uppercase">
+            <a href="{{ card.link }}" title="{{card.title}}">{{ card.title }}</a>
+        </h2>
+
+        <div class="u-flex u-flex-center-x c-card__price u-text-color-gray"> {# TODO: (FE) Tweak WC price styling #}
+            {{ card.price }}
+        </div>
+    </div>
+</div>

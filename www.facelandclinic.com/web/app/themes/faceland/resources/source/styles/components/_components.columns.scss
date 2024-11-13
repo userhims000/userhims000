@@ -1,0 +1,16 @@
+.c-columns {
+    margin-top: rhythm(3);
+    padding-top: rhythm(3);
+    border-top: 1px solid $color-gray-lighter;
+}
+
+.c-columns__heading {
+    margin-bottom: rhythm(.75);
+}
+
+.c-columns__text {
+    @include breakpoint(large) {
+        columns: 2;
+        column-gap: rhythm(2);
+    }
+}

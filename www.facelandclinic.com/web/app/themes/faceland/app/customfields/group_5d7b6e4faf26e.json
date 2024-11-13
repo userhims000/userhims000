@@ -1,0 +1,85 @@
+{
+    "key": "group_5d7b6e4faf26e",
+    "title": "Surgery day : Content single consultation",
+    "fields": [
+        {
+            "key": "field_5d7b6f0ccd986",
+            "label": "Date",
+            "name": "surgery_day_date",
+            "type": "date_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "d\/m\/Y",
+            "return_format": "Ymd",
+            "first_day": 1
+        },
+        {
+            "key": "field_5d2c8e3ddee70",
+            "label": "Location",
+            "name": "surgery_day_location",
+            "type": "post_object",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "location"
+            ],
+            "taxonomy": "",
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "object",
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_taxonomy",
+                "operator": "==",
+                "value": "category:geen-categorie"
+            },
+            {
+                "param": "post_taxonomy",
+                "operator": "!=",
+                "value": "surgery_day_type:matched"
+            },
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "surgery_day"
+            }
+        ],
+        [
+            {
+                "param": "post_taxonomy",
+                "operator": "!=",
+                "value": "surgery_day_type:matched"
+            },
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "surgery_day"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1576668473
+}

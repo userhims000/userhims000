@@ -1,0 +1,133 @@
+    {% if current_page_slug == 'home-4' or current_page_slug == 'home-5' and is_nl == true %}
+        {% if current_page_slug == 'home-5' and is_nl == true %}
+            {% set cls = "f-home-flexbox" %}
+        {% else %}
+            {% set cls = "" %}    
+        {% endif %}
+        <div class="flexboxdata o-contain home-flexbox {{ cls }}">
+        {% if current_page_slug == 'home-5' and is_nl == true and  want_to_see_text != '' %}
+            <div class="want-see-more-title">
+                <h2 class="u-text-size-giga u-text-center">{{ want_to_see_text }}</h2>
+            </div>
+        {% endif %}
+        </div>
+    {% endif  %}
+    {% if current_page_slug == 'home-5' and is_mobile %}
+    {# <div class="sticky-footer-wrap">
+        <div class="home-sticky-footer">
+          <div class="cta-link-wrap">
+            <a class="c-btn u-text-small f-bg-primary-bg cta-button" href="https://www.facelandclinic.com/nl/huidtherapie-deals/" title="">Behandeligen</a>
+            <a class="c-btn u-text-small f-bg-primary-bg cta-button" href="https://www.facelandclinic.com/nl/huidtherapie-deals/" title="">Vestigingen</a>
+          </div>
+          <div class="cta-comment-wrap">
+              <p>{{ pll__('Comment button') }}</p>
+          </div>
+        </div>
+    </div> #}
+    {% endif  %}
+    {% if current_page_slug == 'home-4' or current_page_slug == 'home-5' and is_nl == true %}    
+        {# <div class="u-flex u-flex-center-x home-page-instagram-btn">
+            <div class="instagram-btn">
+                <a href="https://www.instagram.com/facelandnederland" title="{{ pll__('Follow us on Instagram') }}" target="_blank" class="c-btn f-bg-primary-bg u-text-small cta-button ">{{ pll__('Follow us on Instagram') }}</a>
+            </div>
+        </div> #}
+    {% endif  %}
+        {% if fn('is_front_page') and is_mobile or fn('is_front_page') != true  %}
+            {% if current_page_slug != 'home' or current_page_slug == 'home' and is_mobile  %}
+            <footer class="c-footer {{ fn('show_border_in_footer') ? 'c-footer--bordered'}} js-footer" role="contentinfo">
+                <div class="o-contain o-contain-padding">
+                    {% include 'parts/footer/footer-links.twig' %}
+                </div>
+            </footer>
+
+            {% if is_nl %}
+                <div class="c-footer-image u-flex-center-x">
+                    {{ rokit_get_static_image('images/disclaimer.svg', 'disclaimer', pll__('disclaimer') , '', false) }}
+                </div>
+            {% endif %}
+
+            <div class="c-footer-sub u-bg-gray-darker u-flex u-flex-center-x">
+                <div class="o-contain o-contain-padding">
+                    <ul class="o-list-plain o-list-inline">
+                        <li class="u-text-size-zeta u-text-color-white">&copy; {{ date.year }} {{ site.name }}  •</li>
+                        {% include 'parts/footer/footer-row.twig' with { urls : footer.bottom, seporator : true, class : 'u-text-size-zeta u-text-color-white' } %}
+
+                        <li class="u-text-size-zeta u-text-color-white">
+                            {{pll__('Website door')}} <a href="https://en-masse.nl" title="En-Masse" rel="external" data-router-disabled>En-Masse</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+        {% endif %}
+
+    {# <div class="lottie-animation" data-lottie-file="http://www.facelandclinic.com.devbox/app/assets/Gifje_opzet_Naald.json"></div> #}
+
+
+
+
+    <script type="text/javascript">
+
+    var _ss = _ss || [];
+    _ss.push(['_setDomain', 'https://koi-3QNJIEKQ16.marketingautomation.services/net']);
+    _ss.push(['_setAccount', 'KOI-4MDCW3NC5K']);
+    _ss.push(['_trackPageView']);
+    window._pa = window._pa || {};
+    // _pa.orderId = "myOrderId"; // OPTIONAL: attach unique conversion identifier to conversions
+    // _pa.revenue = "19.99"; // OPTIONAL: attach dynamic purchase values to conversions
+    // _pa.productId = "myProductId"; // OPTIONAL: Include product ID for use with dynamic ads
+    (function() {
+    var ss = document.createElement('script');
+    ss.type = 'text/javascript'; ss.async = true;
+    ss.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'koi-3QNJIEKQ16.marketingautomation.services/client/ss.js?ver=2.4.0';
+    var scr = document.getElementsByTagName('script')[0];
+    scr.parentNode.insertBefore(ss, scr);
+    })();
+
+
+         // Select all elements with the class "lottie-animation"
+    var animationContainers = document.querySelectorAll('.lottie-animation');
+
+    // Loop through each container and create a separate animation for each one
+    animationContainers.forEach(function(animationContainer) {
+        var animationPath = animationContainer.getAttribute('data-lottie-file');
+        var animation = lottie.loadAnimation({
+            container: animationContainer,
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: animationPath
+        });
+    });
+    </script>
+
+    {# {% if current_page_slug != 'home-5'  %} #}
+        {% include "parts/newsletter-form.twig" %}
+        {% if is_be == true or is_be_fr == true %}
+            /*{% include "parts/be-popup.twig" %}*/
+        {% endif %}
+    {# {% endif %} #}
+    {# Include the IE oldie message #}
+    {% include 'base/oldie-message.twig' %}
+    {{ function('wp_footer') }}
+    {{ function('rodesk_footer') }}
+    <script type="text/javascript">
+        _linkedin_partner_id = "3684090";
+        window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+        window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+    </script>
+    <script type="text/javascript">
+        (function(l) {
+        if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+        window.lintrk.q=[]}
+        var s = document.getElementsByTagName("script")[0];
+        var b = document.createElement("script");
+        b.type = "text/javascript";b.async = true;
+        b.src = https://snap.licdn.com/li.lms-analytics/insight.min.js;
+        s.parentNode.insertBefore(b, s);})(window.lintrk);
+    </script>
+    <noscript>
+    <img height="1" width="1" style="display:none;" alt="" src=https://px.ads.linkedin.com/collect/?pid=3684090&fmt=gif />
+    </noscript>
+</body>
+</html>

@@ -1,0 +1,27 @@
+/*----------------------------------------------------------------------------*\
+    #MIXINS DEBUG DESCRIPTION
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Show some help text :after an element, used in _debug.scss
+ * value: text (the description).
+ */
+
+@mixin debug-text($text) {
+
+    &::after {
+        position: absolute;
+        margin-top: rhythm(1);
+        border: 1px solid black;
+        background: gray;
+        color: black;
+        font-size: 12px;
+        content: $text;
+    }
+}
+
+
+@mixin no-debug-text() {
+
+    &::after { content: ''; }
+}

@@ -1,0 +1,29 @@
+{# Before and after taxonomy #}
+{% extends "base/base.twig" %}
+
+{% set collection = taxonomy.collection %}
+
+{% block panorama %}
+    {% include 'parts/panorama-buttons.twig' with { panorama : { title : collection.headers.title,  subtitle : collection.headers.intro}, filter : collection.filter } %}
+{% endblock %}
+
+{% block content %}
+    <div class="o-contain o-contain-padding js-filter-container">
+        <div class="js-filter-items">
+            {% if taxonomy.children %}
+                {% for taxonomy in taxonomy.children %}
+                    <div class="u-padding-rhythm-base">
+                        <h1 class="u-text-bold u-text-size-mega">{{taxonomy.title}}</h1>
+                        {% include "parts/collection.twig" with { posts : taxonomy.treatments} %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                {% include "parts/collection.twig" with { posts : taxonomy.treatments } %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block related %}
+    {% include "parts/cta/cta-default.twig" with { cta : collection.cta } %}
+{% endblock %}

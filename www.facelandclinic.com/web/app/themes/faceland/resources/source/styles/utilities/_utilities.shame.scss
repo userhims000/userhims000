@@ -1,0 +1,14 @@
+/*----------------------------------------------------------------------------*\
+    #UTILITIES SHAME
+\*----------------------------------------------------------------------------*/
+
+.modal__wrapper {
+    min-height: auto !important;
+    max-height: 0;
+    overflow: hidden;
+}
+
+.blockOverlay {
+    background-color: $color-white !important;
+    z-index: $layer-2 !important;
+}

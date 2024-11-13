@@ -1,0 +1,50 @@
+/*----------------------------------------------------------------------------*\
+    COMPONTENT #CONTENT
+\*----------------------------------------------------------------------------*/
+
+.c-content {
+    margin-top: rhythm(4);
+}
+
+.c-content__item {
+    @include rhythm-padding(2, 3);
+
+    .o-content__heading + p,
+    p + .c-btn {
+        margin-top: rhythm(1);
+    }
+
+    p {
+
+        strong {
+            font-weight: 700;
+        }
+
+        a {
+            text-decoration: underline;
+        }
+    }
+
+    @include breakpoint(medium) {
+
+        .o-grid__cell:first-child {
+            order: 1;
+        }
+    }
+}
+
+.c-content__image {
+    margin-bottom: rhythm(1);
+
+    @include breakpoint(medium) {
+        margin-bottom: 0;
+    }
+}
+
+.c-content--narrow {
+
+    .c-content__item {
+        @include contain-margin(auto);
+        max-width: rhythm(24);
+    }
+}

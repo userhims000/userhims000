@@ -1,0 +1,13 @@
+{% if card.titles.title and card.titles.subtitle %}
+    <div class="o-message c-message--info">
+        <div class="o-message__content u-text-size-epsilon">
+            {% if card.titles.title %}
+                <span class="u-text-bold u-block">{{ card.titles.title }}</span>
+            {% endif %}
+
+            {% if card.titles.subtitle %}
+                <span class="u-block">{{ card.titles.subtitle }}</span>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

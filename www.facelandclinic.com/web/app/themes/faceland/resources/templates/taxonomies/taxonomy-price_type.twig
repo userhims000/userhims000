@@ -1,0 +1,83 @@
+{# /prijzen/categorie/ #}
+
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+
+    {% if is_nl != true %}
+        {% include 'parts/panorama-buttons.twig' with { panorama : { title : taxonomy.headers.title,  subtitle : taxonomy.headers.intro }, filter  : taxonomy.filter } %}
+    {% endif %}
+
+    {% if is_nl == true %}
+        <div class="o-panorama c-panorama--background u-bg-gray-lightest c-panorama--treatment c-new-panorama--treatment f-bg-primary-bg u-margin-trailer-base mb-0">
+            <div class="o-contain o-contain-padding">
+                <div class=" u-text-center test-page pt-40 pb-40 pt-lg-56 pb-lg-56">
+                    {% if taxonomy.headers.title %}
+                        <h1 class="c-panorama__heading u-text-bold u-text-size-tera js-animation-element a-fade-in mb-0 a-inview">
+                        {{ taxonomy.headers.title }}</h1>
+                    {% endif %}
+                    {% if taxonomy.headers.intro %}
+                    <div class="c-panorama__text u-text-size-mega u-text-color-gray-dark js-animation-element a-fade-in a-inview d-lg-none">
+                        <p>{{ taxonomy.headers.intro }}</p>
+                    </div>
+                    {% endif %}
+                    {% if is_mobile == true %}
+                    <div class="d-lg-none pt-16">
+                        {% set priceFilter = taxonomy.filter %}   
+                        {% if priceFilter.options|length > 0 %}
+                            <ul class="price-tab-menu-main">
+                                {% if priceFilter.all %}
+                                    <li><a class="{{priceFilter.active ? 'active clicked'}}" href="{{ filter.all.url }}" title="{{ priceFilter.all.name }}" data-target=".{{priceFilter.all.name|lower}}">{{priceFilter.all.name}}</a></li>
+                                {% endif %}
+                                {% if priceFilter.christmas_price_types|length > 0 %}
+                                    {% for key, filter in priceFilter.christmas_price_types %}
+                                        <li><a href="{{ filter.link }}" title="{{filter.name}}" data-target=".{{ filter.name|lower|replace({' ': '_'}) }}" class="{{ filter.active ? 'active clicked' }}">{{ filter.name }}</a></li>
+                                    {% endfor %}
+                                {% else %}
+                                    {% for key, filter in priceFilter.options %}
+                                        <li><a href="{{ filter.link }}" title="{{ filter.name }}" data-target=".{{ filter.name|lower|replace({' ': '_'})}} }}" class="{{ filter.active ? 'active clicked' }}">{{ filter.name }}</a></li>
+                                    {% endfor %}
+                                {% endif %}    
+                            </ul>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+    {% if taxonomy.items|length > 0 %}
+        {% if is_nl != true  %}
+            <div class="o-contain o-contain-padding js-filter-container">
+                <div class="c-prices {{ (taxonomy.price_list_image is not empty) ? 'price-with-image' : ''  }}  u-flex u-flex-center-y u-flex-direction-column js-filter-items">
+                    {% include "parts/price/prices.twig" with {
+                        title : taxonomy.title,
+                        intro : taxonomy.intro,
+                        prices : taxonomy.items,
+                        tooltips : taxonomy.tooltips,
+                        overview : true,
+                        price_list_image : taxonomy.price_list_image,
+                    } %}
+                </div>
+            </div>
+        {% endif %}
+        {% if is_nl == true  %}
+            {% include "parts/price/new-prices.twig" with {
+                page_section_title : taxonomy.page_section_title,
+                filter : taxonomy.filter,
+                areaMapImageWithTreatments : taxonomy.areaMapImageWithTreatments 
+            } %}
+        {% endif %}
+    {% endif %}
+    {% if is_nl == true %}
+        {% if taxonomy.bottom %}
+            <article class="c-copy">
+                {{ taxonomy.bottom }}
+            </article>
+        {% endif %}
+    {% endif %}
+{% endblock %}

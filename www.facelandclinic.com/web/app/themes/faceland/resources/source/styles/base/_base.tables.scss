@@ -1,0 +1,43 @@
+/*----------------------------------------------------------------------------*\
+    #MODULES TABLES
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Default table styles.
+ */
+
+table {
+    width: 100%;
+}
+
+th,
+td {
+    @include rhythm-padding(.5);
+}
+
+th {
+    font-weight: inherit;
+    vertical-align: middle;
+}
+
+td {
+    vertical-align: bottom;
+}
+
+/**
+ * Table footer.
+ */
+
+// tfoot { font-style: italic; }
+
+/**
+ * Cell alignments.
+ */
+
+// [colspan] { text-align: center; }
+
+// [colspan='1'] { text-align: left; }
+
+// [rowspan] { vertical-align: middle; }
+
+// [rowspan='1'] { vertical-align: top; }

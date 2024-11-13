@@ -1,0 +1,18 @@
+{% if layout.section_title or layout.navigations|length > 0  %}
+<div class="go-to-direction">
+   {% if layout.section_title  %}
+      <div class="go-to-direction-title">
+         <h2>{{ layout.section_title }}</h2>
+      </div>
+   {% endif %}
+   {% for navigation in layout.navigations %}
+      {% if navigation.navigation_label %}
+        <a href="#{{ navigation.navigation_id_attribute }}">
+          <span class="section-link">
+            <span class="link-number">{{ loop.index  }}.</span> <span class="link-text">{{ navigation.navigation_label }}</span>
+          </span>
+        </a>
+      {% endif %}
+   {% endfor %}
+</div>
+{% endif %}

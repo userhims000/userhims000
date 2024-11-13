@@ -1,0 +1,11 @@
+{% include "layouts/layout-title_text.twig" with { layout : {title : content.titles.title, text: content.titles.intro}} %}
+
+{% if content.posts|length > 0 %}
+    {% for card in content.posts %}
+        {% if card.show == 'single' %}
+            {% include "layouts/layout-image.twig" with { layout : card.single_image } %}
+        {% else %}
+            {% include "layouts/layout-before_after.twig" with { layout : card.ba } %}
+        {% endif %}
+    {% endfor %}
+{% endif %}

@@ -1,0 +1,44 @@
+{# treatment taxonomy type #}
+{% extends "base/base.twig" %}
+
+
+{% block panorama %}
+    {# {% if rokit_get_query_param('debug') != 'development' %}
+      {% include 'parts/panorama-default.twig' with { panorama :{title : taxonomy.title, subtitle : taxonomy.intro }} %}
+    {% endif %} #}
+{% endblock %}
+
+
+
+{% block content %}
+        {# {% if rokit_get_query_param('debug') != 'development' %}
+            <div class="o-contain o-contain-padding">
+                {% include "parts/collection.twig" with { posts : taxonomy.items, filterable : true } %}
+                {% include "parts/treatment/cta.twig" with { cta : taxonomy.cta, color : taxonomy.color } %}
+                {% include "parts/treatment/why.twig" with { why : taxonomy.why } %}
+            </div>
+        {% else %} #}
+            {% include "parts/treatment/videos.twig" with { videos : taxonomy.videos } %}
+            {% if not is_mobile %}
+                {% include "parts/treatment/treatment-category-carousel.twig" with { catcarousels : taxonomy.catcarousels }  %}
+            {% endif %}
+            {% if is_mobile %}
+                {% include "parts/treatment/go-navigation.twig" with { gonavigation : taxonomy.gonavigation } %}
+            {% else %}
+                {% include "parts/treatment/go-navigation-desktop.twig" with { gonavigation : taxonomy.gonavigation } %}
+            {% endif %}
+            {% include "parts/treatment/reviews-display.twig" with { reviews : taxonomy.reviews }  %}
+            <div id="{{ taxonomy.gonavigation.data[0]['navigation_label'] }}" class="o-contain o-contain-padding filter-collection">
+                {% include "parts/collection.twig" with { posts : taxonomy.items, filterable : true } %}
+            </div>
+            {% include "parts/treatment/deals.twig" with { deals : taxonomy.deals , section_label : taxonomy.gonavigation.data[1]['navigation_label'] }  %}
+            {% include "parts/treatment/news.twig" with { news : taxonomy.news , section_label : taxonomy.gonavigation.data[2]['navigation_label'] } %}
+            {% include "parts/columns.twig" with { content : taxonomy.bottom } %}
+        {# {% endif %} #}    
+{% endblock %}
+{% block related %}
+    {# {% if rokit_get_query_param('debug') != 'development' %}
+        {% include "parts/columns.twig" with { content : taxonomy.bottom } %}
+    {% endif %} #}
+{% endblock %}
+

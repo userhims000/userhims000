@@ -1,0 +1,13 @@
+{% set cardType = cardType ? cardType : 'default' %}
+
+<div class="c-carousel-wrapper">
+    <div class="c-carousel-nav">
+        <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--prev u-bg-gray-darker js-carousel-prev">{{pll__('Vorige')}}</button>
+        <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--next u-bg-gray-darker js-carousel-next">{{pll__('Volgende')}}</button>
+    </div>
+    <div class="c-cards c-carousel c-carousel--cards js-card-carousel">
+        {% for card in items %}
+            {% include 'parts/cards/card-' ~ cardType ~ '.twig' with { carouselItem : true }%}
+        {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,83 @@
+{% if not is_mobile %}
+    {% if layout.show_news_desktop %}
+        <div class="o-contain o-contain-padding news-section-wrap specialist-section" bg-image-url="">
+            <div class="c-intro--column  c-d-global-section">
+                    <div class="u-text-center">
+                    {% if layout.news_main_title %}
+                            <h2 class="u-text-bold section-sub-title">{{ layout.news_main_title }}</h2>
+                    {% endif %}
+                    {% if layout.news_main_description %}
+                            <div class="news_brief">{{ layout.news_main_description }}</div> 
+                    {% endif %}
+                    </div>
+            </div>
+            <div class="news-listing-wrap">
+                    <ul id="news_wrap_0" class="news_desktop_wrap">
+                    {% set counter = 0 %}
+                    {% for list in layout.news_list %}
+                        {% set attachmentId = list.blog_article_image %}
+                        {% set attachmentUrl = function('wp_get_attachment_url', attachmentId) %}
+                        {% if counter == 4 %}
+                            </ul>
+                            <ul id={{ 'news_wrap_' ~ counter }} class="news_desktop_wrap">
+                            {% set counter = 0 %}
+                        {% endif %}
+                        {% set postPermalink = function('rokit_get_post_permalink', list.id) %}
+                        <a class="news-link" href="{{ postPermalink }}"><div class="news-section">
+                            <div class="news-left">
+                                {% if attachmentUrl %}
+                                    <img class="" data-src-retina="" title="{{ list.post_title }}" alt="{{ list.post_title }}" src="{{ attachmentUrl }}">
+                                {% endif %}
+                            </div>
+                            <div class="news-right">
+                                {% set postTitle = list.post_title|slice(0, 22) ~ '..' %}
+                                {% set postTitleLower  = postTitle | capitalize %}
+                                {% set postDescription = function('rokit_get_news_description', list.id)|slice(0, 26) ~ '..' %}
+                                <h5 class="news-title">{{ postTitleLower }}</h5>
+                                <p class="news-description">{{ postDescription }}</p>
+                            </div>
+                        </div></a>
+                        {% set counter = counter + 1 %}
+                    {% endfor %}
+                    </ul>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}
+{% if is_mobile %}
+    {% if layout.show_news_mobile %}
+        <div class="o-contain o-contain-padding news-section-wrap" bg-image-url="">
+            <div class="c-intro--column  deals-and-facecard-section">
+                    <div class="u-text-center">
+                    {% if layout.news_main_title %}
+                            <h2 class="u-text-bold section-sub-title">{{ layout.news_main_title }}</h2>
+                    {% endif %}
+                    {% if layout.news_main_description %}
+                        <p>{{ layout.news_main_description }}</p>
+                    {% endif %}
+                    </div>
+            </div>
+            <div class="news-listing-wrap">
+                {% for list in layout.news_list %}
+                {% set attachmentId = list.blog_article_image %}
+                {% set attachmentUrl = function('wp_get_attachment_url', attachmentId) %}
+                {% set postPermalink = function('rokit_get_post_permalink', list.id) %}
+                    <a class="news-link" href="{{ postPermalink }}"><div class="news-section">
+                        <div class="news-left"> 
+                            {% if attachmentUrl %}
+                                <img class="" data-src-retina="" title="{{ list.post_title }}" alt="{{ list.post_title }}" src="{{ attachmentUrl }}">
+                            {% endif %}
+                        </div>
+                        <div class="news-right">
+                            {% set postTitle = list.post_title|slice(0, 33) ~ '...' %}
+                            {% set postTitleLower = postTitle | capitalize %}
+                            {% set postDescription = function('rokit_get_news_description', list.id)|slice(0, 40) ~ '...' %}
+                            <h5 class="news-title">{{ postTitleLower }}</h5>
+                            <p class="news-description">{{ postDescription }}</p>
+                        </div>
+                    </div></a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endif %}

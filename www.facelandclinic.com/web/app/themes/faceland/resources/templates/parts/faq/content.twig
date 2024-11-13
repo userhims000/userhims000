@@ -1,0 +1,7 @@
+{% set posts = content.faq ? content.faq : content.items %}
+{% set title =  content.long_title ? content.long_title :  content.title %}
+
+{% include "layouts/layout-title_text.twig" with { layout : { title : title, text : content.intro.long, title_heading : content.long_title_heading } } %}
+{% include "parts/connect.twig" with { contacts : contacts.online, title : content.collection.contact.short } %}
+{% include "parts/media.twig" with { media : content.media } %}
+{% include "parts/collection-faq.twig" with { posts : posts } %}

@@ -1,0 +1,54 @@
+{% if panorama|length > 0 %}
+    {% set type = panorama.type %}
+
+    {% if type == 'video' or type == 'image' %}
+        <div class="o-panorama c-panorama--image c-panorama--mask c-panorama--vh c-panorama--light-background c-panorama--arrow u-flex-sm u-flex-center">
+            <figure class="o-panorama__image">
+                {% if type == 'video' %}
+                    {% set autoplay = 'autoplay playsinline' %}
+                    <video {{autoplay}} loop muted class="o-panorama__image c-panorama__video js-video-cover" id="embed" poster="{{rokit_get_attachment(panorama.video.thumbnail)}}" data-object-fit>
+                        <source src="{{ panorama.video.url }}" type="video/mp4">
+                    </video>
+                {% else %}
+                    {{ rokit_get_image(panorama.image, 'video-panorama', panorama.title) }}
+                {% endif %}
+            </figure>
+
+            {% if panorama.title or panorama.subtitle %}
+                <div class="o-panorama__content u-text-center">
+                    <div class="o-contain o-contain-padding">
+                        {% if panorama.title %}
+                            <h1 class="c-panorama__heading u-text-bold u-text-size-tera u-text-color-white js-animation-element a-fade-in">{{panorama.title}}</h1>
+                        {% endif %}
+                        {% if panorama.subtitle %}
+                            <p class="u-text-size-mega u-text-color-white js-animation-element a-fade-in">{{ panorama.subtitle }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <span class="c-arrow c-arrow--down">{{pll__('Scroll naar beneden')}}</span>
+
+            {% set maskClass = maskClass ? maskClass : 'c-mask--tertiary-light' %}
+            {% include "parts/mask.twig" with { classes : maskClass } %}
+        </div>
+
+        {% if facts|length > 0 %}
+            <div class="c-traits c-traits--clean u-bg-tertiary-light">
+                {% for fact in facts %}
+                    <div class="c-traits__item u-text-center js-animation-element a-fade-in a-delay">
+                        {% if fact.name %}
+                            <span class="c-traits__type u-text-size-nano u-text-color-gray-dark u-text-bold">{{fact.name|upper}}</span>
+                        {% endif %}
+                        {% if fact.amount %}
+                            <span class="c-traits__value u-text-size-tera">{{fact.amount}}</span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    {% else %}
+        {% include 'parts/panorama-default.twig' with { panorama : panorama } %}
+    {% endif %}
+{% endif %}

@@ -1,0 +1,16 @@
+{% set titleClass       = titleClass ? titleClass : 'u-text-size-giga u-text-bold' %}
+{% set upperFilter      = upperFilter ? upperFilter : true %}
+{% set subtitle         = upperFilter ? intro.subtitle|upper : intro.subtitle %}
+{% set subtitleClass    = subtitleClass ? subtitleClass : 'u-text-size-alpha u-text-color-gray' %}
+{% set spacingClass     = removeMarginTop ? '' : 'u-margin-leader-gamma' %}
+
+{% if intro.title or intro.subtitle %}
+    <div class="c-intro u-text-center {{spacingClass}}">
+        {% if intro.title %}
+            <h2 class="{{titleClass}}">{{intro.title}}</h2>
+        {% endif %}
+        {% if intro.subtitle %}
+            <p class="{{subtitleClass}}">{{subtitle}}</p>
+        {% endif %}
+    </div>
+{% endif %}

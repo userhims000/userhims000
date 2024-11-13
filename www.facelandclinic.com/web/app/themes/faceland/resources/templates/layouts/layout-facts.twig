@@ -1,0 +1,25 @@
+{% if layout.facts_details|length > 0 %}
+    <div class="c-traits c-traits--clean u-bg-tertiary-light u-bg-tertiary-dark-bg c-fact-traits facts-section">
+        {% set facts = layout.facts_details %}
+        {% for fact in facts %}
+            <div class="c-traits__item u-text-center js-animation-element a-fade-in a-delay">
+                {% if is_mobile == true %}
+                    {% if fact.name %}
+                        <span class="c-traits__type u-text-size-nano u-text-bold">{{fact.name}}</span>
+                    {% endif %}
+                    {% if fact.amount %}
+                        <span class="c-traits__value u-text-size-tera ">{{fact.amount}}</span>
+                    {% endif %}
+                {% else %}
+                    {% if fact.amount %}
+                        <span class="c-traits__value u-text-size-tera">{{fact.amount}}</span>
+                    {% endif %}
+                    {% if fact.name %}
+                        <span class="c-traits__type u-text-size-nano u-text-bold">{{fact.name}}</span>
+                    {% endif %}
+                {% endif %}    
+
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

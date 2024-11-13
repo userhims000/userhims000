@@ -1,0 +1,88 @@
+{
+    "key": "group_5f119a35d9ba3",
+    "title": "Faceland in store : General",
+    "fields": [
+        {
+            "key": "field_5f119a3611f6d",
+            "label": "Background",
+            "name": "page_color_background",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#F2E6DC",
+            "translations": "copy_once"
+        },
+        {
+            "key": "field_5f119a3611fa6",
+            "label": "Button",
+            "name": "page_color_button",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#5A4E45",
+            "translations": "copy_once"
+        },
+        {
+            "key": "field_5f119a3611fb1",
+            "label": "Title",
+            "name": "page_color_title",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#5A4E45",
+            "translations": "copy_once"
+        },
+        {
+            "key": "field_5f119a3611fbd",
+            "label": "Text",
+            "name": "page_color_text",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#5A4E45",
+            "translations": "copy_once"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "6330"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1594989327
+}

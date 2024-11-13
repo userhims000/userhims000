@@ -1,0 +1,116 @@
+{
+    "key": "group_5d78fe1b4fe77",
+    "title": "Album : Items",
+    "fields": [
+        {
+            "key": "field_5d78fe31986d5",
+            "label": "Overwrite default",
+            "name": "ba_album_items_overwrite",
+            "type": "true_false",
+            "instructions": "By default the before and after items of the treatment (related to this album) will be loaded. If you wish to overwrite this, please select this here. If you add more than 1 set of items tabs will be shown in the panorama of this page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Overwrite default items from related treatment",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_5d78fe4d66d75",
+            "label": "Items",
+            "name": "ba_album_items",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5d78fe31986d5",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_5d78fecf2d5d0",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Add items set",
+            "sub_fields": [
+                {
+                    "key": "field_5d78fecf2d5d0",
+                    "label": "Title",
+                    "name": "tab",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_5d78fed52d5d1",
+                    "label": "Items",
+                    "name": "items",
+                    "type": "relationship",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "ba"
+                    ],
+                    "taxonomy": "",
+                    "filters": [
+                        "search"
+                    ],
+                    "elements": "",
+                    "min": 1,
+                    "max": "",
+                    "return_format": "id"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "ba_album"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1568284112
+}

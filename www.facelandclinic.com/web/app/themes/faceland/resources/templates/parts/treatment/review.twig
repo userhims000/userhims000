@@ -1,0 +1,52 @@
+{% if review|length > 0 %}
+    <div class="c-review u-flex-md u-flex-start-y">
+        {% if review.grade %}
+            <div class="c-review__avatar">
+                <div class="o-image o-image--round o-image--mini c-review-avatar__image u-bg-primary">
+                    <span class="u-text-size-mega u-text-color-white u-text-bold">{{ review.grade }}</span>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="c-review__body">
+            {% if review.name or review.date %}
+                <div class="u-flex-sm u-flex-space-between-x">
+                    {% if review.name %}
+                        <h3 class="c-review__heading u-text-size-epsilon u-text-bold u-text-uppercase">{{review.name}}</h3>
+                    {% endif %}
+                    {% if review.date %}
+                        <time class="u-text-size-epsilon u-text-color-gray" datetime="{{ review.review_date|date("Y-m-d") }}">{{ review.review_date|date("j F Y") }}</time>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            {% if review.text %}
+                <p class="c-review__quote u-text-size-epsilon">
+                    <q cite="{{ review.url }}">{{ review.text }}</q>
+                    {% if review.url %}
+                        <a class="u-text-underline" href="{{ review.url }}" rel="external" data-router-disabled title="{{ pll__('Lees meer') }}">{{ pll__('Lees meer') }}</a>
+                    {% endif %}
+                </p>
+            {% endif %}
+
+            {% if review.location or review.specialist %}
+                <div class="c-review__info">
+                    <div class="o-grid o-grid--with-gutter u-1of2--sm">
+                        {% if review.location %}
+                            <div class="o-grid__cell">
+                                <span class="u-block u-text-size-epsilon u-text-color-gray">{{pll__('Kliniek')}}</span>
+                                <a class="u-block u-text-size-epsilon" href="{{ review.location.link }}" title="{{ review.location.title }}" rel="external">{{ review.location.title }}</a>
+                            </div>
+                        {% endif %}
+                        {% if review.specialist %}
+                            <div class="o-grid__cell">
+                                <span class="u-block u-text-size-epsilon u-text-color-gray">{{pll__('Specialist')}}</span>
+                                <a class="u-block u-text-size-epsilon" href="{{ review.specialist.link }}" title="{{ review.specialist.fullname }}" rel="external">{{ review.specialist.fullname }}</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

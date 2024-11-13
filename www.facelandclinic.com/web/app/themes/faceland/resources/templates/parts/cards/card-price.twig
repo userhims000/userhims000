@@ -1,0 +1,442 @@
+{% set itemClass    = overview ? '' %}
+{% set hoverClass   = (card.show_popup or overview) ? 'c-list__item--hover' %}
+{% set content      = card.show_popup  ? "<div><h3 class='u-text-size-delta u-text-bold'>"~card.popup_title~"</h3><p>"~card.popup_text|replace({'"':'\''})|raw~"</p></div>" %}
+{% set modalContent = card.show_popup  ? 'data-featherlight="'~content|replace({'"':'\''})|raw~'"' %}
+{% set tooltip      = card.show_popup  ? '<span class="c-tooltip">' ~ pll__("Tooltip icon") ~ '</span>' %}
+{% set show_sale    = card.show_sale  ? '<span class="c-list__label o-label u-bg-primary u-text-size-nano u-text-color-white">' ~ card.sale_label|upper ~ '</span>' %}
+{% set label        = overview and card.label|length > 0 ? '<span class="c-list__label o-label u-bg-primary u-text-size-nano u-text-color-white">' ~ card.label|upper ~ '</span>' %}
+{% set priceClass   = overview  ? 'o-link c-link--arrow ' %}
+{% set randomNumber = loop.index ~ '-' ~ random(1, 2000) %}
+{% set lowest_price = card.lowest_prices %}
+{% set show_christmas_prices  = price_settings.show_christmas_price_list %}    
+{% set show_christmas_prices_column  = price_settings.show_christmas_price_list_column %}    
+{# {% if price_settings.toggle == false %}
+    {% set toggleCls = 'no-toggle' %}
+{% endif  %} #}
+ {% if price_settings.toggle == false and facecard == false or price_settings.toggle == true and facecard == false %}
+    {% set toggleCls = 'single-no-toggle' %}
+{% elseif price_settings.toggle == false and get_query_object.slug != 'borstcorrectie' %}
+    {% if get_query_object.slug != 'borstcorrectie' %}    
+        {% set toggleCls = 'no-toggle' %}
+    {% endif %}
+{% endif %}
+{% if overview %}
+    {% set gridClass =  facecard ? 'u-cell-1of2--md' : 'u-cell-3of4--md'  %}
+    {% if show_christmas_prices == true %}
+        {% set gridClass = 'u-cell-1of2--md' %}
+    {% endif  %}
+        
+    <li class="c-list__item {{hoverClass}} {{ itemClass }}" {{modalContent}}>
+        {% set cls = "" %}
+        
+       
+         {% if card.price_treatment_page_link != '' %}
+             <a href="{{ function('get_permalink', card.price_treatment_page_link) }}">
+        {% endif %}      
+            <div class="c-list__header c-prices_new-grid {{ cls }}">
+                {% if show_christmas_prices != true %}
+                    <div class="o-grid o-grid--with-gutter">
+                            <div class="o-grid__cell u-cell-1of2--sm {{ gridClass }} image-with-title {{ toggleCls }}">
+                                <div class="o-media__image">
+                                    {{ rokit_get_image(card.thumbnail, 'avatar-mini', card.title, 'o-image o-image--round o-image--mini') }}
+                                </div>
+                                <h4 class="c-list__heading u-text-size-epsilon u-text-bold o-grid--center-y cardTitle">{{card.title}} {{tooltip}} {{ label }} {{ show_sale }}</h4>
+                            </div>
+                        {% if card.title %}
+                            <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md toggleSwitch second-col {{ toggleCls }}">
+                                <span class="c-list__heading--sub u-text-size-epsilon u-text-color-gray-darkest column-price-1 h5 js-toggle-content active" data-id="1">
+                                    <div class="o-grid single-line-data">
+                                        <div class="main-price-with-lower {{ (get_query_object.slug == "chirurgie" and facecard == true) ? 'ml-45' : '' }}">
+                                        {% if lowest_price.main_price|length > 1 %}
+                                            {% if lowest_price.main_price.price_lowest_practitioner_external == true %}
+                                                {% set targetBlank1 = '_blank' %}
+                                            {% else %}        
+                                                {% set targetBlank1 = '' %}
+                                            {% endif %}
+                                            <div class="o-grid__cell u-cell-1of2 lower-main-price">
+                                            {#
+                                            {% if is_be != true %}
+                                                <a href="{{ lowest_price.main_price.price_lowest_practitioner_url }}" target="{{ targetBlank1 }}">
+                                            {% endif  %} #}
+                                                    <del>{{ lowest_price.main_price.price_lowest_practitioner }}</del>
+                                            {#
+                                            {% if is_be != true %}
+                                                </a>
+                                            {% endif  %}
+                                            #}
+                                            </div>
+                                        {% endif  %}    
+                                            {% if lowest_price.doctor.price_lowest_price_doctor_external == true %}
+                                                {% set targetBlank2 = '_blank' %}    
+                                            {% else %}        
+                                                {% set targetBlank2 = '' %}
+                                            {% endif %}
+                                            <div class="o-grid__cell u-cell-1of2 lower-price-doctor">
+                                               {% if price_settings.toggle == true and facecard != false and get_query_object.slug != 'borstcorrectie' or price_settings.toggle == false and facecard == false or price_settings.toggle == true and facecard == false  %}  
+                                               {#   
+                                                    {% if is_be != true %}
+                                                    <a href="{{ lowest_price.doctor.price_lowest_price_doctor_url }}" target="{{ targetBlank2 }}">
+                                                    {% endif  %}
+                                                 #}   
+                                                        {{ lowest_price.doctor.price_lowest_price_doctor }}
+                                                  {#      
+                                                    {% if is_be != true %}
+                                                        </a>
+                                                    {% endif  %}
+                                                  #}  
+                                                {% endif  %}    
+                                            {% if price_settings.toggle == false and facecard != false and get_query_object.slug != 'borstcorrectie'  %}  
+                                            {#  
+                                                {% if is_be != true %}
+                                                    <a href="{{ lowest_price.doctor.price_lowest_price_doctor_url }}" target="{{ targetBlank2 }}">
+                                                    {% endif  %}  #}  
+                                                        {{ lowest_price.doctor.price_lowest_price_doctor }}
+                                                      {#  
+                                                    {% if is_be != true %}
+                                                    </a>
+                                                {% endif %}
+                                                #}
+                                            {% endif %}    
+                                            </div>
+                                        </div>
+                                        {% if price_settings.toggle == false and facecard != false and get_query_object.slug != 'borstcorrectie'  %}
+                                            {% if is_be_fr != true and is_be != true   %}
+                                                <div class="lower-premium-price-section  ">
+                                                    <div class="o-grid__cell u-cell-1of2 lower-main-price">
+                                                    {#
+                                                        {% if is_be != true %}
+                                                            <a href="{{ lowest_price.main_facecard_premium.price_lowest_main_price_facecard_url }}" target="{{ lowest_price.main_facecard_premium.price_lowest_practitioner_external_facecard }}">
+                                                        {% endif  %} #}
+                                                                <del>{{ lowest_price.main_facecard_premium.price_lowest_main_price_facecard }}</del>
+                                                                {#
+                                                        {% if is_be != true %}
+                                                            </a>
+                                                        {% endif  %} #}
+                                                    </div>
+                                                    <div class="o-grid__cell u-cell-1of2 lower-price-doctor">
+                                                    {#
+                                                        {% if is_be != true %}
+                                                        <a href="{{ lowest_price.facecard.price_lowest_price_facecard_url }}" target="{{ targetBlank4 }}">
+                                                        {% endif  %} #}
+                                                            {{ lowest_price.facecard.price_lowest_price_facecard }}
+                                                            {#
+                                                        {% if is_be != true %}
+                                                        </a>
+                                                        {% endif %} #}
+                                                    </div>
+                                                </div>
+                                            {% endif %}    
+                                        {% endif %}
+                                    </div>
+                                </span>
+                                <span class="c-list__heading--sub u-text-size-epsilon u-text-color-gray-darkest column-price-2  js-toggle-content" data-id="2">
+                                    {% if lowest_price.trainer.lowest_price_trainer_external == "true" %}
+                                        {% set targetBlank3 = '_blank' %}    
+                                    {% else %}        
+                                        {% set targetBlank3 = '' %}
+                                    {% endif %}
+                                    <div class="o-grid">
+                                        <div class="o-grid__cell u-cell-1of2 {{ (get_query_object.slug == "chirurgie" and facecard == true) ? 'facecard-permium-ml-45' : '' }}">
+                                        {#
+                                            {% if is_be != true %}
+                                                <a href="{{ lowest_price.trainer.lowest_price_trainer_url }}" target="{{ targetBlank3 }}">
+                                            {% endif  %} #}
+                                                {{ lowest_price.trainer.lowest_price_trainer }}
+                                                {#
+                                            {% if is_be != true %}
+                                                </a>
+                                            {% endif  %} #}
+                                        </div>
+                                    </div>
+                                </span>
+                            </div>
+                            {% if facecard %}
+                                {% if get_query_object.slug != "chirurgie"  %}
+                                    <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md exclusive toggleSwitch third-col {{ toggleCls }}  ">
+                                        {% if facecard == true and price_settings.toggle != false and facecard != true and price_settings.toggle != true %}
+                                            <div class="parallel-strike-price">
+                                        {% endif %}
+                                        {% if facecard == true and price_settings.toggle != false %}
+                                            <span class="c-list__heading--sub u-text-size-epsilon u-text-color-gray-darkest u-text-bold  column-price-1 h1 js-toggle-content active strikeprice" data-id="1">
+                                            {#
+                                                {% if is_be != true %}
+                                                    <a href="{{ lowest_price.main_facecard_premium.price_lowest_main_price_facecard_url }}" target="{{ lowest_price.main_facecard_premium.price_lowest_practitioner_external_facecard }}">
+                                                {% endif  %} #}
+                                                        <del>{{ lowest_price.main_facecard_premium.price_lowest_main_price_facecard }}</del>
+                                                {#
+                                                {% if is_be != true %}
+                                                    </a>
+                                                {% endif  %} #}
+                                            </span>
+                                        {% endif %}
+                                        {% if is_be_fr == true and price_settings.toggle == true or is_be_fr == true and facecard == true or is_be == true and price_settings.toggle == true or is_be == true and facecard == true   %}
+                                            <span class="c-list__heading--sub u-text-size-epsilon u-text-color-gray-darkest u-text-bold  column-price-1 h2 js-toggle-content active {{ (lowest_price.main_facecard_premium.price_lowest_main_price_facecard != "") ? 'non-strikeprice' : '' }}" data-id="1">        
+                                            {% if price_settings.toggle == true %}
+                                            {#
+                                                {% if is_be != true %}
+                                                    <a href="{{ lowest_price.facecard.price_lowest_price_facecard_url }}" target="{{ targetBlank4 }}">
+                                                {% endif  %} #}
+                                                    {{ lowest_price.facecard.price_lowest_price_facecard }}
+                                                   {# 
+                                                {% if is_be != true %}
+                                                    </a>
+                                                {% endif %} #}
+                                            {% endif %}    
+                                            {% if price_settings.toggle == false %}
+                                            {#
+                                                {% if is_be != true %}
+                                                <a href="{{ lowest_price.doctor.price_lowest_price_doctor_url }}" target="{{ targetBlank2 }}">
+                                                {% endif  %}    #}
+                                                    {{ lowest_price.trainer.lowest_price_trainer }}
+                                                    {#
+                                                {% if is_be != true %}
+                                                    </a>
+                                                {% endif  %} #}
+                                            {% endif %}    
+                                            </span>
+                                        {% elseif is_be_fr != true and get_query_object.slug != "chirurgie" and is_be != true %}
+                                            <span class="c-list__heading--sub u-text-size-epsilon u-text-color-gray-darkest u-text-bold  column-price-1 h3 js-toggle-content active {{ (facecard == true and price_settings.toggle != false) ? 'non-strikeprice' : '' }}" data-id="1">
+                                            {% if price_settings.toggle == true %}
+                                            {#
+                                                {% if is_be != true %}
+                                                    <a href="{{ lowest_price.facecard.price_lowest_price_facecard_url }}" target="{{ targetBlank4 }}">
+                                                {% endif  %} #}
+                                                    {{ lowest_price.facecard.price_lowest_price_facecard }}
+                                                 {#   
+                                                {% if is_be != true %}
+                                                    </a>
+                                                {% endif %} #}
+                                            {% endif %}    
+                                            {% if price_settings.toggle == false %}
+                                            {#
+                                                {% if is_be != true %}
+                                                <a href="{{ lowest_price.doctor.price_lowest_price_doctor_url }}" target="{{ targetBlank2 }}">
+                                                {% endif  %}   #}
+                                                    {{ lowest_price.trainer.lowest_price_trainer }}
+                                                {#
+                                                {% if is_be != true %}
+                                                    </a>
+                                                {% endif  %} #}
+                                            {% endif %}    
+                                            </span>    
+                                        {% endif %}
+                                        {% if facecard == true and price_settings.toggle != false and facecard != true and price_settings.toggle != true %}
+                                            </div>
+                                        {% endif %}
+                                        {% if lowest_price.facecard.price_lowest_price_facecard_url_external == "true" %}
+                                            {% set targetBlank4 = '_blank' %}    
+                                        {% else %}        
+                                            {% set targetBlank4 = '' %}
+                                        {% endif %}
+                                        {% if price_settings.toggle == false and get_query_object.slug != 'borstcorrectie' and is_be_fr != true and get_query_object.slug != 'chirurgie' and is_be != true  %}
+                                            <span class="c-list__heading--sub u-text-size-epsilon u-text-color-gray-darkest u-text-bold column-price-1 h4 js-toggle-content active" data-id="1">
+                                            {#
+                                                    {% if is_be != true %}
+                                                    <a href="{{ lowest_price.facecard_premium.price_lowest_price_facecard_trainer_url }}" target="{{ targetBlank4 }}">
+                                                    {% endif  %} #}
+                                                        {{ lowest_price.facecard_premium.price_lowest_price_facecard_trainer }}
+                                                        {#
+                                                    {% if is_be != true %}
+                                                    </a>
+                                                    {% endif %}
+                                                    #}
+                                            </span>
+                                        {% endif %}
+                                        {% if lowest_price.facecard_premium.price_lowest_price_facecard_trainer_external == "true" %}
+                                            {% set targetBlank5 = '_blank' %}    
+                                        {% else %}        
+                                            {% set targetBlank5 = '' %}
+                                        {% endif %}
+                                        <span class="c-list__heading--sub u-text-size-epsilon u-text-color-gray-darkest u-text-bold  column-price-2 js-toggle-content " data-id="2">
+                                        {#
+                                            {% if is_be != true %}
+                                            <a href="{{ lowest_price.facecard_premium.price_lowest_price_facecard_trainer_url }}" target="{{ targetBlank5 }}">
+                                            {% endif  %} #}
+                                                {{ lowest_price.facecard_premium.price_lowest_price_facecard_trainer }}
+                                                {#
+                                            {% if is_be != true %}
+                                            </a>
+                                            {% endif  %}
+                                            #}
+                                        </span>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                {% endif %}
+                {% if show_christmas_prices == true %}
+                    <div class="o-grid o-grid--with-gutter new-price-col-{{ show_christmas_prices_column }} {{ (is_mobile == true  ) ? 'new-price-layout' : '' }}  ">
+                       <div class="o-grid__cell u-cell-1of2--sm {{ gridClass }} image-with-title no-toggle">
+                            <div class="o-media__image">
+                                {{ rokit_get_image(card.thumbnail, 'avatar-mini', card.title, 'o-image o-image--round o-image--mini') }}
+                            </div>
+                            {% if (is_mobile != true) %}
+                                <a href="{{ card.navigation_link ? card.navigation_link : 'javascript:;' }}"><h4 class="c-list__heading u-text-size-epsilon u-text-bold o-grid--center-y cardTitle">{{card.title}} {{tooltip}} {{ label }} {{ show_sale }}</h4><span>{{ card.below_title_text }}</span></a>
+                            {% endif %}
+                       </div>
+                       {% if is_mobile == true  %}
+                        <div class="o-grid-wrapper">
+                       {% endif %}
+                        
+                        {% if is_mobile == true  %}
+                            <a href="{{ card.navigation_link ? card.navigation_link : 'javascript:;' }}"><h4 class="c-list__heading u-text-size-epsilon u-text-bold o-grid--center-y cardTitle">{{card.title}} {{tooltip}} {{ label }} {{ show_sale }}</h4> <span>{{ card.below_title_text }}</span></a>
+                        {% endif %}
+                           <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md toggleSwitch second-col {{ show_christmas_prices_column == 1 ? '' : 'no-toggle' }}">
+                              <span class="c-list__heading--sub u-text-size-epsilon u-text-color-gray-darkest column-price-1 h5 js-toggle-content active" data-id="1">
+                                 <div class="o-grid single-line-data">
+                                    {% if lowest_price.christmas_price_list.christmas_behandelaar_price != '' or 
+                                    lowest_price.christmas_price_list.christmas_behandelaar_price_discount != '' %}
+                                        <div class="main-price-with-lower">
+                                        {% if lowest_price.christmas_price_list.christmas_behandelaar_price %}
+                                           <div class="o-grid__cell u-cell-1of2 lower-main-price">
+                                            {% if lowest_price.christmas_price_list.christmas_behandelaar_price_striketrough %}
+                                                <del>
+                                            {% endif %}
+                                              {{ lowest_price.christmas_price_list.christmas_behandelaar_price }}
+                                            {% if lowest_price.christmas_price_list.christmas_behandelaar_price_striketrough %}
+                                                </del>
+                                            {% endif %}
+                                           </div>
+                                        {% endif %}
+
+                                        {% if lowest_price.christmas_price_list.christmas_behandelaar_price_discount %}   
+                                           <div class="o-grid__cell u-cell-1of2 lower-price-doctor">
+                                            {% if lowest_price.christmas_price_list.christmas_behandelaar_price_discount_striketrough %}
+                                                <del>
+                                            {% endif %}
+                                              {{ lowest_price.christmas_price_list.christmas_behandelaar_price_discount }}
+                                            {% if lowest_price.christmas_price_list.christmas_behandelaar_price_discount_striketrough %}
+                                                </del>
+                                            {% endif %}  
+                                           </div>
+                                        {% endif %}   
+                                        </div>
+                                    {% endif %}
+                                    <div class="lower-premium-price-section">
+                                        {% if lowest_price.christmas_price_list.behandelaar_price %}    
+                                           <div class="o-grid__cell u-cell-1of2 lower-main-price">
+                                            {% if lowest_price.christmas_price_list.behandelaar_price_striketrough %}
+                                                <del>
+                                            {% endif %}
+                                              {{ lowest_price.christmas_price_list.behandelaar_price }}
+                                            {% if lowest_price.christmas_price_list.behandelaar_price_striketrough %}
+                                                </del>
+                                            {% endif %}
+                                           </div>
+                                        {% endif %} 
+                                        {% if lowest_price.christmas_price_list.behandelaar_price_discount %}
+                                            <div class="o-grid__cell u-cell-1of2 lower-price-doctor">
+                                            {% if lowest_price.christmas_price_list.behandelaar_price_discount_striketrough %}
+                                                <del>
+                                            {% endif %}
+                                            {{ lowest_price.christmas_price_list.behandelaar_price_discount }}
+                                            {% if lowest_price.christmas_price_list.behandelaar_price_discount_striketrough %}
+                                                </del>
+                                            {% endif %}
+                                            </div>
+                                       {% endif %}
+                                    </div>
+                                 </div>
+                              </span>
+                           </div>
+                           {% if lowest_price.christmas_price_list.premium_price or lowest_price.christmas_price_list.premium_price_discount or lowest_price.christmas_price_list.facecard_price or lowest_price.christmas_price_list.facecard_price_discount  %}
+                           <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md exclusive toggleSwitch third-col {{ show_christmas_prices_column == 2 ? '' : 'no-toggle' }}  ">
+                              {% if lowest_price.christmas_price_list.premium_price or lowest_price.christmas_price_list.premium_price_discount %}
+                              <span class="c-list__heading--sub u-text-size-epsilon u-text-color-gray-darkest u-text-bold js-toggle-content column-price-1 h3  active " data-id="1">
+                                {% if lowest_price.christmas_price_list.premium_price %}
+                                    {% if lowest_price.christmas_price_list.premium_price_striketrough %}
+                                        <del>
+                                    {% endif %}
+                                    {{ lowest_price.christmas_price_list.premium_price }}
+                                    {% if lowest_price.christmas_price_list.premium_price_striketrough %}
+                                        </del>
+                                    {% endif %}
+                                    <br>
+                                {% endif %}
+                                {% if lowest_price.christmas_price_list.premium_price_discount %}
+                                    {% if lowest_price.christmas_price_list.premium_price_striketrough %}
+                                        <del>
+                                    {% endif %}
+                                    {{ lowest_price.christmas_price_list.premium_price_discount }}
+                                    {% if lowest_price.christmas_price_list.premium_price_discount_striketrough %}
+                                        </del>
+                                    {% endif %}
+                                    <br>
+                                {% endif %}
+                              </span>   
+                              {% endif %}
+                              {% if lowest_price.christmas_price_list.facecard_price or lowest_price.christmas_price_list.facecard_price_discount %} 
+                              <span class="c-list__heading--sub u-text-size-epsilon u-text-color-gray-darkest u-text-bold column-price-1 h4 js-toggle-content active" data-id="1">
+                                {% if lowest_price.christmas_price_list.facecard_price %}
+                                    {% if lowest_price.christmas_price_list.facecard_price_striketrough %}
+                                        <del>
+                                    {% endif %}
+                                    {{ lowest_price.christmas_price_list.facecard_price }}
+                                    {% if lowest_price.christmas_price_list.facecard_price_striketrough %}
+                                        </del>
+                                    {% endif %}
+                                    <br>
+                                {% endif %}
+                                {% if lowest_price.christmas_price_list.facecard_price_discount %}
+                                    {% if lowest_price.christmas_price_list.facecard_price_discount_striketrough %}
+                                        <del>
+                                    {% endif %}
+                                    {{ lowest_price.christmas_price_list.facecard_price_discount }}
+                                    {% if lowest_price.christmas_price_list.facecard_price_discount_striketrough %}
+                                        </del>
+                                    {% endif %}
+                                    <br>
+                                {% endif %}
+                              </span>
+                              {% endif %}
+                           </div>
+                           {% endif %}
+                        {% if is_mobile == true  %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+         {% if card.price_treatment_page_link != '' %}
+             </a>
+        {% endif %}   
+    </li>
+{% else %}
+    <li class="c-list__item {{hoverClass}} {{ itemClass }}" {{modalContent}}>
+        <div class="c-list__header">
+            <div class="u-flex u-flex-center-y u-flex-space-between-x">
+                <div class="o-media o-media--center">
+                    {% if card.title %}
+                        <div class="o-media__body">
+                            <h4 class="c-list__heading u-text-size-epsilon u-text-bold u-flex-sm u-flex u-flex-center-y">{{card.title}} {{tooltip}} {{ label }} {{ show_sale }}</h4>
+                            <div class="u-mobile-show" data-set="price-{{randomNumber}}">
+                                <span class="{{ priceClass }}c-list__heading--sub u-text-size-epsilon u-text-color-gray-darkest js-append-around">
+                                    {% if overview and card.lowest_price(true)%}
+                                        <a href="{{card.link}}" title="{{card.lowest_price_prefix}} {{card.lowest_price(true)}}">{{card.lowest_price_prefix}} {{card.lowest_price(true)}}</a>
+                                    {% else %}
+                                        <div class="u-flex-sm">
+                                            {% set price = card.price matches '/^[-+]?[0-9]*\\.?[0-9]+$/'  ? fn('rokit_format_money', card.price) : card.price %}
+                                            {% set sale_price = card.sale_price  matches '/^[-+]?[0-9]*\\.?[0-9]+$/'  ? fn('rokit_format_money', card.sale_price) : card.sale_price %}
+                                            {% if card.show_sale  %}
+                                                <span class="c-list__heading--sub u-text-size-epsilon u-text-color-gray-darkest u-text-line-through u-flex">{{ price }}</span>
+                                                <span class="c-list__heading--sub u-text-size-epsilon u-text-color-gray-darkest u-flex">{{ sale_price }}</span>
+                                            {% else %}
+                                                <span class="c-list__heading--sub u-text-size-epsilon u-text-color-gray-darkest u-flex">{{ price }}</span>
+
+                                            {% endif %}
+                                    </div>
+                                    {% endif %}
+                                </span>
+                            </div>
+                            {% if overview %}
+                                <span class="c-link--arrow-next c-link--arrow-inline u-mobile-show">{{pll__('Next arrow')}}</span>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="u-desktop-show" data-set="price-{{randomNumber}}"></div>
+            </div>
+        </div>
+    </li>
+{% endif %}

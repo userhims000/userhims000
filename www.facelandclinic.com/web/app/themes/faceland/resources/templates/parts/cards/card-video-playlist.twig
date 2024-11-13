@@ -1,0 +1,4 @@
+<div class="c-video-slider-wrapper">
+    {% include "parts/titles-media.twig" with { image : card.image, titles: { title : card.name, intro : card.description } }%}
+    {% include "parts/video-slider.twig" with { videos : card.videos } %}
+</div>

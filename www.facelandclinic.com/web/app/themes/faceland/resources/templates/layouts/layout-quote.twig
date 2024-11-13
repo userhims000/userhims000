@@ -1,0 +1,98 @@
+{% if layout.quote or layout.quote_image or layout.title or layout.description or layout.label %}
+    <blockquote class="c-highlight">
+        <div class="u-text-size-mega u-text-italic">
+            {{ layout.quote }}
+        </div>
+
+        {% if layout.caption %}
+            <footer class="u-text-size-nano u-text-color-gray-darkest u-text-bold">— {{ layout.caption|upper }}</footer>
+        {% endif %}
+    </blockquote>
+    {% if layout.quote_image %}
+    <div class="c-intro--column become-younger-section">
+        <div class="quote-image-section">
+            <figure class="o-panorama__image">
+                <img class="js-lazy-load is-lazy-loaded" data-src="{{ layout.quote_image }}" data-src-retina=""  src="{{ layout.quote_image }}">
+            </figure>
+        </div>    
+    </div>
+    {% endif %}
+    {% if layout.title or layout.info_description or layout.label or layout.image %}
+        <div class="c-intro--column treatment-finder-section" style="background-image: linear-gradient( rgb(255 255 255 / 72%), rgb(255 255 255 / 72%) ), url('{{ layout.image }}'); ">
+            <div class="u-text-center">
+                {% if layout.title %}
+                    {% set titleTag  = layout.title_heading_tag ? layout.title_heading_tag : 'h1' %}
+                    <{{titleTag}} class="u-text-bold section-title">{{ layout.title }}</{{titleTag}}>
+                {% endif %}
+                {{ layout.info_description }}
+                {% if layout.label %}
+                    {% set external = layout.external ? ' rel="external" data-router-disabled' %}
+                    <a href="{{ layout.url }}" {{ external }} title="" class="c-btn u-text-small f-bg-primary-bg cta-button ">{{ layout.label }}</a>
+                {% endif %}
+            </div> 
+        </div>
+    {% endif %}    
+{% endif %}
+
+<div class=" o-contain o-contain-padding m-auto    o-grid js-filter-wrapper u-1of1--sm u-1of2--md u-1of4--lg o-grid--with-gutter o-grid--with-gutter-vertical">
+   <div class="o-grid__cell  a-inview">
+      <div class="o-card">
+         <figure class="o-card__image">
+            <img class="js-lazy-load is-lazy-loaded" data-src="https://www.facelandclinic.com/app/assets/bovenooglidcorrectie_520x520px-1.png" data-src-retina="" title="" alt="" src="https://www.facelandclinic.com/app/assets/bovenooglidcorrectie_520x520px-1.png">
+         </figure>
+         <div class="o-card__content u-bg-white u-text-center">
+            <div class="specilist-info">
+               <a href="https://www.facelandclinic.com/nl/behandelingen/chirurgie/bovenooglidcorrectie/" class="card-heading-title-link">
+                  <h3 class="o-card__heading u-text-bold">€425,- vaste prijs</h3>
+               </a>
+            </div>
+            <a class="c-btn u-text-small f-bg-primary-bg cta-button" href="https://www.facelandclinic.com/nl/behandelingen/chirurgie/bovenooglidcorrectie/" title="">Lees meer</a>
+         </div>
+      </div>
+   </div>
+   <div class="o-grid__cell  a-inview">
+      <div class="o-card">
+         <figure class="o-card__image">
+            <img class="js-lazy-load is-lazy-loaded" data-src="https://www.facelandclinic.com/app/assets/schaamlipcorrectie_520x520px-1.png" data-src-retina="" title="" alt="" src="https://www.facelandclinic.com/app/assets/schaamlipcorrectie_520x520px-1.png">
+         </figure>
+         <div class="o-card__content u-bg-white u-text-center">
+            <div class="specilist-info">
+               <a href="https://www.facelandclinic.com/nl/behandelingen/chirurgie/schaamlipcorrectie/" class="card-heading-title-link">
+                  <h3 class="o-card__heading u-text-bold">€525,- vaste prijs</h3>
+               </a>
+            </div>
+            <a class="c-btn u-text-small f-bg-primary-bg cta-button" href="https://www.facelandclinic.com/nl/behandelingen/chirurgie/schaamlipcorrectie/" title="">Lees meer</a>
+         </div>
+      </div>
+   </div>
+   <div class="o-grid__cell  a-inview">
+      <div class="o-card">
+         <figure class="o-card__image">
+            <img class="js-lazy-load is-lazy-loaded" data-src="https://www.facelandclinic.com/app/assets/borstvergroting_520x520px-1.png" data-src-retina="" title="" alt="" src="https://www.facelandclinic.com/app/assets/borstvergroting_520x520px-1.png">
+         </figure>
+         <div class="o-card__content u-bg-white u-text-center">
+            <div class="specilist-info">
+               <a href="https://www.facelandclinic.com/nl/behandelingen/chirurgie/borstvergroting/" class="card-heading-title-link">
+                  <h3 class="o-card__heading u-text-bold">Vanaf €2.950,-</h3>
+               </a>
+            </div>
+            <a class="c-btn u-text-small f-bg-primary-bg cta-button" href="https://www.facelandclinic.com/nl/behandelingen/chirurgie/borstvergroting/" title="">Lees meer</a>
+         </div>
+      </div>
+   </div>
+   <div class="o-grid__cell  a-inview">
+      <div class="o-card">
+         <figure class="o-card__image">
+            <img class="js-lazy-load is-lazy-loaded" data-src="https://www.facelandclinic.com/app/assets/facelift_consult_520x520px-1.png" data-src-retina="" title="" alt="" src="https://www.facelandclinic.com/app/assets/facelift_consult_520x520px-1.png">
+         </figure>
+         <div class="o-card__content u-bg-white u-text-center">
+            <div class="specilist-info">
+               <a href="https://www.facelandclinic.com/nl/behandelingen/chirurgie/facelift/" class="card-heading-title-link">
+                  <h3 class="o-card__heading u-text-bold">Door plastisch chirurg</h3>
+               </a>
+            </div>
+            <a class="c-btn u-text-small f-bg-primary-bg cta-button" href="https://www.facelandclinic.com/nl/behandelingen/chirurgie/facelift/" title="">Lees meer</a>
+         </div>
+      </div>
+   </div>
+</div>

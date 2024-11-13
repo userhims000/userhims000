@@ -1,0 +1,1049 @@
+/*----------------------------------------------------------------------------*\
+    #TOOLS MIXINS
+\*----------------------------------------------------------------------------*/
+
+/**
+ * MIXINS
+ *
+ * Breakpoints..................................................................
+ * Clearfix.....................................................................
+ * Contain padding..............................................................
+ * Contain margin...............................................................
+ * Font families................................................................
+ * Hide elements................................................................
+ * Hide text....................................................................
+ * Hyphenation..................................................................
+ * :nth-child’ified elements....................................................
+ * Offsets......................................................................
+ * Pull viewport................................................................
+ * Sizing.......................................................................
+ * Truncation...................................................................
+ * Typography...................................................................
+ * Vertical rhythm..............................................................
+ */
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+    #MIXINS BREAKPOINTS
+\*----------------------------------------------------------------------------*/
+
+@mixin breakpoint($breakpoint-name) {
+
+    /* Check if breakpoint name is valid (exists in breakpoints list). */
+    @if breakpoints-map($breakpoint-name) != null {
+
+        /* Loop through each breakpoint name to be included. */
+        @each $breakpoint-to-include in $breakpoints-to-include {
+
+            /**
+             * Only continue if breakpoint name to be included matches with
+             * breakpoint name to be outputted.
+             */
+
+            @if $breakpoint-to-include == $breakpoint-name {
+
+                $breakpoint-value: breakpoint-value-for($breakpoint-name);
+
+                @if $breakpoint-value != null {
+                    @media (min-width: $breakpoint-value) {
+                        @content;
+                    }
+                } @else {
+                    @warn 'Missing breakpoint '#{$breakpoint-name}'';
+                }
+            }
+        }
+    } @else {
+        @warn 'Breakpoint '#{$breakpoint-name}' is not in breakpoints list (settings)';
+    }
+}
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+    #MIXINS CLEARFIX
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Make an element expand to contain floated children.
+ * - http://nicolasgallagher.com/micro-clearfix-hack/
+ * - http://fuseinteractive.ca/blog/understanding-humble-clearfix
+ * - http://css-tricks.com/snippets/css/clear-fix/
+ *
+ * 1. The use of `table` rather than `block` is only necessary if using
+ * `:before` to contain the top-margins of child elements.
+ * Set `$contain-top-margins` to "margins" below, to  globally output the
+ * clearix version that contains top-margins as well. Or include the clearfix
+ * mixin with with the "margins" variable (e.g. `@include clearfix("margins")`)
+ * to contain top-margins only for that element/class.
+ *
+ * 2. The space content is one way to avoid an Opera bug when the
+ * `contenteditable` attribute is included anywhere else in the document.
+ * Otherwise it causes space to appear at the top and bottom of the element.
+ */
+
+@mixin clearfix($contain-top-margins: '') { /* 1 */
+
+    @if $contain-top-margins == 'margins' {
+
+        &::before,
+        &::after {
+            display: table; /* 1 */
+            content: ''; /* 2 */
+        }
+
+        &::after { clear: both; }
+    } @else {
+
+        &::after {
+            display: block; /* 1 */
+            clear: both;
+            content: ''; /* 2 */
+        }
+    }
+}
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+    #MIXINS CONTAIN PADDING
+\*----------------------------------------------------------------------------*/
+
+@mixin contain-padding($padding: $contain-percentage) {
+    padding-right: $padding;
+    padding-left: $padding;
+}
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+    #MIXINS CONTAIN PADDING
+\*----------------------------------------------------------------------------*/
+
+@mixin contain-margin($margin: $contain-percentage) {
+    margin-right: $margin;
+    margin-left: $margin;
+}
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+    #MIXINS FONT FAMILIES
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Fonts families.
+ */
+
+@mixin font-vars($weight: null, $letter-spacing: null, $line-height: null, $size: null) {
+    @if ($size != null) { font-size: $size; }
+    @if ($weight != null) { font-weight: $weight; }
+    @if ($line-height != null) { line-height: $line-height; }
+    @if ($letter-spacing != null) { letter-spacing: $letter-spacing; }
+}
+
+
+/**
+ * Shorthand font stack.
+ */
+
+@mixin font($font-family: $sans-font, $weight: null, $letter-spacing: null, $line-height: null, $size: null) {
+    @if $font-family != null { font-family: $font-family; }
+    @include font-vars($weight, $letter-spacing, $line-height, $size);
+}
+
+
+/**
+ * Headings.
+ */
+
+@mixin headings($weight: null, $letter-spacing: null, $line-height: null, $size: null) {
+    @include font-vars($weight, $letter-spacing, $line-height, $size);
+    font-family: $headings;
+}
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+    #MIXIN HIDE ELEMENTS
+\*----------------------------------------------------------------------------*/
+
+@mixin is-hidden($param: hidden) {
+
+    /* Completely remove from the flow and screen readers. */
+    @if ($param == hidden) {
+        display: none;
+        visibility: hidden;
+    }
+
+    /* Completely remove from the flow but leave available to screen readers. */
+    @if ($param == visually) {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        clip: rect(1px, 1px, 1px, 1px);
+        border: 0;
+        overflow: hidden;
+    }
+}
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+    #MIXINS HIDE TEXT
+\*----------------------------------------------------------------------------*/
+
+/**
+ * 1. Scott Kellum method (http://wp.me/p4WtR-2xq).
+ * 2. H5BP method (http://j.mp/SjVjgP).
+ */
+
+@mixin is-hidden-text($param: false) {
+    @if $param == skm { /* 1 */
+        text-indent: 200%;
+        white-space: nowrap;
+        overflow: hidden;
+    } @else { /* 2 */
+        border: 0;
+        background-color: transparent;
+        overflow: hidden;
+
+        &::before {
+            display: block;
+            width: 0;
+            height: 100%;
+            content: '';
+        }
+    }
+}
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+    #MIXINS HYPHENATION
+\*----------------------------------------------------------------------------*/
+
+@mixin hyphenate($hyphen: true) {
+    @if $hyphen == true {
+        hyphens: auto;
+    } @else if($hyphen == false) {
+        hyphens: none;
+    }
+}
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+    #MIXINS :NTH-CHILD’IFIED ELEMENTS
+\*----------------------------------------------------------------------------*/
+
+/**
+ * a set of 26 smart Sass mixins which will help you to manage the style of
+ * :nth-child’ified elements, in an easy and classy way.
+ * (http://lukyvj.github.io/family.scss/)
+ */
+
+
+/**
+ * Select all children from the first to `$num`.
+ * @group with-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ * @param {number} $num - id of the child
+ */
+
+@mixin first($num) {
+
+    @if $num == 1 {
+
+        &:first-child {
+            @content;
+        }
+    } @else {
+
+        &:nth-child(-n + #{$num}) {
+            @content;
+        }
+    }
+}
+
+
+/**
+ * Select all children from the last to `$num`.
+ * @group with-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ * @param {number} $num - id of the child
+ */
+
+@mixin last($num) {
+
+    &:nth-last-child(-n + #{$num}) {
+        @content;
+    }
+}
+
+
+/**
+ * Select all children after the first to `$num`.
+ * @group with-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ * @param {number} $num - id of the child
+ */
+
+@mixin after-first($num) {
+
+    &:nth-child(n + #{$num + 1}) {
+        @content;
+    }
+}
+
+
+/**
+ * Select all children before `$num` from the last.
+ * @group with-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ * @param {number} $num - id of the child
+ */
+
+@mixin from-end($num) {
+
+    &:nth-last-child(#{$num}) {
+        @content;
+    }
+}
+
+
+/**
+ * Select all children between `$first` and `$last`.
+ * @group with-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ */
+
+@mixin between($first, $last) {
+
+    &:nth-child(n + #{$first}):nth-child(-n + #{$last}) {
+        @content;
+    }
+}
+
+
+/**
+ * Select all even children between `$first` and `$last`.
+ * @group with-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ */
+
+@mixin even-between($first, $last) {
+
+    &:nth-child(even):nth-child(n + #{$first}):nth-child(-n + #{$last}) {
+        @content;
+    }
+}
+
+
+/**
+ * Select all odd children between `$first` and `$last`.
+ * @group with-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ */
+
+@mixin odd-between($first, $last) {
+
+    &:nth-child(odd):nth-child(n + #{$first}):nth-child(-n + #{$last}) {
+        @content;
+    }
+}
+
+
+/**
+ * Select all `$num` children between `$first` and `$last`.
+ * @group with-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ */
+
+@mixin n-between($num, $first, $last) {
+
+    &:nth-child(#{$num}n):nth-child(n + #{$first}):nth-child(-n + #{$last}) {
+        @content;
+    }
+}
+
+
+/**
+ * Select all children but `$num`.
+ * @group with-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ * @param {number} $num - id of the child
+ */
+
+@mixin all-but($num) {
+
+    &:not(:nth-child(#{$num})) {
+        @content;
+    }
+}
+
+
+/**
+ * Select children each `$num`.
+ * @group with-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ * @param {number} $num - id of the child
+ * @alias every
+ */
+
+@mixin each($num) {
+
+    &:nth-child(#{$num}n) {
+        @content;
+    }
+}
+
+
+/**
+ * Select children each `$num`.
+ * @group with-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ * @param {number} $num - id of the child
+ */
+
+@mixin every($num) {
+
+    &:nth-child(#{$num}n) {
+        @content;
+    }
+}
+
+
+/**
+ * Select the `$num` child from the start and the `$num` child from the last.
+ * @group with-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ * @param {number} $num - id of the child
+ */
+
+@mixin from-first-last($num) {
+
+    &:nth-child(#{$num}),
+    &:nth-last-child(#{$num}) {
+        @content;
+    }
+}
+
+
+/**
+ * Select the item in the middle of `$num` child. Only works with odd number
+ * chain.
+ * @group with-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ * @param {number} $num - id of the child
+ */
+
+@mixin middle($num) {
+
+    &:nth-child(#{round($num / 2)}) {
+        @content;
+    }
+}
+
+
+/**
+ * Select all children between the `$num` first and the `$num` last.
+ * @group with-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ * @param {number} $num - id of the child
+ */
+
+@mixin all-but-first-last($num) {
+
+    &:nth-child(n + #{$num}):nth-last-child(n + #{$num}) {
+        @content;
+    }
+}
+
+
+/**
+ * This quantity-query mixin will only select the first of `$limit` items. It
+ * will not work if there is not as much as item as you set in `$limit`.
+ * @group Quantity queries
+ * @param {number} $limit
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ */
+
+@mixin first-of($limit) {
+
+    &:nth-last-child(#{$limit}):first-child {
+        @content;
+    }
+}
+
+
+/**
+ * This quantity-query mixin will only select the last of `$limit` items. It
+ * will not if there is not as much as item as you set in `$limit`.
+ * @group Quantity queries
+ * @param {number} $limit
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ */
+
+@mixin last-of($limit) {
+
+    &:nth-of-type(#{$limit}):nth-last-of-type(1) {
+        @content;
+    }
+}
+
+
+/**
+ * This quantity-query mixin will select every items if there is at least `$num`
+ * items. It will not if there is not as much as item as you set in `$num`.
+ * @group Quantity queries
+ * @param {number} $limit
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ */
+
+@mixin at-least($num) {
+    $selector: &;
+    $child: nth(nth($selector, -1), -1);
+
+    &:nth-last-child(n + #{$num}),
+    &:nth-last-child(n + #{$num}) ~ #{$child} {
+        @content;
+    }
+}
+
+
+/**
+ * This quantity-query mixin will select every items if there is at most `$num`
+ * items. It will not if there is not as much as item as you set in `$num`.
+ * @group Quantity queries
+ * @param {number} $limit
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ */
+
+@mixin at-most($num) {
+    $selector: &;
+    $child: nth(nth($selector, -1), -1);
+
+    &:nth-last-child(-n + #{$num}):first-child,
+    &:nth-last-child(-n + #{$num}):first-child ~ #{$child} {
+        @content;
+    }
+}
+
+
+/**
+ * This quantity-query mixin will select every items only if there is between
+ * `$min` and `$max` items.
+ * @group Quantity queries
+ * @param {number} $limit
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ */
+
+@mixin in-between($min, $max) {
+    $selector: &;
+    $child: nth(nth($selector, -1), -1);
+
+    &:nth-last-child(n + #{$min}):nth-last-child(-n + #{$max}):first-child,
+    &:nth-last-child(n + #{$min}):nth-last-child(-n + #{$max}):first-child ~ #{$child} {
+        @content;
+    }
+}
+
+
+/**
+ * Select the first exact child
+ * @group no-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ */
+
+@mixin first-child() {
+
+    &:first-of-type {
+        @content;
+    }
+}
+
+
+/**
+ * Select the last exact child
+ * @group no-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ */
+
+@mixin last-child() {
+
+    &:last-of-type {
+        @content;
+    }
+}
+
+
+/**
+ * Select all even children.
+ * @group no-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ */
+
+@mixin even() {
+
+    &:nth-child(even) {
+        @content;
+    }
+}
+
+
+/**
+ * Select all odd children.
+ * @group no-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ */
+
+@mixin odd() {
+
+    &:nth-child(odd) {
+        @content;
+    }
+}
+
+
+/**
+ * Select only the first and last child.
+ * @group no-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ */
+
+@mixin first-last() {
+
+    &:first-child,
+    &:last-child {
+        @content;
+    }
+}
+
+
+/**
+ * Will only select the child if it’s unique.
+ * @group no-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ * @alias only
+ */
+
+@mixin unique() {
+
+    &:only-child {
+        @content;
+    }
+}
+
+
+/**
+ * Will only select the child if it’s unique.
+ * @group no-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ */
+
+@mixin only() {
+
+    &:only-child {
+        @content;
+    }
+}
+
+
+/**
+ * Will only select children if they are not unique. Meaning if there is at
+ * least 2 children, the style is applied.
+ * @group no-arguments
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ */
+
+@mixin not-unique() {
+
+    &:not(:only-child) {
+        @content;
+    }
+}
+
+
+/**
+ * This mixin is used to automatically sort z-index in numerical order. But it
+ * can also sort them in anti-numerical order, depending the parameters you use.
+ * @group using functions
+ * @content [Write the style you want to apply to the children, and it will be
+ * added within the @content directive]
+ * @param {number} $num - Number of children
+ * @param {string} $direction [forward] - Direction of the sort
+ * @param {number} $index [0] - Index of the sorting
+ */
+
+@mixin child-index($num, $direction: 'forward', $index: 0) {
+
+    @for $i from 1 through $num {
+        @if ($direction == 'forward') {
+
+            &:nth-child(#{$i}) {
+                z-index: order-index($i, $index);
+                @content;
+            }
+        } @else if ($direction == 'backward') {
+
+            &:nth-last-child(#{$i}) {
+                z-index: order-index($i, $index);
+                @content;
+            }
+        }
+    }
+}
+
+
+/**
+ * Used by the child-index mixin. It will returned the proper sorted numbers
+ * depending on the `$index` value.
+ * @access private
+ * @param {number} $num - Number of children
+ * @param {number} $index - Index of the sorting
+ */
+
+@function order-index($i, $index) {
+    @return ($index + $i);
+}
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+    #MIXINS OFFSETS
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Easily set an element's offest and values.
+ */
+
+$position-default: null !default;
+
+@mixin offset($position: $position-default,
+$top: $position-default,
+$right: $position-default,
+$bottom: $position-default,
+$left: $position-default) {
+    @each $data in position $position, top $top, right $right, bottom $bottom, left $left {
+        #{nth($data, 1)}: nth($data, 2);
+    }
+}
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+    #MIXINS PULL VIEWPORT
+\*----------------------------------------------------------------------------*/
+
+@mixin pullviewport($percentage, $param: false) {
+    @if $param == right {
+        margin-right: - pull-viewport($percentage);
+    } @else if $param == left {
+        margin-left: - pull-viewport($percentage);
+    } @else {
+        margin-right: - pull-viewport($percentage);
+        margin-left: - pull-viewport($percentage);
+    }
+}
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+    #MIXINS SIZING
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Size width + height
+ */
+
+@mixin size($width: 5px, $height: 5px) {
+    width: $width;
+    height: $height;
+}
+
+
+/**
+ * Size square (width and height are the same)
+ */
+
+@mixin square($size: 5px) {
+    @include size($size, $size);
+}
+
+
+/**
+ * Make an element shrink wrap its content.
+ */
+
+@mixin size-fit($param: false) {
+    @if $param == alt {
+        display: block;
+        width: auto;
+        float: right;
+    } @else {
+        display: block;
+        width: auto;
+        float: left;
+    }
+}
+
+
+/**
+ * Make an element fill the remaining space.
+ * N.B. This will hide overflow.
+ */
+
+@mixin size-fill() {
+    display: block;
+    width: auto;
+    overflow: hidden;
+}
+
+
+/**
+ * Make an element the width of its parent.
+ */
+
+@mixin size-full() {
+    display: block;
+    width: 100%;
+}
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+    #MIXINS TEXT TRUNCATION
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Prevent text from wrapping onto multiple lines, and truncate with an
+ * ellipsis.
+ *
+ * 1. Ensure that the node has a maximum width after which truncation can
+ *    occur.
+ * 2. Fix for IE 8/9 if `word-wrap: break-word` is in effect on ancestor
+ *    nodes.
+ */
+
+@mixin text-truncate() {
+    max-width: 100%; /* 1 */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    word-wrap: normal; /* 2 */
+}
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+    #MIXINS TYPOGRAPHY
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Base text size
+ *
+ * Generates procentual base font sizes for the the to be included breakpoints.
+ * Add to `html {}` or `body {}` element like this:
+ *
+ * html {
+ *   @include base-text-sizes();
+ * }
+ *
+ * 1. Loop through each breakpoint name to be included.
+ * 2. Check if breakpoint name is valid (exists in breakpoints list).
+ */
+
+@mixin base-text-sizes($default-breakpoint-name: 'small') {
+
+    /* 1 */
+    @each $breakpoint-to-include in $breakpoints-to-include {
+
+        /* 2 */
+        @if breakpoints-map($breakpoint-to-include) != null {
+
+            $base-text-size: base-font-size-for($breakpoint-to-include);
+            $line-height: text-line-height('base', $default-breakpoint-name, $lines: 1);
+
+            @if $base-text-size != null {
+
+                @if $breakpoint-to-include == 'small' {
+                    font-size: $base-text-size;
+                    line-height: $line-height;
+                } @else {
+                    @include breakpoint($breakpoint-to-include) {
+                        font-size: $base-text-size;
+                    }
+                }
+            } @else {
+                @warn 'Missing base font size for '#{default-$breakpoint-name}' breakpoint';
+            }
+        } @else {
+            @warn 'Breakpoint '#{$breakpoint-to-include}' is not in breakpoints list (settings)';
+        }
+    }
+}
+
+
+/**
+ * Text size
+ *
+ * 1. If font-size is set for given text size breakpoint.
+ */
+
+@mixin responsive-text-size($text-size-name, $default-breakpoint-name: 'small', $lines: 1) {
+    font-size: text-size($text-size-name, $default-breakpoint-name, $lines);
+    letter-spacing: text-spacing($text-size-name, $default-breakpoint-name, $lines);
+    line-height: text-line-height($text-size-name, $default-breakpoint-name, $lines);
+
+    $text-breakpoints-map: text-breakpoints-for($text-size-name);
+    $text-breakpoints-keys: map-keys($text-breakpoints-map);
+
+    @each $breakpoint-name in $text-breakpoints-keys {
+        @if $breakpoint-name != $default-breakpoint-name and breakpoints-map($breakpoint-name) != null {
+            @include breakpoint($breakpoint-name) {
+                $text-properties: text-properties-for($text-size-name, $breakpoint-name); /* 1 */
+                @if map-get($text-properties, 'font-size') != null {
+                    font-size: text-size($text-size-name, $breakpoint-name, $lines);
+                    letter-spacing: text-spacing($text-size-name, $breakpoint-name, $lines);
+                }
+                line-height: text-line-height($text-size-name, $breakpoint-name, $lines);
+            }
+        }
+    }
+}
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+    #MIXINS VERTICAL RHYTHM
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Private outputs rhythm values. For rem units.
+ */
+
+@mixin output-rhythm($property, $value) {
+    #{$property}: $value;
+}
+
+
+/**
+ * Apply leading whitespace as padding.
+ */
+
+@mixin padding-leader($lines: 1) {
+    @include output-rhythm(padding-top, rhythm($lines));
+}
+
+
+/**
+ * Apply trailing whitespace as padding.
+ */
+
+@mixin padding-trailer($lines: 1) {
+    @include output-rhythm(padding-bottom, rhythm($lines));
+}
+
+
+/**
+ * Apply leading whitespace as margin.
+ */
+
+@mixin margin-leader($lines: 1) {
+    @include output-rhythm(margin-top, rhythm($lines));
+}
+
+
+/**
+ * Apply trailing whitespace as margin.
+ */
+
+@mixin margin-trailer($lines: 1) {
+    @include output-rhythm(margin-bottom, rhythm($lines));
+}
+
+
+/**
+ * Shorthand mixin to apply whitespace for top and bottom margins.
+ */
+
+@mixin rhythm-margin(
+    $margin-leader: 1,
+    $margin-trailer: $margin-leader
+) {
+    @include margin-leader($margin-leader);
+    @include margin-trailer($margin-trailer);
+}
+
+
+/**
+ * Shorthand mixin to apply whitespace for top and bottom padding.
+ */
+
+@mixin rhythm-padding(
+    $padding-leader: 1,
+    $padding-trailer: $padding-leader
+) {
+    @include padding-leader($padding-leader);
+    @include padding-trailer($padding-trailer);
+}

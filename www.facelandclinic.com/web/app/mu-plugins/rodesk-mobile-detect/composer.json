@@ -1,0 +1,24 @@
+{
+    "name":     "rodesk/rodesk-mobile-detect",
+    "homepage": "https://bitbucket.org/web-nl/rodesk-mobile-detect",
+    "keywords": ["mobile detect, mobile detection, wordpress"],
+    "type":     "wordpress-muplugin",
+    "authors": [
+        {
+            "name": "Joeri Abbo",
+            "email": "joeri@rodesk.com",
+            "homepage": "http://rodesk.nl",
+            "role": "Developer"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.webnl.io/GWsbg0rmLlkPDqSzxoyRj21yy"
+        }
+    ],
+    "require": {
+        "mobiledetect/mobiledetectlib": "^2.8",
+        "rokit/rodesk-packages-session": "^1.0.1"
+    }
+}

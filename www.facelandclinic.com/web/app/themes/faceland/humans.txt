@@ -1,0 +1,41 @@
+/**
+	Humans responsible & Colophon
+	http://humanstxt.org
+**/
+
+# TEAM
+
+	Developer: Jasper Rooduijn Rodesk B.V.
+	Site: http://www.rodesk.nl
+	Twitter: http://twitter.com/rodesk
+	Facebook: https://www.facebook.com/Rodesk
+	Rotterdam, the Netherlands
+
+	Developer: Joeri Abbo Rodesk B.V.
+	Site: http://www.rodesk.nl
+	Twitter: http://twitter.com/rodesk
+	Facebook: https://www.facebook.com/Rodesk
+	Rotterdam, the Netherlands
+
+	Developer: Tom Harms Rodesk B.V.
+	Site: http://www.rodesk.nl
+	Twitter: http://twitter.com/rodesk
+	Facebook: https://www.facebook.com/Rodesk
+	Rotterdam, the Netherlands
+
+	Designer: Jasper van Orden Rodesk B.V.
+	Site: http://www.rodesk.nl
+	Twitter: http://twitter.com/rodesk
+	Facebook: https://www.facebook.com/Rodesk
+	Rotterdam, the Netherlands
+
+	Designer: Jonathan Reijneveld Rodesk B.V.
+	Site: http://www.rodesk.nl
+	Twitter: http://twitter.com/rodesk
+	Facebook: https://www.facebook.com/Rodesk
+	Rotterdam, the Netherlands
+
+# TECHNOLOGY COLOPHON
+
+	Components: Gulp, SASS,Bower, Node.js, jQuery
+	Software: Sublime Text, Sketch, Gitlab, Tower

@@ -1,0 +1,29 @@
+{% set figureClass = campaign ? 'c-copy__maxwidth' %}
+{% set spanClass = campaign ? 'c-video__play--big u-bg-cta-campaign' : 'u-bg-gray-darker' %}
+{% set figcaptionClass = campaign ? 'c-figure__caption--below u-text-campaign' : 'u-text-color-gray-dark' %}
+{% set imageSize = campaign ? 'campaign-video' : 'module-image' %}
+{% if layout.image and layout.id and layout.type %}
+    {% if function('is_singular', 'location') == true or function('is_singular', 'ba_album') == true %}
+        <div class=" {{ function('is_singular', 'ba_album') != true ? 'o-contain o-contain-padding' : '' }}  mt-20 mb-20 mt-lg-72 mb-lg-72 ">
+            <figure class="{{ function('is_singular', 'location') != true or function('is_singular', 'ba_album') != true ? 'c-figure' : '' }}  {{ figureClass }}">
+                <div class="c-video js-video-wrapper rounded overflow-hidden">
+                    {{ rokit_get_image(layout.image, imageSize,layout.caption) }}
+                    <span class="c-video__play js-video-play {{ spanClass }}" data-id="{{ layout.id }}" data-type="{{ layout.type }}" ><span>{{pll__('Bekijk video')}}</span></span>
+                </div>
+                {% if layout.caption %}
+                    <figcaption class="u-text-size-epsilon {{ figcaptionClass }} js-animation-element a-fade-in">{{layout.caption}}</figcaption>
+                {% endif %}
+            </figure>
+        </div>
+    {% else %}
+        <figure class="c-figure {{ figureClass }}">
+            <div class="c-video js-video-wrapper">
+                {{ rokit_get_image(layout.image, imageSize,layout.caption) }}
+                <span class="c-video__play js-video-play {{ spanClass }}" data-id="{{ layout.id }}" data-type="{{ layout.type }}" ><span>{{pll__('Bekijk video')}}</span></span>
+            </div>
+            {% if layout.caption %}
+                <figcaption class="u-text-size-epsilon {{ figcaptionClass }} js-animation-element a-fade-in">{{layout.caption}}</figcaption>
+            {% endif %}
+        </figure>
+    {% endif %}
+{% endif %}

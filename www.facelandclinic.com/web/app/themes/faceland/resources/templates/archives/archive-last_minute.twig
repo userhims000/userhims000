@@ -1,0 +1,27 @@
+{# Last minutes archive #}
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% include 'parts/panorama-plus.twig' with { panorama : collection.panorama, maskClass : 'c-mask--white'} %}
+{% endblock %}
+
+{% block content %}
+    <div class="o-contain o-contain-padding">
+        <div class="c-copy">
+            {% include "layouts/layout-video.twig" with { layout : collection.video } %}
+
+            {% for card in collection.items_by_location %}
+                {% include "parts/collection-list.twig" with { title : card.location.title, posts : card.items, cardType : 'last-minute' } %}
+            {% endfor %}
+
+            {% include "layouts/layout-title_text.twig" with { layout : collection.terms } %}
+            {% include "layouts/layout-title_text.twig" with { layout : collection.appointment } %}
+            {% include "parts/action-list.twig" with { list : collection.action_list } %}
+            {% include "parts/connect.twig" with { contacts : contacts.online  } %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block related %}
+    {% include "parts/cta/cta-default.twig" with { cta : collection.cta } %}
+{% endblock %}

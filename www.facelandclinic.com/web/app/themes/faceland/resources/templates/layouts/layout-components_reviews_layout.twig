@@ -1,0 +1,68 @@
+{% set backgroundOptions = layout.background_options %}
+
+{% if backgroundOptions == 'default' %}
+    {% set backgroundColour = 'bg-gray' %}
+{% elseif backgroundOptions == 'beige__colour_background' %}
+    {% set backgroundColour = 'bg-gray' %}
+{% elseif backgroundOptions == 'white_background' %}
+    {% set backgroundColour = 'bg-white' %}        
+{% else %}
+    {% set backgroundColour = 'bg-gray' %}    
+{% endif %}
+
+<div class=" o-contain-padding specialist-section reviews-display {{ backgroundColour }}">
+    <div class="o-contain {{ is_mobile != true ? 'o-contain-padding' : '' }} reviews-display testimonial-slider-section">
+        {% if layout.review_title %}
+            <div class="c-intro--column testiomonial-slider-heading">
+                <div class="u-text-left">
+                    {% set titleTag = layout.review_title_tag ? layout.review_title_tag : 'h2' %}
+                    <{{ titleTag }} class="u-text-bold section-sub-title">{{ layout.review_title }}</{{ titleTag }}>
+                </div>    
+            </div>
+        {% endif %}
+        {% if layout.review_details|length > 0 %}
+            <div class="reviews__section ">
+                {% if (not is_mobile and layout.review_details|length > 2) or (layout.review_details|length > 1 and is_mobile) %}
+                    <button type="button" class="slick-prev slick-arrow c-icon c-icon--round c-icon--lg c-icon--arrow  js-carousel-prev"><i class="arrow left"></i></button>
+                    <button type="button" class="slick-next slick-arrow c-icon c-icon--round c-icon--lg c-icon--arrow  js-carousel-next"><i class="arrow right"></i></button>
+                {% endif %}
+
+                <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of2--lg {{ (layout.review_details|length > 2) or (is_mobile and layout.review_details|length > 1) ? 'reviews-slide' : '' }}">
+                   {% for data in layout.review_details %}
+                        <div class="o-grid__cell testimonial-slider-item">
+                            {% if backgroundOptions == 'white_background' %} 
+                            <div>
+                            {% endif %}    
+                                <div class="testimonial-slider-user-photo {{ backgroundOptions == 'white_background' ? 'testimonial-slider-user-absolute' : '' }} ">
+                                    {{ rokit_get_image(data.image, 'full', '', 'user-photo', '', false) }}
+                                </div>
+                            {% if backgroundOptions == 'white_background' %} 
+                            </div>
+                            {% endif %}
+                            
+                            <div class="testimonial-slider-user-info {{ backgroundOptions == 'white_background' ? 'testimonial-slider-user-space-mannage bg-gray' : '' }} {{ backgroundOptions == 'beige__colour_background' ? 'testimonial-slider-user-space-mannage bg-white' : '' }}">
+                                <div class="author__name testimonial-slider-user-name {{ backgroundOptions == 'white_background' or backgroundOptions == 'beige__colour_background'  ? 'padding-bt' : '' }}">
+                                    <h3>{{ data.review_author }}</h3>
+                                </div>
+                                <div class="testimonial-slider-post">
+                                    <p><i>{{ data.review_date }}</i></p>
+                                </div>
+                                <div class="testimonial-slider-discription u-text-center js-animation-element a-fade-in a-inview">
+                                    {{ data.review_description }}
+                                </div>
+                                {# <div class="slider-btn">
+                                    <a href="#">Less de blog</a>
+                                </div> #}
+                                {% if data.cta_button_label %}
+                                    <div class="slider-btn {{ backgroundOptions == 'beige__colour_background' ? 'slider-btn-white' : '' }}">
+                                        <a class="c-btn u-text-size-epsilon u-text-medium" href="{{ data.cta_button_url }}" {{ data.cta_button_external == true ? 'target=_blank' : '' }}>{{ data.cta_button_label }}</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>

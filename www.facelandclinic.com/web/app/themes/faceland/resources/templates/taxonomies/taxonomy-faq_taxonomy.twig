@@ -1,0 +1,17 @@
+{% extends "base/base.twig" %}
+
+{% block content %}
+    <div class="o-contain o-contain-padding">
+        <div class="c-copy-wrapper">
+            {# Todo add this to the part  #}
+            {# {% include "parts/breadcrumbs.twig" %}#}
+            <div class="u-flex u-flex-start-y u-flex-space-between-x">
+                {% include "parts/faq/sidebar.twig" %}
+
+                <div class="c-copy c-copy--paper u-bg-white">
+                    {% include "parts/faq/content.twig" with { content : taxonomy } %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

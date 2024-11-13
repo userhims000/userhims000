@@ -1,0 +1,12 @@
+{% if articles.items|length > 0 %}
+
+    {% include 'parts/intro.twig' with { intro : articles.titles } %}
+
+    <div class="o-grid o-grid--with-gutter o-grid--with-gutter-vertical u-1of1--sm u-1of2--md u-1of3--lg">
+        {% for card in articles.items %}
+            <div class="o-grid__cell js-animation-element a-fade-in-up">
+                {% include 'parts/cards/card-article.twig' with { card : card } %}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

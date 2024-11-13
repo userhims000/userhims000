@@ -1,0 +1,25 @@
+{
+    "name": "rokit/rodesk-packages-config",
+    "type": "library",
+    "description": "The Rokit config package. A package to manage application wide configuartion. Based on Laravel's configuration package.",
+    "keywords": ["config"],
+    "homepage": "http://rodesk.com",
+    "authors": [
+        {
+            "name":     "Joeri Abbo",
+            "email":    "Joeri@rodesk.com",
+            "homepage": "http://rodesk.com",
+            "role":     "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Rokit\\Config\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.6.3",
+        "composer/installers": "~1.0.6",
+        "illuminate/config": "~5.8.11"
+    }
+}

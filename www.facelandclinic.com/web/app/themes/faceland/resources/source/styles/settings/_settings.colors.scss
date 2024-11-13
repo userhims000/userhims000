@@ -1,0 +1,54 @@
+/*----------------------------------------------------------------------------*\
+    #SETTINGS COLORS
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Base colors.
+ */
+
+$color-black: black;
+$color-white: white;
+$color-smoke-white: rgb(249, 249, 249);
+
+/**
+ * Grays.
+ */
+$color-gray-darkest: rgb(52, 52, 59);
+$color-gray-darker: rgb(60, 61, 72);
+$color-gray-dark: rgb(99, 100, 109);
+$color-gray: rgb(157, 158, 163);
+$color-gray-light: rgb(196, 196, 200);
+$color-gray-lighter: rgb(237, 237, 237);
+$color-gray-lightest: rgb(242, 242, 242);
+/**
+ * Project colors.
+ */
+
+$color-primary: rgb(255, 133, 47); // OLD color: rgb(243, 133, 103);
+$color-secondary: rgb(230, 241, 238);
+$color-secondary-light: rgb(238, 245, 244);
+$color-tertiary: rgb(242, 237, 226);
+$color-tertiary-light: rgb(246, 243, 236);
+$color-tertiary-lighter: rgb(250, 249, 247);
+$color-tertiary-dark: rgb(238, 232, 218);
+
+$color-accent: rgb(255, 192, 0);
+
+$color-switch-toggle: rgb(193, 188, 182);
+
+/**
+ * Status colors.
+ */
+
+$color-info: rgb(230, 241, 238);
+$color-info-dark: rgb(0, 85, 128);
+
+$color-positive: rgb(102, 189, 132);
+$color-positive-dark: rgb(0, 129, 0);
+
+$color-negative: rgb(225, 96, 96);
+$color-negative-dark: rgb(128, 1, 0);
+
+$color-warning: rgb(255, 255, 230);
+$color-warning-dark: rgb(128, 129, 0);
+

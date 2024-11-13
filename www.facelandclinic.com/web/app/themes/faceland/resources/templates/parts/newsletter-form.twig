@@ -1,0 +1,17 @@
+<div class="c-modal js-modal-newsletter">
+    <button class="c-modal__close js-modal-close">Sluiten</button>
+    <div class="c-modal__content u-bg-white js-modal-content-newsletter">
+        <div class="c-form-wrapper js-form-wrapper" style="min-height: 973px;
+    overflow: scroll;">
+            {% if newsletter.title %}
+                <p class="c-form-wrapper__heading u-text-size-delta u-text-bold">{{newsletter.title|upper}}</p>
+            {% endif %}
+            {% if newsletter.subtitle %}
+                <p class="c-form-wrapper__text u-text-size-epsilon">{{newsletter.subtitle}}</p>
+            {% endif %}
+            {% if newsletter.form %}
+                {{ newsletter.form }}
+            {% endif %}
+        </div>
+    </div>
+</div>

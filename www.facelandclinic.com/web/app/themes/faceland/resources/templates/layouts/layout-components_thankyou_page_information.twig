@@ -1,0 +1,109 @@
+
+<section class="pt-0 mb-20 mb-lg-72 join-us-section">   
+      <div class="border border-pink rounded p-24 px-xl-48 py-xl-28">
+        <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of2--md u-1of2--lg mb-n-20">
+            {% if layout.thankyou_page_title or layout.thankyou_page_description %}
+                <div class="o-grid__cell mt-0 mb-20 align-self-center join-us-left-col">                                             
+                    <div class="px-xl-24">
+                      <div class="join-us-title {{ layout.thankyou_show_newsletter_content == true ? 'u-text-center' : 'u-text-left'}}">
+                        {% if layout.thankyou_page_title and layout.thankyou_show_newsletter_content == true %}
+                            <{{ layout.thankyou_page_title_tag ? layout.thankyou_page_title_tag : 'h1' }} class="title-email-icon"><span class="email-icon">{{ rokit_get_static_image('images/sign-up-icon.png', null, 'newsletter-icon', '', false) }}</span>{{ layout.thankyou_page_title }}</{{ layout.thankyou_page_title_tag ? thankyou_page_title_tag : 'h1' }}>
+                        {% endif %}
+                        {% if layout.thankyou_page_title and layout.thankyou_show_newsletter_content != true %}
+                            <{{ layout.thankyou_page_title_tag ? layout.thankyou_page_title_tag : 'h1' }}>{{ layout.thankyou_page_title }}</{{ layout.thankyou_page_title_tag ? thankyou_page_title_tag : 'h1' }}>
+                        {% endif %}
+                      </div>
+                      <hr/>
+                      {% if layout.thankyou_page_description %}
+                          <div class="join-us-dec">                                            
+                            {{ layout.thankyou_page_description }}
+                          </div>
+                     {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+          {% if layout.thankyou_page_community_title or layout.community_thankyou_page_number or layout.community_cta_button_label %}
+            <div class="o-grid__cell mt-0 mb-20 join-us-right-col">
+            <div class="rounded f-bg-primary-bg p-24 h-100 u-text-center">
+              <{{ layout.community_thankyou_page_title ? layout.community_thankyou_page_title : 'h1'  }}>{{ layout.thankyou_page_community_title }}</{{ layout.community_thankyou_page_title ? layout.community_thankyou_page_title : 'h1'  }}>
+                  {% if layout.community_thankyou_page_text %}
+                    <div class="golden-count mt-8 mb-8 mt-xl-24 mb-xl-24">{{ layout.community_thankyou_page_number }}</div>
+                  {% endif %}
+                  {% if layout.community_thankyou_page_text %}
+                    <h3 class="people-text mb-0">{{ layout.community_thankyou_page_text }}</h3>
+                  {% endif %}
+              
+              {% if layout.community_cta_button_label and layout.thankyou_show_newsletter_content == true %}
+                <button class="mt-24 mt-xl-24 c-btn u-text-medium c-btn--dolen u-text-size-zeta" id="clinic-popupLink">{{ layout.community_cta_button_label }}</button>
+              {% endif %}
+
+            {% if layout.community_cta_button_label and layout.thankyou_show_newsletter_content != true %}
+              <a class="mt-24 mt-xl-24 c-btn u-text-medium c-btn--dolen u-text-size-zeta" href="{{ layout.cta_button_url ? layout.cta_button_url : 'javascript:;' }}" target="{{ (layout.cta_button_external == true) ? '_blank' : '_self' }}">{{ layout.community_cta_button_label }}</a>
+            {% endif %}
+
+            </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>   
+</section>
+          
+{% if layout.show_social_media_links == true %}    
+    <section class="pt-0 mt-20 mb-20 mt-lg-72 mb-lg-72 thankyou-social-section">
+      <div class="border border-pink rounded p-24 px-xl-40">
+        {% if layout.our_social_title %}  
+            <div class="join-us-title mb-24">
+              <{{ layout.our_social_title_tag ? layout.our_social_title_tag : 'h1'  }} class="title-email-icon"><span class="email-icon mr-20">{{ rokit_get_static_image('images/sign-up-icon-news.png', null, 'newsletter-icon', '', false) }}</span>{{ layout.our_social_title }}</{{ layout.our_social_title_tag ? layout.our_social_title_tag : 'h1'  }}>
+            </div>
+        {% endif %}
+          <ul class="c-socials u-text-color-gray-darker u-text-size-epsilon">
+            {% if socials.facebook.url %}
+                <li class="c-socials__item c-socials__item--facebook c-footer__list-item"><a href="{{ socials.facebook.url }}" rel="external" data-router-disabled="" title="{{ pll__('Facebook') }}">{{ pll__('Facebook') }}</a></li>
+            {% endif %}
+
+            {% if socials.instagram.url  %}
+                <li class="c-socials__item c-socials__item--instagram c-footer__list-item"><a href="{{ socials.instagram.url }}" rel="external" data-router-disabled="" title="{{ pll__('Instagram') }}">{{ pll__('Instagram') }}</a></li>
+            {% endif %}
+            {% if is_be_fr != true  %}
+                {% if socials.youtube.url %}
+                    <li class="c-socials__item c-socials__item--youtube c-footer__list-item"><a href="{{ socials.youtube.url }}" rel="external" data-router-disabled="" title="{{ pll__('Youtube') }}">{{ pll__('Youtube') }}</a></li>
+                {% endif %}
+                {% if socials.pinterest.url %}
+                    <li class="c-socials__item c-socials__item--pinterest c-footer__list-item"><a href="{{ socials.pinterest.url }}" rel="external" data-router-disabled="" title="{{ pll__('Pinterest') }}">{{ pll__('Pinterest') }}</a></li>
+                {% endif %}
+                {% if socials.linkedin.url %}
+                    <li class="c-socials__item c-socials__item--linkedin c-footer__list-item"><a href="{{ socials.linkedin.url }}" rel="external" data-router-disabled="" title="{{ pll__('LinkedIn') }}">{{ pll__('LinkedIn') }}</a></li>
+                {% endif %}
+            {% endif %}
+            {% if socials.tiktok.url %}
+                <li class="c-socials__item c-socials__item--tiktok c-tiktok c-footer__list-item"><a href="{{ socials.tiktok.url }}" rel="external" data-router-disabled="" title="{{ pll__('Tik Tok') }}">{{ pll__('Tik Tok') }}</a></li>
+            {% endif %}
+            {% if socials.facebook_group.url %}
+                <li class="c-socials__item c-socials__item--facebook c-footer__list-item"><a href="{{ socials.facebook_group.url }}" rel="external" data-router-disabled="" title="{{ pll__('Facebook Group') }}">{{ pll__('Facebook Group') }}</a></li>
+            {% endif %}
+         </ul>
+      </div>
+    </section> 
+{% endif %}
+
+<div class="c-modal js-modal-show-clinic-information thankyou-page-popup">
+      <div class="c-modal__content u-bg-white js-modal-content-site-direction">
+          <div class="c-form-wrapper js-form-wrapper clinic-opening-information p-xl-72">
+            <button class="c-modal__close js-modal-close">{{ rokit_get_static_image('images/close-icon.svg', null, 'newsletter-close-icon', '', false) }}</button>
+            <div class="thankyou-page-popup-wrraper">
+            <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of2--md u-1of2--lg">
+                <div class="o-grid__cell mt-0 mb-20 mb-lg-0">
+                    {% if newsletter.form %}
+                        <div class="thankyou-newsletter-form {{ is_mobile != true ? 'border rounded border-pink ' : '' }} p-0 p-xl-32">
+                            {{ newsletter.form }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="o-grid__cell mt-0 mb-20 mb-lg-0 d-none d-xl-block d-md-block">
+                    {{ rokit_get_image(layout.newsletter_modal_right_image, 'full', 'newsletter-modal-image') }}
+                </div>    
+            </div>
+          </div>
+          </div>
+      </div>
+</div>

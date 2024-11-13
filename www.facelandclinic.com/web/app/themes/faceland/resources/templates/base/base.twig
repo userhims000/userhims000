@@ -1,0 +1,39 @@
+{# Include the HTML head #}
+{% include 'base/header.twig' %}
+
+{# Include the loader #}
+{% include 'base/loader.twig' %}
+
+<div class="c-body-wrapper">
+    {# Include the header #}
+    {% include 'base/header-menu.twig' %}
+
+    <main role="main" data-router-wrapper>
+        <section data-router-view="{{ rokit_get_view_name() }}" >
+
+              {# Load the block with the panorama #}
+            {% block panorama %}{% endblock %}
+
+            {# Load the block with the main content #}
+            {% block content %}
+                <article class="c-copy">
+                    {% include 'parts/content-modules.twig' %}
+                </article>
+            {% endblock %}
+
+            {# Load the block with related #}
+            {% block related %}{% endblock %}
+
+        </section>
+    </main>
+</div>
+
+{# Include the footer #}
+{# {% if current_page_slug == 'home-5' %}
+    {% include "parts/newsletter-form.twig" %}
+    {% if is_be == true or is_be_fr == true %}
+        {% include "parts/be-popup.twig" %}
+    {% endif %}
+{% endif %} #}
+
+{% include 'base/footer.twig' %}

@@ -1,0 +1,71 @@
+{
+    "extends": ["airbnb-base", "prettier"],
+    "env": {
+        "es6": true,
+        "browser": true,
+        "jquery": true
+    },
+    "globals": {
+        "transitionManager": true,
+        "highway": true,
+        "Renderers": true,
+        "Transitions": true,
+        "rodeskDefaults": true,
+        "rodeskBreakpoints": true,
+        "rodeskSmoothScroll": true,
+        "rodeskLazyLoad": true,
+        "rodeskVideo": true,
+        "rodeskSelect": true,
+        "rodeskInView": true,
+        "rodeskMenu": true,
+        "rodeskUpdate": true,
+        "rodeskToggle": true,
+        "rodeskCompareSlider": true,
+        "rodeskSlickCarousel": true,
+        "rodeskValidate": true,
+        "rodeskPopup": true,
+        "rodeskFilterTax": true,
+        "rodeskCardHover": true,
+        "rodeskCounter": true,
+        "rodeskSwitch": true,
+        "rodeskCampaginScroll": true,
+        "documentReadyMain": true,
+        "fitvids": true,
+        "featherlight": true,
+        "FastClick": true,
+        "anime": true,
+        "salvattore": true,
+        "objectFitPolyfill": true,
+        "acalltracker": true,
+        "siteInfo": true
+    },
+    "rules": {
+        "no-lonely-if": "off",
+        "no-underscore-dangle": "off",
+        "no-param-reassign": "off",
+        "one-var": "off",
+        "camelcase": "warn",
+        "class-methods-use-this": [
+            2,
+            {
+                "exceptMethods": [
+                    "in",
+                    "out",
+                    "onEnter",
+                    "onLeave",
+                    "onEnterCompleted",
+                    "onLeaveCompleted",
+                    "_updateHtmlClasses",
+                    "_updateBodyClasses",
+                    "_updateNavigationLang",
+                    "_updateNavigation",
+                    "_updateHeader",
+                    "_updateMeta",
+                    "_updateCampaignStyles",
+                    "_disableExternalLinks",
+                    "update"
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,47 @@
+{# Locations single #}
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% include 'parts/panorama-default.twig' with { panorama : post.panorama } %}
+{% endblock %}
+
+{% block content %}
+    {% if rokit_get_query_param('debug') != 'development' and current_page_id != "26066" and current_page_id != "26075" and current_page_id != "28392" and current_page_id != "28393" %}
+        <div class="o-contain o-contain-padding">
+            <article class="c-copy">
+                <div class="c-copy__info">
+                    <div class="u-flex-md u-flex-space-between-x">
+                        <div class="c-copy__info-column">
+                            {% include "parts/location/info.twig" with { info : post.openinghours, big : true } %}
+                            {% include "parts/location/info.twig" with { info : post.availability, big : true} %}
+                        </div>
+
+                        <div class="c-copy__info-column">
+                            {% include "parts/location/contactdetails.twig" %}
+                        </div>
+                    </div>
+                </div>
+                {% include 'parts/content-modules.twig' %}
+            </article>
+        </div>
+    {% endif %}
+
+    {% if rokit_get_query_param('debug') == 'development' or current_page_id == "26066" or current_page_id == "26075" or current_page_id == "28392" or current_page_id == "28393"  %}
+        <div class="{{ is_mobile != true ? o-contain-padding : '' }} clinic-location">
+            <article class="c-copy">
+                
+                <div class="o-contain {{ is_mobile != true ? o-contain-padding : '' }}">
+                    {% include "parts/location/info.twig" with { info : post.openinghours, availability :post.availability, general : post.general, big : true, post_type : post.post_type } %}
+                </div>
+                {% include 'parts/content-modules.twig' with { related : post.related, cardType : 'specialist', cta : post.cta, show_toggle : true} %}
+            </article>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block related %}
+    {% if rokit_get_query_param('debug') != 'development' and current_page_id != "26066" and current_page_id != "26075" and current_page_id != "28392" and current_page_id != "28393" %}
+        {% include "parts/related.twig" with { related : post.related, cardType : 'specialist', cta : post.cta, show_toggle : true} %}
+    {% endif %}
+{% endblock %}

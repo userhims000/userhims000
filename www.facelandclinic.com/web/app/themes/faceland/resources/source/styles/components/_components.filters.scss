@@ -1,0 +1,145 @@
+.c-filters {
+
+    .c-select {
+        flex: 1;
+    }
+}
+
+.c-filters__wrapper {
+    @include breakpoint(medium) {
+        display: grid;
+        grid-auto-columns: 1fr;
+        grid-auto-flow: column;
+
+        > * {
+            float: left;
+        }
+    }
+}
+
+.c-filters--select {
+    width: 100%;
+    max-width: rhythm(27.75);
+
+    span {
+        display: block;
+        text-align: center;
+    }
+
+    .c-select {
+        margin-top: rhythm(1);
+    }
+
+    @include breakpoint(medium) {
+
+        span {
+            display: inline;
+            text-align: left;
+        }
+
+        .c-select {
+            margin-top: 0;
+        }
+    }
+}
+
+.c-filters--button {
+    display: inline-block;
+    width: 100%;
+    margin-top: rhythm(3);
+    padding: rhythm(.625);
+    border: 1px solid $color-gray-lighter;
+    border-radius: 40px;
+    box-shadow: 0 9px 54px 0 rgba($color-black, .05);
+    overflow: hidden;
+
+    .c-filter {
+        display: block;
+        min-width: 150px;
+        padding: rhythm(.125);
+        border: 0;
+        background-color: transparent;
+
+        &.is-active {
+            color: $color-gray-darker;
+            font-weight: 700;
+        }
+    }
+
+    @include breakpoint(medium) {
+        @include contain-padding(rhythm(1));
+        width: auto;
+        border-radius: 40px;
+    }
+
+    @include breakpoint(large) {
+        @include rhythm-padding(0);
+
+        .c-filter {
+            @include rhythm-padding(.625);
+            @include contain-padding(rhythm(.5));
+            display: inline;
+            min-width: auto;
+        }
+    }
+}
+
+.c-filters--square-sm {
+    border-radius: 6px;
+
+    .c-filter {
+        width: 100%;
+    }
+
+    @include breakpoint(large) {
+        width: auto;
+        border-radius: 40px;
+
+        .c-filter {
+            width: auto;
+            text-align: center;
+        }
+    }
+}
+
+.c-filters--bordered {
+
+    .c-filter {
+        border: 0;
+        font-family: $primary-font;
+        cursor: pointer;
+
+        &:focus {
+            outline: 0;
+        }
+    }
+
+    @include breakpoint(medium) {
+
+        .c-filter {
+            @include contain-padding(rhythm(.5));
+            border-right: 1px solid $color-gray-lighter;
+
+            @include last-child {
+                border-color: transparent;
+            }
+        }
+    }
+
+    @include breakpoint(large) {
+        @include contain-padding(rhythm(0));
+
+        .c-filter {
+            @include contain-padding(rhythm(1.5));
+        }
+    }
+}
+
+.c-filter {
+
+    &.is-disabled {
+        font-weight: 400;
+        cursor: default;
+        opacity: .5;
+    }
+}

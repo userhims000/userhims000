@@ -1,0 +1,25 @@
+{% set gridSize = gridSize ? gridSize : 'u-1of1--sm u-1of2--md u-1of3--lg' %}
+{% set gutterSize = gutterSize ? gutterSize : 'o-grid--with-gutter o-grid--with-gutter-vertical' %}
+{% set cardType = cardType ? cardType : 'default' %}
+{% set treatment_class = taxonomy.collection.type == 'treatment' ? 'treatement__new' : '' %}
+
+{% if posts|length > 0 %}
+	<div class="c-cards-wrapper {{treatment_class}}">
+		{% if taxonomy.collection.type == 'treatment' and get_query_object.slug != "borstcorrectie" and get_query_object.slug != "facelift-ooglidcorrectie"  %}
+			{% include "parts/filters/treatment.twig" %}
+		{% endif %}
+		<div class="c-cards {{ treatment_class }}">
+			<div class="o-grid js-filter-wrapper {{gridSize}} {{gutterSize}}">
+				{% for card in posts %}
+					<div class="o-grid__cell js-animation-element a-fade-in-up {{gridCellClass}}">
+						{% if taxonomy.collection.type == 'treatment'  and is_mobile %}
+							{% include 'parts/cards/card-treatment-new.twig' %}
+						{% else %}
+							{% include 'parts/cards/card-' ~ cardType ~ '.twig' %}
+						{% endif %}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endif %}

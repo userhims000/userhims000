@@ -1,0 +1,71 @@
+/*----------------------------------------------------------------------------*\
+    #COMPONENTS CHECKBOX
+\*----------------------------------------------------------------------------*/
+
+input[type='checkbox'] {
+    @include offset(absolute, 0, null, null, 0);
+
+    &:focus {
+        outline: 0;
+    }
+}
+
+.o-input-set__label {
+    display: block;
+    position: relative;
+
+    &.is-error {
+
+        .c-form__label--checkbox::before {
+            border-color: $color-negative;
+        }
+    }
+
+    .c-form__label--checkbox {
+        position: relative;
+        color: $color-gray;
+        opacity: 1;
+    }
+}
+
+.c-form__label--checkbox {
+    display: block;
+    position: relative;
+    padding-left: rhythm(1);
+    cursor: pointer;
+
+    &::before {
+        @include offset(absolute, 0, null, null, 0);
+        @include square(16px);
+        transition: border .24s ease-in;
+        border: 1px solid rgb(216, 216, 216);
+        border-radius: 3px;
+        background-color: $color-white;
+        content: '';
+    }
+
+    &::after {
+        @include offset(absolute, 3px, null, null, 2px);
+        @include square(12px);
+        transform: scale(.5);
+        transition: .24s ease-in;
+        transition-property: transform, opacity;
+        background-position: 0 0;
+        content: '';
+        opacity: 0;
+    }
+
+    a {
+        color: $color-black;
+        text-decoration: underline;
+    }
+}
+
+input[type='checkbox']:checked + .c-form__label--checkbox,
+input[type='checkbox']:checked + .error + .c-form__label--checkbox {
+
+    &::after {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

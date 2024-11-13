@@ -1,0 +1,47 @@
+<div class="treatment-why-faceland f-bg-primary-bg new-treatment-why-section " >
+    <div class="o-contain why-faceland-section">
+        <div class="why-faceland-section-title">
+            <h4 class="why-faceland-title u-text-bold">{{ layout.title }}</h4>
+        </div>
+        <div class="float-container">
+          <div class="why-content-float-parts">
+
+            {% for item in layout.content %}
+                {% if is_mobile %}
+                    {% if loop.index is odd %}
+                        <div class="two-part">
+                    {% endif %}
+                {% endif %}
+                <div class="float-child">
+                    <div class="float-child-left">
+                        {# {% if rokit_get_query_param('debug') == 'development'  %} #}
+                        <div class="float-left-image-wrap f-bg-primary-bg">
+                        {# {% endif %}  #}
+                            <figure class="o-panorama__image">
+                                {% if item.show_lottie_animation == false %}
+                                    <img class="js-lazy-load is-lazy-loaded" data-src="{{ item.image }}"  title="" alt="{{ rokit_get_image_alt(rokit_get_image_id(item.image)) }}" src="{{ item.image }}" width="{{ rokit_get_image_width_height_attr(item.image)['width'] }}" height="{{ rokit_get_image_width_height_attr(item.image)['height'] }}">
+                                {% endif %}
+                                {% if item.show_lottie_animation == true %}
+                                    {% if item.lottie_animation %}
+                                        <div class="lottie-animation" data-lottie-file="{{ item.lottie_animation }}"></div>
+                                    {% endif %}    
+                                {% endif %}
+                            </figure>
+                        {# {% if rokit_get_query_param('debug') == 'development'  %} #}
+                        </div>
+                        {# {% endif %} #}
+                    </div>
+                    <div class="float-child-right">
+                        {{item.description}}
+                    </div>
+                </div>
+                {% if is_mobile %}
+                    {% if loop.index is even or loop.last %}
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+             </div>
+        </div>
+    </div>
+</div>

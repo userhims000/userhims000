@@ -1,0 +1,8 @@
+.c-tooltip {
+    @include square(13px);
+    @include is-hidden-text(skm);
+    display: block;
+    position: relative;
+    margin-left: rhythm(.325);
+    background-position: -672px -192px;
+}

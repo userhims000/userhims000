@@ -1,0 +1,60 @@
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+
+# OS or Editor folders
+.DS_Store
+._*
+*[Tt]humbs.db
+.cache
+.project
+.settings
+.tmproj
+nbproject
+*.sublime-project
+*.sublime-workspace
+
+# Komodo
+*.komodoproject
+.komodotools
+
+# Espresso
+*.esproj
+*.espressostorage
+
+# Rubinius
+*.rbc
+
+# Folders to ignore
+.hg
+.svn
+.CVS
+intermediate
+publish
+.idea
+
+# Grunt workflow
+#node_modules
+
+# Bower directories
+#bower_components
+
+# Composer vendor folder
+#vendor
+
+# Assets dist folder
+#/resources/assets
+
+# markdown file with todo info
+TODO.md
+
+# config file with virtualhost url
+#localconfig.json

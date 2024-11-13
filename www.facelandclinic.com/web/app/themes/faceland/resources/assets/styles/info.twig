@@ -1,0 +1,245 @@
+{% if rokit_get_query_param('debug') != 'development' and current_page_id != "26066" and current_page_id != "26075"  %}
+    {# {% if post_type != 'location' %} #}
+        {% if info.items|length > 0 %}
+            {% set headingClasses = big is defined ? 'u-text-bold u-text-size-delta' : 'o-card__list-item u-text-bold' %}
+
+            <ul class="o-list-plain o-card__list u-text-size-epsilon">
+                {% if info.title %}
+                    <li class="{{headingClasses}}">{{info.title}}</li>
+                {% endif %}
+
+                {% for item in info.items %}
+                    <li class="o-card__list-item u-flex-sm u-flex-space-between-x"><span>{{item.text}}</span><span>{{item.label}}</span></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {# {% endif %} #}
+{% endif %}
+
+{% if rokit_get_query_param('debug') == 'development' or current_page_id == "26066" or current_page_id == "26075" %}
+
+    {% if post_type == 'location' %}
+
+       {% if info.location_information.location_title_content or info.location_information.location_content_info  %}
+          <div class="location-title-content {{ is_mobile ? 'u-text-center o-contain-padding' : '' }}">
+             {% if info.location_information.location_title_content %}
+                <div class="title u-text-bold">
+                   {% set locationTitleTag = info.location_information.location_title_content_heading_tag ? info.location_information.location_title_content_heading_tag : 'h2' %}
+                   <{{ locationTitleTag }}>{{ info.location_information.location_title_content }}</{{ locationTitleTag }}>
+                </div>
+             {% endif %}
+             {% if info.location_information.location_content_info  %}
+                <div class="location-single-col-content">
+                   <div class="location-content-description">
+                      <p>{{ info.location_information.location_content_info }}</p>
+                   </div>
+                </div>
+             {% endif %}
+          </div>
+       {% endif %}
+
+
+       {% if info.location_information.hide_map_section != true %}
+            <div class="o-contain o-contain-padding">
+                <section class="kom-langs-section pt-0 mb-20 mb-lg-72">
+                    <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of2--md u-1of2--lg">
+                       {% if is_mobile == true %}
+                         <div class="o-grid__cell mt-0 mb-20">
+                           <div class="border border-pink rounded h-100">
+                             <div class="my-map-img-div rounded overflow-hidden h-100">
+                                 <iframe src="https://www.google.com/maps?q={{ info.location_information.default_title }}, {{ general.street }},{{ general.city }},{{ general.zipcode }},{{ general.country }}&output=embed"></iframe>
+                                 <a href="https://www.google.com/maps?q={{ info.location_information.default_title }}, {{ general.street }},{{ general.city }},{{ general.zipcode }},{{ general.country }}" class="PLan-a" target="_blank" >{{ 'Plan je route' }}</a>
+                              </div>
+                           </div>
+                         </div>
+                       {% endif %}
+                      <div class="o-grid__cell mt-0 mb-20">
+                        <div class="border border-pink rounded px-24 py-32 px-lg-32 px-xl-44 py-32">
+                          {# <h5 class="small-title u-text-center">{{ pll__('Opening Hours') }}</h5> #}
+                          
+                          {% for key, item in info.opening_days %}
+                           {% if key <= 2 %}
+                             <div class="o-grid o-grid--with-gutter mb-12  {{ key }}">
+                               <div class="o-grid__cell w-50 m-0"><p>{{ item.text }}</p></div>
+                               <div class="o-grid__cell w-50 m-0 u-text-right"><p>{{ item.label }}</p></div>                            
+                             </div>
+                           {% endif %}
+                           {% endfor %}
+
+                          <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of2--lg">
+                            <div class="o-grid__cell w-50 mt-0 m mb-12 u-text-center u-text-lg-left">
+                              <div class="kom-h4  m-0">
+                                <a href="javascript:;" id="clinic-popupLink" class="d-inline-flex">
+                                    <i class="arrow right mr-8"></i>{{ info.location_information.open_hours_lable ? info.location_information.open_hours_lable : 'Bekijk meer openingstijden' }}
+                                  </a>
+                              </div>
+                            </div>
+                            <div class="o-grid__cell w-50 mt-0 mb-12 u-text-center u-text-lg-right">
+
+                             {% if ( info.close_time != '' and info.open_time < info.current_time ) and ( info.close_time > info.current_time )   %}
+                                <div class="kom-green-left m-0 gap-0">
+                                   <span class="d-flex align-self-center mr-8">
+                                     <svg class="my-svg" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve">
+                                       <g>
+                                         <switch>
+                                           <g>
+                                             <path fill="#02bc7d" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.3 7.6-4.6 6c-.2.2-.5.4-.8.4s-.6-.1-.8-.4l-2.4-3.1c-.3-.4-.3-1.1.2-1.4s1.1-.3 1.4.2l1.6 2.1 3.8-5c.3-.4 1-.5 1.4-.2.5.3.5.9.2 1.4z" opacity="1" data-original="#02bc7d"></path>
+                                           </g>
+                                         </switch>
+                                       </g>
+                                     </svg>
+                                   </span>                                
+                                   <p class="No-open-p">{{ 'Nu open, tot ' ~ info.close_time ~ ' uur' }}</p>
+                                </div>
+                              {% else %}
+                                <div class="kom-red-left m-0 gap-0">
+                                   <span class="d-flex align-self-center mr-8 ml-12 ">
+                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                       <g>
+                                       <switch>
+                                          <g>
+                                             <path fill="#c0272c" fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clip-rule="evenodd"></path>
+                                          </g>
+                                       </switch>
+                                    </svg>
+                                   </span>                                
+                                   <p class="No-close-p">{{ info.next_day_open_time }}</p>
+                                </div>
+                              {% endif %}
+                            </div>
+                          </div>
+                          <a href="javascript:;" class="js-open-chat" >Hello</a>
+                          <div class="last-btn-div mt-0 mb-12 flex-wrap u-flex-center-x">
+                             {% if info.current_day != 'zaterdag' and info.current_day != 'zondag' %}
+                                {% set exceptionCloseTime = '21:00'  %}
+                                {% if info.location_information.exception_close_time %}
+                                {% set exceptionCloseTime = info.location_information.exception_close_time %}
+                                {% endif %}
+                                {% if (info.current_time <= exceptionCloseTime) and ( info.open_time < info.current_time ) %}
+                                {% set openCloseclass = 'chat_open'  %}
+                                {% else %}
+                                {% set openCloseclass = 'chat_close'  %}
+                                {% endif %}
+                                {% else %}
+                                {% set openCloseclass = 'chat_close'  %}
+                                {% endif %}
+                                {% set chatButtonLabel = info.location_information.chat_button.label ? info.location_information.chat_button.label : 'Chat ons' %}
+                                {% set chatButtonURL = info.location_information.chat_button.url ? info.location_information.chat_button.url : 'javascript:;' %}
+                                {% set chatButtonExternal = info.location_information.chat_button.external ? ' rel="external" data-router-disabled' %}
+                                <a href="{{ chatButtonURL }}"  {{ chatButtonExternal }}
+                                class="c-btn u-text-medium c-btn--gray-darker u-bg-gray-darker u-text-size-zeta one-btn f-bg-primary-bg  {{ openCloseclass }}">
+                                <svg class="i-svg" xmlns="http://www.w3.org/2000/svg" version="1.1 "
+                                   xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0"
+                                   viewBox="0 0 308 308" xml:space="preserve">
+                                   <g>
+                                      <path
+                                         d="M227.904 176.981c-.6-.288-23.054-11.345-27.044-12.781-1.629-.585-3.374-1.156-5.23-1.156-3.032 0-5.579 1.511-7.563 4.479-2.243 3.334-9.033 11.271-11.131 13.642-.274.313-.648.687-.872.687-.201 0-3.676-1.431-4.728-1.888-24.087-10.463-42.37-35.624-44.877-39.867-.358-.61-.373-.887-.376-.887.088-.323.898-1.135 1.316-1.554 1.223-1.21 2.548-2.805 3.83-4.348a140.77 140.77 0 0 1 1.812-2.153c1.86-2.164 2.688-3.844 3.648-5.79l.503-1.011c2.344-4.657.342-8.587-.305-9.856-.531-1.062-10.012-23.944-11.02-26.348-2.424-5.801-5.627-8.502-10.078-8.502-.413 0 0 0-1.732.073-2.109.089-13.594 1.601-18.672 4.802C90 87.918 80.89 98.74 80.89 117.772c0 17.129 10.87 33.302 15.537 39.453.116.155.329.47.638.922 17.873 26.102 40.154 45.446 62.741 54.469 21.745 8.686 32.042 9.69 37.896 9.69h.001c2.46 0 4.429-.193 6.166-.364l1.102-.105c7.512-.666 24.02-9.22 27.775-19.655 2.958-8.219 3.738-17.199 1.77-20.458-1.348-2.216-3.671-3.331-6.612-4.743z"
+                                         fill="#000000" opacity="1" data-original="#000000"></path>
+                                      <path
+                                         d="M156.734 0C73.318 0 5.454 67.354 5.454 150.143c0 26.777 7.166 52.988 20.741 75.928L.212 302.716a3.998 3.998 0 0 0 4.999 5.096l79.92-25.396c21.87 11.685 46.588 17.853 71.604 17.853C240.143 300.27 308 232.923 308 150.143 308 67.354 240.143 0 156.734 0zm0 268.994c-23.539 0-46.338-6.797-65.936-19.657a3.996 3.996 0 0 0-3.406-.467l-40.035 12.726 12.924-38.129a4.002 4.002 0 0 0-.561-3.647c-14.924-20.392-22.813-44.485-22.813-69.677 0-65.543 53.754-118.867 119.826-118.867 66.064 0 119.812 53.324 119.812 118.867.001 65.535-53.746 118.851-119.811 118.851z"
+                                         fill="#000000" opacity="1" data-original="#000000"></path>
+                                   </g>
+                                </svg>
+                                {{ chatButtonLabel }}
+                                </a>
+                                {% set appointmentButtonLabel = info.location_information.appointment_button.label ? info.location_information.appointment_button.label : 'Maak afspraak' %}
+                                {% set appointmentButtonURL = info.location_information.appointment_button.url ? info.location_information.appointment_button.url : 'javascript:;' %}
+                                {% set appointmentButtonExternal = info.location_information.appointment_button.external ? ' rel="external" data-router-disabled' %}
+                                <a href="{{ appointmentButtonURL }}" {{ appointmentButtonExternal }}
+                                class="c-btn u-text-medium c-btn--gray-darker u-bg-gray-darker u-text-size-zeta two-btn">
+                                {{ appointmentButtonLabel }}
+                                </a>  
+                          </div>
+                           {# {% if info.current_day != 'zaterdag' and info.current_day != 'zondag' %}
+                                {% set exceptionCloseTime = '21:00'  %}
+                                {% if info.location_information.exception_close_time %}
+                                     {% set exceptionCloseTime = info.location_information.exception_close_time %}
+                                {% endif %}
+                           
+                                {% if (info.current_time <= exceptionCloseTime) and ( info.open_time < info.current_time ) %}
+                                   <p class="u-text-center">
+                                    {{ 'Chat is bereikbaar tot ' ~  exceptionCloseTime   ~ ' uur' }}
+                                   </p>
+                                {% else %}
+                                   <p class="u-text-center">
+                                    {{ 'Chat is de volgende werkdag vanaf ' ~ info.open_time ~ ' uur beschikbaar.' }}
+                                   </p>
+                                {% endif %}
+                           {% else %}
+                              <p class="u-text-center">
+                                 {{ 'Chat is de volgende werkdag vanaf ' ~ info.open_time ~ ' uur beschikbaar.' }}
+                              </p>
+                           {% endif %} #}
+                        </div>
+                      </div>
+                      {% if is_mobile != true %}
+                         <div class="o-grid__cell mt-0 mb-20">
+                           <div class="border border-pink rounded h-100">
+                             <div class="my-map-img-div rounded overflow-hidden h-100">
+                                 <iframe src="https://www.google.com/maps?q={{ info.location_information.default_title }}, {{ general.street }},{{ general.city }},{{ general.zipcode }},{{ general.country }}&output=embed"></iframe>
+                                 <a href="https://www.google.com/maps?q={{ info.location_information.default_title }}, {{ general.street }},{{ general.city }},{{ general.zipcode }},{{ general.country }}" class="PLan-a" target="_blank" >{{ 'Plan je route' }}</a>
+                              </div>                         
+                           </div>
+                         </div>
+                       {% endif %}
+                    </div>
+
+                    <div class="c-modal js-modal-show-clinic-information">
+                          <button class="c-modal__close js-modal-close">Sluiten</button>
+                          <div class="c-modal__content u-bg-white js-modal-content-site-direction">
+                              <div class="c-form-wrapper js-form-wrapper clinic-opening-information" style="min-height: 200px;">
+                                {% set headingClasses = big is defined ? 'u-text-bold u-text-size-delta' : 'o-card__list-item u-text-bold' %}
+                                  <ul class="o-list-plain o-card__list u-text-size-epsilon u-text-left opening-hours-left">
+                                      {% if info.title %}
+                                          <li class="{{headingClasses}}">{{info.title}}</li>
+                                      {% endif %}
+
+                                      {% for item in info.items %}
+                                          <li class="o-card__list-item u-flex-sm u-flex-space-between-x"><span>{{item.text}}</span><span>{{item.label}}</span></li>
+                                      {% endfor %}
+                                  </ul>
+                                   <ul class="o-list-plain  u-text-size-epsilon u-text-left pd-right-0">
+                                      {% if availability.title %}
+                                          <li class="{{headingClasses}}">{{availability.title}}</li>
+                                      {% endif %}
+
+                                      {% for item in availability.items %}
+                                          <li class="o-card__list-item u-flex-sm u-flex-space-between-x"><span>{{item.text}}</span><span>{{item.label}}</span></li>
+                                      {% endfor %}
+                                  </ul>
+                                
+                              </div>
+                          </div>
+                    </div>
+
+                    <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of2--md u-1of2--lg mb-n-20">
+                        <div class="o-grid__cell u-cell-1of2--md u-cell-1of3--lg mt-0 mb-20">
+                          <div class="border border-pink d-flex align-items-center rounded px-32 py-16 px-lg-32 px-xl-32 py-16 h-100">
+                            <div class="check-list-box">
+                                {% for rightIconInformation in info.location_information.right_icon_with_info %}
+                                    <div class="check-list-item">
+                                      <div class="check-list-img">
+                                        {{ rokit_get_image(rightIconInformation.image, 'full', 'right-icon-image') }}
+                                      </div>
+                                      <div class="check-list-text pl-24 pl-lg-32 w-100">
+                                        {{ rightIconInformation.content }}
+                                      </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                          </div>                       
+                        </div>
+                        <div class="o-grid__cell u-cell-1of2--md u-cell-2of3--lg mt-0 mb-20">
+                          <div class="border border-pink rounded px-24 py-16 px-lg-36 px-xl-24 py-16 h-100">
+                            {{ info.location_information.taggbox_review_shortcode|shortcodes }}
+                          </div>
+                        </div>
+                      </div>
+                </section>
+            </div>
+       {% endif %}
+
+
+    {% endif %}
+
+{% endif %}

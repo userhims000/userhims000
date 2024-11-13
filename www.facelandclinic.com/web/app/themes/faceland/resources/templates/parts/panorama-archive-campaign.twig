@@ -1,0 +1,14 @@
+{% if panorama.title or panorama.subtitle %}
+    <div class="o-panorama c-panorama--background u-bg-campaign js-campaign-panorama">
+        <div class="o-contain o-contain-padding">
+            <div class="o-panorama__content u-text-center">
+                {% if panorama.title %}
+                    <h1 class="c-panorama__heading u-text-bold u-text-size-tera js-animation-element a-fade-in a-delay">{{panorama.title}}</h1>
+                {% endif %}
+                {% if panorama.subtitle %}
+                    <p class="c-panorama__text u-text-size-mega u-text-color-gray-dark js-animation-element a-fade-in a-delay-lg">{{panorama.subtitle}}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,47 @@
+<div class="review-section o-contain">
+    <div class="c-carousel-wrapper">
+        {% if layout.review_list|length > 2 %}
+            {% if not is_mobile %}    
+                <div class="review-list-car-nav c-carousel-nav ">
+                    <button class="review-list-arrow c-icon c-icon--round c-icon--lg c-icon--arrow js-carousel-prev slick-arrow " aria-disabled="false">                                    
+                    <i class="arrow left"></i>
+                    </button>
+                    <button class="review-list-arrow c-icon c-icon--round c-icon--lg c-icon--arrow js-carousel-next slick-arrow slick-disabled" aria-disabled="true" style="">                                     
+                        <i class="arrow right"></i>
+                    </button>
+                </div>
+            {% endif %}
+        {% endif %}
+        {% if is_mobile %}
+            <div class="review-list-car-nav c-carousel-nav ">
+                <button class="review-list-arrow c-icon c-icon--round c-icon--lg c-icon--arrow js-carousel-prev slick-arrow" aria-disabled="false">                                    
+                <i class="arrow left"></i>
+                </button>
+                <button class="review-list-arrow c-icon c-icon--round c-icon--lg c-icon--arrow js-carousel-next slick-arrow slick-disabled" aria-disabled="true" style="">                                     
+                    <i class="arrow right"></i>
+                </button>
+            </div>
+        {% endif %}
+        {% if layout.review_section_title != "" %}
+            <h2 class="review-sec-title u-text-bold">{{layout.review_section_title}}</h2>
+        {% endif %}
+        <div class="review-list c-carousel c-carousel--default js-review-carousel ">
+            {% for item in layout.review_list %}
+                <div class="review-sec">
+                    <div class="review-heading">
+                        <div>{{item.review_author}}</div>
+                        <div class="review-date">{{item.review_date | date('j F Y')}}</div>
+                    </div>
+                    <div class="review-content ">
+                        <div class="comment">{{item.review}}</div>
+                    </div>
+                    <div class="review-footer">
+                        <div><span>Clinic</span><br> <span class="clinic-name">{{item.clinic}}</span></div>
+                        <div style="padding-right:60px;"><span>Speacilaist</span><br> <span class="specialist-name">{{item.specialist}}</span></div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+       

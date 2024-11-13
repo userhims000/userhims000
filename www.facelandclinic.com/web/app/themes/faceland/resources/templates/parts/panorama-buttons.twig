@@ -1,0 +1,15 @@
+{% extends 'parts/panorama-default.twig'%}
+
+{% block panoramaAfterTitles %}
+    {% if button %}
+        {% if button|length > 0  %}
+            <div class="c-btn-wrapper js-animation-element a-fade-in a-delay">
+                {% include "parts/button.twig" with { button : button.content, classes: button.classes } %}
+            </div>
+        {% endif %}
+    {% else %}
+        {% if filter %}
+            {% include "parts/filters.twig" with { filter : filter } %}
+        {% endif %}
+    {% endif %}
+{% endblock %}

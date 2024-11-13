@@ -1,0 +1,14 @@
+<div class="o-contain o-contain-padding">
+   <div class="navigation-info-title u-text-center u-text-bold navigation-info-heading">
+      {% if gonavigation.title %} 
+        <h2 class="u-text-bold section-sub-title">{{ gonavigation.title }}</h2>
+      {% endif %}
+   </div>
+   <div class="u-flex u-flex-center-x">
+      <div class="treatment-filters c-filters c-filters--button c-new-treatment-filters c-filters--square-sm u-flex u-flex-center-y u-flex-space-around-x u-text-size-epsilon u-text-color-gray f-bg-primary-bg">
+         {% for list in gonavigation.data %}
+            <a href="#{{ list.navigation_label }}" title="{{ list.navigation_label }}" class="c-filter  is-not-active " data-transition="filter">{{ list.navigation_label }}</a>
+         {% endfor %}           
+      </div>
+   </div>
+</div>

@@ -1,0 +1,20 @@
+{% set color = layout.contact_ways_color.color ? 'secondary' : 'tertiary' %}
+<div class="o-card c-card--big">
+    <div class="o-grid">
+        <div class="o-grid__cell u-cell-1of1--sm u-cell-1of3--lg u-cell-1of2--wd  u-bg-{{color}}-light">
+            <div class="o-card__background u-flex-sm u-flex-center u-bg-{{color}}-light">
+                {{rokit_get_image(layout.contact_ways_image, 'avatar-hg', layout.contact_ways_title, 'o-image--hg' )}}
+            </div>
+        </div>
+        <div class="o-grid__cell u-cell-1of1--sm u-cell-2of3--lg u-cell-1of2--wd">
+            <div class="o-card__content">
+                <{{ layout.contact_ways_title_tag ? layout.contact_ways_title_tag : 'h1' }} class="o-card__heading u-text-size-beta u-text-bold">{{ layout.contact_ways_title }}</{{ layout.contact_ways_title_tag ? layout.contact_ways_title_tag : 'h1' }}>
+                <p class="o-card__text u-text-size-epsilon">{{ layout.contact_ways_description }}</p>
+                <a class="c-btn c-btn--gray-darker u-text-size-zeta u-text-medium" href="{{ layout.contact_ways_link }}" title="{{pll__('Bekijk alles')}}" target="_blank">{{ (layout.contact_ways_label) ? layout.contact_ways_label : '' }}</a>
+                <div class="c-mask-wrapper">
+                    {% include "parts/mask-vertical.twig" with { classes : 'c-mask--' ~ color ~ '-light' } %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

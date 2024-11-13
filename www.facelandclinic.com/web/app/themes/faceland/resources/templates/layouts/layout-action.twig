@@ -1,0 +1,37 @@
+{% if layout|length > 0 %}
+    {% set external = layout.external ? 'rel="external" data-router-disabled' %}
+    {% set wrapperClass = not layout.big_size ? 'c-card--horizontal' %}
+    {% set labelClass = not layout.big_size ? 'u-text-size-nano' : 'u-text-size-pico' %}
+    {% set imageSize = layout.big_size ? 'module-image' : 'download' %}
+    {% set image = layout.big_size ? layout.image_big :  layout.image %}
+
+    <div class="o-card c-card--simple c-card--bordered js-block {{ wrapperClass }}">
+        {% if not layout.big_size %}
+        <div class="o-grid">
+            <div class="o-grid__cell u-cell-1of4--cp">
+                {% endif %}
+                {% if image %}
+                    <figure class="o-card__image">
+                        {{ rokit_get_image(image, imageSize, layout.title) }}
+                    </figure>
+                {% endif %}
+                {% if not layout.big_size %}
+            </div>
+            <div class="o-grid__cell o-grid__cell--center u-cell-3of4--cp">
+                {% endif %}
+                {% if layout.title or layout.label %}
+                    <div class="o-card__content u-bg-white">
+                        {% if layout.title %}
+                            <h3 class="o-card__heading u-text-size-delta u-text-bold"><a href="{{layout.url}}" {{external}} title="{{layout.title}}">{{layout.title}}</a></h3>
+                        {% endif %}
+                        {% if layout.label %}
+                            <span class="o-card__label o-label u-bg-primary u-text-bold u-text-color-white {{ labelClass }}">{{layout.label|upper}}</span>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                {% if not layout.big_size %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endif %}

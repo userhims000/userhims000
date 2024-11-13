@@ -1,0 +1,23 @@
+{
+    "name": "rodesk/review-scraper",
+    "description": "Scrape reviews",
+    "type": "wordpress-plugin",
+    "require": {
+        "php": ">=7",
+        "fabpot/goutte": "^4.0",
+        "jenssegers/date": "^3.5",
+        "guzzlehttp/guzzle": "^6.5"
+    },
+    "license": "GPL-2.0-only",
+    "authors": [
+        {
+            "name": "Jasper Rooduijn",
+            "email": "jasper.rooduijn@rodesk.nl"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Rodesk\\ReviewScraper\\": "src/"
+        }
+    }
+}

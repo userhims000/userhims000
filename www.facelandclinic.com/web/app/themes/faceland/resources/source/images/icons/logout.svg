@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>logout</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Account" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Account_04" transform="translate(-92.000000, -262.000000)" stroke="#9D9EA3" stroke-width="1.19999993">
+            <g id="logout" transform="translate(93.000000, 263.000000)">
+                <path d="M3.59999979,10.7999994 L1.19999993,10.7999994 C0.537258268,10.7999994 0,10.2627411 0,9.59999943 L0,1.19999993 C0,0.537258268 0.537258268,-1.77635684e-15 1.19999993,-1.77635684e-15 L3.59999979,-1.77635684e-15" id="Path"></path>
+                <path d="M10.7999994,5.39999968 L3.59999979,5.39999968" id="Path"></path>
+                <polyline id="Path" points="7.79999954 8.3999995 10.7999994 5.39999968 7.79999954 2.39999986"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

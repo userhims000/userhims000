@@ -1,0 +1,34 @@
+/*----------------------------------------------------------------------------*\
+    #COMPONENTS SEARCH
+\*----------------------------------------------------------------------------*/
+
+.c-search {
+    @include rhythm-padding(2, 3);
+    border-bottom: 1px solid $color-gray-lighter;
+}
+
+.c-search__wrapper {
+    @include contain-margin(auto);
+    max-width: rhythm(24.75);
+
+    strong {
+        font-weight: 700;
+    }
+}
+
+.c-search__total {
+    border-bottom: 1px solid $color-gray-lightest;
+}
+
+.c-search__item {
+    margin-top: rhythm(2);
+}
+
+.c-search__text {
+    margin-top: rhythm(.375);
+
+    .searchwp-highlight {
+        background-color: transparent;
+        font-weight: 700;
+    }
+}

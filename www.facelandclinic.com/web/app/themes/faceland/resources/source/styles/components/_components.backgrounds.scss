@@ -1,0 +1,36 @@
+/*----------------------------------------------------------------------------*\
+    #COMPONENTS BACKGROUNDS
+\*----------------------------------------------------------------------------*/
+
+.c-form__label--checkbox::after,
+.c-socials__item::before,
+.c-icon,
+.c-icon--arrow::after,
+.c-usp::before,
+.c-select--inline::after,
+.c-video__play,
+.c-compare__indicator::after,
+.c-accordion__heading::after,
+.c-btn--icon::after,
+.c-btn--icon-before::before,
+.c-btn--contact::before,
+.c-sidebar__back-link::before,
+.c-link--arrow::after,
+.c-link--arrow-inline::after,
+.c-tooltip,
+.c-heading--icon::before,
+.featherlight-close-icon,
+.c-arrow,
+.c-review-avatar__icon,
+.c-modal__close,
+.c-form__submit--search::after,
+.c-carousel__button,
+.c-counter__button::after,
+.c-cart__remove,
+.c-btn-square--add::after,
+.c-message--info .o-message__content::before,
+.c-message-page__content::before,
+.c-dashboard__block--edit::after,
+.c-card-sidebar__remove {
+    background-image: img-url('assets.svg');
+}

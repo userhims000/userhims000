@@ -1,0 +1,5 @@
+{% extends 'parts/panorama-default.twig'%}
+
+{% block panoramaAfterTitles %}
+    {% include "parts/search/searchform.twig" with { query : collection.search_query } %}
+{% endblock %}

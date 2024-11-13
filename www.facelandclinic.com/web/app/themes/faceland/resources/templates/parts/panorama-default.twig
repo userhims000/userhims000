@@ -1,0 +1,156 @@
+{% set backgroundClass = (panorama.show and panorama.image) ? 'c-panorama--image' : 'c-panorama--background u-bg-gray-lightest' %}
+{% set titleClass = (panorama.show and panorama.image) ? ' u-text-color-white' %}
+{% set subtitleClass = (panorama.show and panorama.image) ? 'u-text-color-white' : 'u-text-color-gray-dark' %}
+{% set breadcrumbsClass = (panorama.show and panorama.image) ? ' u-text-color-white' : 'u-text-color-gray' %}
+{% set contentClass = (contentClass) ? contentClass : 'u-text-center' %}
+{% set showMask = showMask is defined ? showMask : true %}
+{% set maskClass = maskClass ? maskClass : 'c-mask--white' %}
+
+<div class="o-panorama {{backgroundClass}} {{ panorama.show_with_backgroud_colour != true ? 'c-panorama--mask' : '' }} {{ ( function('is_singular', 'location') == true and rokit_get_query_param('debug') == 'development' ) or ( function('is_singular', 'ba_album') == true and rokit_get_query_param('debug') == 'development' ) or ( function('is_singular', 'location') == true or current_page_id == "26066" or current_page_id == "26075" or current_page_id == "28392" or current_page_id == "28393" )  ? 'c-panorama--treatment c-new-panorama--treatment f-bg-primary-bg u-margin-trailer-base mb-0' : '' }} {{ panorama.show_with_backgroud_colour == true ? 'c-panorama--treatment c-new-panorama--treatment f-bg-primary-bg u-margin-trailer-base mb-0' : '' }}">
+    {% if panorama.show and panorama.image %}
+        {% if ( function('is_singular', 'location') != true or rokit_get_query_param('debug') != 'development' ) and ( function('is_singular', 'ba_album') != true or rokit_get_query_param('debug') != 'development' ) and ( current_page_id != "26066" and current_page_id != "26075" and current_page_id != "28392" and current_page_id != "28393")     %}
+            <figure class="o-panorama__image">
+                {{rokit_get_image(panorama.image, 'location-panorama', panorama.title)}}
+            </figure>
+        {% endif %}
+    {% endif %}
+
+    <div class="o-contain o-contain-padding">
+        {# Todo add this to the part  #}
+        {# {% include "parts/breadcrumbs.twig" %}#}
+        {% if current_page_slug == 'termin-vereinbaren' or current_page_slug == "maak-een-afspraak" or current_page_slug == "maak-een-afspraak-nl" or current_page_slug == "termin-vereinbaren-ch" or current_page_slug == "maak-een-afspraak-be" or current_page_slug == 'planifiez-rendez-vous' %}
+            {% set cls = "make-an-appointment-modal make-an-appointment-page" %}
+            {% set cls1 = "make-an-appointment-pages" %}
+        {% else  %}
+            {% set cls = "" %}
+            {% set cls1 = "" %}
+        {% endif  %}
+        <div class="{{ panorama.show_with_backgroud_colour != true ? 'o-panorama__content' : '' }} {{contentClass}} {{ current_page_slug }} {{ ( function('is_singular', 'location') == true and rokit_get_query_param('debug') == 'development' ) or ( function('is_singular', 'ba_album') == true and rokit_get_query_param('debug') == 'development' ) or (current_page_id == "26066" or current_page_id == "26075" or current_page_id == "28392" or current_page_id == "28393" )  ? 'pt-28 pb-28 pt-lg-48 pb-lg-48'  }} {{ panorama.show_with_backgroud_colour == true ? 'pt-72 pb-72' : ''  }} ">
+
+            {% block panoramaContent %}
+                {% if panorama.label %}
+                    <span class="o-label u-bg-primary u-text-size-pico u-text-bold u-text-color-white js-animation-element a-fade-in a-delay">{{ panorama.label|upper }}</span>
+                {% endif %}
+                {% if panorama.title %}
+                    <{{ panorama.title_heading ? panorama.title_heading : 'h1' }} class="c-panorama__heading {{ cls }} {{ cls1 }} u-text-bold u-text-size-tera  js-animation-element a-fade-in {{ panorama.show_with_backgroud_colour == true ? 'mb-28' : '' }}  {{ current_page_id != "26066" and current_page_id != "26075" and current_page_id != "28392" and current_page_id != "28393"  and  rokit_get_query_param('debug') != 'development' ? titleClass : '' }} {{ ( function('is_singular', 'location') == true and rokit_get_query_param('debug') == 'development' ) or ( function('is_singular', 'ba_album') == true and rokit_get_query_param('debug') == 'development' ) or ( function('is_singular', 'location') == true or current_page_id == "26066" or current_page_id == "26075" or current_page_id == "28392" or current_page_id == "28393" ) ? 'a-inview mb-12 title-full' : '' }} ">{{ panorama.title }}</{{ panorama.title_heading ? panorama.title_heading : 'h1' }}>
+                {% endif %}
+
+                {% if panorama.subtitle %}
+                    <div class="c-panorama__text u-text-size-mega {{ rokit_get_query_param('debug') != "development" ? subtitleClass : "" }} {{ rokit_get_query_param('debug') != 'development' ? subtitleClass : '' }} js-animation-element a-fade-in {{ function('is_singular', 'ba_album') == true and rokit_get_query_param('debug') == 'development' ? 'u-text-color-gray-dark' : '' }}">
+                        <p class="{{ rokit_get_query_param('debug') != "development" ? subtitleClass : "" }}">
+                            {{ panorama.subtitle|replace({'©': '<sup>©</sup>'}) }}
+                        </p>
+                    </div>
+                {% endif %}
+
+                {% if panorama.is_tag %}
+                    {% include "parts/button.twig" with { button: panorama.button, classes: 'c-btn--transparent u-text-size-zeta u-text-color-gray-darker' } %}
+                {% endif %}
+
+                {% if function('is_singular', 'location') == true and rokit_get_query_param('debug') == 'development' or current_page_id == "26066" or current_page_id == "26075" or current_page_id == "28392" or current_page_id == "28393" %}
+                    <div class="treatment-panorama-description">
+                      <p style="text-align: center;">{{ panorama.clinic_location_address }}</p>
+                    </div>
+                {% endif %}
+
+                {% block panoramaAfterTitles %}{% endblock %} 
+
+            {% endblock %}
+        </div>  
+    </div>  
+
+          
+
+    {% if showMask %}
+        {% if rokit_get_query_param('debug') != 'development' and current_page_id != "26066" and current_page_id != "26075" and current_page_id != "28392" and current_page_id != "28393"  %}
+            {% if  ( function('is_singular', 'location') != true and panorama.show_with_backgroud_colour != true ) or ( function('is_singular', 'ba_album') != true and panorama.show_with_backgroud_colour != true )   %}
+                {% include "parts/mask.twig" with { classes : maskClass } %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+</div>
+    {% if is_nl == true %}    
+        {% set title =  current_page_slug  %}    
+        {% if title == "oorlel" %}
+            {% set pageArgument = 'oorlel'   %}
+        {% elseif  title == "handen" %}
+            {% set pageArgument = 'handen'  %}
+        {% elseif  title == "full-face-treatment" %}
+            {% set pageArgument = 'fullface'  %}        
+        {% elseif  title == "wangen" %}
+            {% set pageArgument = 'Wangen'  %}  
+        {% elseif  title == "lydia-oostveen-bol" %}
+            {% set pageArgument = 'lydiabol'  %}
+        {% elseif  title == "gabriel-jansen" %}
+            {% set pageArgument = 'gabrieljansen'  %}
+        {% elseif  title == "marvin-eyra" %}
+            {% set pageArgument = 'marvineyra'  %}
+        {% elseif  title == "diana-al-hadidi" %}
+            {% set pageArgument = 'dianaalhadidi'  %}
+        {% elseif  title == "barof-sanaan" %}
+            {% set pageArgument = 'barofsanaan'  %}
+        {% endif %}
+    {% elseif is_ch == true %}
+        {% set chPagetitle = current_page_slug %}
+        {% if chPagetitle == "profhilo" %}
+            {% set CHPageArgument = 'profhiloch'  %}
+        {% elseif chPagetitle == "uebermaessiges-schwitzen" %}
+            {% set CHPageArgument = 'hyperhidrosech'  %} 
+        {% elseif chPagetitle == "uebermaessiges-schwitzen" %}
+            {% set CHPageArgument = 'hyperhidrosech'  %}
+        {% elseif chPagetitle == "lydia-oostveen-bol" %}
+            {% set CHPageArgument = 'lydiabol'  %}                                                            
+        {% endif %}        
+    {% endif  %}
+    
+    {% if title == "oorlel" or title == "handen" or title == "full-face-treatment"  or title == "wangen" or title == "oberlidstraffung"  %}
+        {% if  get_blog_post_type_slug == 'true' %}
+        {% else  %}
+            <div class="flexboxdata o-contain o-contain-padding">
+                <div id="js-flowbox-flow"></div>
+                <script type="text/javascript">
+                    window.flowbox('init', {
+                        container: '#js-flowbox-flow',
+                        key: '42ktUTisSQOoniSzhCDU3Q',
+                        locale: 'nl-NL',
+                        tags: ['nl','voor_na','{{ pageArgument }}'],
+                        tagsOperator: 'all'
+                    });
+                </script>
+            </div>
+        {% endif  %}    
+    {% endif  %}
+
+    {% if title == "lydia-oostveen-bol" or title == "marvin-eyra" or title == "diana-al-hadidi" or  title == "barof-sanaan" %}
+        <div class="flexboxdata o-contain o-contain-padding">
+            <div id="js-flowbox-flow"></div>
+            <script type="text/javascript">
+                window.flowbox('init', {
+                    container: '#js-flowbox-flow',
+                    key: 'C8wkv7fcQ2qOLeypH7Z7sw',
+                    locale: 'nl-NL',
+                    tags: ['{{ pageArgument }}'],  
+                    tagsOperator: 'all'
+                });
+            </script>
+        </div>
+    {% endif  %} 
+   
+
+    {% if chPagetitle == "profhilo"  or chPagetitle == "bunny-lines" or chPagetitle == "bunny-lines" or chPagetitle == "uebermaessiges-schwitzen"   %}
+        {% if  get_blog_post_type_slug == 'true' %}
+        {% else  %}
+            <div class="flexboxdata o-contain o-contain-padding">
+                <div id="js-flowbox-flow"></div>
+                <script type="text/javascript">
+                    window.flowbox('init', {
+                        container: '#js-flowbox-flow',
+                        key: 'NrBMtvGBQzqOKIItxu7Nag',
+                        tags: ['{{ CHPageArgument }}'],  
+                        tagsOperator: 'all'
+                    });
+                </script>
+            </div>
+        {% endif  %}
+    {% endif  %}
+

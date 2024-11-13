@@ -1,0 +1,16 @@
+/*----------------------------------------------------------------------------*\
+    #COMPONENTS OLDIE MESSAGE
+\*----------------------------------------------------------------------------*/
+
+.c-oldie-message {
+    display: block;
+    padding: 95px 1em 1em;
+    border: red;
+    background: $color-gray;
+    color: $color-black;
+
+    a {
+        color: $color-black;
+        text-decoration: underline;
+    }
+}

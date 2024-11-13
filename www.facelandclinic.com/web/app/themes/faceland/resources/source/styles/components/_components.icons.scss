@@ -1,0 +1,195 @@
+.c-icon {
+    @include is-hidden-text();
+    display: block;
+}
+
+.c-icon--round {
+    @include square(32px);
+    position: relative;
+    border-radius: 50%;
+
+    &::after {
+        @include offset(absolute, 0, null, null, 0);
+        @include square(100%);
+        border: 1px solid $color-gray-lighter;
+        border-radius: 50%;
+        content: '';
+    }
+}
+
+.c-icon--language-large {
+    @include breakpoint(large) {
+        @include square(41px);
+
+        &.c-icon--nl {
+            background-position: -384px -480px;
+        }
+
+        &.c-icon--de {
+            background-position: -480px -480px;
+        }
+
+        &.c-icon--en {
+            background-position: -576px -480px;
+        }
+
+        &.c-icon--ch {
+            background-position: -672px -480px;
+        }
+
+        &.c-icon--be {
+            background-position: -778px -480px;
+        }
+    }
+}
+
+.c-icon--borderless::after {
+    border: 0;
+}
+
+.c-icon--nl {
+    background-position: 0 -288px;
+}
+
+.c-icon--de {
+    background-position: -96px -288px;
+}
+
+.c-icon--en {
+    background-position: -192px -288px;
+}
+
+.c-icon--ch {
+    background-position: -288px -288px;
+}
+
+.c-icon--be {
+    background-position: -388px -288px;
+}
+
+.c-icon--search {
+    background-position: 0 -384px;
+}
+
+.c-icon--twitter {
+    background-position: -576px -384px;
+}
+
+.c-icon--facebook {
+    background-position: -672px -384px;
+}
+
+.c-icon--phone {
+    @include square(14px);
+    background-position: -96px 0;
+}
+
+.c-icon--phone-big {
+    background-position: -384px 0;
+}
+
+.c-icon--whatsapp {
+    @include square(16px);
+    background-position: -192px 0;
+
+    &.c-icon--round {
+        @include square(48px);
+        background-position: -768px -384px;
+    }
+}
+
+.c-icon--location {
+    @include size(14px, 17px);
+    background-position: -288px 0;
+}
+
+.c-icon--dashboard {
+    @include square(41px);
+    background-position: -384px -672px;
+}
+
+.c-icon--cart {
+    @include square(32px);
+    background-position: -96px -672px;
+}
+
+.c-icon--arrow {
+    transition: .24s ease-in;
+    transition-property: transform opacity;
+    border-radius: 50%;
+
+    &::after {
+        display: none;
+    }
+}
+
+.c-icon--prev {
+    background-position: -288px -192px;
+
+    &:hover {
+        transform: translate3d(-10%, 0, 0) scale(1.05);
+    }
+}
+
+.c-icon--next {
+    background-position: -384px -192px;
+
+    &:hover {
+        transform: translate3d(10%, 0, 0) scale(1.05);
+    }
+}
+
+.c-icon--eye {
+    @include square(36px);
+    border-radius: 50%;
+    background-position: -576px -672px;
+
+    &::after {
+        display: none;
+    }
+}
+
+.c-icon--shipping,
+.c-icon--box {
+    @include square(42px);
+    border-radius: 50%;
+    background-position: -864px -288px;
+
+    &::after {
+        display: none;
+    }
+}
+
+.c-icon--box {
+    background-position: -960px -288px;
+}
+
+.c-icon--md {
+    @include square(48px);
+}
+
+.c-icon--lg {
+    @include square(54px);
+}
+
+.c-icon--opacity {
+
+    &.u-bg-gray-darker {
+        background-color: rgba($color-gray-darker, .7);
+    }
+
+    &.slick-disabled,
+    &.slick-hidden {
+        opacity: 0;
+    }
+}
+
+.c-icon--shadow {
+    box-shadow: 0 9px 54px 0 rgba($color-black, .05);
+}
+
+.c-icon--close {
+    @include square(11px);
+    transition: opacity .24s ease-in;
+    background-position: -576px 0;
+}

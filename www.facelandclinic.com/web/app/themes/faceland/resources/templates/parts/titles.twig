@@ -1,0 +1,15 @@
+{% set centerClass = center ? 'u-text-center' %}
+
+<div class="c-intro {{centerClass}}">
+    {% if titles.title %}
+        <h1 class="c-intro__heading u-text-size-giga u-text-bold">{{titles.title}}</h1>
+    {% endif %}
+
+    {% if titles.intro %}
+        <p class="c-intro__text u-text-color-gray">{{titles.intro}}</p>
+    {% endif %}
+</div>
+
+
+
+

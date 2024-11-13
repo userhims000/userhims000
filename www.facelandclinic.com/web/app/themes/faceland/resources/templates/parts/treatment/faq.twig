@@ -1,0 +1,7 @@
+{% include "layouts/layout-title_text.twig" with { layout : {title : content.titles.title, text: content.titles.intro}} %}
+
+{% include "parts/get_connected.twig" %}
+
+{% if content.posts|length > 0 %}
+    {% include "layouts/layout-faq.twig" with { layout: { faq : content.posts } } %}
+{% endif %}

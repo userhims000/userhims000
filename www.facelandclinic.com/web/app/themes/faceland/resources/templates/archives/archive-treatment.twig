@@ -1,0 +1,22 @@
+{# Treatments archive #}
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% include 'parts/panorama-default.twig' with { panorama : collection.panorama } %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="o-contain o-contain-padding">
+        {% include "parts/treatment/collection.twig" with { posts : collection.types } %}
+        {% if collection.cta|length > 0 %}
+            {% include "parts/treatment/cta.twig" with { cta : collection.cta } %}
+        {% endif %}
+        {% include "parts/treatment/why.twig" with { why : collection.why } %}
+    </div>
+
+{% endblock %}
+
+{% block related %}
+    {% include "parts/columns.twig" with { content : collection.bottom } %}
+{% endblock %}

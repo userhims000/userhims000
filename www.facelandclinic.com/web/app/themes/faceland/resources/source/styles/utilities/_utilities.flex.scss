@@ -1,0 +1,70 @@
+/*----------------------------------------------------------------------------*\
+    #FLEXBOX
+\*----------------------------------------------------------------------------*/
+
+$flex: u-flex-;
+
+.u-flex {
+    display: block;
+
+    @include breakpoint(large) {
+        display: flex;
+    }
+}
+
+.u-flex-cp {
+    display: block;
+
+    @include breakpoint(compact) {
+        display: flex;
+    }
+}
+
+.u-flex-md {
+    display: block;
+
+    @include breakpoint(medium) {
+        display: flex;
+    }
+}
+
+.u-flex-sm {
+    display: flex;
+}
+
+.#{$flex}direction-column {
+    flex-direction: column;
+}
+
+.#{$flex}center-x {
+    justify-content: center;
+}
+
+.#{$flex}end-x {
+    justify-content: flex-end;
+}
+
+.#{$flex}space-around-x {
+    justify-content: space-around;
+}
+
+.#{$flex}start-y {
+    align-items: flex-start;
+}
+
+.#{$flex}center-y {
+    align-items: center;
+}
+
+.#{$flex}space-between-x {
+    justify-content: space-between;
+}
+
+.#{$flex}center {
+    align-items: center;
+    justify-content: center;
+}
+
+.#{$flex}auto {
+    flex: auto;
+}

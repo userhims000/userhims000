@@ -1,0 +1,25 @@
+<div class="border border-white rounded p-24 p-lg-32">
+    <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of2--md u-1of4--lg ">
+        {% for card in footer.top %}
+            {% if card.socials %}
+                {% include 'parts/footer/footer-wordwide-socials.twig' %}
+            {% elseif card.newsletter %}
+                {% include 'parts/footer/footer-newsletter.twig' %}
+            {% else %}
+            <div class="o-grid__cell">
+                <ul class="o-list-plain c-footer__list">
+                    {% if card.title %}
+                        <li>
+                            <p class="c-footer__list-heading u-text-bold">{{ card.title }}</p>
+                        </li>
+                    {% endif %}
+
+                    {% if card.urls|length > 0 %}
+                        {% include 'parts/footer/footer-row.twig' with { urls :  card.urls, class : 'u-text-size-epsilon u-text-color-gray-dark'} %}
+                    {% endif %}
+                </ul>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

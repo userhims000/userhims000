@@ -1,0 +1,9 @@
+{% if posts|length > 0 %}
+    <div class="c-campaign u-bg-campaign">
+        <div class="o-contain o-contain-padding">
+            {% for card in posts %}
+                {% include 'parts/cards/card-campaign.twig' %}
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

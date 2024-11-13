@@ -1,0 +1,63 @@
+version: '3.7'
+
+volumes:
+  vendor:
+  mysql:
+
+services:
+  php:
+    build:
+      context: .
+      args:
+        SSH_PRIVATE_KEY: ${SSH_PRIVATE_KEY}
+      dockerfile: ./docker/php/php.Dockerfile
+    hostname: php
+    volumes:
+      - ${DOCKER_DEPLOYMENT_BASTION_SSH_KEY_FILE}:/root/.ssh/id_bastion_rsa
+      - ${DOCKER_DEPLOYMENT_SSH_KEY_FILE}:/root/.ssh/id_faceland_deployment_rsa
+      - ./:/var/www/html/www.facelandclinic.com
+#      - vendor:/var/www/html/www.facelandclinic.com/vendor #disabled because we need to move the custom plugins first
+    extra_hosts:
+      - www.facelandclinic.com.devbox:10.1.1.2
+    networks:
+      default:
+      proxy_nginxproxy:
+        ipv4_address: 10.1.1.130
+  nginx:
+    image: nginx:1.19.2
+    hostname: nginx
+    depends_on:
+      - "php"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - .:/config:cached
+      - ./:/var/www/html/www.facelandclinic.com
+#      - vendor:/var/www/html/www.facelandclinic.com/vendor #disabled because we need to move the custom plugins first
+    networks:
+      default:
+      proxy_nginxproxy:
+        ipv4_address: 10.1.1.131
+  mysql:
+    image: mysql:5.7
+    hostname: mysql
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_ROOT_PASSWORD: secret
+    volumes:
+      - mysql:/var/lib/mysql
+      - ./data:/root/data
+  phpmyadmin:
+    image: phpmyadmin:5.0.2
+    hostname: phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: secret
+    networks:
+      default:
+      proxy_nginxproxy:
+        ipv4_address: 10.1.1.132
+
+networks:
+  proxy_nginxproxy:
+    external: true

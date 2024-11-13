@@ -1,0 +1,16 @@
+{% if layout|length > 0 and (layout.text_left or layout.text_right) %}
+    <div class="c-intro c-intro--column c-copy__maxwidth">
+        <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of2--md">
+            {% if layout.text_left %}
+                <div class="o-grid__cell">
+                    <p class="u-text-size-alpha u-text-italic u-text-campaign">{{ layout.text_left }}</p>
+                </div>
+            {% endif %}
+            {% if layout.text_right %}
+                <div class="o-grid__cell">
+                    <span class="u-text-campaign">{{ layout.text_right }} </span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

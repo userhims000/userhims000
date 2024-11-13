@@ -1,0 +1,22 @@
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% include 'parts/panorama-buttons.twig' with { panorama : { title : post.panorama.title,  subtitle : post.panorama.subtitle }  } %}
+{% endblock %}
+
+{% block content %}
+
+    {% set posts = post.items  %}
+    {% if posts|length > 0 %}
+        <div class="o-contain o-contain-padding js-filter-container">
+            <div class="js-filter-items">
+                {% include "parts/collection.twig" with { posts : posts, cardType: 'article', gridSize : 'u-1of1--sm u-1of2--md u-1of3--lg o-grid--center-y' } %}
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block related %}
+    {% include "parts/cta-newsletter.twig" with { cta : post.cta } %}
+{% endblock %}

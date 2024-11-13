@@ -1,0 +1,35 @@
+<div class="o-contain o-contain-padding js-filter-container show-deals">
+    <div class="c-cards-wrapper">
+       <div class="c-cards">
+            <div class="o-grid js-filter-wrapper u-1of1--sm u-1of2--md u-1of3--lg o-grid--with-gutter o-grid--with-gutter-vertical">
+                {% for deals in layout.show_deals %}
+                    {% set external = deals.show_deals_external ? ' rel="external" data-router-disabled' %}
+                    <div class="o-grid__cell js-animation-element a-fade-in-up a-inview u-text-center ">
+                        {% if deals.image or deals.show_deals_title or deals.show_deals_description  %}
+                        <div class="o-card c-card--simple c-card--bordered js-block">
+                            {% if deals.show_deals_image %}
+                                <figure class="o-card__image c-card__image--background u-flex-sm u-flex-center">
+                                    <a href="{{ deals.show_deals_url }}" title="{{ deals.show_deals_title }}">{{rokit_get_image(deals.show_deals_image, 'avatar-sm', deals.show_deals_title, 'o-image--sm o-image--round')}}
+                                </a>
+                                </figure>
+                            {% endif %}
+                            {% if deals.show_deals_title or deals.show_deals_description %}
+                                <div class="o-card__content u-bg-white js-match-height">
+                                    {% if deals.show_deals_title  %}
+                                        {% set titleTag = layout.title_tag ? layout.title_tag : 'h3' %}
+                                        <{{ titleTag }} class="o-card__heading u-text-size-mega u-text-bold"><a href="{{ deals.show_deals_url }}" title="{{ deals.show_deals_title }}" {{ external }} >{{ deals.show_deals_title }}</a>
+                                        </{{ titleTag }}>
+                                    {% endif %}
+                                    {% if deals.show_deals_description %}
+                                        <p>{{ deals.show_deals_description }}</p>
+                                    {% endif %}
+                                </div>
+                           {% endif %}
+                        </div>
+                    {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+       </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+    {% if post.get_field('navigation_info_title') != '' or post.get_field('navigation')|length > 0 %}
+        {% if is_mobile == true %}
+            <div class="go-to-direction">
+        {% endif %}
+
+        {% if is_mobile != true %}
+            {% if post.get_field('navigation_info_title') != '' %}
+                <div class="navigation-info-title u-text-center u-text-bold navigation-info-heading">
+                    <{{ post.get_field('navigation_title_heading') ? post.get_field('navigation_title_heading') : 'h3'  }}>{{ post.get_field('navigation_info_title') }}</{{ post.get_field('navigation_title_heading') ? post.get_field('navigation_title_heading') : 'h3'  }}>
+                </div>
+            {% endif %}
+        {% endif %}
+        
+        {% if is_mobile == true %}
+            {% if post.get_field('navigation_info_title') != '' %}
+                <div class="go-to-direction-title">
+                    <h2>{{ post.get_field('navigation_info_title') }}</h2>
+                </div>
+            {% endif %}
+        {% endif %}
+
+            {% if post.get_field('navigation')|length > 0 %}
+                {% if is_mobile != true %}
+                    <div class="u-flex u-flex-center-x">
+                        <div class="treatment-filters c-filters c-filters--button c-new-treatment-filters c-filters--square-sm u-flex u-flex-center-y u-flex-space-around-x u-text-size-epsilon u-text-color-gray f-bg-primary-bg">
+                            {% for key, item in post.get_field('navigation') %}
+                                {% set active = key == 0 ? 'is-not-active' : 'is-not-active' %}
+                                {# {% set disabled = item.disabled ? 'is-disabled' %}
+                                {% if not disabled %} #}
+                                    {# <a href="{{item.url}}" title="{{item.label}}" class="c-filter {{active}} {{ disabled }}"  data-transition="filter">{{item.label}}</a> #}
+                                    <a href="#{{item.navigation_label}}" title="{{item.navigation_label}}" class="c-filter  {{active}} {#  {{ disabled }} #}"  data-transition="filter">{{item.navigation_label}}</a>
+                                {# {% else %}
+                                    <span class="c-filter {{active}} {{ disabled }}">{{item.label}}</span> #}
+                                {# {% endif %} #}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if is_mobile == true %}
+                    {% for navigation in post.get_field('navigation') %}
+                        {% if navigation.navigation_label %}
+                        <a href="#{{ navigation.navigation_label }}">
+                          <span class="section-link">
+                            {% if navigation.navigation_icon %} <span class="link-icon"><img src="{{ navigation.navigation_icon }}"></span> {% endif %} <span class="link-text">{{ navigation.navigation_label }}</span>
+                          </span>
+                        </a>
+                        {% endif %}
+                   {% endfor %}
+                {% endif %}
+            {% endif %}
+        {% if is_mobile == true %}
+            </div>
+        {% endif %}
+    {% endif %}

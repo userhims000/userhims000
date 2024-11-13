@@ -1,0 +1,9 @@
+{% if locations|length > 0 %}
+    <div class="o-grid o-grid--with-gutter o-grid--with-gutter-vertical u-1of1--sm u-1of2--md u-1of3--lg">
+        {% for card in locations %}
+            <div class="o-grid__cell">
+                {% include "parts/cards/card-location.twig" %}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

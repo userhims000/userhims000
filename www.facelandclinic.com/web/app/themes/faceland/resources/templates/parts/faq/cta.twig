@@ -1,0 +1,81 @@
+<div class="c-related c-related--mt  {{ is_nl == true or is_en == true  ?  'u-bg-black faq-social-related' : ' u-bg-tertiary-light' }}  js-toggle-wrapper">
+   
+    {% if is_nl != true and is_en != true  %}
+        {% include "parts/mask.twig" with { classes : 'c-mask--tertiary-light u-bg-white' } %}
+    {% endif %}
+    {% if is_nl == true or is_en == true %}
+        <div class="o-contain o-contain-padding">
+            <div class ="c-related__heading u-text-color-white u-text-center">
+            {% if title %}
+                <h2 class="u-text-color-white u-text-size-giga u-text-bold u-text-center">{{ title }}</h2>
+            {% endif %}
+                 <p class="u-text-color-white faq-mt">{{ description }}</p>
+            </div>
+            <div class="u-flex u-flex-center-x">
+                <div class="c-btn-group">
+                    <ul class="footer-social-link">
+                        <li>
+                            {% if social_icons.phone %}
+                                <a {{ fn('rokit_get_attribute_aen_code') }} href="tel:{{ contacts.online.phone.phone|format_tel }}" title="{{ contacts.online.phone.phone }}" rel="external" >{% if social_icons.phone %}<img src="{{ social_icons.phone }}" width="62" height="62" title="{{ contacts.online.phone.phone }}"/>{% endif %}</a>
+                            {% endif %}
+                        </li>
+
+                        {% if is_nl == true or is_en == true %}
+                            <li>
+                                {% if social_icons.whatsapp %}
+                                    <a href="https://wa.me/{{ contacts.online.whatsapp.whatsapp }}" title="{{pll__('Whatsapp')}}" rel="external" data-router-disabled>{% if social_icons.whatsapp %}<img src="{{ social_icons.whatsapp }}" width="62" height="62" alt="{{pll__('Whatsapp')}}"/>{% endif %}</a>
+                                {% endif %}
+                            </li>
+                        {% endif %}
+
+                         <li>
+                            {% if social_icons.email %}
+                                <a href="mailto:{{contacts.online.email.email|antispambot}}" title="{{pll__('Email')}}" rel="external" data-router-disabled>{% if social_icons.whatsapp %}<img src="{{ social_icons.email }}" width="62" height="62" alt="{{pll__('Email')}}"/>{% endif %}</a>
+                            {% endif %}
+                        </li>
+
+                        {% if is_nl == true or is_en == true %}
+                            <li>
+                                {% if social_icons.chat %}
+                                    <a href="javascript:;" class="c-btn faq-chat-btn js-open-chat">{% if social_icons.whatsapp %}<img src="{{ social_icons.chat }}" width="62" height="62" alt="{{ contacts.online.phone.phone }}"/>{% endif %}</a>
+                                {% endif %}
+                            </li>
+                        {% endif %}                        
+
+                        {% if not (is_nl or is_en) %}
+                            <li>
+                                <a href="{{ contacts.online.messenger.chat }}" class="js-open-chat" title="{{contacts.online.messenger.titles.title}}" rel="external" data-router-disabled>{% if social_icons.chat %}<img src="{{ social_icons.chat }}" width="62" height="62" alt="{{contacts.online.messenger.titles.title}}"/>{% endif %}</a>
+                            </li>
+                        {% endif %}
+
+                        {% if not (is_nl or is_en) %}
+                            <li>
+                                <div class="c-btn c-btn--contact c-btn--appointment c-btn--border c-btn--full c-btn--square u-text-size-epsilon u-text-color-gray-dark u-bg-white" data-featherlight="#{{ contacts.online.appointment.featherlight }}" title="{{contacts.online.appointment.titles.title}}">{{contacts.online.appointment.titles.title}}</div>
+                            </li>
+
+                            <div class="modal__wrapper">
+                                <div id="{{contacts.online.appointment.featherlight}}">
+                                    <h3 class='u-text-size-delta u-text-bold'>{{ contacts.online.appointment.popup.intro.title }}</h3>
+                                    {{ contacts.online.appointment.popup.intro.intro }}
+                                </div>
+                            </div>
+
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if is_nl != true and is_en != true %}
+         <div class="o-contain o-contain-padding">
+            {% if title %}
+                <h2 class="c-related__heading u-text-size-giga u-text-bold u-text-center">{{title|upper}}</h2>
+            {% endif %}
+            <div class="u-flex u-flex-center-x">
+                {% include "parts/connect.twig" with { contacts : contacts.online  } %}
+            </div>
+        </div>
+    {% endif %}
+
+</div>

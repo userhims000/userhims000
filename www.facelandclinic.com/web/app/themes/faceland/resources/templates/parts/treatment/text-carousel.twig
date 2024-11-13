@@ -1,0 +1,61 @@
+{% if post.get_field('treatment_carousel_slider')|length > 0  and (post.treatment_carousel_title) %}
+<div class="iamhere-section o-grid treatment-iamhere-section">
+    <div class="treatment-slider location-info-section" 
+    {# {% if post.get_field('show_christmas_snowflake_image') == true %} #}
+    {% set snowFlakeURL = snowflake_img_url ? snowflake_img_url : '' %}    
+    style="background-image:url({{ post.get_field('snowflake_image') ? post.get_field('snowflake_image') : snowFlakeURL }}); background-repeat: repeat; background-position: center;"
+    {# {% endif %} #}
+    >
+        <div class="u-text-left">
+            <h2 class="u-text-bold">{{ post.treatment_carousel_title }}</h2>
+            {% if is_mobile != true %}
+                <p  style="background-color: rgb(240 232 222 / 67%);" >{{ post.treatment_carousel_description|raw }}</p>
+            {% endif %}
+            {% if is_mobile == true %}
+                <div class="show-paragraph-content">
+                    <p style="background-color: rgb(240 232 222 / 67%);" >{{  post.treatment_carousel_description|raw|striptags|slice(0, 150) ~ '...'  }}</p>
+                </div>
+                <div class="read-more-content">
+                    <p style="background-color: rgb(240 232 222 / 67%);" >{{ post.treatment_carousel_description|raw }}</p>
+                </div>
+                <div class="read-more-button" id="toggleReadMoreButton">
+                    <div class="showMore">
+                        <span>{{ pll__('Meer lezen') }}</span><span>{{ '<i class="arrow down"></i>' }}</span>
+                    </div>
+                    <div class="showLess">
+                        <span>{{ pll__('Minder lezen') }} </span><span>{{ '<i class="arrow up"></i>' }}</span>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="treatment-image-slider location-slider">
+        <div class="c-carousel-wrapper">
+            {% if post.get_field('treatment_carousel_slider')|length > 1 %}
+            <div class="c-carousel-nav">
+                <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--prev u-bg-gray-darker js-carousel-prev">{{pll__('Vorige')}}
+                </button>
+                <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--next u-bg-gray-darker js-carousel-next">{{pll__('Volgende')}}
+                </button>
+            </div>
+            {% endif %}
+            <div class="c-carousel c-carousel--default js-panorama-carousel">
+                {% for item in post.get_field('treatment_carousel_slider') %}
+                    <div class="o-panorama u-flex-sm u-flex-center {{ item.show_video == true ? 'videocarousel' : '' }} ">
+                        {% if item.show_video != true %}
+                            <figure class="o-panorama__image">
+                                <img class="js-lazy-load is-lazy-loaded" data-src="{{item.carousel_slider_image}}" src="{{ item.carousel_slider_image }}" alt="{{ rokit_get_image_alt(rokit_get_image_id(item.carousel_slider_image)) }}" width="{{ rokit_get_image_width_height_attr(item.carousel_slider_image)['width'] }}" height="{{ rokit_get_image_width_height_attr(item.carousel_slider_image)['height'] }}" >
+                            </figure>
+                        {% endif %}
+                        {% if item.show_video == true %}
+                            <video class="video treatment-text-slider" loop="loop" autoplay="autoplay" id="vid" muted playsinline>
+                                <source src="{{ item.carousel_slider_video }}" type="video/mp4">
+                            </video>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

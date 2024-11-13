@@ -1,0 +1,13 @@
+<div class="c-carousel-wrapper">
+    <div class="c-carousel-nav">
+        <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--prev u-bg-gray-darker js-carousel-prev">{{pll__('Vorige')}}</button>
+        <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--next u-bg-gray-darker js-carousel-next">{{pll__('Volgende')}}</button>
+    </div>
+    <div class="c-carousel c-carousel--default js-default-carousel">
+        {% for slide in layout.slides %}
+            <figure class="c-figure">
+                {{ rokit_get_image(slide.image, 'module-image', site.name) }}
+            </figure>
+        {% endfor %}
+    </div>
+</div>

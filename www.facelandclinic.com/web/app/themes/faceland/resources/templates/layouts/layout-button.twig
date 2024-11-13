@@ -1,0 +1,5 @@
+{% if layout.button|length > 0 %}
+    <div class="c-btn-wrapper {{ (is_clinic_page == 'btn-align-center') ? 'btn-align-center' : ''}} ">
+        {% include "parts/button.twig" with { button : layout.button, classes: 'c-btn--gray-darker u-bg-gray-darker u-text-size-zeta u-text-medium'} %}
+    </div>
+{% endif %}

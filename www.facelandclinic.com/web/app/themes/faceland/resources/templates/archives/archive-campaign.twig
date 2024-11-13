@@ -1,0 +1,17 @@
+{# Campaign archive #}
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% include 'parts/panorama-archive-campaign.twig' with { panorama : collection.panorama } %}
+{% endblock %}
+
+{% block content %}
+    {% include "parts/collection-campaign.twig" with { posts : collection.campaigns } %}
+{% endblock %}
+
+{% block related %}
+    <div class="o-contain o-contain-padding">
+        {% include "parts/action-list.twig" with { list : collection.action_list } %}
+    </div>
+    {% include "parts/cta-newsletter.twig" with { cta : collection.cta } %}
+{% endblock %}

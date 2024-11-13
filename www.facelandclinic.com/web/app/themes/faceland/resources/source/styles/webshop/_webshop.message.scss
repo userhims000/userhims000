@@ -1,0 +1,63 @@
+.c-message-page {
+    @include size(100vw, 100vh);
+}
+
+.c-message-page__content {
+    position: relative;
+    max-width: rhythm(21);
+
+    &::before {
+        @include offset(absolute, rhythm(-2), null, null, 50%);
+        @include square(52px);
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background-color: $color-primary;
+        background-position: -768px -192px;
+        content: '';
+    }
+
+    &::after {
+        @include offset(absolute, rhythm(-2), null, null, 50%);
+        @include square(77px);
+        transform: translate(-50%, -50%);
+        transform-origin: center center;
+        border-radius: 50%;
+        background-color: rgba($color-primary, .1);
+        content: '';
+        animation: pulse 5s infinite;
+    }
+
+    @keyframes pulse {
+
+        0% {
+            @include square(77px);
+            background-color: rgba($color-primary, .1);
+        }
+
+        50% {
+            @include square(48px);
+            background-color: rgba($color-primary, .05);
+        }
+
+        100% {
+            @include square(77px);
+            background-color: rgba($color-primary, .1);
+        }
+    }
+}
+
+.c-message-page__content--error::before {
+    background-position: -864px -192px;
+}
+
+.c-message-page__content--cart::before {
+    background-position: -960px -192px;
+}
+
+.c-message-page__heading {
+    margin-bottom: rhythm(.375);
+}
+
+.c-message-page__text {
+    margin-bottom: rhythm(1);
+}

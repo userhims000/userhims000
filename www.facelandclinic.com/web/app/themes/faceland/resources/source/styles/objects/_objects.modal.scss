@@ -1,0 +1,13 @@
+/*----------------------------------------------------------------------------*\
+    #OBJECTS MODAL
+\*----------------------------------------------------------------------------*/
+
+.o-modal.featherlight-inner {
+    display: block;
+}
+
+.o-modal {
+    display: none;
+    padding: rhythm(1);
+    background-color: $color-white;
+}

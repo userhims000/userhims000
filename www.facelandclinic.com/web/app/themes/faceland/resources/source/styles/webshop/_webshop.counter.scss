@@ -1,0 +1,94 @@
+.c-counter {
+    align-self: flex-start;
+    max-width: 140px;
+    height: 40px;
+    border: 1px solid $color-gray-lighter;
+    border-radius: 20px;
+    overflow: hidden;
+
+    @include breakpoint(medium) {
+        max-width: 108px;
+    }
+
+    @include breakpoint(large) {
+        max-width: 120px;
+    }
+
+    @include breakpoint(wide) {
+        max-width: 140px;
+    }
+}
+
+.c-counter__button {
+    @include size(50px, 100%);
+    @include is-hidden-text();
+    position: relative;
+    padding: 0;
+    transition: opacity .24s ease-in;
+    border: 0;
+    background-color: $color-gray-lightest;
+    cursor: pointer;
+
+    &.is-disabled {
+        cursor: default;
+        opacity: .3;
+    }
+
+    &:focus {
+        outline: 0;
+    }
+
+    &::after {
+        @include offset(absolute, 50%, null, null, 50%);
+        transform: translate(-50%, -50%);
+        content: '';
+    }
+
+    @include breakpoint(large) {
+        width: 34px;
+    }
+}
+
+.c-counter__button--dec {
+
+    &::after {
+        @include size(8px, 1px);
+        background-position: -384px -576px;
+    }
+}
+
+.c-counter__button--inc {
+
+    &::after {
+        @include square(8px);
+        background-position: -288px -576px;
+    }
+}
+
+.c-counter__input-wrapper {
+    @include size(45px, 100%);
+    border-right: 1px solid $color-gray-lighter;
+    border-left: 1px solid $color-gray-lighter;
+}
+
+.c-counter__input {
+    @include size(45px, 100%);
+    border: 0;
+    background-color: transparent;
+    color: $color-gray-darker;
+    font-family: $primary-font;
+    appearance: none;
+
+    &:focus {
+        outline: 0;
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        display: none;
+    }
+
+    &[type='number'] {
+        -moz-appearance: textfield;
+    }
+}

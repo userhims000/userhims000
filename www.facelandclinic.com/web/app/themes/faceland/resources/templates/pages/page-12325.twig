@@ -1,0 +1,15 @@
+{% extends "base/base.twig" %}
+{% block content %}
+    <div class="c-home f-home">
+        <article class="c-copy">
+            {% include 'parts/content-modules.twig' %}
+            {% block afterContent %}{% endblock %}
+        </article>
+        {% if  post.reviews %}
+            {% include 'parts/home/reviews.twig'    with { reviews : post.reviews } %}
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+

@@ -1,0 +1,30 @@
+<section class="pt-0 mt-0 mb-20 mb-lg-72">
+  <div class="o-contain o-contain-padding">
+    <div class="border border-pink rounded p-24 p-lg-48">
+      <div class="join-us-title mb-24">
+        <{{ layout.usps_title_tag ? layout.usps_title_tag : 'h2'  }} class="title-email-icon">{{ layout.usps_section_title }}</{{ layout.usps_title_tag ? layout.usps_title_tag : 'h2'  }}>
+      </div>
+      <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of3--md u-1of3--lg mb-n-40 three-col-grid">
+        {% for information in layout.show_usps_information %}
+            <div class="o-grid__cell px-lg-20 mt-0 mb-40 u-text-center">
+                {% if information.show_text == true  %}
+                    <div class="mb-8">
+                        <h3 class="three-col-title">11,000 +</h3>
+                    </div>
+                {% endif %}
+                {% if information.show_text != true  %}
+                    <div class="ico-box">
+                        {{ rokit_get_image(information.icon_image, 'full', information.icon_image, '', '', false) }}
+                    </div>
+                {% endif %}
+                {% if layout.usps_description  %}
+                    <div class="location-content-description">
+                        {{ layout.usps_description }}
+                    </div>
+                {% endif %}             
+            </div>
+        {% endfor %}
+      </div>                    
+    </div>
+  </div>
+</section>

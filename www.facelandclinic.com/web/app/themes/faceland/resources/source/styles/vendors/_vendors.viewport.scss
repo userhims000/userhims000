@@ -1,0 +1,69 @@
+/*----------------------------------------------------------------------------*\
+    #VENDORS VIEWPORT
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Enable automatic content scaling in IE 10, see: http://j.mp/TT6lHf
+ * In Metro IE10 snap mode works most of the time correct when using:
+ * "width: device-width;", but it doesn't always work as meant on
+ * Windows Phone 8 (e.g. Nokia Lumia 820). To fix this issue on Windows Phone 8
+ * for now see: http://trentwalton.com/?p=5994
+ */
+
+@viewport {
+    width: device-width;
+}
+
+/**
+ * Add breakpoints to body as :after content
+ * So we can breakpoint tests this in the JavaScript
+ * See the modules.breakpoints.js javascript module
+ * See: https://css-tricks.com/making-sass-talk-to-javascript-with-json/
+ */
+
+body::after {
+    display: none;
+    content: 'small';
+
+    @if map-get($breakpoints, 'small') != null {
+        @media (min-width: map-get(map-get($breakpoints, 'small'), 'break-value')) {
+            content: '"small"';
+        }
+    }
+
+    @if map-get($breakpoints, 'compact') != null {
+        @media (min-width: map-get(map-get($breakpoints, 'compact'), 'break-value')) {
+            content: '"compact"';
+        }
+    }
+
+    @if map-get($breakpoints, 'medium') != null {
+        @media (min-width: map-get(map-get($breakpoints, 'medium'), 'break-value')) {
+            content: '"medium"';
+        }
+    }
+
+    @if map-get($breakpoints, 'large') != null {
+        @media (min-width: map-get(map-get($breakpoints, 'large'), 'break-value')) {
+            content: '"large"';
+        }
+    }
+
+    @if map-get($breakpoints, 'wide') != null {
+        @media (min-width: map-get(map-get($breakpoints, 'wide'), 'break-value')) {
+            content: '"wide"';
+        }
+    }
+
+    @if map-get($breakpoints, 'huge') != null {
+        @media (min-width: map-get(map-get($breakpoints, 'huge'), 'break-value')) {
+            content: '"huge"';
+        }
+    }
+
+    @if map-get($breakpoints, 'mega') != null {
+        @media (min-width: map-get(map-get($breakpoints, 'mega'), 'break-value')) {
+            content: '"mega"';
+        }
+    }
+}

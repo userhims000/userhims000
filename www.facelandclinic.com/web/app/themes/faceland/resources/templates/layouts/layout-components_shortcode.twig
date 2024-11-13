@@ -1,0 +1,18 @@
+{% if layout.shortcode_edit %}
+<div class="{{ layout.do_you_show_this_title_with_taggbox != true ? 'c-cta' : '' }} {{ is_mobile == true ?  'c-cta' : '' }}  c-cta--wide review-shortcode {{ layout.do_you_show_this_title_with_taggbox == true ? 'o-contain o-contain-padding' : '' }} {{ layout.show_widget_with_spacing == true and is_mobile != true ? 'c-copy__maxwidth' : ''  }} ">
+    {% if layout.do_you_show_this_title_with_taggbox == true %}
+    <div class="taggbox-shortcode-title {{ layout.show_title_centre_align == true ? 'u-text-center' : '' }}">
+        <{{ layout.title_heading_tag ? layout.title_heading_tag : 'h2'  }} class="u-text-bold " >{{ layout.title }}</{{ layout.title_heading_tag ? layout.title_heading_tag : 'h2'  }}>
+    </div>
+    {% endif %}
+    <div class="c-cta__content u-text-left">
+        {% if layout.do_you_show_this_title_with_taggbox != true %}
+            {% if layout.title %}
+                <h2 class="heading"><span class="icon">
+                <img alt="{{ layout.title }}" data-src="https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png" class=" lazyloaded" src="https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png"><noscript><img src="https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png" alt="{{ layout.title }}"></noscript>{{ layout.title }}</span></h2>
+            {% endif %}
+        {% endif %}
+        {{ layout.shortcode_edit|shortcodes }}
+    </div>
+</div>
+{% endif %}

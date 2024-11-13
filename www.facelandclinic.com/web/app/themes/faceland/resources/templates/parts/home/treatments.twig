@@ -1,0 +1,12 @@
+{% if treatments.terms|length > 0 %}
+    {% include 'parts/intro.twig' with { intro : treatments.titles } %}
+
+    <div class="o-grid helloooo o-grid--with-gutter o-grid--with-gutter-vertical u-1of1--sm u-1of2--md u-1of3--lg">
+        {% for treatmentType in treatments.terms %}
+            <div class="o-grid__cell">
+                {% include "parts/cards/card-treatment-type-list.twig" with { showAll : true, treatmentTypePosts : treatmentType.term.featured_treatments, fallback : treatmentType.term.fallback } %}
+            </div>
+        {% endfor %}
+    </div>
+
+{% endif %}

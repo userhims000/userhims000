@@ -1,0 +1,542 @@
+{% set turnOffDashComma =  layout.would_you_like_turn_off %}
+<div class="treatment-pricelist-section f-bg-primary-bg" id="{{ layout.scroll_section_element }}" 
+    {# {% if layout.show_christmas_snowflake_image == true %} #} 
+    {% set snowFlakeURL = snowflake_img_url ? snowflake_img_url : '' %}
+    style="background-image:url({{ layout.snowflake_image ? layout.snowflake_image : snowFlakeURL  }}); background-repeat: no-repeat; background-position: center; background-size:cover" 
+    {# {% endif %} #}
+    >
+    <div class="o-contain o-contain-padding treatment-title-content">
+        {% if layout.title or layout.sub_title or layout.content %}
+                {% if layout.title %}
+                    <div class="title u-text-bold pt-4 ">
+                        <{{ layout.title_heading_tag }}>{{ layout.title }}</{{ layout.title_heading_tag }}>
+                    </div>
+                {% endif %}
+                {% if layout.sub_title %}
+                    <div class="sub-title u-text-bold">
+                        <{{ layout.sub_title_tag }}>{{ layout.sub_title }}</{{ layout.sub_title_tag }}>
+                    </div>
+                {% endif %}
+
+                <div class="treatment-two-col-content">
+                    {% if is_mobile != true %}
+                        {% for content in layout.content %}
+                            {% if content %}
+                                <div class="treatment-content-description">
+                                    {{ content.content_description }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if is_mobile == true %}
+                        {% set loopData = [] %}
+                        {% for content in layout.content %}
+                            {% if content %}
+                                <div class="treatment-content-description {{ layout.content|length == 1 ? 'single-paragraph-content' : '' }}" style="background-color: rgb(240 232 222 / 90%);" >
+                                    <div class="show-paragraph-content ">
+                                        {% if content.content_description|length > 90 %}
+                                            {{ content.content_description|slice(0, 90)|striptags('<br><p>') ~ '...' }}
+                                        {% else %}
+                                            {{ content.content_description }}
+                                        {% endif %}
+                                    </div>
+                                    <div class="read-more-content" {{ content.content_description|length  }}>
+                                        {{ content.content_description }}
+                                    </div>
+                                    {% if  content.content_description|length > 90 %}
+                                        {% set loopData = ['yes'] %}
+                                    {% endif %}    
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                {% if is_mobile == true %}
+                    {% if loopData is not empty %}
+                        <div class="read-more-button" id="toggleReadMoreButton">
+                            <div class="showMore">
+                                <span>{{ pll__('Meer lezen') }}</span><span>{{ '<i class="arrow down"></i>' }}</span>
+                            </div>
+                            <div class="showLess">
+                                <span>{{ pll__('Minder lezen') }} </span><span>{{ '<i class="arrow up"></i>' }}</span>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+        {% endif %}
+        {% if not is_mobile %}
+            {% set showChristmasPriceList = [] %}
+            {% for key, priceInfo in layout.treatment_price_list %}
+                {% set showChristmasPriceList = priceInfo.show_christmas_price_list   %}
+            {% endfor %}    
+            <div class="treatment-price-list {{ showChristmasPriceList == true ? 'christmas-price-list' : '' }}"  style="background-color: rgb(240 232 222 / 75%);" >
+                {% if showChristmasPriceList != true %}
+                    <ul class="o-list-plain c-list c-list--seamless  doctor-prices-lables">
+                       <li class="c-list__item js-block">
+                          <div class="c-list__header c-prices_new-grid">
+                             <div class="o-grid o-grid--with-gutter">
+                                <div class="o-grid__cell u-cell-1of2--sm u-cell-1of2--md titles first-blank-cls"><h3>{{ layout.treatment_price_before_title }}</h3></div>
+                                {% if layout.show_behandelaar_column == true  %}
+                                    <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md titles premium-price {{ layout.show_premium_facecard_behandelaar_column != true ? 'single-behandelaar' : '' }}  ">
+                                        {% if is_ch == true %}
+                                            <strong>{{ 'Preise' }}</strong>
+                                        {% elseif is_be_fr == true %}
+                                            <strong>{{ 'Praticien' }}</strong>
+                                        {% else %} 
+                                            <strong>{{ 'Behandelaar' }}</strong>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                                {% if layout.show_premium_facecard_behandelaar_column == true  %}
+                                    <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md titles  second-blank-cls {{ layout.show_behandelaar_column != true ? 'single-facecard' : '' }}">
+                                       {% if is_ch == true %}
+                                            <strong>{{ 'Premium Handler' }}</strong>
+                                        {% elseif is_be_fr == true %}
+                                            <strong>{{ 'Praticiens Premium' }}</strong>
+                                        {% elseif is_be == true %}
+                                            <strong>{{ 'Premium Behandelaar' }}</strong>
+                                        {% else %}
+                                            <strong>{{ 'Behandelaar Facecard' }}</strong>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                             </div>
+                          </div>
+                       </li>
+                    </ul>
+                    
+                    <ul class="o-list-plain c-list c-list--seamless">
+                        {% for key, priceInfo in layout.treatment_price_list %}
+                            {% if priceInfo.show_christmas_price_list != true %}
+                                <li class="c-list__item c-list__item--hover c-treatment-item">
+                                    <div class="c-prices_new-grid price-list">
+                                        <div class="o-grid o-grid--with-gutter">
+                                           <div class="o-grid__cell u-cell-1of2--sm u-cell-1of2--md image-with-title">
+                                              <div class="o-media__image">
+                                                 {{ rokit_get_image(priceInfo.custom.price_panorama_thumbnail, 'avatar-mini', card.title, 'o-image o-image--round o-image--mini') }}
+                                              </div>
+                                              <div class="o-price-title">
+                                                <p class="c-list__heading u-text-size-epsilon o-grid--center-y cardTitle">{{ priceInfo.custom.price_panorama_titles_title }}</p>
+                                                <p class="below-title-text">{{ priceInfo.custom.price_below_title_text }}</p>
+                                              </div>  
+                                           </div>
+                                           
+                                           <div class="o-grid__cell u-cell-1of2--sm u-cell-1of2--md toggleSwitch second-col {{ layout.show_premium_facecard_behandelaar_column == true ?? 'no-toggle' }} {{ layout.show_premium_facecard_behandelaar_column != true or layout.show_behandelaar_column != true ? 'single-behandelaar-detail'  : '' }} {{ layout.show_premium_facecard_behandelaar_column == true and layout.show_behandelaar_column == true ? 'no-toggle'  : '' }}">
+                                              <span class="c-list__heading--sub u-text-size-epsilon u-text-color-gray-darkest column-price-1 h5 js-toggle-content active" data-id="1">
+                                                 <div class="o-grid single-line-data">
+                                                    {% if layout.show_behandelaar_column == true  %}
+                                                        <div class="main-price-with-lower">
+                                                            {% if priceInfo.price_lowest_price_doctor %}
+                                                               <div class="o-grid__cell u-cell-1of2 lower-main-price">
+                                                                  €&nbsp;{{ priceInfo.price_lowest_price_doctor }}{% if turnOffDashComma != true %},-{% endif %}{% if is_be != true %}{% if layout.show_start_behandelaar == true  %}* {% endif %}{% endif %}
+                                                               </div>
+                                                            {% endif %}
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if layout.show_premium_facecard_behandelaar_column == true  %}
+                                                        <div class="lower-premium-price-section">
+                                                            {% if is_be == true %}
+                                                                {% if priceInfo.price_lowest_price_trainer %}
+                                                                <div class="o-grid__cell u-cell-1of2 lower-main-price">
+                                                                  €&nbsp;{{ priceInfo.price_lowest_price_trainer }}{% if turnOffDashComma != true %},-{% endif %}{% if layout.show_start_for_facecard_premium_behandelaar == true %}* {% endif %}
+                                                                </div>
+                                                                {% endif %}
+                                                            {% elseif priceInfo.price_lowest_price_facecard %}
+                                                               <div class="o-grid__cell u-cell-1of2 lower-main-price">
+                                                                  €&nbsp;{{ priceInfo.price_lowest_price_facecard }}{% if turnOffDashComma != true %},-{% endif %}{% if layout.show_start_for_facecard_premium_behandelaar == true %}* {% endif %}
+                                                               </div>
+                                                            {% endif %}
+                                                        </div>
+                                                    {% endif %}
+                                                 </div>
+                                              </span>
+                                           </div>
+
+
+                                        </div>
+                                    </div>    
+                                </li>
+                            {% endif %}
+                        {% endfor %}    
+                    </ul>
+                {% endif %}
+
+                {% if showChristmasPriceList == true %}  
+                    {% set show_christmas_prices_column = layout.show_christmas_column %}  
+                    <ul class="o-list-plain c-list c-list--seamless doctor-prices-lables show-col-{{ show_christmas_prices_column }}">
+                       <li class="c-list__item js-block">
+                          <div class="c-list__header c-prices_new-grid ">
+                             <div class="o-grid o-grid--with-gutter">
+                               <div class="o-grid__cell u-cell-1of2--sm u-cell-1of2--md titles first-blank-cls">
+                                    <h3>{{ layout.treatment_price_before_title }}</h3>
+                                </div>
+                                {% if layout.christmas_column_heading_first  %}
+                                    <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md titles premium-price">
+                                       <strong>{{ layout.christmas_column_heading_first }}</strong>
+                                    </div>
+                                {% endif %}
+                                {% if layout.christmas_column_heading_second  %}
+                                    <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md titles  second-blank-cls {{ layout.christmas_column_heading_second|length < 5 ? 'short-length' : ''  }} ">
+                                       <strong>{{ layout.christmas_column_heading_second }}</strong>
+                                    </div>
+                                {% endif %}
+                                {% if layout.christmas_column_heading_third %}
+                                    <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md titles  second-blank-cls {{ layout.christmas_column_heading_second|length < 5 ? 'short-length' : ''  }}">
+                                       <strong>{{ layout.christmas_column_heading_third }}</strong>
+                                    </div>
+                                {% endif %}
+                                {% if layout.christmas_column_heading_fourth %}
+                                    <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md titles  second-blank-cls {{ layout.christmas_column_heading_second|length < 5 ? 'short-length' : ''  }}">
+                                       <strong>{{ layout.christmas_column_heading_fourth }}</strong>
+                                    </div>
+                                {% endif %}
+                             </div>
+                          </div>
+                       </li>
+                    </ul>
+                    <ul class="o-list-plain c-list c-list--seamless show-col-{{ layout.show_christmas_column }}">
+                        {% for key, priceInfo in layout.treatment_price_list %}
+                            {% if priceInfo.show_christmas_price_list == true %}
+                                <li class="c-list__item c-list__item--hover c-treatment-item">
+                                    <div class="c-prices_new-grid price-list">
+                                        <div class="o-grid o-grid--with-gutter">
+                                           <div class="o-grid__cell u-cell-1of2--sm u-cell-1of2--md image-with-title">
+                                              <div class="o-media__image">
+                                                 {{ rokit_get_image(priceInfo.custom.price_panorama_thumbnail, 'avatar-mini', card.title, 'o-image o-image--round o-image--mini') }}
+                                              </div>
+                                              <div class="o-price-title mr-52 w-25">
+                                                <p class="c-list__heading u-text-size-epsilon o-grid--center-y cardTitle">{{ priceInfo.custom.treatment_specification_volume }}</p>
+                                              </div>
+                                              <div class="o-price-title">
+                                                <p class="c-list__heading u-text-size-epsilon o-grid--center-y cardTitle">{{ priceInfo.custom.price_panorama_titles_title }}</p>
+                                                <p class="below-title-text">{{ priceInfo.custom.price_below_title_text }}</p>
+                                              </div>  
+                                           </div>
+
+                                            <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md toggleSwitch second-col {{ show_christmas_prices_column == 1 ? '' : 'no-toggle' }} {{ show_christmas_prices_column == 3 and priceInfo.behandelaar_price_discount and priceInfo.behandelaar_price   ? 'first-single-data' : '' }} {{ show_christmas_prices_column == 3 and priceInfo.premium_price and priceInfo.premium_price_discount   ? 'second-single-data' : '' }}">
+                                              <span class="c-list__heading--sub u-text-size-epsilon u-text-color-gray-darkest column-price-1 h5 js-toggle-content active" data-id="1">
+                                                 <div class="o-grid single-line-data">
+                                                    <div class="main-price-with-lower">
+                                                    {% if priceInfo.christmas_behandelaar_price %}
+                                                       <div class="o-grid__cell u-cell-1of2 lower-main-price">
+                                                        {% if priceInfo.christmas_behandelaar_price_striketrough %}
+                                                            <del>
+                                                        {% endif %}
+                                                          {{ layout.column_heading_first_currency }}&nbsp;{{ priceInfo.christmas_behandelaar_price }}{% if turnOffDashComma != true %},-{% endif %}
+                                                        {% if priceInfo.christmas_behandelaar_price_striketrough %}
+                                                            </del>
+                                                        {% endif %}
+                                                       </div>
+                                                    {% endif %}
+
+                                                    {% if priceInfo.christmas_behandelaar_price_discount %}   
+                                                       <div class="o-grid__cell u-cell-1of2 lower-price-doctor">
+                                                        {% if priceInfo.christmas_behandelaar_price_discount_striketrough %}
+                                                            <del>
+                                                        {% endif %}
+                                                          {{ layout.column_heading_first_currency }}&nbsp;{{ priceInfo.christmas_behandelaar_price_discount }}{% if turnOffDashComma != true %},-{% endif %}
+                                                        {% if priceInfo.christmas_behandelaar_price_discount_striketrough %}
+                                                            </del>
+                                                        {% endif %}  
+                                                       </div>
+                                                    {% endif %}   
+                                                    </div>
+
+                                                    <div class="lower-premium-price-section">
+                                                        {% if priceInfo.behandelaar_price %}    
+                                                           <div class="o-grid__cell u-cell-1of2 lower-main-price">
+                                                            {% if priceInfo.behandelaar_price_striketrough %}
+                                                                <del>
+                                                            {% endif %}
+                                                              {{ layout.column_heading_second_currency }}&nbsp;{{ priceInfo.behandelaar_price }}{% if turnOffDashComma != true %},-{% endif %}
+                                                            {% if priceInfo.behandelaar_price_striketrough %}
+                                                                </del>
+                                                            {% endif %}
+                                                           </div>
+                                                        {% endif %} 
+                                                        {% if priceInfo.behandelaar_price_discount %}
+                                                            <div class="o-grid__cell u-cell-1of2 lower-price-doctor">
+                                                            {% if priceInfo.behandelaar_price_discount_striketrough %}
+                                                                <del>
+                                                            {% endif %}
+                                                            {{ layout.column_heading_second_currency }}&nbsp;{{ priceInfo.behandelaar_price_discount }}{% if turnOffDashComma != true %},-{% endif %}
+                                                            {% if priceInfo.behandelaar_price_discount_striketrough %}
+                                                                </del>
+                                                            {% endif %}
+                                                            </div>
+                                                       {% endif %}
+                                                    </div>
+                                                 </div>
+                                              </span>
+                                           </div>
+                                           {% if priceInfo.premium_price or priceInfo.premium_price_discount or priceInfo.facecard_price or priceInfo.facecard_price_discount  %}
+                                               <div class="o-grid__cell u-cell-1of2--sm u-cell-1of4--md exclusive toggleSwitch third-col {{ show_christmas_prices_column == 2 ? '' : 'no-toggle' }}  ">
+                                                  {% if priceInfo.premium_price or priceInfo.premium_price_discount %}
+                                                  <span class="c-list__heading--sub u-text-size-epsilon u-text-color-gray-darkest u-text-bold js-toggle-content column-price-1 h3  active " data-id="1">
+                                                    {% if priceInfo.premium_price %}
+                                                        {% if priceInfo.premium_price_striketrough %}
+                                                            <del>
+                                                        {% endif %}
+                                                        {{ layout.column_heading_third_currency }}&nbsp;{{ priceInfo.premium_price }}{% if turnOffDashComma != true %},-{% endif %}
+                                                        {% if priceInfo.premium_price_striketrough %}
+                                                            </del>
+                                                        {% endif %}
+                                                        <br>
+                                                    {% endif %}
+                                                    {% if priceInfo.premium_price_discount %}
+                                                        {% if priceInfo.premium_price_striketrough %}
+                                                            <del>
+                                                        {% endif %}
+                                                        {{ layout.column_heading_third_currency }}&nbsp;{{ priceInfo.premium_price_discount }}{% if turnOffDashComma != true %},-{% endif %}
+                                                        {% if priceInfo.premium_price_discount_striketrough %}
+                                                            </del>
+                                                        {% endif %}
+                                                        <br>
+                                                    {% endif %}
+                                                  </span>   
+                                                  {% endif %}
+                                                  {% if priceInfo.facecard_price or priceInfo.facecard_price_discount %} 
+                                                  <span class="c-list__heading--sub u-text-size-epsilon u-text-color-gray-darkest u-text-bold column-price-1 h4 js-toggle-content active" data-id="1">
+                                                    {% if priceInfo.facecard_price %}
+                                                        {% if priceInfo.facecard_price_striketrough %}
+                                                            <del>
+                                                        {% endif %}
+                                                        {{ layout.column_heading_fourth_currency }}&nbsp;{{ priceInfo.facecard_price }}{% if turnOffDashComma != true %},-{% endif %}
+                                                        {% if priceInfo.facecard_price_striketrough %}
+                                                            </del>
+                                                        {% endif %}
+                                                        <br>
+                                                    {% endif %}
+                                                    {% if priceInfo.facecard_price_discount %}
+                                                        {% if priceInfo.facecard_price_discount_striketrough %}
+                                                            <del>
+                                                        {% endif %}
+                                                        {{ layout.column_heading_fourth_currency }}&nbsp;{{ priceInfo.facecard_price_discount }}{% if turnOffDashComma != true %},-{% endif %}
+                                                        {% if priceInfo.facecard_price_discount_striketrough %}
+                                                            </del>
+                                                        {% endif %}
+                                                        <br>
+                                                    {% endif %}
+                                                  </span>
+                                                  {% endif %}
+                                               </div>
+                                           {% endif %}
+                                        </div>
+                                    </div>    
+                                </li>
+                            {% endif %}
+                        {% endfor %}    
+                    </ul>
+                {% endif %}
+
+                <div class="pricelist-after-description">
+                    {{ layout.treatment_price_after_title }}
+                </div>
+                {% if is_mobile != true %}
+                    {% if layout.treatment_price_list|length > 4 %}
+                        <div class="treatment-readmore-btn">
+                            <div class="read-more-button" id="toggleReadMoreButton">
+                                <div class="showMore">
+                                    <span>{{ pll__('Meer prijzen') }}</span><span>{{ '<i class="arrow down"></i>' }}</span>
+                                </div>
+                                <div class="showLess">
+                                    <span>{{ pll__('Minder prijzen') }} </span><span>{{ '<i class="arrow up"></i>' }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+                {% if layout.show_button == true %}    
+                    <div class="c-btn-wrapper treatment-price-btn">
+                        {% if layout.button.label != ''  %}
+                            <a href="{{ layout.button.url }}" title="{{ layout.button.label }}" class="treatment c-btn u-text-medium c-btn--primary u-bg-primary u-text-size-epsilon u-text-medium make-an-appointment-modal" target="{{ (layout.button.external == true ) ? '_blank' : '' }}">{{ layout.button.label }}</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+         {% endif %}
+         
+        {% if is_mobile %}
+        <div class="treatment-price-list mt-4 new-treatment-price-list"  style="background-color: rgb(240 232 222 / 90%);"  >
+            <ul class="o-list-plain c-list c-list--seamless">
+                {% if layout.treatment_price_before_title %}
+                    <li class="price-list-item">
+                        <h3>{{ layout.treatment_price_before_title }}</h3>
+                    </li>
+                {% endif %}
+                {% for key, priceInfo in layout.treatment_price_list %}
+                    {% if priceInfo.show_christmas_price_list != true %}
+                        <li class="price-list-item">
+                            {{ rokit_get_image(priceInfo.custom.price_panorama_thumbnail, 'avatar-mini', card.title, 'o-image o-image--round o-image--mini') }}
+                            <div class="m-price-title-with-info {{ layout.show_behandelaar_column == true and layout.show_premium_facecard_behandelaar_column == true ? '' : 'm-horizontal-line' }} ">
+                                <h3><strong>{{ priceInfo.custom.price_panorama_titles_title }}</strong></h3>
+                                <div class="price-list-item-p">{% if layout.show_behandelaar_column == true  %}<span>
+                                    {% if is_ch == true %}
+                                        <p>{{ 'Preise' }}</p>
+                                    {% elseif is_be_fr == true %}
+                                        <p>{{ 'Praticien' }}</p>
+                                    {% else %}
+                                        <p>{{ 'Behandelaar' }}</p>
+                                    {% endif %} <p>€&nbsp;{{ priceInfo.price_lowest_price_doctor }}{% if turnOffDashComma != true %},-{% endif %}{% if is_be != true %}{% if layout.show_start_behandelaar == true  %}* {% endif %}{% endif %}</p>{% endif %} </span>{% if layout.show_premium_facecard_behandelaar_column == true  %}<span>
+                                    {% if is_ch == true %}
+                                        <p>{{ 'Premium Handler' }}</p>
+                                    {% elseif is_be_fr == true %}
+                                        <p>{{ 'Praticiens Premium' }}</p>
+                                    {% elseif is_be == true %}
+                                        <p>{{ 'Premium Behandelaar' }}</p>
+                                    {% else %}
+                                        <p>{{ 'Behandelaar Facecard' }}</p>
+                                    {% endif %} {% if is_be == true %}<p>€&nbsp;{{ priceInfo.price_lowest_price_trainer }}{% if turnOffDashComma != true %},-{% endif %}{% if layout.show_start_for_facecard_premium_behandelaar == true  %}* {% endif %} </p>{% elseif priceInfo.price_lowest_price_facecard %} <p>€&nbsp;{{ priceInfo.price_lowest_price_facecard }}{% if turnOffDashComma != true %},-{% endif %}{% if layout.show_start_for_facecard_premium_behandelaar == true  %}* {% endif %} </p> {% endif %} </span>{% endif %}
+                                </div>
+                            </div>
+                        </li>
+                    {% endif %}
+                    {% if priceInfo.show_christmas_price_list == true %}
+                        {% set show_christmas_prices_column = layout.show_christmas_column %}
+                        <li class="price-list-item christmas-price-list-m">
+                            <div class="new-price-image-title-wrap">
+                                <div class="new-price-title-image">
+                                    {{ rokit_get_image(priceInfo.custom.price_panorama_thumbnail, 'avatar-mini', card.title, 'o-image o-image--round o-image--mini') }}
+                                </div>
+                                <div class="new-price-title-ml">
+                                    <h3><strong>{{ priceInfo.custom.treatment_specification_volume}}</strong></h3>
+                                </div>
+                                <div class="new-price-title">
+                                    <h3><strong>{{ priceInfo.custom.price_panorama_titles_title }}</strong></h3>
+                                    <p class="below-title-text">{{ priceInfo.custom.price_below_title_text }}</p>
+                                </div>
+                            </div>
+                            <div class="m-price-title-with-info m-horizontal-line show-col-{{ show_christmas_prices_column }} ">
+                                <div class="price-list-item-p"><span>
+                                    {% if layout.christmas_column_heading_first %}
+                                        <p>{{ layout.christmas_column_heading_first }}</p>
+                                    {% endif %}
+                                    <p>
+                                    {% if priceInfo.christmas_behandelaar_price_striketrough %}
+                                        <del>
+                                    {% endif %}
+                                    {% if priceInfo.christmas_behandelaar_price  %}
+                                      {{ layout.column_heading_first_currency }}&nbsp;{{ priceInfo.christmas_behandelaar_price }}{% if turnOffDashComma != true %},-{% endif %}
+                                    {% endif %}  
+                                    </p><p>
+                                    {% if priceInfo.christmas_behandelaar_price_striketrough %}
+                                        </del>
+                                    {% endif %}
+                                    {% if priceInfo.christmas_behandelaar_price_discount_striketrough %}
+                                        <del>
+                                    {% endif %}
+                                    {% if priceInfo.christmas_behandelaar_price_discount  %}
+                                      {{ layout.column_heading_first_currency }}&nbsp;{{ priceInfo.christmas_behandelaar_price_discount }}{% if turnOffDashComma != true %},-{% endif %}
+                                    {% endif %}  
+                                    {% if priceInfo.christmas_behandelaar_price_discount_striketrough %}
+                                        </del>
+                                    {% endif %}
+                                    </p></span><span>
+                                    {% if layout.christmas_column_heading_second %}
+                                        <p>{{ layout.christmas_column_heading_second }}</p>
+                                    {% endif %}
+                                        <p>{% if priceInfo.behandelaar_price_striketrough %}
+                                            <del>
+                                        {% endif %}
+                                        {% if priceInfo.behandelaar_price  %}
+                                          {{ layout.column_heading_second_currency }}&nbsp;{{ priceInfo.behandelaar_price }}{% if turnOffDashComma != true %},-{% endif %}
+                                        {% endif %}  
+                                        {% if priceInfo.behandelaar_price_striketrough %}
+                                            </del>
+                                        {% endif %}<p>
+                                        {% if priceInfo.behandelaar_price_discount_striketrough %}
+                                            <del>
+                                        {% endif %}
+                                        {% if priceInfo.behandelaar_price_discount %}
+                                            {{ layout.column_heading_second_currency }}&nbsp;{{ priceInfo.behandelaar_price_discount }}{% if turnOffDashComma != true %},-{% endif %}
+                                        {% endif %}
+                                        {% if priceInfo.behandelaar_price_discount_striketrough %}
+                                            </del>
+                                        {% endif %}
+                                        </p></p>
+                                    </span><span>
+                                        {% if layout.christmas_column_heading_third %}
+                                            <p>{{ layout.christmas_column_heading_third }}</p>
+                                        {% endif %}
+                                        <p>{% if priceInfo.premium_price_striketrough %}
+                                            <del>
+                                        {% endif %}
+                                        {% if priceInfo.premium_price  %}
+                                            {{ layout.column_heading_third_currency }}&nbsp;{{ priceInfo.premium_price }}{% if turnOffDashComma != true %},-{% endif %}
+                                        {% endif %}
+                                        {% if priceInfo.premium_price_striketrough %}
+                                            </del>
+                                        {% endif %}<p>
+                                        {% if priceInfo.premium_price_striketrough %}
+                                            <del>
+                                        {% endif %}
+                                        {% if priceInfo.premium_price_discount  %}
+                                            {{ layout.column_heading_third_currency }}&nbsp;{{ priceInfo.premium_price_discount }}{% if turnOffDashComma != true %},-{% endif %}
+                                        {% endif %}
+                                        {% if priceInfo.premium_price_discount_striketrough %}
+                                            </del>
+                                        {% endif %}
+                                        </p></p>
+                                    </span><span>
+                                        {% if layout.christmas_column_heading_fourth %}
+                                            <p>{{ layout.christmas_column_heading_fourth }}</p>
+                                        {% endif %}
+                                        <p>{% if priceInfo.facecard_price_striketrough %}
+                                            <del>
+                                        {% endif %}
+                                        {% if priceInfo.facecard_price %}
+                                            {{ layout.column_heading_fourth_currency }}&nbsp;{{ priceInfo.facecard_price }}{% if turnOffDashComma != true %},-{% endif %}
+                                        {% endif %}
+                                        {% if priceInfo.facecard_price_striketrough %}
+                                            </del>
+                                        {% endif %}<p>
+                                        {% if priceInfo.facecard_price_discount_striketrough %}
+                                            <del>
+                                        {% endif %}
+                                        {% if priceInfo.facecard_price_discount  %}
+                                            {{ layout.column_heading_fourth_currency }}&nbsp;{{ priceInfo.facecard_price_discount }}{% if turnOffDashComma != true %},-{% endif %}
+                                        {% endif %}
+                                        {% if priceInfo.facecard_price_discount_striketrough %}
+                                            </del>
+                                        {% endif %}
+                                        </p></p>
+                                    </span>
+                                </div>
+                            </div>    
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            {% if layout.treatment_price_after_title %}
+                <div class="pricelist-after-description mt-4">
+                    {{ layout.treatment_price_after_title }}
+                </div>
+            {% endif %}
+            {% if is_mobile %}
+                {% if layout.treatment_price_list|length > 4 %}
+                    <div class="treatment-readmore-btn">
+                        <div class="read-more-button" id="toggleReadMoreButton">
+                            <div class="showMore">
+                                <span>{{ pll__('Meer prijzen') }}</span><span>{{ '<i class="arrow down"></i>' }}</span>
+                            </div>
+                            <div class="showLess">
+                                <span>{{ pll__('Minder prijzen') }} </span><span>{{ '<i class="arrow up"></i>' }}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+            {% if layout.show_button == true %}    
+            <div class="c-btn-wrapper treatment-price-btn mt-4 c-btn-wrapper-mob">
+                {% if layout.button.label != ''  %}
+                    <a href="{{ layout.button.url }}" title="{{ layout.button.label }}" class="c-btn u-text-medium c-btn--gray-darker u-bg-gray-darker u-text-size-zeta u-text-medium u-flex-center" target="{{ (layout.button.external == true ) ? '_blank' : '' }}">{{ layout.button.label }}</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+

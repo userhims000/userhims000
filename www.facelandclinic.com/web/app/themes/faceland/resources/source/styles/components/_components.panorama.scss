@@ -1,0 +1,463 @@
+.c-panorama--background,
+.c-panorama--image {
+
+    .o-contain {
+        position: relative;
+    }
+
+    .c-mask {
+        @include offset(absolute, null, null, -1px, 0);
+    }
+
+    .c-panorama__breadcrumbs {
+        @include offset(absolute, rhythm(2), null, null, $contain-percentage);
+    }
+
+    .o-panorama__content > .c-panorama__heading {
+        margin-bottom: rhythm(.5);
+    }
+
+    .o-panorama__content {
+        @include rhythm-padding(4);
+
+        > * {
+            @include contain-margin(auto);
+            max-width: rhythm(24);
+        }
+
+        > .o-panorama__triats {
+            max-width: rhythm(30);
+        }
+
+        .o-media--lg {
+            width: 100%;
+        }
+
+        .c-filters {
+            max-width: rhythm(40);
+        }
+
+        .c-form--search {
+            max-width: rhythm(17.5);
+            margin-top: rhythm(1.375);
+        }
+    }
+
+    .c-panorama__list {
+        margin-bottom: rhythm(.75);
+    }
+
+    .c-btn-group {
+        margin-top: rhythm(1);
+    }
+
+    .o-label {
+        display: inline-block;
+        margin-bottom: rhythm(.625);
+    }
+
+    .o-media__image {
+        margin-right: 0;
+        margin-bottom: rhythm(1.25);
+    }
+
+    .o-media {
+        text-align: center;
+    }
+
+    .c-panorama__heading {
+        hyphens: auto;
+        word-wrap: break-word;
+    }
+
+    &.c-panorama--mask .o-panorama__content {
+        @include rhythm-padding(3.5, 4.5);
+    }
+
+    @include breakpoint(medium) {
+
+        .o-media {
+            text-align: left;
+        }
+
+        .o-media__image {
+            margin-bottom: 0;
+        }
+    }
+
+    @include breakpoint(large) {
+
+        .o-panorama__content {
+            @include rhythm-padding(5.5);
+        }
+
+        &.c-panorama--mask .o-panorama__content {
+            @include rhythm-padding(4.5, 6.5);
+        }
+
+        .o-media__image {
+            margin-bottom: 0;
+        }
+    }
+
+    @include breakpoint(wide) {
+
+        .c-panorama__breadcrumbs {
+            left: 0;
+        }
+    }
+}
+
+.c-panorama--mask {
+
+    .c-filters,
+    .c-btn-wrapper {
+        display: inline-block;
+        margin-top: rhythm(1.5);
+    }
+
+    @include breakpoint(large) {
+
+        .o-panorama__content {
+            padding-bottom: rhythm(7);
+        }
+    }
+}
+
+.c-panorama--image {
+
+    & + & {
+        margin-top: rhythm(7.75);
+    }
+
+    .o-panorama__image {
+
+        &::after {
+            background-color: rgba($color-black, .5);
+            content: '';
+        }
+
+        &,
+        &::after,
+        img {
+            @include offset(absolute, 0, null, null, 0);
+            @include square(100%);
+            object-fit: cover;
+        }
+    }
+
+    .c-panorama__video {
+        @include offset(absolute, 0, null, null, 0);
+        @include square(100%);
+        object-fit: cover;
+    }
+
+    .o-panorama__content {
+        padding-top: rhythm(6.5);
+        padding-bottom: rhythm(8.5);
+    }
+}
+
+.c-panorama--background {
+
+    .o-panorama__media {
+        @include contain-margin(auto);
+        max-width: rhythm(24.75);
+        margin-top: rhythm(2);
+    }
+}
+
+.c-panorama--treatment {
+
+    .o-panorama__content {
+        @include rhythm-padding(4);
+    }
+
+    .c-panorama__heading {
+        hyphens: auto;
+        word-wrap: break-word;
+    }
+
+    .c-traits,
+    .c-btn-group {
+        margin-top: rhythm(2);
+    }
+
+    .c-btn {
+        @include contain-margin(auto);
+        display: block;
+        max-width: rhythm(8);
+
+        & + .c-btn {
+            margin-top: rhythm(.5);
+        }
+    }
+
+    @include breakpoint(medium) {
+
+        .c-btn-group {
+
+            .c-btn {
+                @include contain-margin(rhythm(.125));
+            }
+        }
+
+        .c-btn {
+            @include contain-margin(0);
+            display: inline-block;
+            max-width: none;
+
+            & + .c-btn {
+                margin-top: 0;
+            }
+        }
+    }
+}
+
+.c-panorama--news {
+    margin-bottom: rhythm(5.5);
+
+    .o-panorama__content {
+        @include rhythm-padding(5, 7.25);
+    }
+
+    .o-panorama__avatar {
+        @include offset(absolute, null, null, 0, 50%);
+        transform: translate(-50%, 50%);
+
+        img {
+            vertical-align: bottom;
+        }
+    }
+
+    @include breakpoint(large) {
+        margin-bottom: rhythm(6.5);
+        padding-bottom: rhythm(4.25);
+    }
+}
+
+.c-panorama__heading {
+
+    strong {
+        font-weight: 700;
+    }
+}
+
+.c-panorama--prices {
+    max-width: rhythm(28.625);
+    margin: rhythm(4) auto rhythm(2) auto;
+    padding: rhythm(3.25) rhythm(1) rhythm(1.5) rhythm(1);
+
+    .o-panorama__image {
+        @include offset(absolute, 0, null, null, 50%);
+        transform: translate(-50%, -50%);
+    }
+
+    .o-panorama__heading + .o-panorama__text {
+        margin-top: rhythm(.325);
+    }
+
+    .o-panorama__text {
+        color: rgba($color-black, .6);
+    }
+
+    a {
+        margin-top: rhythm(1);
+    }
+
+    @include breakpoint(medium) {
+        padding: rhythm(3.25) rhythm(2.75) rhythm(2.375) rhythm(2.75);
+    }
+}
+
+.c-panorama--action {
+    max-width: rhythm(28.625);
+    margin: rhythm(0) auto rhythm(2) auto;
+
+    .o-panorama__image {
+
+        &,
+        img {
+            @include offset(absolute);
+            @include square(100%);
+        }
+
+        img {
+            object-fit: cover;
+            border-radius: 5px;
+        }
+    }
+
+    .o-panorama__content {
+        @include contain-margin(auto);
+        @include rhythm-padding(3.375, 4.625);
+        @include contain-padding(rhythm(.5));
+        position: relative;
+        z-index: $layer-1;
+
+        .c-panorama__label {
+            display: inline-block;
+            margin-bottom: rhythm(.375);
+        }
+
+        @include breakpoint(medium) {
+            @include contain-padding(rhythm(2));
+        }
+    }
+
+    .c-panorama__heading {
+        margin-right: rhythm(.375);
+    }
+
+    .c-panorama__btn {
+        @include contain-margin(auto);
+        display: inline-block;
+        margin-top: rhythm((.375));
+        transform: rotate(90deg);
+
+        @include breakpoint(medium) {
+            @include contain-margin(0);
+            margin-top: 0;
+        }
+    }
+}
+
+.c-panorama--vh {
+    height: calc(100vh - 133px);
+    max-height: 1024px;
+
+    .o-panorama__content {
+        @include rhythm-padding(0);
+        max-width: none;
+        margin-top: rhythm(-2);
+    }
+
+    @include breakpoint(large) {
+
+        .o-panorama__content {
+            @include rhythm-padding(0);
+        }
+    }
+}
+
+.c-panorama--light-background {
+
+    .o-panorama__image::after {
+        background-color: rgba($color-black, .3);
+    }
+}
+
+.c-panorama--arrow {
+
+    .c-arrow {
+        @include offset(absolute, null, null, 8vh, 50%);
+        transform: translateX(-50%);
+        animation: scrollDown 1s infinite;
+    }
+
+    @keyframes scrollDown {
+
+        0% {
+            bottom: 8vh;
+        }
+
+        50% {
+            bottom: 6vh;
+        }
+
+        100% {
+            bottom: 8vh;
+        }
+    }
+}
+
+.c-panorama--narrow {
+
+    .o-panorama__content {
+        @include rhythm-padding(6.75, 6);
+    }
+
+    @include breakpoint(large) {
+
+        .o-panorama__content {
+            @include rhythm-padding(6.75, 6);
+        }
+    }
+}
+
+.c-panorama--shop {
+    border-bottom: 1px solid $color-gray-lighter;
+
+    .slick-dots {
+        @include offset(absolute, null, null, rhythm(.875), 50%);
+        display: flex;
+        align-items: center;
+        transform: translate(-50%, -40%);
+        z-index: $layer-1;
+    }
+
+    .o-panorama__image {
+        position: relative;
+    }
+
+    .o-panorama__content {
+        padding: rhythm(2) $contain-percentage;
+    }
+
+    .c-panorama__prices {
+        @include rhythm-margin(.375);
+
+        span + span,
+        del + ins {
+            margin-left: rhythm(.5);
+        }
+    }
+
+    .c-carousel__nav {
+        @include offset(absolute, null, null, rhythm(1), 50%);
+        @include contain-padding(rhythm(2.125));
+        width: 100%;
+        transform: translateX(-50%);
+    }
+
+    .c-carousel__button {
+        @include is-hidden-text(skm);
+        @include size(8px, 14px);
+        display: block;
+        padding: 0;
+        border: 0;
+        background-color: transparent;
+        background-position: -672px -288px;
+    }
+
+    .c-carousel__button--next {
+        @include is-hidden-text(skm);
+        @include size(8px, 14px);
+        display: block;
+        padding: 0;
+        transform: rotate(180deg);
+        border: 0;
+        background-color: transparent;
+        background-position: -672px -288px;
+    }
+
+    @include breakpoint(large) {
+
+        .o-panorama__content {
+            padding: rhythm(4) rhythm(2);
+        }
+
+        .c-panorama__prices {
+            @include rhythm-margin(.5, 1.25);
+        }
+
+        .slick-dots,
+        .c-carousel__nav {
+            bottom: rhythm(3);
+        }
+    }
+}
+
+.c-panorama__heading-button{
+    margin-top: rhythm(1);
+}

@@ -1,0 +1,34 @@
+{% if layout|length > 0 and (layout.title or layout.treatments|length ) %}
+    <div class="o-contain o-contain-padding">
+        <div class="c-intro--column treatments-section">
+            {% if layout.title %}
+                <div class="u-text-center">
+                    <h2 class="u-text-bold section-title">{{ layout.title }}</h2>
+                </div>
+            {% endif %}
+            {% if layout.treatments|length %}
+                <div class="c-cards-wrapper">
+                    <div class="c-cards">
+                        <div class="o-grid js-filter-wrapper u-1of1--sm u-1of2--md u-1of4--lg o-grid--with-gutter o-grid--with-gutter-vertical">
+                            {% for details in layout.treatments %}
+                                <div class="o-grid__cell  a-inview">
+                                    <div class="o-card">
+                                        <figure class="o-card__image">
+                                            <img class="js-lazy-load is-lazy-loaded" data-src="{{ details.image.url }}" data-src-retina="" title="{{ details.image.title }}" alt="{{ details.image.alt }}" src="{{ details.image.url }}">
+                                        </figure>
+                                        <div class="o-card__content u-bg-white js-match-height u-text-center">
+                                            {% set external = details.external ? ' rel="external" data-router-disabled' %}
+                                            <h3 class="o-card__heading u-text-size-beta u-text-bold ">{{ details.title }}</h3>
+                                            <p>{{ details.description }}</p>
+                                            <a class="c-btn u-text-medium f-bg-primary-bg cta-button"  href="{{ details.url }}" title="{{ details.label }}" {{ external }} >{{ details.label }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>    
+            {% endif  %}
+        </div>
+    </div>
+{% endif %}

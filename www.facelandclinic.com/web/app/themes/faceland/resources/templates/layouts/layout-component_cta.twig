@@ -1,0 +1,12 @@
+<div class="c-cta c-cta--wide">
+    <div class="c-cta__content u-text-center">
+        {% if layout.component_cta_content %}
+            <h3 class="c-cta__heading u-text-size-mega">{{layout.component_cta_content}}</h3>
+        {% endif %}
+        <div class="u-flex-sm u-flex-center-x">
+            <div class="c-btn-group">
+                <a href="{{layout.component_cta_button_url}}" title="Make an appointment" class="treatment c-btn u-text-medium c-btn--primary u-bg-primary u-text-size-epsilon u-text-medium make-an-appointment-modal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{layout.component_cta_btn_title}}</font></font></a>
+            </div>
+        </div>
+    </div>
+</div>

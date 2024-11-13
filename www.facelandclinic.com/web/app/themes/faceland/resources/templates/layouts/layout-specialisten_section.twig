@@ -1,0 +1,159 @@
+{% if layout|length > 0 and (layout.title or layout.sub_title or layout.description or layout.specialisten_details|length ) %}
+    {% set showCarousel = (layout.show_carousel == true) ? 'specialist-section' : 'c-d-global-section'  %}
+    {% set showCarouselM = (is_mobile == true) ? 'specialist-section' : ''  %}
+    {% set showCarouselPart = (layout.show_carousel == true) ? 'specialist-main-section' : ''  %}
+    {% set showBackgroundImage = (layout.show_background_image == true) ? 'section-background-image' : ''  %}
+    {% set descriptionBlank = (layout.block_description == '' and layout.show_background_image == true and layout.background_image != '' ) ? 'no-description' : ''  %}
+    {% set mergeComponent = (layout.two_component_merge == true) ? 'worldwide-carousel-component' : ''  %}
+    {% set hideComponentMobile = (layout.hide_section_mobile == true) ? 'm-hide' : ''  %}    
+    {% if layout.show_background_image == true %}
+        <div class="c-intro--column">   
+    {% else  %}
+        <div class="o-contain o-contain-padding {{showCarouselPart}} {{ mergeComponent }} {{ hideComponentMobile  }} general-specialist-sec {{ function('is_singular', 'location') == true ? 'clinicpage-slider-section d-none d-lg-block' : '' }} "  bg-image-url="{{ layout.merge_section_background_image }}">   
+    {% endif  %}
+        <div class="c-intro--column  {{ showCarouselM }} {{ showCarousel }}  {{ showBackgroundImage }} {{ hideComponentMobile  }}">
+            {% if layout.show_background_image != true %}
+                {% if layout.title or layout.sub_title or layout.description %}
+                    <div class="{{ function('is_singular', 'location') == true and is_mobile != true ? 'u-text-center' : 'u-text-center' }} {{ function('is_singular', 'location') == true and is_mobile == true ? 'u-text-center' : '' }}">
+                        {% if layout.title %}
+                            {% set titleTag  = layout.title_heading_tag ? layout.title_heading_tag : 'h1'  %}
+                            <{{titleTag}} class="u-text-bold {{ function('is_singular', 'location') == true  ? 'title u-text-center p-0 mb-16 mb-lg-32' : 'section-title' }}   " style="font-size:{{ is_mobile ? layout.title_font_size_mobile : layout.title_font_size }}px;">{{ layout.title }}</{{titleTag}}>
+                        {% endif %}           
+                        {% if layout.sub_title %}
+                            {% set subtitleTag  = layout.sub_title_tag ? layout.sub_title_tag : 'h2' %}
+                            <{{subtitleTag}} class="u-text-bold section-sub-title {{ function('is_singular', 'location') == true  ? 'sub-title u-text-center p-0 mb-16 mb-lg-32' : 'section-title' }} " style="font-size:{{ is_mobile ? layout.sub_title_font_size_mobile :  layout.sub_title_font_size }}px;">{{ layout.sub_title }}</{{subtitleTag}}>
+                        {% endif %}
+                        {{ layout.block_description }}
+                    </div>
+                {% endif %}
+            {% endif %} 
+            {% if layout.specialisten_details|length %}
+                {% set showCarouselYes = (layout.show_carousel == true) ? 'c-carousel-wrapper' : 'c-no-carousel-wrapper'  %}
+                {% set showCarouselYesM = (is_mobile == true) ? 'c-carousel-wrapper' : ''  %}
+
+
+                {% if function('is_singular', 'location') == true and is_mobile != true %}
+                    <div class="border border-pink rounded py-16 px-24 px-lg-72 py-lg-16">    
+                {% endif  %}
+
+                    <div class="c-cards-wrapper {{ showCarouselYesM }} {{ showCarouselYes }} 2- {{ descriptionBlank }}" 
+                        {%  if layout.show_background_image == true and layout.background_image != '' %}
+                            style="background-image: url({{layout.background_image}});"
+                        {% endif %}
+                    >
+                        <div class="c-cards o-contain o-contain-padding full-background-image-section special_wrap ">
+                            {% if layout.show_background_image == true %}    
+                                {% if layout.title or layout.sub_title or layout.description %}
+                                    <div class="u-text-center">
+                                        {% if layout.title %}
+                                            {% set bititleTag  = layout.title_heading_tag ? layout.title_heading_tag : 'h1'  %}
+                                            <{{bititleTag}} class="u-text-bold section-title {{ function('is_singular', 'location') == true  ? 'title u-text-center p-0 mb-16 mb-lg-32' : 'section-title' }}">{{ layout.title }}</{{bititleTag}}>
+                                        {% endif %}           
+                                        {% if layout.sub_title %}
+                                            {% set bisubtitleTag  = layout.sub_title_tag ? layout.sub_title_tag : 'h2' %}
+                                            <{{bisubtitleTag}} class="u-text-bold section-sub-title {{ function('is_singular', 'location') == true  ? 'sub-title u-text-center p-0 mb-16 mb-lg-32' : 'section-sub-title' }}">{{ layout.sub_title }}</{{bisubtitleTag}}>
+                                        {% endif %}
+                                        {{ layout.block_description }}
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                            <div class="c-cards"> 
+                                {% if layout.specialisten_details|length <= 3 and layout.show_carousel != true %}
+                                    {% set center_class = 'section-center' %}
+                                {% else  %}
+                                    {% set center_class = '' %}
+                                {% endif  %}
+                                {% if layout.specialisten_details|length > 1 and layout.show_carousel == true or is_mobile == true %}
+                                    {% if layout.block_description != "" %}
+                                        {% set descriptionNotBlank = "description-not-blank" %}
+                                    {% endif %}    
+                                    <div class="c-carousel-nav {{ descriptionNotBlank }}">
+                                        <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--prev js-carousel-prev">
+                                            <i class="arrow left"></i>
+                                        </button>
+                                        <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--next js-carousel-next">
+                                            <i class="arrow right"></i>
+                                        </button>
+                                    </div>
+                                {% endif %}
+                                {% set showCarouselClass = (layout.show_carousel == true) ? 'c-carousel specialisten-slider' : 'o-contain o-contain-padding m-auto'  %}
+                                {% set showCarouselClassM = (is_mobile == true) ? 'c-carousel specialisten-slider' : ''  %}
+                                <div class=" c-carousel {{ showCarouselClassM }} {{ showCarouselClass }} {{ center_class }} o-grid js-filter-wrapper u-1of1--sm u-1of2--md u-1of4--lg o-grid--with-gutter o-grid--with-gutter-vertical">
+                                    {% for details in layout.specialisten_details %}
+                                        {% set external = details.external ? ' rel="external" data-router-disabled' %}
+                                        <div class="o-grid__cell  a-inview">
+                                            <div class="o-card">
+                                                <figure class="o-card__image">
+                                                    <img class="js-lazy-load is-lazy-loaded" data-src="{{ details.image.url }}" data-src-retina="" title="" alt="{{ rokit_get_image_alt(rokit_get_image_id(details.image.url)) }}" src="{{ details.image.url }}" width="{{ rokit_get_image_width_height_attr(details.image.url)['width'] }}" height="{{ rokit_get_image_width_height_attr(details.image.url)['height'] }}">
+                                                </figure>
+                                                <div class="o-card__content u-bg-white u-text-center {{  function('is_singular', 'location') == true ? 'o-card_clinic_slide_content' : '' }}">
+                                                    <div class="specilist-info">
+                                                        <a href="{{ details.url }}" class="card-heading-title-link" ><h3 class="o-card__heading u-text-bold">{{ details.title }}</h3></a>
+                                                        {{ details.sub_title }}
+                                                    </div>
+                                                    {% if details.label != "" %}
+                                                            {% set backgroundColor = details.button_background_color ? details.button_background_color : ''  %}
+                                                            {% set buttonColor = details.button_color ? details.button_color : ''  %}
+                                                            <a class="c-btn u-text-small f-bg-primary-bg cta-button" 
+                                                            style="
+                                                            {{ backgroundColor ? 'background-color:' ~ backgroundColor  }}; 
+                                                            {{ buttonColor ? 'color:' ~ buttonColor  }};"  
+                                                            href="{{ details.url }}" title="" {{ external }} >{{ details.label }}</a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% if function('is_singular', 'location') == true and is_mobile != true %}    
+                </div>
+                {% endif  %}
+                
+            {% endif  %}
+        </div>
+    </div>
+
+    {% if function('is_singular', 'location') == true and is_mobile == true %}
+    <div class="o-contain o-contain-padding overflow-hidden">
+        <!-- mobile slider start -->               
+        <div class="border {{ layout.show_clinicpage_background_colour == true ? 'f-bg-primary-bg' : '' }} rounded py-16 px-24 px-lg-72 py-lg-16 mb-20 d-lg-none">
+        {% if layout.title or layout.sub_title or layout.description %}
+            <div class="{{ function('is_singular', 'location') == true  ? 'u-text-center p-0 mb-32' : 'u-text-center' }}">
+            {% if layout.title %}
+                {% set titleTag  = layout.title_heading_tag ? layout.title_heading_tag : 'h1'  %}
+                <{{titleTag}} class="u-text-bold {{ function('is_singular', 'location') == true  ? 'title u-text-center' : 'section-title' }}   " style="font-size:{{ is_mobile ? layout.title_font_size_mobile : layout.title_font_size }}px;">{{ layout.title }}</{{titleTag}}>
+            {% endif %}           
+            
+            {% if layout.sub_title %}
+                {% set subtitleTag  = layout.sub_title_tag ? layout.sub_title_tag : 'h2' %}
+                <{{subtitleTag}} class="u-text-bold section-sub-title {{ function('is_singular', 'location') == true  ? 'sub-title u-text-center' : 'section-title' }} " style="font-size:{{ is_mobile ? layout.sub_title_font_size_mobile :  layout.sub_title_font_size }}px;">{{ layout.sub_title }}</{{subtitleTag}}>
+            {% endif %}
+            {{ layout.block_description }}
+            </div>
+        {% endif %}
+          <div class="o-grid o-grid--with-gutter u-1of2--sm u-1of2--md mb-n-12">
+            {% for details in layout.specialisten_details %}
+                <div class="o-grid__cell u-cell-1of3--md clinic-item no-bg mt-0  {{ layout.show_clinicpage_background_colour == true ? 'mb-16' : 'mb-12' }} ">
+                  <div class="o-card">
+                    <a href="{{ details.url }}" class="card-block-link d-block u-text-center">
+                      <figure class="o-card__image">
+                        <img class="js-lazy-load is-lazy-loaded" data-src="{{ details.image.url }}" data-src-retina="" title="" alt="{{ rokit_get_image_alt(rokit_get_image_id(details.image.url)) }}" src="{{ details.image.url }}" width="{{ rokit_get_image_width_height_attr(details.image.url)['width'] }}" height="{{ rokit_get_image_width_height_attr(details.image.url)['height'] }}">
+                      </figure>
+                      {% if details.title %}
+                          <div class="o-card__content u-text-center mt-12">                                                          
+                            <h3 class="o-card__heading u-text-medium">{{ details.title }}</h3>
+                          </div>
+                      {% endif %}
+                    </a>
+                  </div>
+                </div>
+            {% endfor %}
+          </div>
+        </div>               
+        <!-- mobile slider end -->
+    </div>
+    {% endif %}
+{% endif %}

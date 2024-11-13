@@ -1,0 +1,20 @@
+<ul class="o-list-plain u-text-size-epsilon">
+    <li class="u-text-bold u-text-size-delta">
+        {{pll__('Contact')}}
+    </li>
+    <li>
+        {{post.general.street}}
+    </li>
+    <li>
+        {{post.general.zipcode}} {{post.general.city}}
+    </li>
+    <li>
+         {{ (is_be_fr == true) ? pll__('Contactez-nous par téléphone') : pll__('Bel ons') }}: <a href="{{post.general.phone|format_tel}}" class="calltracker-fixed" {{ fn('rokit_get_attribute_aen_code') }} title="{{ pll__('Bel ons') }}">{{post.general.phone}}</a>
+    </li>
+    <li>
+        {{ pll__('E-mail ons') }}: <a href="mailto:{{post.general.email|antispambot}}" title="{{ pll__('E-mail ons')}}">{{post.general.email|antispambot}}</a>
+    </li>
+    <li>
+        <a class="u-text-link" rel="external" data-router-disabled href="{{post.general.mapslink}}" title="{{ pll__('Bekijk op Google Maps') }}">{{ pll__('Bekijk op Google Maps') }}</a>
+    </li>
+</ul>

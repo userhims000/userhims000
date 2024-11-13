@@ -1,0 +1,16 @@
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% set show = collection.image ? true : false %}
+    {% include "parts/panorama-buttons.twig" with { panorama : { title : collection.headers.title,  subtitle : collection.headers.intro, show : show, image : collection.image}, button : { content: collection.intro_button, classes : 'c-btn--gray-darker c-btn--icon-before c-btn--video u-bg-gray-darker' } } %}
+{% endblock %}
+
+{% block content %}
+    <div class="o-contain o-contain-padding">
+        {% include "parts/collection-videos.twig" with { posts : collection.playlists } %}
+    </div>
+{% endblock %}
+
+{% block related %}
+    {% include "parts/cta-newsletter.twig" with { cta : collection.cta } %}
+{% endblock %}

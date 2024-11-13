@@ -1,0 +1,12 @@
+{% if layout.intro|length > 0 %}
+    <div class="c-intro c-intro--narrow u-text-center">
+        <div class="o-contain o-contain-padding">
+            {% if layout.intro.title %}
+                <h2 class="c-intro__heading u-text-size-giga u-text-bold u-title-campaign">{{layout.intro.title}}</h2>
+            {% endif %}
+            {% if layout.intro.intro %}
+                <span class="u-text-size-mega u-text-campaign">{{layout.intro.intro}}</span>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

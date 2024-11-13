@@ -1,0 +1,55 @@
+{
+    "name":     "rodesk/faceland",
+    "type":     "wordpress-theme",
+    "license":  "MIT",
+    "description": "A theme biolerplate for buidling advanced wordpress themes. This theme uses the Twig template engine.",
+    "homepage": "https://rodesk.com",
+    "authors": [
+        {
+            "name": "Jasper Rooduijn",
+            "email": "jasper.rooduijn@rodesk.nl",
+            "homepage": "https://git.rodesk.nl/rodesk-wp-plugins/rokit-wp-theme.git"
+        },
+        {
+            "name": "Joeri Abbo",
+            "email": "joeri.abbo@rodesk.nl",
+            "homepage": "https://git.rodesk.nl/rodesk-internal/rokit-wp.git"
+        },
+        {
+            "name": "Tom harms",
+            "email": "tom.harms@rodesk.nl",
+            "homepage": "https://www.rodesk.com/tribe/tom-harms/"
+        }
+    ],
+    "keywords": [
+        "rodesk", "wordpress"
+    ],
+    "config": {
+        "secure-http": false
+    },
+    "support": {
+        "issues": "https://rodesk.com",
+        "forum": "https://rodesk.com"
+    },
+    "autoload": {
+        "psr-4": {
+            "Rokit\\": "app/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.webnl.io/GWsbg0rmLlkPDqSzxoyRj21yy"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.4",
+        "composer/installers": "~1.0",
+        "rokit/rodesk-packages-container": "~1.1.0",
+        "rokit/rodesk-packages-config": "~1.1.0",
+        "rokit/rodesk-packages-assets": "~1.0.2",
+        "rokit/rodesk-packages-post-types": "~1.0.0",
+        "timber/timber": "^1.1",
+        "twig/twig": "~1.0"
+    }
+}

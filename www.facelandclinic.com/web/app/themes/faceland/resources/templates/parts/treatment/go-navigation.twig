@@ -1,0 +1,35 @@
+<div class="o-contain o-contain-padding">
+    <div class="treatment-pricelist-section go-directly">
+        <div class="treatment-price-list christmas-price-list">
+            <div class="c-intro--column">
+                <div class="u-text-center">
+                   {% if gonavigation.title %} 
+                        <h2 class="u-text-bold section-sub-title">{{ gonavigation.title }}</h2>
+                   {% endif %} 
+                </div>
+            </div>    
+            <div class="o-list-plain c-list c-list--seamless show-col-2">
+              <ul class="o-list-plain c-list c-list--seamless show-col-2">
+               {% for list in gonavigation.data %}
+                <li class="c-list__item c-list__item--hover c-treatment-item">
+                    <a href="#{{ list.navigation_label }}"><div class="c-prices_new-grid price-list">
+                        <div class="o-grid o-grid--with-gutter">
+                            <div class="o-grid__cell u-cell-1of2--sm u-cell-1of2--md image-with-title">
+                                <div class="o-content__wrap">
+                                    <div class="o-media__image">
+                                        <img class="o-image o-image--round o-image--mini" data-aspect="1"  src="{{ list.navigation_image }}">
+                                    </div>
+                                    {% if list.navigation_label %} 
+                                        <p class="c-list__heading u-text-size-epsilon o-grid--center-y cardTitle">{{ list.navigation_label }}</p>
+                                    {% endif %}
+                                </div>        
+                            </div>
+                        </div>
+                    </div></a>
+                </li>
+                {% endfor %}
+              </ul>  
+            </div>
+        </div>
+    </div>
+</div>    

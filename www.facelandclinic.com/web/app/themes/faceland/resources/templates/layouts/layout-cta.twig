@@ -1,0 +1,28 @@
+{% if layout|length > 0 %}
+    <div class="c-cta c-cta--wide c-copy__maxwidth">
+        {% if layout.show %}
+            {{ rokit_get_image(layout.image, '1', layout.title, 'o-image o-image--round o-image--md o-image--shadow c-cta__image js-animation-element a-fade-in') }}
+        {% endif %}
+        <div class="c-cta__content u-text-center">
+            {% if layout.title %}
+                <h3 class="c-cta__heading u-text-size-beta u-text-bold u-title-campaign">{{layout.title}}</h3>
+            {% endif %}
+            {% if layout.subtitle %}
+                <span class="c-cta__heading-sub u-text-size-beta u-text-campaign">{{ layout.subtitle }}</span>
+            {% endif %}
+            {% if layout.use_newsletter %}
+                <div class="u-flex u-flex-center-x">
+                    <div class="c-btn-group">
+                        <span class="c-btn u-text-medium c-btn--gray-darker c-btn--tall u-text-size-zeta u-bg-cta-campaign js-modal-newsletter-trigger">{{layout.label|upper}}</span>
+                    </div>
+                </div>
+            {% else %}
+                <div class="u-flex u-flex-center-x">
+                    <div class="c-btn-group">
+                        {% include "parts/button.twig" with { button : layout.button, classes : 'c-btn--gray-darker c-btn--tall u-text-size-zeta u-bg-cta-campaign', upperFilter : true} %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

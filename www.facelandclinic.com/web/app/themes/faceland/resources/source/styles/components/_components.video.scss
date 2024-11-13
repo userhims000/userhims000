@@ -1,0 +1,79 @@
+/*----------------------------------------------------------------------------*\
+    #COMPONENTS VIDEO
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Example HTML:
+ * <div class="c-video js-video">
+ *     <img src="/assets/images/video-placeholder.jpg" alt="video placeholder"/>
+ *     <span class="c-video__play" data-id="#ID" data-type="youtube or vimeo" ><span>Watch video</span></span>
+ * </div>
+ */
+
+.c-video {
+    position: relative;
+    max-width: 100%;
+
+    img {
+        vertical-align: bottom;
+    }
+}
+
+.c-video__play {
+    @include offset(absolute, 50%, null, null, 50%);
+    @include square(54px);
+    @include is-hidden-text(skm);
+    transform: translate(-50%, -50%);
+    transition: transform .3s ease-in-out;
+    border-radius: 50%;
+    background-position: 0 -480px;
+    box-shadow: 0 3px 10px 0 rgba($color-black, .25);
+    cursor: pointer;
+    z-index: $layer-2;
+
+    &:hover {
+        transform: translate(-50%, -50%) scale(1.07);
+    }
+}
+
+.c-video__play--big {
+    @include square(78px);
+    background-position: 0 -576px;
+    zoom: .75;
+
+    @include breakpoint(medium) {
+        zoom: 1;
+    }
+}
+
+.c-video-slider-wrapper {
+    @include rhythm-padding(3);
+
+    & + & {
+        border-top: 1px solid $color-gray-lighter;
+    }
+
+    .c-carousel-nav {
+        @include contain-padding(0);
+    }
+
+    .c-icon--prev {
+        transform: translateX(-50%);
+
+        &:hover {
+            transform: translate3d(-60%, 0, 0) scale(1.05);
+        }
+    }
+
+    .c-icon--next {
+        transform: translateX(50%);
+
+        &:hover {
+            transform: translate3d(60%, 0, 0) scale(1.05);
+        }
+    }
+
+    @include last-child {
+        padding-bottom: 0;
+    }
+}

@@ -1,0 +1,28 @@
+{% if panorama|length > 0 %}
+    <div class="o-contain o-contain-padding">
+        <div class="o-panorama c-panorama--prices u-bg-{{color}}-light u-layout-max-width">
+
+            {% if panorama.image %}
+                <figure class="o-panorama__image">
+                    {{ rokit_get_image(panorama.image, 'avatar-little', panorama.title, 'o-image o-image--round o-image--little') }}
+                </figure>
+            {% endif %}
+
+            {% if panorama.title or panorama.subtitle %}
+                <div class="o-panorama__content u-text-center">
+                    {% if panorama.title %}
+                        <h1 class="o-panorama__heading u-text-size-beta u-text-bold">{{panorama.title}}</h1>
+                    {% endif %}
+                    {% if panorama.subtitle %}
+                        <p class="o-panorama__text">{{panorama.subtitle}}</p>
+                    {% endif %}
+
+                    {% if post.treatment.link %}
+                        <a class="u-block u-text-bold u-text-size-nano" href="{{post.treatment.link}}" title="{{post.treatment.panorama.title|upper}}">{{ pll__('Meer over deze behandeling')|upper }}</a>
+                    {% endif %}
+
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,34 @@
+/*----------------------------------------------------------------------------*\
+    #COMPONENTS MESSAGES
+\*----------------------------------------------------------------------------*/
+
+.c-message--info {
+    border-radius: 5px;
+    background-color: $color-info;
+
+    .o-message__content {
+        position: relative;
+        padding-left: rhythm(1.625);
+
+        &::before {
+            @include offset(absolute, 50%, null, null, 0);
+            @include square(22px);
+            transform: translateY(-50%);
+            background-position: -672px -96px;
+            content: '';
+        }
+    }
+}
+
+.c-message--success {
+    display: block;
+
+    .o-message__content {
+        padding-left: rhythm(1.25);
+
+        &::before {
+            @include square(18px);
+            background-position: -768px -96px;
+        }
+    }
+}

@@ -1,0 +1,63 @@
+{% if layout.title or layout.title_content or layout.video  %}
+<div class="o-contain o-contain-padding treatment-title-content" id="{{ layout.scroll_section_element }}">
+   {% if layout.title %}
+      <div class="title u-text-bold">
+         <{{ layout.title_tag ? layout.title_tag : 'h1' }}>{{ layout.title }}</{{ layout.title_tag ? layout.title_tag : 'h1' }}>
+      </div>
+   {% endif %}
+   <div class="treatment-two-col-content">
+      {% if layout.title_content %}
+         <div class="treatment-content-description">
+            {{ layout.title_content }}
+         </div>
+      {% endif %}
+      {% if  layout.content_video_what_needs == 'Image' or layout.content_video_what_needs == 'Video'  %}
+      <div class="treatment-content-description c-blog-video-section">
+            <div class="video-element">
+            {% if layout.content_video_what_needs == 'Image' %}
+                <figure class="o-panorama__image c-img-wrapper">
+                    <img class="js-lazy-load is-lazy-loaded m-carousel-img" data-src="{{ layout.content_video_section_image }}" src="{{ layout.content_video_section_image }}" alt="{{ rokit_get_image_alt(rokit_get_image_id_img_carousel(layout.content_video_section_image)) }}" width="{{ rokit_get_image_width_height_attr(layout.content_video_section_image)['width'] }}" height="{{ rokit_get_image_width_height_attr(layout.content_video_section_image)['height'] }}" >
+                </figure>
+            {% endif %}
+            {% if layout.content_video_what_needs == 'Video' %}
+                    {% set figureClass = campaign ? 'c-copy__maxwidth' %}
+                    {% set spanClass = campaign ? 'c-video__play--big u-bg-cta-campaign' : 'u-bg-gray-darker' %}
+                    {% set figcaptionClass = campaign ? 'c-figure__caption--below u-text-campaign' : 'u-text-color-gray-dark' %}
+                    {% set imageSize = campaign ? 'campaign-video' : 'module-image-treatment' %}
+                    {% if layout.component_section_video.image and layout.component_section_video.id and layout.component_section_video.type %}
+                        <figure class="test c-figure c-panoaram-video {{ figureClass }}">
+                            <div class="c-video js-video-wrapper">
+                                {{ rokit_get_image(layout.component_section_video.image, imageSize, layout.component_section_video.caption) }}
+                                <span class="c-video__play {% if is_mobile %}js-video-play{% else %}js-video-popup-plays{% endif %} {{ spanClass }}" data-id="{{ layout.component_section_video.id }}" data-type="{{ layout.component_section_video.type }}" ><span><!-- {{pll__('Bekijk video')}} --></span></span>
+                            </div>
+                            {% if layout.component_section_video.caption %}
+                                <figcaption class="u-text-size-epsilon {{ figcaptionClass }} js-animation-element a-fade-in">{{ layout.component_section_video.caption }}</figcaption>
+                            {% endif %}
+                        </figure>
+                    {% endif %}
+            {% endif %}
+         </div>
+      </div>
+      {% endif %}   
+   </div>
+</div>
+{% endif %}
+
+{% if not is_mobile %}
+<div class="modal videoModal" id="videoModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="c-modal__close js-modal-close" data-dismiss="modal" aria-label="Close" onclick="closePopup()"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <div id="iframe-play-video">
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

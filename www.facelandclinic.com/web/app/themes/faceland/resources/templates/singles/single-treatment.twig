@@ -1,0 +1,44 @@
+{# Treatment single #}
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% include "parts/treatment/intro.twig" with { intro : post.intro, general : post.general, media : post.media, pricelist : post.pricelist, appointment_button : post.appointment_button } %}
+{% endblock %}
+
+{% block content %}
+    {% include "parts/treatment/text-carousel.twig" %}
+    {% if is_mobile != true %}
+    <div class="o-contain o-contain-padding">
+    {% endif %}
+        {% include "parts/treatment/nav.twig" with { nav : post.nav } %}
+    {% if is_mobile != true %}
+    </div>
+    {% endif %}
+
+    {% if post.page_type.template != 'default' %}
+        {% set controllerFunction = post.page_type.template ~ '_content' %}
+        {% set content = attribute(post, controllerFunction) %}
+    {% endif %}
+
+    {% if content|length > 0 or (post.page_type.template == 'default') and post.content_modules|length > 0 %}
+        {% if is_mobile %}
+             {% set cls = 'treatment-full-width' %}
+        {% else %}
+             {% set cls = '' %}
+        {% endif %}
+        <div class="o-contain-padding js-filter-container {{ cls }}">
+            <article class="c-copy js-filter-items">
+                {% if post.page_type.template != 'default' %}
+                    {% include 'parts/treatment/' ~ post.page_type.template ~ '.twig' with { content : content } %}
+                {% else %}
+                    {% include 'parts/content-modules.twig' %}
+                {% endif %}
+            </article>
+        </div>
+    {% endif %}
+    {% include "parts/treatment/treatment-specialisten-carousel.twig" %}
+{% endblock %}
+
+{% block related %}
+   
+{% endblock %}

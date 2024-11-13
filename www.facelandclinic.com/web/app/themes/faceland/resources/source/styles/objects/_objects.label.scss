@@ -1,0 +1,8 @@
+.o-label {
+    padding: rhythm(.18) rhythm(.5) rhythm(.2) rhythm(.5);
+    border-radius: 16px;
+
+    & + & {
+        margin-left: rhythm(.125);
+    }
+}

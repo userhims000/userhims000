@@ -1,0 +1,67 @@
+<section class="py-28 mt-0 mb-20 py-lg-56 mb-lg-56 join-us-section celebrating-christmas-section">
+  <div class="o-contain o-contain-padding">
+    {% if layout.christmas_signup_section_title %}
+      <div class="sub-title u-text-bold u-text-center p-0 mb-16 mb-md-24 mb-lg-32">
+        <{{ layout.christmas_signup_section_title_tag }}>{{ layout.christmas_signup_section_title }}</{{ layout.christmas_signup_section_title_tag }}>
+      </div>
+    {% endif %}
+    <div class="rounded bg-white p-lg-24 px-xl-48 py-xl-28">
+      <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of2--md u-1of2--lg mb-n-20">
+        <div class="o-grid__cell mt-0 mb-20 align-self-center join-us-left-col">                                             
+          <div>
+            {% if layout.christmas_section_page_title %}
+              <div class="join-us-title">                      
+                <{{ layout.christmas_section_page_title_tag }}>{{ layout.christmas_section_page_title }}</{{ layout.christmas_section_page_title_tag }}>
+              </div>
+            {% endif %}
+            {% if layout.christmas_page_description %}                        
+              <div class="join-us-dec mt-12">                                            
+                {{ layout.christmas_page_description }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="o-grid__cell mt-0 mb-20 join-us-right-col">
+          <div class="rounded f-bg-primary-bg p-24 h-100 u-text-center">
+            <{{ layout.christmas_page_right_section_title_tag }}>{{ layout.christmas_page_right_section_title }}</{{ layout.christmas_page_right_section_title_tag }}>
+            {% if layout.christmas_page_right_counter_number %}
+              <div class="golden-count">{{ layout.christmas_page_right_counter_number }}</div>
+            {% endif %}
+            {% if layout.christmas_page_right_section_text %}
+              <h4 class="people-text mb-16 mb-xl-24">{{ layout.christmas_page_right_section_text }}</h4>
+            {% endif %}
+            {% if not layout.christmas_page_right_cta_button_url %}
+              <button class="mt-0 c-btn u-text-medium c-btn--dolen u-text-size-zeta" id="clinic-popupLink" title="Sign up">{{ layout.christmas_page_right_cta_button_label }}</button>
+            {% endif %}
+            {% if layout.christmas_page_right_cta_button_url %}
+              {% set ctaButtonExternal = layout.christmas_page_right_cta_button_external ? ' rel="external" data-router-disabled' %}
+              <a href="{{ layout.christmas_page_right_cta_button_url }}" class="mt-0 c-btn u-text-medium c-btn--dolen u-text-size-zeta" {{ ctaButtonExternal }} title="Sign up">{{ layout.christmas_page_right_cta_button_label }}</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="c-modal js-modal-show-clinic-information thankyou-page-popup">
+      <div class="c-modal__content u-bg-white js-modal-content-site-direction">
+          <div class="c-form-wrapper js-form-wrapper clinic-opening-information p-xl-72">
+            <button class="c-modal__close js-modal-close">{{ rokit_get_static_image('images/close-icon.svg', null, 'newsletter-close-icon', '', false) }}</button>
+            <div class="thankyou-page-popup-wrraper">
+            <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of2--md u-1of2--lg">
+                <div class="o-grid__cell mt-0 mb-20 mb-lg-0">
+                    {% if newsletter.form %}
+                        <div class="thankyou-newsletter-form {{ is_mobile != true ? 'border rounded border-pink ' : '' }} p-0 p-xl-32">
+                            {{ newsletter.form }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="o-grid__cell mt-0 mb-20 mb-lg-0 d-none d-xl-block d-md-block">
+                    {{ rokit_get_image(layout.newsletter_modal_right_image, 'full', 'newsletter-modal-image') }}
+                </div>    
+            </div>
+          </div>
+          </div>
+      </div>
+</div>

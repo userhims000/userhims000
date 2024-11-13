@@ -1,0 +1,9 @@
+{% if tags|length > 0 %}
+    <div class="u-flex u-flex-center-x u-text-center">
+        {% for tag in tags %}
+            <span class="o-label u-bg-tertiary-light u-text-size-pico u-text-bold u-text-uppercase">
+                <a href="{{ tag.link }}" title="{{ tag.name }}">{{ tag.name }}</a>
+            </span>
+        {% endfor %}
+    </div>
+{% endif %}

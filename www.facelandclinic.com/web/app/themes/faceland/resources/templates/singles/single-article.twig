@@ -1,0 +1,331 @@
+{# Updates single #}
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% include "parts/panorama-article.twig" with { title : post.title, date : post.date, author: post.author, image : post.image, label : post.label } %}
+{% endblock %}
+
+{% block content %}
+    {% if content|length > 0 and post.content_modules|length > 0 %}
+        {% if is_mobile %}
+             {% set cls = 'treatment-full-width' %}
+        {% else %}
+             {% set cls = '' %}
+        {% endif %}
+    {% endif %}
+    {# {% if is_authenticate  %} #}
+    <div class="js-filter-container {{ cls }} fullwidth-blog-article" {{ checkStatgeVersion }}>
+    {# {% else %}
+    <div class="o-contain o-contain-padding">
+    {% endif %} #}
+        <article class="c-copy">
+          {# {% if is_authenticate  %} #}
+            <div class="main-blog-content o-grid ">
+               <div class="wrap-blog-content-left o-contain">
+                  <div class="blog-left-content o-grid__cell u-cell-3of5--lg-65 ">
+                    <div class="blog-left-content-part ">
+                        {% include 'parts/content-modules.twig' %}
+                    </div>
+                  </div>
+                  {% if is_mobile != true  %}
+                     <div class="blog-feeds o-grid__cell u-cell-2of5--lg-35">
+                        <aside class="article_sidebar">
+                           {% set inputString = post.blog_feeds_titles.sidebar_feeds_title ? post.blog_feeds_titles.sidebar_feeds_title : 'NET Binnen' %}
+                           {% if inputString %}
+                              <h3 class="sidebar-posts_title category-title_title">
+                                <span><p>{{ inputString }}</p></span>
+                              </h3>
+                           {% endif %}
+
+                           {% if post.blog_sidebar_feeds|length > 0  %}
+                             <div class="sidebar-posts_list">
+                                 <div class="column-builder_base">
+                                    {% for sidebarFeeds in post.blog_sidebar_feeds %}
+                                       <span class="column-builder_col column-builder_col-last">
+                                        <div style="width: 100%;">
+                                           <div class="articleFeeds">
+                                             {% if sidebarFeeds.image %}
+                                                <div class="articleFeedsImage articleFeedsNormal">
+                                                    <div class="hover-zoom_hoverZoom">
+                                                       <div class="hover-zoom_body">
+                                                          <span class=" lazy-load-image-background lazy-load-image-loaded" style="color: transparent; display: inline-block;"><img alt="{{ sidebarFeeds.post_title }}" src="{{ sidebarFeeds.image }}" class="image_image TeaserImage_image"></span>
+                                                          <noscript></noscript>
+                                                       </div>
+                                                    </div>
+                                                </div>
+                                             {% endif %}
+                                             <div>
+                                                {% if sidebarFeeds.post_title %}
+                                                   <h3 class="feedTitle"><a class="feedsTitlelink" href="{{ sidebarFeeds.post_url }}">{{ sidebarFeeds.post_title }}</a></h3>
+                                                {% endif %}
+                                                <div class="feedsTag">
+                                                   {% for sidebarFeedTagURL, sidebarFeedTagTitle in sidebarFeeds.tags %}
+                                                   {% set bgColor = 'default-bg' %}
+                                                   {% if sidebarFeedTagTitle.tagColor == 'surgery' %}
+                                                      {% set bgColor = 'u-bg-surgery-light' %}
+                                                   {% elseif sidebarFeedTagTitle.tagColor == 'other' %}
+                                                      {% set bgColor = 'u-bg-other-light' %}
+                                                   {% elseif sidebarFeedTagTitle.tagColor == 'injectable' %}
+                                                      {% set bgColor = 'u-bg-injectable-light' %}      
+                                                   {% endif %}   
+                                                      <a class="category-link_categoryLink" href="{{ sidebarFeedTagURL }}"><span class="category-link_title {{ bgColor }}">{{ sidebarFeedTagTitle.tagName }}</span></a>
+                                                   {% endfor %}
+                                                </div>
+                                                {# <div class="feedHeadlineTitle">
+                                                   {% for sidebarFeedTagTitle in sidebarFeeds.tags %}
+                                                       <span>{{ sidebarFeedTagTitle }}</span>
+                                                       {% if not loop.last %},{% endif %}
+                                                   {% endfor %}
+                                                </div> #}
+                                              </div>
+                                           </div>
+                                        </div>
+                                       </span>
+                                    {% endfor %}
+                                 </div>
+                             </div>
+                           {% endif %}
+                        </aside>
+                     </div>
+                  {% endif %}
+
+               </div>
+               <div class="blog-full-width-content">
+                  {% include 'parts/content-modules.twig' %}
+                  {% if rokit_get_query_param('debug') == 'development'  %}
+                     {# <div class="o-contain slider_section slider_is-articles most-recent-blogs">
+                        {% if post.recent_blogs|length > 0 %}               
+                           {% set inputString = post.blog_feeds_titles.most_recent_blog_title ? post.blog_feeds_titles.most_recent_blog_title : 'NET BINNEN' %}
+                           {% if inputString %}   
+                              <section class="">
+                                 <h3 class="slider_titleMain category-title_title">
+                                    <span>
+                                       {% set words = inputString|split(' ') %}
+                                       {% if words|length > 0 %}
+                                           {% set firstWord = words[0] %}
+                                           <p><strong>{{ firstWord }}</strong>{{ inputString|slice(firstWord|length) }}</p>
+                                       {% else %}
+                                           <p>{{ inputString }}</p>
+                                       {% endif %}
+                                    </span>
+                                 </h3>
+                              </section>
+                           {% endif %}
+
+                          <div class="c-carousel-wrapper specialist-section gutter {{ post.recent_blogs|length < 4 ? 'no-slider' : '' }}">
+                             <div class="c-cards o-contain o-contain-padding special_wrap">
+                                <div class="c-cards">
+                                 {% if post.recent_blogs|length > 4 or (is_mobile and post.recent_blogs|length > 2) %}
+                                    {% set sliderCls = 'recent-blog-slider' %}
+                                    <div class="c-carousel-nav ">
+                                      <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--prev js-carousel-prev">
+                                          <i class="arrow left"></i>
+                                      </button>
+                                      <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--next js-carousel-next">
+                                          <i class="arrow right"></i>
+                                      </button>
+                                  </div>
+                                 {% else %}
+                                    {% set sliderCls = '' %}
+                                    {% set noSliderCls = 'no-recent-blog-slider' %}
+                                 {% endif %}
+                                   <div class="c-carousel {{ sliderCls }} o-grid js-filter-wrapper u-1of1--sm u-1of2--md u-1of4--lg o-grid--with-gutter-vertical ">
+                                    {% for recentBlogs in post.recent_blogs %}
+                                       <div>
+                                          <div class="{{ noSliderCls }}">
+                                             <div class="GridTeaser_gridTeaser hover-zoom_trigger">
+                                                {% if recentBlogs.image %}
+                                                   <div class="GridTeaser_image">
+                                                      <div class="hover-zoom_hoverZoom">
+                                                         <div class="hover-zoom_body">
+                                                            <span class=" lazy-load-image-background  lazy-load-image-loaded" style="color: transparent; display: inline-block;"><img alt="{{ recentBlogs.post_title }}" src="{{ recentBlogs.image }}" class="image_image TeaserImage_image"></span>
+                                                            <noscript></noscript>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                {% endif %}
+                                                <div class="GridTeaser_category">
+                                                   {% for recentBlogsCategoryURL, recentBlogsTitle in recentBlogs.category %}
+                                                      <a class="category-link_categoryLink" href="{{ recentBlogsCategoryURL }}">
+                                                         <span class="category-link_title">{{ recentBlogsTitle }}</span>
+                                                      </a>
+                                                   {% endfor %}
+                                                </div>
+                                                <div class="feedHeadlineTitle">
+                                                   {% for recentBlogsTagTitle in recentBlogs.tags %}
+                                                       <span>{{ recentBlogsTagTitle }}</span>
+                                                       {% if not loop.last %},{% endif %}
+                                                   {% endfor %}
+                                                </div>
+                                                {% if recentBlogs.post_title %}
+                                                   <h3 class="feedTitle"><a class="feedsTitlelink" href="{{ recentBlogs.post_url }}">{{ recentBlogs.post_title }}</a></h3>
+                                                {% endif %}
+                                             </div>
+                                          </div>
+                                       </div>
+                                    {% endfor %}
+                                    </div>
+                                </div>
+                             </div>
+                          </div>
+                        {% endif %}
+                     </div>
+                     <div class="o-contain slider_section slider_is-articles most-popular-blogs">
+                        {% if post.most_reads_blogs|length > 0 %}
+                           {% set inputString = post.blog_feeds_titles.most_popular_blog_title ? post.blog_feeds_titles.most_popular_blog_title : 'MEEST BEKEKEN'  %}
+                           {% if inputString %}
+                              <section class="">
+                                 <h3 class="slider_titleMain category-title_title">
+                                    <span>
+                                       {% set words = inputString|split(' ') %}
+
+                                       {% if words|length > 0 %}
+                                           {% set firstWord = words[0] %}
+                                           <p><strong>{{ firstWord }}</strong>{{ inputString|slice(firstWord|length) }}</p>
+                                       {% else %}
+                                           <p>{{ inputString }}</p>
+                                       {% endif %}
+                                    </span>
+                                 </h3>
+                              </section>
+                           {% endif %}
+
+                              <div class="c-carousel-wrapper specialist-section gutter {{ post.most_reads_blogs|length < 4 ? 'no-slider' : '' }}">
+                                <div class="c-cards o-contain o-contain-padding special_wrap">
+                                   <div class="c-cards">
+
+                                    {% if post.most_reads_blogs|length > 4 or (is_mobile and post.most_reads_blogs|length > 2) %}
+                                       {% set sliderCls = 'recent-blog-slider' %}
+                                       <div class="c-carousel-nav ">
+                                         <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--prev js-carousel-prev">
+                                             <i class="arrow left"></i>
+                                         </button>
+                                         <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--next js-carousel-next">
+                                             <i class="arrow right"></i>
+                                         </button>
+                                     </div>
+                                    {% else %}
+                                       {% set sliderCls = 'no-blog-carousel' %}
+                                       {% set noSliderCls = 'no-recent-blog-slider' %}
+                                    {% endif %}
+                                      <div class=" c-carousel {{ sliderCls }} o-grid js-filter-wrapper u-1of1--sm u-1of2--md u-1of4--lg o-grid--with-gutter-vertical">
+                                       {% for mostReadsBlogs in post.most_reads_blogs %}
+                                          <div>
+                                             <div class="{{ noSliderCls }}">
+                                                <div class="GridTeaser_gridTeaser hover-zoom_trigger">
+                                                   {% if mostReadsBlogs.image %}
+                                                      <div class="GridTeaser_image">
+                                                         <div class="hover-zoom_hoverZoom">
+                                                            <div class="hover-zoom_body">
+                                                               <span class=" lazy-load-image-background  lazy-load-image-loaded" style="color: transparent; display: inline-block;"><img alt="{{ mostReadsBlogs.post_title }}" src="{{ mostReadsBlogs.image }}" class="image_image TeaserImage_image"></span>
+                                                               <noscript></noscript>
+                                                            </div>
+                                                         </div>
+                                                      </div>
+                                                   {% endif %}
+                                                   <div class="GridTeaser_category">
+                                                      {% for mostReadsCategoryURL, mostReadsBlogsTitle in mostReadsBlogs.category %}
+                                                         <a class="category-link_categoryLink" href="{{ mostReadsCategoryURL }}">
+                                                            <span class="category-link_title">{{ mostReadsBlogsTitle }}</span>
+                                                         </a>
+                                                      {% endfor %}
+                                                   </div>
+                                                   <div class="feedHeadlineTitle">
+                                                      {% for mostReadsBlogsTagTitle in mostReadsBlogs.tags %}
+                                                          <span>{{ mostReadsBlogsTagTitle }}</span>
+                                                          {% if not loop.last %},{% endif %}
+                                                      {% endfor %}
+                                                   </div>
+                                                   {% if mostReadsBlogs.post_title %}
+                                                      <h3 class="feedTitle"><a class="feedsTitlelink" href="{{ mostReadsBlogs.post_url }}">{{ mostReadsBlogs.post_title }}</a></h3>
+                                                   {% endif %}
+                                                </div>
+                                             </div>
+                                          </div>
+                                       {% endfor %}
+                                       </div>
+                                   </div>
+                                </div>
+                              </div>
+                           {% endif %}
+                     </div> #}
+                  {% endif %}
+                  {% if is_mobile == true  %}
+                     <div class="blog-feeds o-grid__cell u-cell-2of5--lg-35">
+                        <aside class="article_sidebar">
+                           {% set inputString = post.blog_feeds_titles.sidebar_feeds_title ? post.blog_feeds_titles.sidebar_feeds_title : 'NET Binnen' %}
+                           {% if inputString %}
+                              <h3 class="sidebar-posts_title category-title_title">
+                                <span><p>{{ inputString }}</p></span>
+                              </h3>
+                           {% endif %}
+
+                           {% if post.blog_sidebar_feeds|length > 0  %}
+                             <div class="sidebar-posts_list">
+                                 <div class="column-builder_base">
+                                    {% for sidebarFeeds in post.blog_sidebar_feeds %}
+                                       <span class="column-builder_col column-builder_col-last">
+                                        <div style="width: 100%;">
+                                           <div class="articleFeeds">
+                                             {% if sidebarFeeds.image %}
+                                                <div class="articleFeedsImage articleFeedsNormal">
+                                                    <div class="hover-zoom_hoverZoom">
+                                                       <div class="hover-zoom_body">
+                                                          <span class=" lazy-load-image-background lazy-load-image-loaded" style="color: transparent; display: inline-block;"><img alt="{{ sidebarFeeds.post_title }}" src="{{ sidebarFeeds.image }}" class="image_image TeaserImage_image"></span>
+                                                          <noscript></noscript>
+                                                       </div>
+                                                    </div>
+                                                </div>
+                                             {% endif %}
+                                             <div>
+                                                {% if sidebarFeeds.post_title %}
+                                                   <h3 class="feedTitle"><a class="feedsTitlelink" href="{{ sidebarFeeds.post_url }}">{{ sidebarFeeds.post_title }}</a></h3>
+                                                {% endif %}
+                                                <div class="feedsTag">
+                                                   {% for sidebarFeedTagURL, sidebarFeedTagTitle in sidebarFeeds.tags %}
+                                                   {% set bgColor = 'default-bg' %}
+                                                   {% if sidebarFeedTagTitle.tagColor == 'surgery' %}
+                                                      {% set bgColor = 'u-bg-surgery-light' %}
+                                                   {% elseif sidebarFeedTagTitle.tagColor == 'other' %}
+                                                      {% set bgColor = 'u-bg-other-light' %}
+                                                   {% elseif sidebarFeedTagTitle.tagColor == 'injectable' %}
+                                                      {% set bgColor = 'u-bg-injectable-light' %}      
+                                                   {% endif %}   
+                                                      <a class="category-link_categoryLink" href="{{ sidebarFeedTagURL }}"><span class="category-link_title {{ bgColor }}">{{ sidebarFeedTagTitle.tagName }}</span></a>
+                                                   {% endfor %}
+                                                </div>
+                                                {# <div class="feedHeadlineTitle">
+                                                   {% for sidebarFeedTagTitle in sidebarFeeds.tags %}
+                                                       <span>{{ sidebarFeedTagTitle }}</span>
+                                                       {% if not loop.last %},{% endif %}
+                                                   {% endfor %}
+                                                </div> #}
+                                              </div>
+                                           </div>
+                                        </div>
+                                       </span>
+                                    {% endfor %}
+                                 </div>
+                             </div>
+                           {% endif %}
+                        </aside>
+                     </div>
+               {% endif %}
+               </div>
+            </div>
+          {# {% endif %} #}
+
+          {# {% if not is_authenticate  %}
+            {% include 'parts/content-modules.twig' %}
+          {% endif %} #}
+
+          {% include "parts/share.twig" with { share : post.share, title : post.share_title } %}
+          {# {% include "parts/tags.twig" with { tags : post.tags } %} #}
+        </article>
+      </div>
+{% endblock %}
+   {% block related %}
+      {# {% if not is_authenticate  %}
+         {% include "parts/article/related.twig" with { related : post.related } %}
+      {% endif %} #}
+   {% endblock %}

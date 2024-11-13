@@ -1,0 +1,38 @@
+/*----------------------------------------------------------------------------*\
+    #DEBUG NAMESPACES
+\*----------------------------------------------------------------------------*/
+
+[class^='o-'],
+[class*=' o-'] {
+    @include debug-text('object');
+    outline: 5px solid orange;
+}
+
+[class^='c-'],
+[class*=' c-'] {
+    @include debug-text('component');
+    outline: 5px solid aqua;
+}
+
+[class^='u-'],
+[class*=' u-'] {
+    @include debug-text('utility');
+    outline: 5px solid violet;
+}
+
+[class^='_'],
+[class*=' _'] {
+    @include debug-text('hack, u should clean this up!');
+    outline: 5px solid red;
+}
+
+[class^='rf-'],
+[class*=' rf-'] {
+    @include debug-text('refactored');
+    outline: 5px solid green;
+}
+
+[class]:not([class*='rf-']) {
+    @include debug-text('not-refactored');
+    outline: 5px solid green;
+}

@@ -1,0 +1,34 @@
+// .c-socials {}
+
+.c-socials__item {
+    position: relative;
+    padding-left: rhythm(.75);
+
+    &::before {
+        @include offset(absolute, 50%, null, null, 0);
+        @include square(14px);
+        display: block;
+        transform: translateY(-50%);
+        content: '';
+    }
+}
+
+.c-socials__item--facebook::before {
+    background-position: 0 -96px;
+}
+
+.c-socials__item--instagram::before {
+    background-position: -96px -96px;
+}
+
+.c-socials__item--youtube::before {
+    background-position: -192px -96px;
+}
+
+.c-socials__item--pinterest::before {
+    background-position: -288px -96px;
+}
+
+.c-socials__item--linkedin::before {
+    background-position: -384px -96px;
+}

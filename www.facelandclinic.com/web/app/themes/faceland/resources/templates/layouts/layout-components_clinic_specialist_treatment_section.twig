@@ -1,0 +1,75 @@
+{% set cards = related.specialists ? related.specialists : related.locations %}
+{% if cards|length > 0 or post.treatments|length > 0 %}
+    {% set buttonLabel = related.specialists ?  pll__('Specialisten') : pll__('Klinieken') %}
+    {% set buttonClass1 = cards|length > 0  ? 'js-toggle-trigger js-toggle-default' : 'is-disabled' %}
+    {% set buttonClass2 = post.treatments|length > 0 ? 'js-toggle-trigger' : 'is-disabled' %}
+    {% set buttonClassActive2 = cards|length == 0 and post.treatments|length > 0  ? 'js-toggle-default' %}
+    {% set sectionTitle = layout.title ? layout.title : related.title   %}
+    <div class="{{  get_clinic_post_type_slug == true ? 'c-related-clinic-section' : 'c-related' }}  c-related--mt  js-toggle-wrapper">
+        {% if sectionTitle %}
+            <div class="o-contain o-contain-padding">
+                <h2 class="u-text-size-giga u-text-bold {{ function('is_singular', 'location') == true and is_mobile == true ? 'u-text-center' : 'u-text-left' }} ">{{ sectionTitle }}</h2>
+            </div>
+        {% endif %}
+        <div class="js-toggle-wrapper">
+          <div class="o-contain o-contain-padding">
+              <div class="u-flex-md u-flex-center-x">
+                  <div class="c-filters c-filters--button {{  get_clinic_post_type_slug == true ? 'c-filters--clinic-bordered' : '' }} c-filters--bordered c-filters--square-sm u-flex u-flex-center-y u-flex-space-around-x u-text-size-epsilon u-text-color-gray {{ is_mobile != true ? 'u-bg-white' : '' }}">
+                      <div class="c-filters__wrapper">
+                          <button class="c-filter u-text-center {{buttonClass1}}" data-close="false" data-parent-id="card-toggle-1">{{ buttonLabel }}</button>
+                          <button class="c-filter u-text-center js-toggle-trigger {{ buttonClass2 }} {{ buttonClassActive2 }}" data-close="false" data-parent-id="card-toggle-2">{{ pll__('Behandelingen') }}</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="c-cards-wrapper {{  get_clinic_post_type_slug == true ? 'c-clinic-cards-wrapper' : '' }}">
+            <div class="js-toggle-parent" id="card-toggle-1"> 
+              <div class="o-contain o-contain-padding">
+                  {% if layout.clinic_and_specialisten_gallery[0].select_specialist|length > 0  %}
+                      <div class="clinic-specialisten-section">
+                          <div class="c-carousel-wrapper">
+                              {% if layout.clinic_and_specialisten_gallery[0].select_specialist|length > 4 and is_mobile != true or layout.clinic_and_specialisten_gallery[0].select_specialist|length > 2 and is_mobile == true %}
+                                <div class="c-carousel-nav">
+                                    <button class="c-icon c-icon--round c-icon--lg c-icon--arrow js-carousel-prev slick-arrow" aria-disabled="false" style="">                
+                                        <i class="arrow left"></i>
+                                    </button>
+                                    <button class="c-icon c-icon--round c-icon--lg c-icon--arrow js-carousel-next slick-arrow slick-disabled" aria-disabled="true" style="">
+                                        <i class="arrow right"></i>
+                                    </button>
+                                </div>
+                              {% endif %}
+                              <div class="clinic-specialisten-list c-carousel {{ (layout.clinic_and_specialisten_gallery[0].select_specialist|length > 4 and is_mobile != true ) ? 'js-clinic-specialisten-list-carousel' : 'clinic-specialisten-grid' }} {{ layout.clinic_and_specialisten_gallery[0].select_specialist|length >= 2 and is_mobile == true ? 'js-clinic-specialisten-list-carousel-mobile' : '' }}  c-carousel--default o-grid js-filter-wrapper u-1of1--sm u-1of2--md u-1of4--lg o-grid--with-gutter o-grid--with-gutter-vertical ">
+                                 {% for item in layout.clinic_and_specialisten_gallery[0].select_specialist %}
+                                      <div class="clinic-carousel-img-container o-panorama u-flex-sm u-flex-center o-grid__cell  a-inview {{ layout.clinic_and_specialisten_gallery[0].select_specialist|length <= 4 ? 'slick-slide' : '' }} ">
+                                          <figure class="o-panorama__image c-img-wrapper">
+                                              {% set postPermalink = function('rokit_get_post_permalink', item.ID) %}
+                                              <a href="{{ postPermalink }}">
+                                                {{ rokit_get_image(item.custom.specialist_avatar, 'full', 'specialist-image') }}
+                                              </a>
+                                          </figure>
+                                          <div class="u-text-center clinic-image-below-title">
+                                              <a href="{{imgs.add_clinic_and_specialisten_image_link}}" class="u-flex-center" target="{{ (imgs.external == true) ? '_blank' : '' }}"><span>{{ item.custom.specialist_full_name }}</span></a>
+                                          </div>
+                                      </div>
+                                  {% endfor %}
+                              </div>
+                          </div>
+                      </div>
+                  {% endif %}
+              </div>
+            </div>
+            <div class="js-toggle-parent" id="card-toggle-2">
+                <div class="o-contain {{  get_clinic_post_type_slug == true != '' ? o-contain-padding : '' }}">
+                  {% include "parts/treatments-list.twig" with { treatments : post.treatments } %}
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+{% endif %}
+
+
+
+
+

@@ -1,0 +1,102 @@
+.c-traits {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    @include breakpoint(medium) {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.c-traits__item {
+    @include contain-padding(rhythm(1));
+    position: relative;
+
+    &::after {
+        @include offset(absolute, 0, 0, null, null);
+        @include size(1px, 100%);
+        background-color: $color-gray-light;
+        content: '';
+    }
+
+    @include first(2) {
+        margin-bottom: rhythm(.75);
+    }
+
+    @include even() {
+
+        &::after {
+            display: none;
+        }
+    }
+
+    @include breakpoint(medium) {
+        @include contain-padding(rhythm(2));
+
+        @include first(2) {
+            margin-bottom: 0;
+        }
+
+        @include even() {
+
+            &::after {
+                display: block;
+            }
+        }
+
+        @include first-child() {
+            padding-left: 0;
+        }
+
+        @include last-child() {
+            padding-right: 0;
+
+            &::after {
+                display: none;
+            }
+        }
+    }
+}
+
+.c-traits__type,
+.c-traits__value {
+    display: block;
+}
+
+.c-traits--clean {
+    @include rhythm-padding(2, 3);
+
+    .c-traits__item {
+
+        &::after {
+            display: none;
+        }
+    }
+
+    @include even() {
+
+        .c-traits__item {
+
+            &::after {
+                display: none;
+            }
+        }
+    }
+
+    @include breakpoint(large) {
+        @include contain-padding(rhythm(8));
+        padding-top: rhythm(.75);
+
+        .c-traits__item {
+            flex: 1;
+        }
+    }
+
+    @include breakpoint(huge) {
+        @include contain-padding(rhythm(14));
+    }
+
+    @include breakpoint(huge) {
+        @include contain-padding(rhythm(18));
+    }
+}

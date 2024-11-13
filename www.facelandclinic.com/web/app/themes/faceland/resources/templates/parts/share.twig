@@ -1,0 +1,20 @@
+{% if share %}
+    <div class="c-sharing u-text-center">
+        <span class="c-sharing__heading u-text-size-nano u-text-color-gray-darkest u-text-bold">{{ title }}</span>
+        <div class="u-flex u-flex-center-x">
+            <ul class="o-list-plain o-list-inline">
+                <li class="c-sharing__item">
+                    <a class="c-icon c-icon--md c-icon--round c-icon--twitter js-popup {{borderClass}}" href="{{ share.twitter }}" data-router-disabled title="{{pll__('Deel op twitter')}}">{{pll__('Deel op twitter')}}</a>
+                </li>
+
+                <li class="c-sharing__item">
+                    <a class="c-icon c-icon--md c-icon--round c-icon--facebook js-popup {{borderClass}}" href="{{ share.facebook }}" data-router-disabled title="{{pll__('Deel op facebook')}}">{{pll__('Deel op facebook')}}</a>
+                </li>
+
+                <li class="c-sharing__item">
+                    <a class="c-icon c-icon--md c-icon--round c-icon--whatsapp js-popup {{borderClass}}" href="{{ share.whatsapp }}" data-router-disabled title="{{pll__('Deel op whatsapp')}}">{{pll__('Deel op whatsapp')}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endif %}

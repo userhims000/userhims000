@@ -1,0 +1,24 @@
+{% extends 'parts/panorama-default.twig'%}
+
+{% set contentClass = 'u-flex-sm u-flex-center-x' %}
+
+{% block panoramaContent %}
+
+    <div class="o-media o-media--lg o-media--center c-panorama__media js-animation-element a-fade-in">
+        <div class="o-media__image">
+            {{ rokit_get_image(panorama.avatar, 'specialist-avatar', panorama.fullname, 'o-image o-image--round o-image--lg o-image--shadow') }}
+        </div>
+        <div class="o-media__body js-animation-element a-fade-in a-delay">
+            <h1 class="c-panorama__heading u-text-size-giga u-text-bold">{{panorama.fullname}}</h1>
+            <ul class="o-list-plain c-panorama__list">
+                <li>{{panorama.job_function}}</li>
+                {% if panorama.big_number.number|length > 0 %}
+                    <li>{{panorama.big_number.prefix}} {{panorama.big_number.number}}</li>
+                {% endif %}
+            </ul>
+
+            {% include "parts/specialist/treatment-types.twig" with { treatmentTypes : panorama.treatment_types } %}
+        </div>
+    </div>
+
+{% endblock %}

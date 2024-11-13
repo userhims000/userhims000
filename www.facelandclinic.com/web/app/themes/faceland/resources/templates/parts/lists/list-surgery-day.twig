@@ -1,0 +1,36 @@
+{% extends "parts/lists/list-academy.twig" %}
+
+{% block listHeader %}
+    {% if list.date_info %}
+        {% if list.date_info is iterable %}
+            <span class="c-list__heading u-text-bold u-size-1of5--md">
+                <time datetime="{{ list.date_info.start|date("Y-m-d") }}">{{ list.date_info.start|date("d M")|upper }}</time> - <time datetime="{{list.date_info.end|date("Y-m-d")}}">{{ list.date_info.end|date("d M")|upper }}</time>
+            </span>
+        {% else %}
+            <time class="c-list__heading u-text-bold u-size-1of8--md" datetime="{{ list.date_info|date("Y-m-d")|upper }}">{{ list.date_info|date("d M")|upper}}</time>
+        {% endif %}
+    {% endif %}
+    {% if list.title %}
+        <span>{{ list.title }}</span>
+    {% endif %}
+    {% if list.location %}
+        <span class="u-text-color-gray-darkest u-text-right u-align-right"><a href="{{list.location.link}}" title="{{list.location}}">{{list.location}}</a></span>
+    {% endif %}
+{% endblock %}
+
+{% block listData %}
+    {% for data in list.data %}
+        <div class="u-flex-md u-flex-center-y">
+            {% if data.column_one %}
+                <span class="c-list__heading u-size-1of5--md">{{ data.column_one|date("d M") }}</span>
+            {% endif %}
+            {% if data.column_two %}
+                <span>{{ data.column_two }}</span>
+            {% endif %}
+            {% if data.column_three %}
+                <span class="u-text-color-gray-darkest u-text-right u-align-right"><a href="{{data.column_three.link}}" title="{{data.column_three.title}}">{{data.column_three.title}}</a></span>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}
+

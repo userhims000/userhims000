@@ -1,0 +1,10 @@
+{% set focus = collection.search_query is empty ? 'data-focussed="true"' %}
+
+<form role="search" method="get" class="o-form c-form--search js-search-form" id="searchform" action="{{ fn('pll_home_url') }}" autocomplete="off">
+    <div class="c-form__item--search u-text-size-epsilon">
+        <input class="o-form__input o-form__input--full c-form__input--search js-search-input" type="search" name="s" id="s" value="{{ query }}" {{focus}} placeholder="{{ pll__('Type hier je zoekopdracht…') }}">
+        <input type="hidden" name="lang" value="{{current_lang}}" />
+        <button type="submit" class="c-form__submit c-form__submit--search"></button>
+        <button class="c-icon c-icon--close js-clean-search">{{ pll__('Verwijder zoekopdracht') }}</button>
+    </div>
+</form>

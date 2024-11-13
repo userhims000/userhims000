@@ -1,0 +1,57 @@
+/*----------------------------------------------------------------------------*\
+    #COMPONENTS HEADER
+\*----------------------------------------------------------------------------*/
+
+.c-header {
+    @include offset(fixed, 0, null, null, 0);
+    @include size(100%, 59px);
+    background-color: $color-white;
+    z-index: $layer-5;
+
+    @include breakpoint(large) {
+        @include square(auto);
+        position: relative;
+    }
+}
+
+.c-header__sub {
+    @include rhythm-padding(.5);
+    border-bottom: 1px solid $color-gray-lighter;
+
+    .o-contain {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    ul {
+        display: none;
+    }
+
+    .c-language {
+        margin-left: rhythm(.625);
+    }
+
+    .c-icon--language {
+        margin-right: rhythm(.125);
+    }
+
+    @include breakpoint(large) {
+
+        ul {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        li + li {
+            margin-left: rhythm(.125);
+        }
+    }
+}
+
+// .c-header--fixed {
+//     position: fixed;
+//     width: 100%;
+//     z-index: $layer-1;
+// }

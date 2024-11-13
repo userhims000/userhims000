@@ -1,0 +1,21 @@
+{% if titles|length > 0 or image %}
+    <div class="o-media o-media--center c-intro-media">
+        {% if image %}
+            <div class="o-media__image">
+                {{ rokit_get_image(image, 'avatar-tiny', titles.title, 'o-image--tiny o-image--round') }}
+            </div>
+        {% endif %}
+
+        {% if titles|length > 0 %}
+            <div class="o-media__body">
+                {% if titles.title %}
+                    <h3 class="u-text-size-beta u-text-bold">{{titles.title|upper}}</h3>
+                {% endif %}
+
+                {% if titles.intro %}
+                    <p class="u-text-size-epsilon u-text-color-gray">{{titles.intro}}</p>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+{% endif %}

@@ -1,0 +1,23 @@
+.c-home {
+
+    .c-intro,
+    .c-lists {
+        margin-top: rhythm(3);
+    }
+
+    .c-review-avatar {
+        margin-bottom: rhythm(1);
+    }
+
+    .c-review__image {
+        @include rhythm-margin(.5, 1);
+    }
+
+    @include breakpoint(large) {
+
+        .c-intro,
+        .c-lists {
+            margin-top: rhythm(3);
+        }
+    }
+}

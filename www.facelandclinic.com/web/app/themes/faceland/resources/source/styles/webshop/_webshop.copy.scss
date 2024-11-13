@@ -1,0 +1,20 @@
+.c-copy-wrapper--bordered {
+    padding-bottom: rhythm(3.75);
+    border-bottom: 1px solid $color-gray-lighter;
+}
+
+.c-copy--shop {
+    width: 100%;
+    padding-top: rhythm(0);
+
+    > h2 {
+        @include responsive-text-size('delta');
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    @include breakpoint(large) {
+        padding-top: rhythm(4);
+        padding-left: rhythm(3);
+    }
+}

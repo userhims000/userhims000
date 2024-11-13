@@ -1,0 +1,11 @@
+{% if link.label and link.url %}
+    {% set external = link.external ? ' rel="external" data-router-disabled' %}
+    {% set defaultClasses = 'o-link' %}
+    {% set classes = classes ? ' class="' ~ defaultClasses ~ ' ' ~ classes ~ '"' : ' class="' ~ defaultClasses ~ '"' %}
+    {% set alignClass = center ? ' u-flex u-flex-center-x' %}
+
+    {{ wrapper or center ? '<div class="c-link-wrapper' ~ alignClass ~ '">'}}
+        <a href="{{link.url}}" title="{{link.label}}"{{classes}}{{external}}>{{link.label}}</a>
+    {{ wrapper or center ? '</div>'}}
+{% endif %}
+

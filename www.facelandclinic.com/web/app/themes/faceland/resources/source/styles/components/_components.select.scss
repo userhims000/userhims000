@@ -1,0 +1,156 @@
+//This is the wrapper of the selectbox.
+
+.c-select {
+    position: relative;
+    width: 100%;
+    color: $color-gray;
+    cursor: pointer;
+
+    select {
+        padding-bottom: rhythm(.25);
+        border: 0;
+        background-color: transparent;
+        color: $color-gray;
+        appearance: none;
+        font-family: $primary-font;
+
+        &:focus {
+            outline: 0;
+        }
+    }
+}
+
+// Input field of the select box. This box shows the current.
+
+.selectize-input {
+    @include clearfix();
+
+    .item {
+        @include rhythm-padding(.125);
+        float: left;
+    }
+
+    // Reset styling of input box.
+
+    > input {
+        display: none;
+        border: 0;
+        outline: none;
+        line-height: inherit;
+
+        &::placeholder {
+            color: red;
+        }
+    }
+}
+
+/*
+    * This is the dropdown selectize create
+    * You can change the styling for the options and the dropdown here.
+
+    Tip for debugging:
+    display: block !important;
+*/
+
+.selectize-dropdown {
+    @include offset(absolute, null, null, rhythm(-.625), 0);
+    @include responsive-text-size(base);
+    transform: translateY(100%);
+    border-top: 1px solid rgba($color-gray-lighter, .5);
+    z-index: $layer-2;
+
+    .option {
+        padding: rhythm(.25) rhythm(1);
+        color: $color-gray;
+
+        &.active {
+            color: $color-gray-darker;
+        }
+
+        &:hover {
+            background-color: $color-gray-lighter;
+        }
+
+        @include last-child() {
+            padding-bottom: 0;
+        }
+    }
+}
+
+.selectize-dropdown-content {
+    @include rhythm-padding(.75);
+    border-radius: 6px;
+    background-color: $color-white;
+    font-family: $primary-font;
+    box-shadow: 0 3px 33px 0 rgba($color-black, .05);
+}
+
+.c-select--inline {
+    display: block;
+    width: auto;
+    margin-left: rhythm(.5);
+    border: 0;
+    border-bottom: 1px solid $color-gray;
+
+    &::after {
+        @include offset(absolute, 50%, 0, null, null);
+        @include size(12px, 7px);
+        transition: transform .24s ease-in;
+        background-position: -96px -192px;
+        content: '';
+    }
+
+    @include breakpoint(medium) {
+
+        &:hover,
+        &.c-select--open {
+
+            &::after {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    @include breakpoint(large) {
+        display: inline-block;
+    }
+}
+
+.c-select--shop {
+
+    &,
+    select {
+        display: block;
+        width: 100%;
+        margin-top: rhythm(.5);
+        margin-left: 0;
+        padding-bottom: rhythm(.25);
+        border-color: $color-gray-lighter;
+        letter-spacing: .5px;
+    }
+
+    .selectize-dropdown {
+        @include responsive-text-size('zeta');
+    }
+
+    .selectize-dropdown-content {
+        max-height: 400px;
+        overflow: auto;
+    }
+
+    .selectize-input {
+
+        > input {
+            @include responsive-text-size(zeta);
+            display: block;
+            color: $color-gray-darker;
+            font-family: $primary-font;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+    }
+
+    &::after {
+        transform: translateY(-50%);
+    }
+}

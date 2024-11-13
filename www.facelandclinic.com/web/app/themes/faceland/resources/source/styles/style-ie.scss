@@ -1,0 +1,138 @@
+/*----------------------------------------------------------------------------*\
+    #IE STYLES
+\*----------------------------------------------------------------------------*/
+
+@charset 'utf-8';
+
+/**
+ * Breakpoint to be included
+ */
+
+$breakpoints-to-include: ('small', 'compact', 'medium', 'large', 'wide', 'huge', 'mega');
+
+/**
+ * Imports
+ */
+
+@import 'imports';
+
+/**
+ * IE < 9 styles (IE 8 and older)
+ */
+
+/* Normalize */
+
+audio,
+canvas,
+video {
+    display: inline;
+    zoom: 1;
+} // Corrects inline-block display not defined in IE7/8
+
+/* Forms */
+
+legend {
+    border: 0;
+} // Corrects color not being inherited in IE7/8/9
+
+select {
+    background: $color-white;
+}
+
+/* Set contain to fixed width */
+
+.contain {
+    width: 960px;
+    min-width: 960px;
+    max-width: 960px;
+}
+
+/**
+ * IE < 8 styles (IE 7 and older)
+ */
+
+.lt-ie8 {
+
+    /* Normalize
+       ====================================================================== */
+
+    html {
+        font-size: 100%;
+    } // Correct text resizing oddly in IE7 when body font-size is set using em units: http://clagnut.com/blog/348/#c790
+
+    body {
+        margin: 0;
+    } // Addresses margins handled incorrectly in IE7
+
+    nav ul {
+        list-style-image: none;
+    } // prevent IE7 from rendering list bg images for nav uls
+
+    img {
+        -ms-interpolation-mode: bicubic;
+    } // Improve image quality when scaled in IE7 (http://code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/)
+
+    q {
+        quotes: none;
+    } // Addresses CSS quotes not supported in IE7
+
+    /* Forms */
+
+    form {
+        margin: 0;
+    } // Corrects margin displayed oddly in IE7
+
+    legend {
+        margin-left: -7px;
+    } // Corrects alignment displayed oddly in IE7
+
+    button,
+    input,
+    select,
+    textarea {
+        vertical-align: middle;
+    } // Define consistent vertical alignment display in all browsers
+
+    button,
+    html input[type='button'],
+    input[type='reset'],
+    input[type='submit'] {
+        overflow: visible;
+    } // Removes inner spacing in IE7 without affecting normal text inputs
+
+    input[type='checkbox'],
+    input[type='radio'] {
+        width: 13px;
+        height: 13px;
+    } // Removes excess padding in IE7
+
+    .text-input,
+    input,
+    textarea {
+        width: auto;
+        padding: .3em;
+    } // IE7 doen't support border-box, and therefore no 100% width and padding
+
+    .check-list--row li {
+        display: inline;
+    } // IE7 doesn't support inline-block
+
+    /* Tables */
+
+    table {
+        border-collapse: collapse;
+    } // Collapse table to remove spacing in IE7
+
+    table button,
+    table input {
+        overflow: auto;
+    } // Reintroduce inner spacing in 'table' to avoid overlap and whitespace issues in IE7
+
+    /* Ruler (height 1px, don't show old-school rule)
+       ====================================================================== */
+
+    hr,
+    .rule {
+        height: 1px;
+    }
+}

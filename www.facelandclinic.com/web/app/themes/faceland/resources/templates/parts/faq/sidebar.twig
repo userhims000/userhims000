@@ -1,0 +1,12 @@
+<div class="c-sidebar">
+    <div class="c-sidebar__heading u-bg-gray-darker u-text-color-white">
+        <a class="c-sidebar__back-link u-text-size-nano u-text-bold" href="{{taxonomy.collection_button.url}}" title="{{taxonomy.collection_button.label|upper}}">{{taxonomy.collection_button.label|upper}}</a>
+    </div>
+    <ul class="o-list-plain c-sidebar__list u-bg-white">
+        {% for card in taxonomy.types %}
+            <li class="c-sidebar__item {{card.active ? 'o-link--active'}}">
+                <a class="u-text-size-epsilon" href="{{card.link}}" title="{{card.title}}">{{card.title}}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

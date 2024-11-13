@@ -1,0 +1,17 @@
+<div class="c-masonry">
+    <div class="o-grid o-grid--with-gutter o-grid--with-gutter-vertical js-masonry" data-columns>
+        {% for image in layout.images %}
+            <div class="c-masonry__item js-block">
+                {% if image.use_link %}
+                    {% set external = image.external ? ' rel="external" data-router-disabled' %}
+                    <a href="{{ image.link }}" {{ external }} title="{{ image.title }}">
+                {% endif %}
+                    {{ rokit_get_image(image.image, 'campaign-images', site.name) }}
+                {% if image.use_link %}
+                    </a>
+                {% endif %}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>

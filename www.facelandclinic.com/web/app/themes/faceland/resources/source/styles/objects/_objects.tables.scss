@@ -1,0 +1,76 @@
+/*----------------------------------------------------------------------------*\
+    #OBJECTS TABLES
+\*----------------------------------------------------------------------------*/
+
+// .o-table { }
+
+// .o-table--numerical {
+//     text-align: right;
+// }
+
+.o-table--striped {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+        padding: rhythm(.625);
+    }
+
+    th {
+        background-color: $color-black;
+        color: $color-white;
+    }
+
+    /**
+     * Zebra-striping.
+     */
+
+    tbody {
+
+        tr:nth-child(odd) {
+            background-color: $color-smoke-white;
+        }
+    }
+}
+
+// .o-table--rounded {
+
+//     thead th:first-child {
+//         border-top-left-radius: rhythm(.5);
+//     }
+
+//     thead th:last-child {
+//         border-top-right-radius: rhythm(.5);
+//     }
+
+//     tfoot td:first-child {
+//         border-bottom-left-radius: rhythm(.5);
+//     }
+
+//     tfoot td:last-child {
+//         border-bottom-right-radius: rhythm(.5);
+//     }
+// }
+
+// .o-table--bordered {
+
+//     th,
+//     td {
+//         @include rhythm-padding(.5);
+//         border: .125em solid $color-gray;
+
+//         &:empty {
+//             border: 0;
+//         }
+//     }
+
+//     thead th {
+//         border-bottom-width: 2px;
+//         border-bottom-color: $color-black;
+//     }
+
+//     tfoot tr {
+//         border-top-width: 2px;
+//     }
+// }

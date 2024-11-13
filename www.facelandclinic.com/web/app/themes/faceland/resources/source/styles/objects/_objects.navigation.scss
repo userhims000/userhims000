@@ -1,0 +1,50 @@
+/*----------------------------------------------------------------------------*\
+    #OBJECTS NAVIGATION
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Simple navigation.
+ * When used on an `ol` or `ul`, it throws the list into horizontal mode.
+ *
+ * Example HTML:
+ * <nav role="navigation">
+ *   <ul class="o-nav">
+ *     <li class="o-nav__item"><a href="" class="o-nav__link">link item 1</a></li>
+ *     <li class="o-nav__item"><a href="" class="o-nav__link">link item 2</a></li>
+ *   </ul>
+ * </nav>
+ */
+
+// .o-nav { }
+
+.o-nav__list {
+    list-style: none;
+}
+
+.o-nav__item {
+    display: inline-block;
+}
+
+// .o-nav__link { }
+
+/**
+ * Simple stacked (vertical) navigation.
+ *
+ * Example HTML:
+ * <nav role="navigation">
+ *   <ul class="o-nav o-nav--stacked">
+ *     <li class="o-nav__item"><a href="" class="o-nav__link">link item 1</a></li>
+ *     <li class="o-nav__item"><a href="" class="o-nav__link">link item 2</a></li>
+ *     <li class="o-nav__item"><a href="" class="o-nav__link">link item 3</a></li>
+ *   </ul>
+ * </nav>
+ */
+
+// .o-nav--stacked {
+//
+//     .o-nav__item {
+//         display: list-item;
+//
+//         .o-nav__link { display: block; }
+//     }
+// }

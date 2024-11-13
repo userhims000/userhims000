@@ -1,0 +1,7 @@
+.c-arrow {
+    @include square(16px);
+    @include is-hidden-text(skm);
+    display: block;
+    position: relative;
+    background-position: -288px -480px;
+}

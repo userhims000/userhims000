@@ -1,0 +1,10 @@
+{% extends "base/base-worldwide.twig" %}
+
+{% block content %}
+    <div class="page-worldwide">
+        <article class="c-copy">
+            {% include 'parts/content-modules.twig' %}
+            {% block afterContent %}{% endblock %}
+        </article>
+    </div>
+{% endblock %}

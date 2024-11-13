@@ -1,0 +1,39 @@
+.c-figure {
+    position: relative;
+
+    > div {
+        box-shadow: 0 11px 36px 0 rgba($color-black, .12);
+    }
+
+    figcaption {
+        position: relative;
+        margin-top: rhythm(.5);
+        padding-left: rhythm(.5);
+
+        &::before {
+            @include offset(absolute, 8px, null, null, 0);
+            @include square(4px);
+            border-radius: 50%;
+            background-color: $color-primary;
+            content: '';
+        }
+    }
+
+    .c-mask {
+        @include offset(absolute, null, null, 0, null);
+    }
+
+    @include breakpoint(wide) {
+
+        .c-figure__caption--below {
+            position: static;
+            max-width: rhythm(15);
+            margin-top: rhythm(.75);
+            transform: translateX(0);
+
+            &::before {
+                display: none;
+            }
+        }
+    }
+}

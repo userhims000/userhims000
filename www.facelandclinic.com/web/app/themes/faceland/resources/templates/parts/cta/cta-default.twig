@@ -1,0 +1,30 @@
+{% if cta|length > 0 %}
+    {% set class = not white_background ? 'u-bg-tertiary-light' %}
+    <div class="c-content {{class}}">
+        {% if not white_background %}
+            {% include "parts/mask.twig" with { classes : 'c-mask--tertiary-light u-bg-white' } %}
+        {% endif %}
+        <div class="c-content__item">
+            <div class="o-contain o-contain-padding">
+                <div class="o-grid o-grid--with-gutter o-grid--center u-1of1--sm u-1of2--md">
+                    <div class="o-grid__cell">
+                        <div class="c-content__image">
+                            {{ rokit_get_image(cta.image, 'cta') }}
+                        </div>
+                    </div>
+                    <div class="o-grid__cell">
+                        {% if cta.title %}
+                            <{{ cta.title_tag ? cta.title_tag : 'h2' }} class="o-content__heading u-text-size-beta u-text-bold">{{cta.title|upper}}</{{ cta.title_tag ? cta.title_tag : 'h2' }}>
+                        {% endif %}
+                        {% if cta.intro %}
+                            <p class="o-content__text u-text-size-delta u-text-color-black">{{cta.intro}}</p>
+                        {% endif %}
+                        {% if cta.button|length > 0 %}
+                            {% include "parts/button.twig" with { button : cta.button, classes: 'c-btn--gray-darker u-bg-gray-darker u-text-size-zeta u-text-medium u-flex-center', upperFilter : true } %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

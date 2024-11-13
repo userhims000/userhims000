@@ -1,0 +1,59 @@
+{% if not is_mobile %}
+    {% if layout.title or layout.tab_title_with_content %}
+    <div class="o-contain o-contain-padding treatment-tab-section">
+        {% if layout.title %}
+            <div class="title u-text-bold">
+                <{{ layout.title_heading_tag }}>{{ layout.title }}</{{ layout.title_heading_tag }}>
+            </div>
+        {% endif %}
+        {% if layout.tab_title_with_content %}
+            <div class="treatment-tab">
+                {% for key, tabInfo in layout.tab_title_with_content %}
+                    {% if tabInfo.title %}
+                        <button class="tablinks" onclick="openTab(event, 'tab-{{ tabInfo.title }}')"  id="{{ (key == 0) ? 'defaultOpen' : '' }}">
+                            <img src="{{ tabInfo.icon_image }}" alt="{{ rokit_get_image_alt(rokit_get_image_id(tabInfo.icon_image)) }}">
+                            <span>{{ tabInfo.title }}</span>
+                        </button>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% for key, tabInfo in layout.tab_title_with_content %}
+            {% if tabInfo.content %}
+                <div id="tab-{{ tabInfo.title }}" class="treatmentTabContent">
+                    {{ tabInfo.content }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endif %}
+{% if is_mobile %}
+    <div class="o-contain treatment-tab-section">
+        {% if layout.title %}
+            <div class="title u-text-bold">
+                <{{ layout.title_heading_tag }}>{{ layout.title }}</{{ layout.title_heading_tag }}>
+            </div>
+        {% endif %}
+        {% for key, tabInfo in layout.tab_title_with_content %}
+            <div class="faceland-accordion">
+                {% if tabInfo.title %}
+                    <div class="accordian-title">
+                        {% if tabInfo.icon_image %}
+                            <div class="accodian-icon-wrapper">
+                                 <img src="{{ tabInfo.icon_image }}" alt="{{ rokit_get_image_alt(rokit_get_image_id(tabInfo.icon_image)) }}">
+                            </div>
+                        {% endif %}
+                        <label class="accordian-label">{{ tabInfo.title }}</label>
+                    </div>
+                    <span class="accordian-arrow"></span>
+                {% endif %}
+            </div>
+            {% if tabInfo.content %}
+                <div class="faceland-accordion-panel">
+                    <p>{{ tabInfo.content }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}

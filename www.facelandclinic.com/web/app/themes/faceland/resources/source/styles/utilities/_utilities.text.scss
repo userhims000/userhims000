@@ -1,0 +1,119 @@
+/*----------------------------------------------------------------------------*\
+    #UTILITIES TEXT
+\*----------------------------------------------------------------------------*/
+
+$txt: u-text-;
+
+.#{$txt}center {
+    text-align: center;
+}
+
+.#{$txt}left {
+    text-align: left;
+}
+
+.#{$txt}right {
+    text-align: right;
+}
+
+/**
+ * Text contain
+ *
+ * Prevent text (line lenght) from getting longer than
+ * the ideal reading lengt of 65-75 characters.
+ */
+
+// .#{$txt}-max-width {
+//     max-width: $text-max-width;
+//     margin-right: auto;
+//     margin-left: auto;
+// }
+
+/**
+ * text weights and fonts elements.
+ */
+
+.#{$txt}primary {
+    font-family: $primary-font;
+}
+
+.#{$txt}medium {
+    font-weight: 600;
+}
+
+.#{$txt}bold {
+    font-weight: 700;
+}
+
+.#{$txt}link {
+    text-decoration: underline;
+    text-transform: uppercase;
+}
+
+.#{$txt}italic {
+    font-style: italic;
+}
+
+// .#{$txt}small { @include responsive-text-size('nano'); }
+
+/**
+ * text colors
+ */
+
+.#{$txt}color-gray-darkest {
+    color: $color-gray-darkest;
+}
+
+.#{$txt}color-gray-darker {
+    color: $color-gray-darker;
+}
+
+.#{$txt}color-gray-dark {
+    color: $color-gray-dark;
+}
+
+.#{$txt}color-gray {
+    color: $color-gray;
+}
+
+.#{$txt}color-gray-light {
+    color: $color-gray-light;
+}
+
+.#{$txt}color-white {
+    color: $color-white;
+}
+
+.#{$txt}color-black {
+    color: $color-black;
+}
+
+.#{$txt}color-primary {
+    color: $color-primary;
+}
+
+.#{$txt}color-tertiary-lighter {
+    color: $color-tertiary-lighter;
+}
+
+/**
+ * text modifiers
+ */
+
+.#{$txt}uppercase {
+    text-transform: uppercase;
+}
+
+.#{$txt}underline {
+    text-decoration: underline;
+}
+
+.#{$txt}line-through {
+    text-decoration: line-through;
+}
+
+.#{$txt}ls-medium {
+    letter-spacing: 0.5px;
+}
+
+

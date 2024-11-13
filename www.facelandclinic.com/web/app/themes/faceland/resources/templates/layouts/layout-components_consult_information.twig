@@ -1,0 +1,34 @@
+<!-- cunsult-section Start  -->
+{% if layout.consult_section_image or layout.consult_information_section_title or layout.consult_information_details or layout.cta_button_label  %}
+<section class="cunsult-section">
+    <div class="cunsult-main">
+        <div class="cunsult-card">
+            {% if layout.consult_section_image %}
+                <div class="cundult-left">
+                    {{ rokit_get_image(layout.consult_section_image, 'full', 'men-women-img') }}
+                </div>
+            {% endif %}
+            <div class="cundult-right">
+                {% if layout.consult_information_section_title %}
+                    <h3 class="consult-h4">
+                        {{ layout.consult_information_section_title }}
+                    </h3>
+                {% endif %}
+                
+                {{ layout.consult_information_details }}
+                
+                {% set ctaButtonLabel = layout.cta_button_label ? layout.cta_button_label : '' %}
+                {% set ctaButtonURL = layout.cta_button_url ? layout.cta_button_url : 'javascript:;' %}
+                {% set ctaButtonExternal = layout.cta_button_url.cta_button_external ? ' rel="external" data-router-disabled' %}
+                {% if ctaButtonLabel %}
+                    <a href="{{ ctaButtonURL }}" {{ ctaButtonExternal }}
+                        class="c-btn u-text-medium c-btn--gray-darker u-bg-gray-darker u-text-size-zeta two-btn">
+                        {{ ctaButtonLabel }}
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+<!-- cunsult-section End  -->

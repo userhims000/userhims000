@@ -1,0 +1,200 @@
+{% if not is_mobile %}
+   {% set counter = 0 %}
+   {% set desktop_titles = [] %}
+   {% for data in videos %}
+      {% if data.gif_image_desktop is not empty or data.video_desktop is not empty %}
+         {% set desktop_titles = desktop_titles|merge([data.title]) %}
+         {% set counter = counter + 1 %}
+      {% endif %}
+   {% endfor %}
+   <div class="video__component__wrapper treatment_banner {{ counter == 1 ? 'single_video__slider' : 'custom_video_slider' }} video__slider {{ showNavigationForVideoSlider == 1 ? 'show-anchor' : 'show-dots' }}">
+    {% for data_desktop in videos %}
+         {% set external1 = data_desktop.btn_external_one ? ' rel="external" data-router-disabled' %}
+         {% set external2 = data_desktop.btn_external_two ? ' rel="external" data-router-disabled' %}
+         {% set wrapperClass = data_desktop.what_needs_video_or_gif == "Image" ? 'image__wrap' : 'video__wrap'%}
+         {% set overlayWrap  = data_desktop.what_needs_video_or_gif == "Image" ? 'image_overlay' : 'video_overlay' %}
+         {% set setWrapCta  = data_desktop.button_label_two != '' ? 'enable_two' : '' %}
+      {% if loop.index == 1 %}
+         {% if data_desktop.gif_image_desktop != '' or data_desktop.video_desktop != '' %}
+            <div class="item {{ wrapperClass }} container__wrap__below">
+               {% if data_desktop.what_needs_video_or_gif == "Image" and data_desktop.gif_image_desktop != '' %}
+                  <img src="{{ data_desktop.gif_image_desktop }}" title="{{ data_desktop.title }}" alt="{{ data_desktop.title }}" src="{{ data_desktop.gif_image_desktop }}">
+               {% endif %}
+               {% if data_desktop.what_needs_video_or_gif == "Video" and data_desktop.video_desktop != '' %}
+                  <video class="video" loop="loop" autoplay="autoplay" id="vid" muted playsinline>
+                     <source src="{{ data_desktop.video_desktop }}" type="video/mp4">
+                  </video>
+               {% endif %}
+               {% if desktop_titles is not empty %}
+                  <div class="slick-bottom-nav">
+                     <div class="slick-bottom-nav__wrap">
+                     {% for index , titles in desktop_titles %}
+                           <a href="javascript:void(0)" data-slide="{{ index }}" class="sbn-item">{{ titles }}</a>
+                     {% endfor %}
+                   </div>
+               </div>
+               {% endif %}
+               {% if data_desktop.title != '' %}
+                  <div class="content-details details_wrapper">
+                     <h2 class="section-main-title">{{ data_desktop.title }}</h2>
+                     {{ data_desktop.description }}
+                     {% if data_desktop.show_button_links %}
+                        <div class="cta_links_main">
+                        {% if data_desktop.button_label_one != '' %}
+                           <a class="web-btn {{ setWrapCta }} c-btn u-text-small f-bg-primary-bg cta-button" href="{{ data_desktop.button_url_one }}" title="" {{ external1 }}>{{ data_desktop.button_label_one }}</a>
+                        {% endif  %}
+                        {% if data_desktop.button_label_two != '' %}
+                           <a class="apn-btn c-btn u-text-medium c-btn--full c-btn u-text-ls-medium make-an-appointment-btn-mobile apn-btn" href="{{ data_desktop.button_url_two }}" title="" {{ external2 }}>{{ data_desktop.button_label_two }}</a>
+                        {% endif  %}
+                        </div>
+                     {% endif %}
+                  </div>
+               {% endif %}
+            </div>
+         {% endif  %}
+      {% else  %}
+         {% if data_desktop.gif_image_desktop != '' or data_desktop.video_desktop != '' %}
+         <div class="item {{ wrapperClass }} container__wrap">
+            {% if data_desktop.what_needs_video_or_gif == "Image" and data_desktop.gif_image_desktop != '' %}
+               <img src="{{ data_desktop.gif_image_desktop }}" title="{{ data_desktop.title }}" alt="{{ data_desktop.title }}" src="{{ data_desktop.gif_image_desktop }}">
+            {% endif %}
+            {% if data_desktop.what_needs_video_or_gif == "Video" and data_desktop.video_desktop != '' %}
+               <video class="video" loop="loop" autoplay="autoplay" id="vid" muted playsinline>
+                  <source src="{{ data_desktop.video_desktop }}" type="video/mp4">
+               </video>
+            {% endif %}
+            {% if data_desktop.title != '' %}
+            <div class="overlay {{ overlayWrap }}">
+               <div class="overlay-content details_wrapper">
+                  <h2 class="heading">{{ data_desktop.title }}</h2>
+                  <p class="sub-description">{{ data_desktop.description }}</p>
+                  {% if data_desktop.show_button_links %}
+                     <div class="cta_links_main">
+                     {% if data_desktop.button_label_one != '' %}
+                        <a class="web-btn {{ setWrapCta }} c-btn u-text-small f-bg-primary-bg cta-button" href="{{ data_desktop.button_url_one }}" title="" {{ external1 }}>{{ data_desktop.button_label_one }}</a>
+                     {% endif  %}
+                     {% if data_desktop.button_label_two != '' %}
+                        <a class="apn-btn c-btn u-text-medium c-btn--full c-btn u-text-ls-medium make-an-appointment-btn-mobile apn-btn" href="{{ data_desktop.button_url_two }}" title="" {{ external2 }}>{{ data_desktop.button_label_two }}</a>
+                     {% endif  %}
+                     </div>
+                  {% endif %}
+               </div>
+            </div>
+            {% endif %}
+            {% if desktop_titles is not empty %}
+               <div class="slick-bottom-nav slick-bottom-nav--two">
+                  <div class="slick-bottom-nav__wrap">
+                  {% for index , titles in desktop_titles %}
+                     <a href="javascript:void(0)" data-slide="{{ index }}" class="sbn-item">{{ titles }}</a>
+                  {% endfor %}
+                  </div>
+               </div>
+            {% endif  %}
+         </div>
+         {% endif  %}
+      {% endif  %}
+    {% endfor %}
+  </div>
+{% endif %}
+{% if is_mobile %}
+<div class="o-contain o-contain-padding treatment_banner video-section-wrap" bg-image-url="">
+   <div class="c-intro--column  c-d-global-section ">
+      <div class="c-cards-wrapper c-no-carousel-wrapper ">
+         <div class="c-cards o-contain o-contain-padding full-background-image-section">
+            <div class="c-cards">
+               <div class="o-contain o-contain-padding m-auto u-1of1--sm u-1of2--md u-1of4--lg o-grid--with-gutter o-grid--with-gutter-vertical">
+                  {% for data in videos %}
+                     {% set mobile_external = data.mobile_external ? ' rel="external" data-router-disabled' %}
+                     {% if loop.index == 1 %}    
+                        {% if data.gif_image != '' or data.video != '' %}
+                        <div class="o-grid__cell  a-inview">
+                           <div class="o-card">
+                           {% if data.what_needs_video_or_gif == "Image" and data.gif_image != '' %}
+                           <div class="image-element">
+                                 <figure class="o-card__image">
+                                    <img class="js-lazy-load is-lazy-loaded"  data-src-retina="" title="{{ data.title }}" alt="{{ data.title }}" src="{{ data.gif_image }}">
+                                 </figure>
+                           </div>
+                           {% else %}
+                           {% if data.video != '' and data.what_needs_video_or_gif == "Video" %}
+                              <div class="video-element">
+                                    <video class="video" loop="loop" autoplay="autoplay" id="vid" muted playsinline>
+                                       <source src="{{ data.video }}" type="video/mp4">
+                                    </video>
+                              </div>
+                            {% endif %}    
+                           {% endif %}         
+                           {% if data.title != '' %}
+                           <div class="o-card__content u-bg-white u-text-center">
+                              <div class="specilist_wrapper">
+                                 <div class="specilist-info">
+                                    <h2 class="sub-heading-caption">{{ data.title }}</h2>  
+                                    <p>{{ data.description }}</p>
+                                 </div>
+                                 {% if data.show_button_links %}
+                                    <div class="btn-wrapper">
+                                       {% if data.button_label_one != '' %}
+                                          <a class="web-btn webshop-btn c-btn u-text-medium c-btn--primary u-bg-gray-lighter u-text-color-black u-text-size-epsilon c-btn--full u-text-medium u-text-ls-medium" href="{{ data.button_url_one }}" title="" {{ external1 }}>{{ data.button_label_one }}</a>
+                                       {% endif %}
+                                       {% if data.button_label_two != '' %}
+                                          <a class="c-btn u-text-medium c-btn--full c-btn c-btn--primary u-bg-primary  u-text-ls-medium make-an-appointment-btn-mobile apn-btn" href="{{ data.button_url_two }}" title="" {{ external2 }}>{{ data.button_label_two }}</a>
+                                       {% endif %}
+                                    </div>
+                                 {% endif %}
+                              </div>
+                            </div>
+                           </div>
+                          {% endif %}
+                        </div>
+                        {% endif %}
+                     {% else %}   
+                     {% if data.what_needs_video_or_gif == "Image" %}
+                        {% if data.gif_image != '' %}
+                           <a href="{{ data.mobile_url }}" {{ mobile_external }}><div class="o-grid__cell  a-inview">
+                              <div class="o-card">
+                                 <div class="image-element">
+                                    <figure class="o-card__image">
+                                       <img class="js-lazy-load is-lazy-loaded"  data-src-retina="" title="{{ data.title }}" alt="{{ data.title }}" src="{{ data.gif_image }}">
+                                    </figure>
+                                    {% if data.title != '' %}
+                                       <div class="description-wrap-img">
+                                          <div class="description-inner scroll-anim">
+                                             <h2>{{ data.title }}</h2>
+                                             <p>{{ data.description|slice(0, 50) }}</p>
+                                          </div>
+                                       </div>
+                                    {% endif %}
+                                 </div>
+                              </div>
+                           </div></a>
+                        {% endif %}
+                       {% else %}
+                       {% if data.video != '' %}
+                           <a href="{{ data.mobile_url }}" {{ mobile_external }}><div class="o-grid__cell  a-inview">
+                              <div class="o-card">
+                                 <div class="video-element">
+                                       <video class="video" loop="loop" autoplay="autoplay" id="vid" muted playsinline>
+                                          <source src="{{ data.video }}" type="video/mp4">
+                                       </video>
+                                       {% if data.title != '' %}
+                                          <div class="description-wrap">
+                                             <div class="description-inner scroll-anim">
+                                                <h2>{{ data.title }}</h2>
+                                                <p>{{ data.description }}</p>
+                                             </div>     
+                                          </div>
+                                       {% endif %}   
+                                 </div>    
+                              </div>
+                           </div></a>
+                       {% endif %}    
+                      {% endif %}  
+                     {% endif %}
+                  {% endfor %}
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% endif %}

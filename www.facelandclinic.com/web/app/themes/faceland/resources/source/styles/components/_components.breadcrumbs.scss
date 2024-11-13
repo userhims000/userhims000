@@ -1,0 +1,30 @@
+/*----------------------------------------------------------------------------*\
+    #COMPONENTS BUTTONS
+\*----------------------------------------------------------------------------*/
+
+/*
+ * 1. Adds a slash character at the end of every <li> except the last one.
+ */
+
+// .c-breadcrumbs { }
+
+.c-breadcrumbs__item {
+
+    &:not(:last-child)::after {
+        content: ' / ';
+    }
+
+    &.is-disabled {
+        color: $color-black;
+        cursor: not-allowed;
+    }
+
+    &.is-active {
+        color: $color-gray-darker;
+        text-decoration: underline;
+
+        &.u-text-color-white {
+            color: $color-white;
+        }
+    }
+}

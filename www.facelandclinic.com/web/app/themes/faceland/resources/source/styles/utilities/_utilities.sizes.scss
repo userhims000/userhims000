@@ -1,0 +1,101 @@
+/*----------------------------------------------------------------------------*\
+    #UTIITIES SIZES
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Small and up.
+ */
+
+@include breakpoint(small) {
+
+    .u-size-1of1--sm {
+        width: 100%;
+    }
+}
+
+/**
+ * Compact and up.
+ */
+
+@include breakpoint(compact) {
+
+    .u-size-1of2--cp {
+        width: 50%;
+    }
+}
+
+/**
+ * Medium and up.
+ */
+
+@include breakpoint(medium) {
+
+    .u-size-1of8--md {
+        width: 12.5%;
+    }
+
+    .u-size-1of6--md {
+        width: percentage(1/6);
+    }
+
+    .u-size-1of5--md {
+        width: 20%;
+    }
+
+    .u-size-1of4--md {
+        width: 25%;
+    }
+
+    .u-size-1of2--md {
+        flex: none;
+        width: 50%;
+    }
+
+    .u-size-2of3--md {
+        width: percentage(2/3);
+    }
+
+    .u-size-1of1--md {
+        width: 100%;
+    }
+}
+
+/**
+ * Large and up.
+ */
+
+@include breakpoint(large) {
+
+    .u-cell-1of5--lg {
+        flex: none;
+        width: 20%;
+    }
+
+    .u-size-1of4--lg {
+        width: 25%;
+    }
+
+    .u-size-1of3--lg {
+        width: percentage(1/3);
+    }
+
+    .u-size-3of5--lg {
+        width: 60%;
+    }
+
+    .u-size-2of3--lg {
+        width: percentage(2/3);
+    }
+}
+
+/**
+ * Wide and up.
+ */
+
+/* @include breakpoint(wide) {} */
+
+/**
+ * Huge and up.
+ */
+
+/* @include breakpoint(huge) {} */

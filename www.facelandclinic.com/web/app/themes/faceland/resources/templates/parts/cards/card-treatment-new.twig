@@ -1,0 +1,31 @@
+{% set image = card.thumbnail ? card.thumbnail : card.image  %}
+{% set filterClass = filterable ? 'js-filter-card' %}
+{% set filterAttributes = filterable ? 'data-bodyparts="all,'~card.bodyparts|join(',')|lower~'"' %}
+{% set getBackgroundColor = card.card_background_color %}
+{% if getBackgroundColor == 'surgery' %}
+    {% set cardBgColor = 'surgery'  %}
+{% elseif getBackgroundColor == 'injectable'  %}
+    {% set cardBgColor = 'injectable' %}
+{% elseif getBackgroundColor == 'other'  %}
+    {% set cardBgColor = 'other' %}
+{% else %}
+    {% set cardBgColor = '' %}            
+{% endif %}    
+{% if card.title and image %}
+    <div class="treatment_details  o-card c-card--simple c-card--bordered js-block {{ filterClass }}" {{ filterAttributes }}>
+        <div class="treatment_left">
+            {{rokit_get_image(image, 'card', card.title)}}
+        </div>    
+        <div class="treatment_right">
+            <div class="o-card__content u-bg-white js-match-height">
+                <h2 class="o-card__heading u-text-size-beta u-text-bold"><a href="{{card.link}}" title="{{card.title}}">{{card.title}}</a></h2>
+                {% if card.bodyparts|length > 0 %}
+                    {% include "parts/collection-labels.twig" with { labels : card.bodyparts } %}
+                {% endif %}
+                {% if card.label %}
+                    <span class="o-label u-bg-primary u-text-size-pico u-text-bold u-text-color-white">{{card.label|upper}}</span>
+                {% endif %}
+            </div>
+        </div>    
+    </div>
+{% endif %}

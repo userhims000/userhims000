@@ -1,0 +1,49 @@
+.c-modal {
+    @include offset(fixed, 0, null, null, 0);
+    @include square(100%);
+    @include rhythm-padding(2.5);
+    display: block;
+    transition: .24s ease-in;
+    transition-property: opacity, visibility;
+    background-color: rgba(35, 35, 35, .8);
+    opacity: 0;
+    visibility: hidden;
+    z-index: $layer-6;
+
+    &.is-open {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    @include breakpoint(large) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.c-modal__content {
+    position: relative;
+    height: 100%;
+
+    @include breakpoint(large) {
+        width: 100%;
+        max-width: 680px;
+        height: auto;
+        max-height: 95%;
+    }
+}
+
+.c-modal__close {
+    @include offset(fixed, rhythm(1), rhythm(1), null, null);
+    @include square(22px);
+    @include is-hidden-text();
+    padding: 0;
+    border: 2px solid $color-white;
+    border-radius: 50%;
+    outline: none;
+    background-color: transparent;
+    background-position: -192px -480px;
+    cursor: pointer;
+    z-index: $layer-2;
+}

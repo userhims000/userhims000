@@ -1,0 +1,25 @@
+{
+    "name": "rokit/rodesk-packages-container",
+    "type": "library",
+    "description": "The Rokit container package. A package to manage container and dependency injection. Based on Laravel's container package.",
+    "keywords": ["container"],
+    "homepage": "http://rodesk.com",
+    "authors": [
+        {
+            "name":     "Joeri Abbo",
+            "email":    "joeri@rodesk.com",
+            "homepage": "http://rodesk.com",
+            "role":     "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Rokit\\Container\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.6.3",
+        "composer/installers": "~1.0.6",
+        "illuminate/container": "~5.8.11"
+    }
+}

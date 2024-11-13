@@ -1,0 +1,87 @@
+/*----------------------------------------------------------------------------*\
+    #UTIITIES GRID SIZES
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Small and up.
+ */
+
+@include breakpoint(small) {
+
+    .u-1of1--sm > .o-grid__cell {
+        flex: 0 0 100%;
+    }
+
+    .u-1of2--sm > .o-grid__cell {
+        flex: 0 0 50%;
+    }
+}
+
+/**
+ * Compact and up.
+ */
+
+@include breakpoint(compact) {
+
+    .u-1of2--cp > .o-grid__cell {
+        flex: 0 0 50%;
+    }
+}
+
+/**
+ * Medium and up.
+ */
+
+@include breakpoint(medium) {
+
+    .u-1of1--md > .o-grid__cell {
+        flex: 0 0 100%;
+    }
+
+    .u-1of3--md > .o-grid__cell {
+        flex: 0 0 percentage(1/3);
+    }
+
+    .u-1of2--md > .o-grid__cell {
+        flex: 0 0 50%;
+    }
+}
+
+/**
+ * Large and up.
+ */
+
+@include breakpoint(large) {
+
+    .u-1of12--lg > .o-grid__cell {
+        flex: 0 0 percentage(1/12);
+    }
+
+    .u-1of6--lg > .o-grid__cell {
+        flex: 0 0 percentage(1/6);
+    }
+
+    .u-1of4--lg > .o-grid__cell {
+        flex: 0 0 25%;
+    }
+
+    .u-1of3--lg > .o-grid__cell {
+        flex: 0 0 percentage(1/3);
+    }
+
+    .u-1of2--lg > .o-grid__cell {
+        flex: 0 0 50%;
+    }
+}
+
+/**
+ * Wide and up.
+ */
+
+/* @include breakpoint(wide) {} */
+
+/**
+ * Huge and up.
+ */
+
+/* @include breakpoint(huge) {} */

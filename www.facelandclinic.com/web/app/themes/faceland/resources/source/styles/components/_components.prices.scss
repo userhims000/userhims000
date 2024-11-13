@@ -1,0 +1,227 @@
+.c-prices {
+    margin-top: rhythm(2);
+
+    .c-panorama--prices + & {
+        margin-top: 0;
+    }
+
+    > * {
+        width: 100%;
+        max-width: rhythm(28.625);
+    }
+
+    .c-list__heading {
+        margin-bottom: 0;
+    }
+
+    .c-list__header {
+
+        .c-list__heading--sub:first-child {
+            margin-right: rhythm(.325);
+        }
+    }
+
+    &__button-exclusive{
+        @include offset(relative, null, null, rhythm(0), null);
+        margin-top: rhythm(1.5);
+        padding: rhythm(.125);
+        border-radius: rhythm(.28);
+
+        .info{
+            @include offset(absolute, rhythm(-.75), rhythm(.125), null, null);
+            display: block;
+            cursor: pointer;
+        }
+
+        @include breakpoint('compact'){
+
+            margin-top: rhythm(.75);
+            margin-right: rhythm(-.5);
+            margin-left: rhythm(.75);
+        }
+    }
+
+    &__button-switch{
+        @include offset(relative, null, null, rhythm(0), null);
+        margin-top: rhythm(.75);
+        padding: rhythm(.125);
+        border-radius: rhythm(.25);
+
+        button {
+            padding: rhythm(.125);
+            transition: background-color 450ms;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            font-weight: 600;
+            line-height: rhythm(.75);
+            cursor: pointer;
+
+            &.active {
+                border-radius: rhythm(.125);
+                background-color: $color-tertiary-lighter;
+                color: $color-gray-darkest;
+            }
+        }
+
+        .info{
+            @include offset(absolute, rhythm(-.75), rhythm(.125), null, null);
+            display: block;
+            cursor: pointer;
+        }
+    }
+}
+
+.c-prices__item + .c-prices__item {
+    margin-top: rhythm(1.5);
+}
+
+.c-price__intro {
+    margin-bottom: rhythm(.825);
+    padding: rhythm(.375) rhythm(.75) rhythm(.375) 0;
+}
+
+.c-price__heading-sub {
+    display: block;
+    margin-bottom: rhythm(1);
+
+
+    @include breakpoint('compact'){
+
+        margin-top: rhythm(.125);
+    }
+}
+
+.c-prices_new-grid{
+    overflow: hidden;
+
+    .o-media__image{
+        display: inline-block;
+    }
+
+    h3{
+        @include offset(relative, null, null, rhythm(.75), null);
+        display: inline-block;
+
+        @include breakpoint('mega'){
+
+            bottom: rhythm(.375);
+        }
+
+        @include breakpoint('huge'){
+
+            bottom: rhythm(.5);
+        }
+
+        @include breakpoint('wide'){
+
+            bottom: rhythm(.75);
+        }
+
+        @include breakpoint('large'){
+
+            bottom: rhythm(.75);
+        }
+
+        @include breakpoint('medium'){
+
+            bottom: rhythm(.75);
+        }
+    }
+
+    .exclusive{
+        position: relative;
+
+        span{
+            display: block;
+            position: absolute;
+            top: rhythm(.375);
+        }
+    }
+
+    .toggleSwitch{
+        position: relative;
+
+        span{
+            @include offset(relative, null, null ,null , rhythm(.375));
+            display: block;
+            width: 100%;
+            opacity: 0;
+            animation: unset;
+
+            &.active{
+                position: relative;
+                top: rhythm(.375);
+                left: rhythm(.375);
+                opacity: 1;
+                animation: unset;
+            }
+
+            &.column-price-2{
+
+                top: rhythm(-.5);
+            }
+
+            &.column-price-2.active{
+                @include contain-padding(rhythm(.125));
+                top: rhythm(-.5);
+            }
+
+            @include breakpoint('medium'){
+
+                animation: fadeSlideAway 600ms;
+            }
+
+            @include breakpoint('medium'){
+
+                &.column-price-2{
+
+                    top: rhythm(.375);
+                }
+
+                &.column-price-2.active{
+
+                    top: rhythm(.375);
+                }
+
+                &.active{
+                    position: absolute;
+                    top: rhythm(.375);
+                    left: 0;
+                    animation: fadeSlide 1s;
+                }
+            }
+
+            @include breakpoint('medium'){
+                @include offset(absolute, rhythm(.375), null ,null , rhythm(.375));
+                position: absolute;
+            }
+
+            @keyframes fadeSlide {
+
+                from {
+                    left: rhythm(3);
+                    opacity: 0;
+                }
+
+                to {
+                    left: 0;
+                    opacity: 1;
+                }
+            }
+
+            @keyframes fadeSlideAway {
+
+                from {
+                    left: 0;
+                    opacity: 1;
+                }
+
+                to {
+                    left: rhythm(-3);
+                    opacity: 0;
+                }
+            }
+        }
+    }
+}

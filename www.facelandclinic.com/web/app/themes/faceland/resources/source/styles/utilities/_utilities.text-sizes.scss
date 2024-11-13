@@ -1,0 +1,53 @@
+/*----------------------------------------------------------------------------*\
+    #UTILITIES STEXT SIZES
+\*----------------------------------------------------------------------------*/
+
+$ts: u-text-size-;
+
+.#{$ts}pico {
+    @include responsive-text-size('pico');
+}
+
+.#{$ts}nano {
+    @include responsive-text-size('nano');
+}
+
+.#{$ts}zeta {
+    @include responsive-text-size('zeta');
+}
+
+.#{$ts}epsilon {
+    @include responsive-text-size('epsilon');
+}
+
+.#{$ts}delta {
+    @include responsive-text-size('delta');
+}
+
+.#{$ts}base {
+    @include responsive-text-size('base');
+}
+
+// .#{$ts}gamma {
+//     @include responsive-text-size('gamma');
+// }
+
+.#{$ts}beta {
+    @include responsive-text-size('beta');
+}
+
+.#{$ts}alpha {
+    @include responsive-text-size('alpha');
+}
+
+.#{$ts}mega {
+    @include responsive-text-size('mega');
+}
+
+.#{$ts}giga {
+    @include responsive-text-size('giga');
+}
+
+.#{$ts}tera {
+    @include responsive-text-size('tera');
+}

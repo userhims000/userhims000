@@ -1,0 +1,35 @@
+{# Treatment single #}
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% set color = (post.primary_term.color == true) ? 'secondary' : 'tertiary' %}
+    {% include 'parts/panorama-price.twig' with { panorama : post.panorama, color : color } %}
+{% endblock %}
+
+{% block content %}
+    {% include "parts/offer.twig" with { offer : post.offer } %}
+    {% if post.prices(true) %}
+        <div class="c-prices">
+            <div class="o-contain o-contain-padding u-flex u-flex-center-y u-flex-direction-column">
+                {% for priceType in post.prices(true) %}
+                    {% include "parts/price/prices.twig" with {title : priceType.title, prices : priceType.prices} %}
+                {% endfor %}
+
+                {% for priceType in post.blocks %}
+                    {% include "parts/price/prices.twig" with {title : priceType.title, prices : priceType.prices} %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="o-contain o-contain-padding">
+        {% if post.cta|length > 0 %}
+            {% include "parts/cta-appointment.twig" with { cta : post.cta } %}
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block related %}
+    {% include "parts/cta/cta-centered.twig" with { cta : post.bottom } %}
+{% endblock %}

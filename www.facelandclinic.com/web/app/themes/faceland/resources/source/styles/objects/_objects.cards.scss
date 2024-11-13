@@ -1,0 +1,22 @@
+/*----------------------------------------------------------------------------*\
+    #OBJECTS CARDS
+\*----------------------------------------------------------------------------*/
+
+// .o-card {}
+
+.o-card__image {
+
+    img {
+        vertical-align: bottom;
+    }
+}
+
+.o-card__list + .o-card__list {
+    margin-top: rhythm(.375);
+}
+
+/**
+* Landscape card
+*/
+
+// .o-card--landscape {}

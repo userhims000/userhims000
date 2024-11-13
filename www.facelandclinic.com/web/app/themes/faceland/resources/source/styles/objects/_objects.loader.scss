@@ -1,0 +1,73 @@
+.o-loader {
+    @include offset(fixed, 0, null, null, 0);
+    @include size(100%, 100vh);
+    transform-origin: center;
+    background-color: $color-tertiary-light;
+    opacity: 0;
+    visibility: hidden;
+    z-index: $layer-10;
+}
+
+.o-loader--round {
+    right: -60%;
+    width: 100vw;
+    padding-bottom: 100%;
+    border-radius: 50%;
+}
+
+.c-loader--circle {
+    @include offset(absolute, rhythm(1), null, null, 50%);
+    @include square(46px);
+    @include is-hidden-text(skm);
+    display: block;
+    transform: translateX(-50%);
+    z-index: $layer-1;
+    animation: fadein .24s ease-in;
+
+    &::before {
+        @include offset(absolute, 50%, null, null, 50%);
+        @include square(26px);
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background-color: $color-primary;
+        content: '';
+    }
+
+    &::after {
+        @include offset(absolute, 0, null, null, 0);
+        @include square(46px);
+        border-radius: 50%;
+        background-color: rgba($color-primary, .1);
+        content: '';
+        animation: pulse .5s infinite;
+    }
+
+    @keyframes pulse {
+
+        0% {
+            transform: scale(1);
+            background-color: rgba($color-primary, .1);
+        }
+
+        50% {
+            transform: scale(.7);
+            background-color: rgba($color-primary, .05);
+        }
+
+        100% {
+            transform: scale(1);
+            background-color: rgba($color-primary, .1);
+        }
+    }
+
+    @keyframes fadein {
+
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+}

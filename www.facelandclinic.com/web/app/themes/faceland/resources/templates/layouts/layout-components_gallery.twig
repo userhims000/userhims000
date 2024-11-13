@@ -1,0 +1,161 @@
+
+{% if layout.show_new_layout == false %}
+  {% if layout.gallery_images|length > 0 %}
+      <div class="grid-container">
+          {% for image in layout.gallery_images %}
+              {% set sub_index = (loop.index - 1) % 6 + 1 %}
+              {% if sub_index == 1 %}    
+                  <div class="gallery">
+              {% endif %}    
+                  <figure class="gallery__item gallery__item--{{ sub_index }} {{ sub_index }}">
+                      <img src="{{ image.gallery_image }}" alt="Gallery image {{ sub_index }}" class="gallery__img">
+                  </figure>
+              {% if sub_index == 6 %}    
+                  </div>
+              {% endif %}
+          {% endfor %}
+      </div>
+  {% endif %}
+  <div class="gallery-modal">
+    <span class="gallery-close">&times;</span>
+    <img class="gallery-modal-content">
+    <a class="gallery-prev" href="javascript:;">&#10094;</a>
+    <a class="gallery-next" href="javascript:;">&#10095;</a>
+  </div>
+{% endif %}
+
+{% if layout.show_new_layout == true %}
+  {% set images = [] %}
+  {% for image in layout.gallery_images %}
+      {% set images = images|merge([{
+          'src': image.gallery_image,
+          'thumb': image.gallery_image
+      }]) %}
+  {% endfor %}
+  {% set images_json = images|json_encode(constant('JSON_PRETTY_PRINT')) %}
+  <section class="pt-48 mt-0 mb-20 mb-lg-72">
+      <div class="masonry" id="masonry-dynamic-thumbnails" data-images='{{ images_json }}'>
+        <div class="masonry-item">
+          <div class="masonry-content">
+            {# <div class="taggbox location-reviews before-after-reviews"  style="width:100%;height:100%" data-widget-id="149738" data-tags="false"></div><script src="https://widget.taggbox.com/embed-lite.min.js" type="text/javascript"></script>
+            </div> #}
+            {{ layout.taggbox_script_snippet }}
+            {# <div class="taggbox location-reviews before-after-reviews"  style="width:100%;height:100%" data-widget-id="149738" data-tags="false"></div><script src="https://widget.taggbox.com/embed-lite.min.js" type="text/javascript"></script>
+            </div> #}
+        </div>
+        {% for image in layout.gallery_images|slice(0, 6) %}
+          <div class="masonry-item"><div class="modal-link"><img src="{{ image.gallery_image }}"></div></div>
+        {% endfor %}
+        {% if layout.gallery_images|length >= 6 %}
+          {% set gClass = "show"  %}
+        {% else %}
+          {% set gClass = "hide"  %}
+        {% endif %}  
+        <div class="masonry-item {{ gClass }}" id="gallery-view-more-section">
+          <div class="masonry-content">
+              <h4 class="more-picture-title d-none d-lg-block">Need more pictures to make your choice?</h4>
+              <button type="button" class="btn btn-dynamic" id="dynamic-mode-images" >View More Pictures</button>
+          </div>
+        </div>
+      </div>
+  </section>
+{% endif %}
+
+{% if layout.show_new_layout == false %}
+<script type="text/javascript">
+    // Get the modal
+    var modal = document.querySelector('.gallery-modal');
+
+    // Get the image and insert it inside the modal
+    var images = document.querySelectorAll('.gallery .gallery__img');
+    var modalImg = document.querySelector('.gallery-modal-content');
+    var modalIndex = 0;
+    var slideShowInterval;
+
+    images.forEach(function(img, index) {
+      img.addEventListener('click', function() {
+        modal.style.display = 'block';
+        modalImg.src = this.src;
+        modalIndex = index;
+
+        // Start the slideshow when an image is clicked
+        slideShowInterval = setInterval(function() {
+          modalIndex++;
+          if (modalIndex >= images.length) {
+            modalIndex = 0;
+          }
+          modalImg.src = images[modalIndex].src;
+        }, 5000); // Set the interval to change images every 5 seconds
+      });
+    });
+
+    // Get the <span> element that closes the modal
+    var closeBtn = document.querySelector('.gallery-close');
+
+    // When the user clicks on <span> (x), close the modal
+    closeBtn.addEventListener('click', function() {
+      closeModal();
+    });
+
+    // When the user presses the "Esc" key, close the modal
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // Close the modal and stop the slideshow
+    function closeModal() {
+      modal.style.display = 'none';
+      clearInterval(slideShowInterval);
+    }
+
+    // Get the prev/next buttons
+    var prevBtn = document.querySelector('.gallery-prev');
+    var nextBtn = document.querySelector('.gallery-next');
+
+    // When the user clicks on the prev button, go to the previous image
+    prevBtn.addEventListener('click', function() {
+      if (modalIndex > 0) {
+        modalIndex--;
+        modalImg.src = images[modalIndex].src;
+      }
+    });
+
+    // When the user clicks on the next button, go to the next image
+    nextBtn.addEventListener('click', function() {
+      modalIndex++;
+      if (modalIndex >= images.length) {
+        modalIndex = 0;
+      }
+      modalImg.src = images[modalIndex].src;
+    });
+
+    // Pause the slideshow when the user hovers over the image
+    modalImg.addEventListener('mouseenter', function() {
+      clearInterval(slideShowInterval);
+      prevBtn.style.display = 'none';
+      nextBtn.style.display = 'none';
+    });
+
+    // Resume the slideshow when the user moves the mouse away from the image
+    modalImg.addEventListener('mouseleave', function() {
+      slideShowInterval = setInterval(function() {
+        modalIndex++;
+        if (modalIndex >= images.length) {
+          modalIndex = 0;
+        }
+        modalImg.src = images[modalIndex].src;
+      }, 5000);
+      prevBtn.style.display = 'block';
+      nextBtn.style.display = 'block';
+    });
+
+    // New design
+</script>
+{% endif %}
+
+
+
+
+

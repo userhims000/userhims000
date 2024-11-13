@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+
+$primary-font: 'Montserrat', sans-serif;
+
+.sharpspring_form {
+    margin-top: 32px;
+    font-family: $primary-font;
+
+    form {
+        padding: 0;
+    }
+
+    label {
+
+        &.error {
+            display: none !important;
+        }
+    }
+
+    input:focus {
+        box-shadow: none;
+    }
+
+    textarea {
+        resize: none;
+        height: 10em;
+        padding: .64987rem .8665rem;
+        transition: border-color .24s ease-in;
+        border: 1px solid rgb(216, 216, 216);
+        font-family: $primary-font;
+        font-size: 15px !important;
+        line-height: 17px !important;
+
+        &:focus {
+            border-color: rgb(157, 158, 163);
+            background-color: transparent;
+            box-shadow: none;
+        }
+    }
+
+    .button {
+        display: inline-block;
+        position: relative;
+        min-width: 160px;
+        padding: .85rem 1.733rem 1rem;
+        transition: .24s ease-in;
+        transition-property: background-color, color, border;
+        border: 0;
+        border-radius: 30px; /* 1 */
+        background-color: rgb(60, 61, 72);
+        background-image: none;
+        color: white;
+        font-family: $primary-font;
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        line-height: 15px !important;
+        text-align: center;
+        text-shadow: none;
+        cursor: pointer;
+
+        &:focus {
+            outline: 0;
+        }
+    }
+}
+
+.sharpspring_form form fieldset .form_fields .field .field_value {
+    margin-bottom: 1.2rem !important;
+
+    input[type='text'] {
+        height: auto !important;
+        padding: .64987rem .8665rem !important;
+        transition: border-color .24s ease-in;
+        border: 1px solid rgb(216, 216, 216) !important;
+        border-radius: 5px !important;
+        font-family: $primary-font;
+        font-size: 15px !important;
+        line-height: 17px !important;
+        opacity: 1 !important;
+
+        &:focus {
+            border-color: rgb(157, 158, 163) !important;
+        }
+
+        &.error {
+            border-color: rgb(225, 96, 96) !important;
+        }
+    }
+}
+
+.sharpspring_form form fieldset .form_fields .field {
+
+    label {
+        display: block;
+        margin-bottom: 0 !important;
+        color: rgb(60, 61, 72) !important;
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        line-height: 15px !important;
+
+        &.error {
+            padding: .8665rem !important;
+            color: white;
+        }
+    }
+
+    .checkbox-option label {
+        display: inline;
+        color: rgb(99, 100, 109) !important;
+        font-weight: 400 !important;
+    }
+}
+
+.sharpspring_form form fieldset .form_fields .picklist select {
+    display: block;
+    width: auto !important;
+    padding: .64987rem .8665rem !important;
+    border: 1px solid rgb(216, 216, 216) !important;
+    border-radius: 5px !important;
+    background-color: transparent !important;
+    color: rgb(157, 158, 163);
+    font-size: 11px !important;
+    line-height: 15px !important;
+    opacity: 1 !important;
+}
+
+.sharpspring_form form fieldset .form_fields .radio .field_value {
+    display: flex;
+}
+
+.sharpspring_form .radio-option + .radio-option {
+    margin-left: .8665rem;
+}

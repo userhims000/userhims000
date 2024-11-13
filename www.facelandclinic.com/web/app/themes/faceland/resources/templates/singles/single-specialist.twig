@@ -1,0 +1,69 @@
+{# Specialist single #}
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% include "parts/panorama-specialist.twig" with { panorama : post } %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="o-contain o-contain-padding">
+        <article class="c-copy">
+            {% if post.message %}
+                {% include 'parts/cards/card-message.twig' with { card : post.message }  %}
+            {% endif %}
+
+            {% include 'parts/content-modules.twig' %}
+        </article>
+    </div>
+     {% if is_nl == true %}    
+        {% set title =  current_page_slug  %}    
+        {% if title == "lydia-oostveen-bol" %}
+            {% set pageArgument = 'lydiabol'  %}
+        {% elseif  title == "david-yama-hamraz" %}
+            {% set pageArgument = 'davidhamraz'  %} 
+        {% elseif  title == "alicja-samul" %}
+            {% set pageArgument = 'alicjasamul'  %}
+        {% elseif  title == "amit-atwal" %}
+            {% set pageArgument = 'amitatwal'  %}
+        {% elseif  title == "limke-strikkers" %}
+            {% set pageArgument = 'limkestrikkers'  %}    
+        {% elseif  title == "nicoline-nijman" %}
+            {% set pageArgument = 'nicolinenijman'  %}
+        {% elseif  title == "dionne-deibel" %}
+            {% set pageArgument = 'dionnedeibel'  %}
+        {% elseif  title == "alexander-rakic" %}
+            {% set pageArgument = 'alexanderrakic'  %}
+        {% elseif  title == "britt-mesman" %}
+            {% set pageArgument = 'brittmesman'  %}  
+        {% elseif  title == "nicoletta-daniolos" %}
+            {% set pageArgument = 'nicolettadaniolos'  %}
+        {% elseif  title == "broos-van-alphen" %}
+            {% set pageArgument = 'broosvanalphen'  %}
+        {% elseif  title == "aarent-brand" %}
+            {% set pageArgument = 'aarentbrand'  %}
+        {% elseif  title == "milad-fahim" %}
+            {% set pageArgument = 'miladfahim'  %}
+        {% elseif  title == "merel-laboyrie" %}
+            {% set pageArgument = 'merellaboyrie'  %}                    
+        {% endif %}
+    {% endif %}
+    {% if title == "lydia-oostveen-bol" or title == "david-yama-hamraz" or title == "alicja-samul" or title == "amit-atwal" or title == "limke-strikkers" or title == "nicoline-nijman"  or title == "dionne-deibel" or  title == "alexander-rakic" or title == "britt-mesman" or title == "nicoletta-daniolos" or title == "broos-van-alphen" or title == "aarent-brand" or title == "milad-fahim" or title == "merel-laboyrie"  %}
+        <div class="flexboxdata o-contain o-contain-padding">
+            <div id="js-flowbox-flow"></div>
+            <script type="text/javascript">
+                window.flowbox('init', {
+                    container: '#js-flowbox-flow',
+                    key: 'C8wkv7fcQ2qOLeypH7Z7sw',
+                    locale: 'nl-NL',
+                    tags: ['{{ pageArgument }}'],  
+                    tagsOperator: 'all'
+                });
+            </script>
+        </div>
+    {% endif %}    
+{% endblock %}
+
+{% block related %}
+    {% include "parts/related.twig" with { related : post.related, cardType : 'location', cta : post.cta, show_toggle : true} %}
+{% endblock %}

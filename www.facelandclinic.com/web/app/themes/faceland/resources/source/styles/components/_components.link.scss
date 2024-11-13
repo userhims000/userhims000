@@ -1,0 +1,63 @@
+.c-link--arrow,
+.c-link--arrow-inline {
+    display: block;
+    text-decoration: none;
+
+    &::after {
+        @include offset(absolute, 50%, rhythm(.5), null, null);
+        @include square(16px);
+        transform: translateY(-50%);
+        transition: transform .24s ease-in;
+        background-position: -480px -192px;
+        content: '';
+    }
+
+    @include breakpoint(large) {
+
+        &:hover {
+
+            &::after {
+                transform: translateX(15%, -50%);
+            }
+        }
+    }
+}
+
+.c-link--arrow-inline {
+    @include is-hidden-text();
+    @include square(20px);
+    border: 0;
+    background-color: transparent;
+
+    &:focus {
+        outline: 0;
+    }
+
+    &::after {
+        @include square(20px);
+        top: 0;
+        left: 0;
+        transform: translateY(0);
+        background-position: -480px -288px;
+    }
+}
+
+.c-link--arrow-small {
+    @include square(16px);
+
+    &::after {
+        @include square(16px);
+        background-position: -576px -288px;
+    }
+}
+
+.c-link--arrow-next {
+    transform: rotate(180deg);
+}
+
+.c-link--button {
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    appearance: none;
+}

@@ -1,0 +1,155 @@
+{
+    "dependencies": {
+        "main.js": {
+            "files": [
+                "scripts/renderers/renderers.js",
+                "scripts/renderers/renderer.custom.js",
+                "scripts/transitions/transitions.js",
+                "scripts/transitions/transition.default.js",
+                "scripts/transitions/transition.filter.js",
+                "scripts/modules/modules.transitionManager.js",
+                "scripts/modules/modules.breakpoints.js",
+                "scripts/modules/modules.video.js",
+                "scripts/modules/modules.defaults.js",
+                "scripts/modules/modules.smoothScroll.js",
+                "scripts/modules/modules.toggleMenu.js",
+                "scripts/modules/modules.customSelect.js",
+                "scripts/modules/modules.lazyload.js",
+                "scripts/modules/modules.inview.js",
+                "scripts/modules/modules.compareSlider.js",
+                "scripts/modules/modules.toggle.js",
+                "scripts/modules/modules.slickCarousel.js",
+                "scripts/modules/modules.validate.js",
+                "scripts/modules/modules.update.js",
+                "scripts/modules/modules.popup.js",
+                "scripts/modules/modules.filterTax.js",
+                "scripts/modules/modules.cardHover.js",
+                "scripts/modules/modules.campaignScroll.js",
+                "scripts/modules/modules.switch.js",
+                "scripts/app.js",
+                "scripts/main.js"
+            ]
+        },
+        "mobile.js": {
+            "files": [
+                "scripts/renderers/renderers.js",
+                "scripts/renderers/renderer.custom.js",
+                "scripts/transitions/transitions.js",
+                "scripts/transitions/transition.default.js",
+                "scripts/transitions/transition.filter.js",
+                "scripts/modules/modules.transitionManager.js",
+                "scripts/modules/modules.breakpoints.js",
+                "scripts/modules/modules.video.js",
+                "scripts/modules/modules.defaults.js",
+                "scripts/modules/modules.smoothScroll.js",
+                "scripts/modules/modules.toggleMenu.js",
+                "scripts/modules/modules.lazyload.js",
+                "scripts/modules/modules.inview.js",
+                "scripts/modules/modules.compareSlider.js",
+                "scripts/modules/modules.toggle.js",
+                "scripts/modules/modules.slickCarousel.js",
+                "scripts/modules/modules.validate.js",
+                "scripts/modules/modules.update.js",
+                "scripts/modules/modules.popup.js",
+                "scripts/modules/modules.filterTax.js",
+                "scripts/modules/modules.campaignScroll.js",
+                "scripts/modules/modules.switch.js",
+                "scripts/app.js"
+            ]
+        },
+        "webshop.js": {
+            "files": [
+                "scripts/modules/modules.breakpoints.js",
+                "scripts/modules/modules.defaults.js",
+                "scripts/modules/modules.smoothScroll.js",
+                "scripts/modules/modules.toggleMenu.js",
+                "scripts/modules/modules.customSelect.js",
+                "scripts/modules/modules.lazyload.js",
+                "scripts/modules/modules.inview.js",
+                "scripts/modules/modules.toggle.js",
+                "scripts/modules/modules.slickCarousel.js",
+                "scripts/modules/modules.popup.js",
+                "scripts/modules/modules.counter.js",
+                "scripts/webshop.js"
+            ]
+        },
+        "vendors.js": {
+            "npm": [
+                "@dogstudio/highway",
+                "intersection-observer",
+                "quicklink",
+                "animejs",
+                "fastclick",
+                "featherlight",
+                "fitvids",
+                "imgliquid",
+                "jquery-match-height",
+                "throttle-debounce",
+                "slick-carousel",
+                "salvattore",
+                "parsleyjs",
+                "fg-appendaround"
+            ]
+        },
+        "vendors-main.js": {
+            "npm": [
+                "@dogstudio/highway",
+                "intersection-observer",
+                "quicklink",
+                "animejs",
+                "fastclick",
+                "featherlight",
+                "fitvids",
+                "imgliquid",
+                "jquery-match-height",
+                "selectize",
+                "throttle-debounce",
+                "slick-carousel",
+                "salvattore",
+                "parsleyjs",
+                "fg-appendaround",
+                "objectFitPolyfill"
+            ]
+        },
+        "vendors-webshop.js": {
+            "npm": [
+                "fastclick",
+                "featherlight",
+                "imgliquid",
+                "jquery-match-height",
+                "selectize",
+                "throttle-debounce",
+                "slick-carousel",
+                "fg-appendaround"
+            ]
+        },
+        "style.css": {
+            "files": ["styles/style.scss"]
+        },
+        "style-webshop.css": {
+            "files": ["styles/style-webshop.scss"]
+        },
+        "sharpspring-form.css": {
+            "files": ["styles/sharpspring-form.scss"]
+        },
+        "style-mobile.css": {
+            "files": ["styles/style-mobile.scss"]
+        },
+        "style-ie.css": {
+            "files": ["styles/style-ie.scss"]
+        },
+        "print.css": {
+            "files": ["styles/print.scss"]
+        },
+        "debug.css": {
+            "files": ["styles/debug.scss"]
+        },
+        "jquery.js": {
+            "npm": ["jquery"]
+        }
+    },
+    "paths": {
+        "source": "resources/source/",
+        "dist": "resources/assets/"
+    }
+}

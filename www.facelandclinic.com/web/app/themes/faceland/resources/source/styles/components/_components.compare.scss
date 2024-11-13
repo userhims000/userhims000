@@ -1,0 +1,63 @@
+.c-compare {
+    @include contain-margin(auto);
+    position: relative;
+    max-width: 720px;
+    padding-bottom: 54%;
+
+    & + & {
+        margin-top: rhythm(2);
+    }
+
+    .c-compare__label {
+        @include offset(absolute, null, null, rhythm(1), 40%);
+        min-width: rhythm(1.75);
+        padding: rhythm(.125) rhythm(.375);
+        transform: translate(-50%);
+        border-radius: 3px;
+        background-color: rgba($color-gray-darker, .56);
+        z-index: $layer-2;
+
+        &:last-child {
+            left: 60%;
+        }
+    }
+
+    @include breakpoint(large) {
+        padding-bottom: 35%;
+    }
+}
+
+.c-compare__image {
+    @include offset(absolute, 0, null, null, 0);
+    @include square(100%);
+    vertical-align: bottom;
+
+    &.js-compare-mask {
+        z-index: $layer-1;
+    }
+
+    img {
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.c-compare__indicator {
+    @include offset(absolute, 0, null, null, 50%);
+    @include size(1px, 100%);
+    display: block;
+    background-color: rgba($color-black, .3);
+    color: transparent;
+    cursor: col-resize;
+    z-index: $layer-2;
+
+    &::after {
+        @include offset(absolute, 50%, null, null, 50%);
+        @include square(52px);
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background-color: $color-gray-darker;
+        background-position: -96px -480px;
+        content: '';
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "rokit/rodesk-packages-session",
+    "type": "library",
+    "description": "The Rokit session package. A package to manage and edit session data.",
+    "keywords": ["wordpress", "symfony"],
+    "homepage": "http://rodesk.com",
+    "authors": [
+        {
+            "name":     "Jasper Rooduijn",
+            "email":    "jasper.rooduijn@rodesk.nl",
+            "homepage": "http://rodesk.com",
+            "role":     "Lead Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Rokit\\Session\\": "src/"
+        }
+    },
+    "require": {
+        "symfony/http-foundation": "^3.3"
+    }
+}

@@ -1,0 +1,122 @@
+{% if not is_mobile %}
+    {% if layout.show_collapsible_layout != true %}
+        {% if layout.title or layout.tab_title_with_content %}
+            <div class="o-contain o-contain-padding treatment-tab-section {{ function('is_singular', 'location') == true ? 'mt-72 mb-72' : '' }}" id="{{ layout.scroll_section_element }}">
+                {% if function('is_singular', 'location') == true %}
+                <div class="border border-pink rounded p-24">
+                {% endif %}
+                    {% if layout.title %}
+                        <div class="title u-text-bold {{ function('is_singular', 'location') == true ? 'u-text-center p-0 mb-16 mb-lg-72' : '' }}">
+                            <{{ layout.title_heading_tag }}>{{ layout.title }}</{{ layout.title_heading_tag }}>
+                        </div>
+                    {% endif %}
+                    
+                    {% if function('is_singular', 'location') == true %}
+                    <div class="d-flex">
+                    {% endif %}
+
+                        {% if layout.tab_title_with_content %}
+                            <div class="treatment-tab {{ function('is_singular', 'location') != true ? 'treatment-tab-two' : '' }}">
+                                {% for key, tabInfo in layout.tab_title_with_content %}
+                                    {% if tabInfo.title %}
+                                        <button class="tabTwolinks h-auto px-24 py-16" onclick="openTab2(event, '{{ tabInfo.title }}')"  id="{{ (key == 0) ? 'defaultOpenTwo' : '' }}">
+                                            <span>{{ tabInfo.title }}</span>
+                                        </button>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% for key, tabInfo in layout.tab_title_with_content %}
+                            {% if tabInfo.title %}
+                                <div id="{{ tabInfo.title }}" class="treatmentTabTwoContent">
+                                    {{ tabInfo.content }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% if function('is_singular', 'location') == true %}    
+                    </div>
+                    {% endif %}
+                {% if function('is_singular', 'location') == true %}    
+                </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endif %}
+    {% if layout.show_collapsible_layout == true %}
+        <div class="c-accordion js-toggle-wrapper c-faq-accordian-list">
+            {% if layout.title %}
+                <div class="title u-text-bold">
+                    <{{ layout.title_heading_tag }}>{{ layout.title }}</{{ layout.title_heading_tag }}>
+                </div>
+            {% endif %}
+            {% for key, tabInfo in layout.tab_title_with_content %}
+                <div class="c-accordion__item js-toggle-parent" id="{{ tabInfo.title|split(' ')|first|lower ~ loop.index }}">
+                     <h4 class="c-accordion__heading u-text-size-epsilon u-text-bold js-toggle-trigger" data-animation-type="jquery" data-parent-id="{{ tabInfo.title|split(' ')|first|lower ~ loop.index }}">{{ tabInfo.title|upper }}</h4>
+                    <div class="c-accordion__content u-text-size-epsilon js-toggle-content" style="display: none;">
+                        {{ tabInfo.content }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endif %}
+
+{% if is_mobile %}
+    {% if function('is_singular', 'location') == true or page_template_slug == "templates/page-christmas-campaign-page.php" %}
+        <div class="o-contain {{ function('is_singular', 'location') == true or page_template_slug == "templates/page-christmas-campaign-page.php" ? 'o-contain-padding' : '' }}  treatment-tab-section faq-new-section" id="{{ layout.scroll_section_element }}">
+            {% if layout.title %}
+                <div class="title u-text-bold {{ is_mobile == true and get_clinic_post_type_slug == true or page_template_slug == "templates/page-christmas-campaign-page.php" ? 'o-contain-padding u-text-center' : '' }}">
+                    <{{ layout.title_heading_tag }}>{{ layout.title }}</{{ layout.title_heading_tag }}>
+                </div>
+            {% endif %}
+            {% for key, tabInfo in layout.tab_title_with_content %}
+                <div class="faceland-accordion  {{ function('is_singular', 'location') == true or page_template_slug == "templates/page-christmas-campaign-page.php" ? 'border border-pink rounded px-24 py-16 py-16 mb-12 d-block' : '' }}">
+                    {% if tabInfo.title %}
+                        <div class="accordian-title justify-content-between">
+                            {% if tabInfo.icon_image %}
+                                <div class="accodian-icon-wrapper">
+                                    <img src="{{ tabInfo.icon_image }}" alt="{{ rokit_get_image_alt(rokit_get_image_id(tabInfo.icon_image)) }}" width="{{ rokit_get_image_width_height_attr(tabInfo.icon_image)['width'] }}" height="{{ rokit_get_image_width_height_attr(tabInfo.icon_image)['height'] }}">
+                                </div>
+                            {% endif %}
+                            <label class="accordian-label mt-0 mr-20 temeraire-font u-text-bold u-text-size-base">{{ tabInfo.title }}</label>
+                            <span class="accordian-arrow mt-0 bg-transparent"></span>
+                        </div>
+                    {% endif %}
+                    {% if tabInfo.content %}
+                        <div class="faceland-accordion-panel p-0 pt-8 bg-transparent">
+                            <p>{{ tabInfo.content }}</p>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="o-contain treatment-tab-section" id="{{ layout.scroll_section_element }}">
+        {% if layout.title %}
+            <div class="title u-text-bold {{ is_mobile == true and get_clinic_post_type_slug == true ? 'o-contain-padding u-text-center' : '' }}">
+                <{{ layout.title_heading_tag }}>{{ layout.title }}</{{ layout.title_heading_tag }}>
+            </div>
+        {% endif %}
+        {% for key, tabInfo in layout.tab_title_with_content %}
+            <div class="faceland-accordion">
+                {% if tabInfo.title %}
+                    <div class="accordian-title">
+                        {% if tabInfo.icon_image %}
+                            <div class="accodian-icon-wrapper">
+                                 <img src="{{ tabInfo.icon_image }}" alt="{{ rokit_get_image_alt(rokit_get_image_id(tabInfo.icon_image)) }}" width="{{ rokit_get_image_width_height_attr(tabInfo.icon_image)['width'] }}" height="{{ rokit_get_image_width_height_attr(tabInfo.icon_image)['height'] }}">
+                            </div>
+                        {% endif %}
+                        <label class="accordian-label">{{ tabInfo.title }}</label>
+                    </div>
+                    <span class="accordian-arrow"></span>
+                {% endif %}
+            </div>
+            {% if tabInfo.content %}
+                <div class="faceland-accordion-panel">
+                    <p>{{ tabInfo.content }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endif %}

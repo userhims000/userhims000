@@ -1,0 +1,6 @@
+{% if layout.gif %}
+    {% set gif = (layout.gif_mobile and fn('rodesk_is_mobile') ) ? layout.gif_mobile : layout.gif %}
+    <figure class="c-figure">
+        {{ rokit_get_image(gif, 'full') }}
+    </figure>
+{% endif %}

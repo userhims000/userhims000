@@ -1,0 +1,46 @@
+{% if reviews|length > 0 %}
+    <div class="c-related c-related--mt u-bg-tertiary js-toggle-wrapper">
+        {% include "parts/mask.twig" with { classes : 'c-mask--tertiary u-bg-white' } %}
+        <div class="o-contain o-contain-padding">
+
+            {% if reviews.grades and reviews.image %}
+                <div class="u-flex-sm u-flex-center-x">
+                    <div class="c-review-avatar">
+                        <span class="c-review-avatar__icon">{{pll__('Faceland logo')}}</span>
+                        <div class="o-image o-image--round o-image--sm o-image--shadow c-review-avatar__image c-review-avatar__image--dark">
+                            <span class="u-text-size-tera u-text-color-white u-text-bold">{{ reviews.grades }}</span>
+                            {{rokit_get_image(reviews.image, 'avatar-sm', reviews.titles.title)}}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if is_nl %}
+                <div class="u-text-center">
+                    {{ rokit_get_static_image('images/hi_kliniek.png', '.11827957', site.name, 'c-review__image') }}
+                </div>
+            {% endif %}
+            {% if reviews.titles.title %}
+                <h2 class="c-related__heading u-text-size-beta u-text-bold u-text-center">{{ reviews.titles.title|upper }}</h2>
+            {% endif %}
+
+            {% if  reviews.buttons.left|length > 0 or  reviews.buttons.left|length > 0 or reviews.titles.subtitle %}
+                {% if reviews.titles.subtitle %}
+                    <h3 class="c-related__heading-sub u-text-size-alpha u-text-color-gray-dark u-text-center">{{ reviews.titles.subtitle }}</h3>
+                {% endif %}
+                {% if  reviews.buttons.left|length > 0 or  reviews.buttons.left|length > 0 %}
+                    <div class="u-flex-sm u-flex-center-x">
+                        <div class="c-btn-group">
+                            {% if  reviews.buttons.left|length > 0 %}
+                                {% include "parts/button.twig" with { button : reviews.buttons.left, classes : 'c-btn--gray-darker u-bg-gray-darker u-text-size-zeta' } %}
+                            {% endif %}
+                            {% if  reviews.buttons.right|length > 0 %}
+                                {% include "parts/button.twig" with { button : reviews.buttons.right, classes : 'c-btn--gray-darker u-bg-gray-darker u-text-size-zeta' } %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,16 @@
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% include 'parts/panorama-plus.twig' with { panorama : post.panorama, maskClass : 'c-mask--campaign' } %}
+{% endblock %}
+
+{% block content %}
+    {% if post.content_modules|length > 0 %}
+        <div class="u-bg-campaign">
+            <div class="c-copy-campaign">
+                {% include 'parts/content-modules.twig' with { campaign : true } %}
+                {% include "parts/share.twig" with { share : post.share, title : post.share_title, borderClass : 'c-icon--borderless u-bg-white' } %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

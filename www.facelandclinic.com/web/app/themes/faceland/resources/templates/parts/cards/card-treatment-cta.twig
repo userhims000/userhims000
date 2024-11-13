@@ -1,0 +1,38 @@
+{% if card.title and card.text %}
+    {% set backgroundClass = (color == true) ? 'u-bg-secondary' : 'u-bg-tertiary' %}
+
+    <div class="c-cta js-match-height {{backgroundClass}}">
+
+        {% if card.image %}
+            {{rokit_get_image(card.image, 'treatment-cta', card.title, 'o-image o-image--round o-image--md o-image--shadow c-cta__image js-animation-element a-fade-in')}}
+        {% endif %}
+
+        <div class="c-cta__content u-text-center js-animation-element a-fade-in">
+
+            {% if card.title %}
+                <h3 class="c-cta__heading u-text-size-beta u-text-bold">{{card.title}}</h3>
+            {% endif %}
+            {% if card.text %}
+                <div class="c-cta__text u-text-size-epsilon u-text-color-gray-dark">{{card.text}}</div>
+            {% endif %}
+
+            {% if card.button_one or card.button_two %}
+
+                <div class="c-btn-group">
+
+                    {% if card.button_one|length > 0 %}
+                        {% set classes =  card.button_one_transparent ? 'c-btn--transparent u-text-color-gray-darker' : 'c-btn--gray-darker u-bg-gray-darker'  %}
+                        {% include "parts/button.twig" with { button : card.button_one, classes : classes~' u-text-size-epsilon u-text-medium'} %}
+                    {% endif %}
+
+                    {% if card.button_two|length > 0  %}
+                        {% set classes =  card.button_two_transparent ? 'c-btn--transparent u-text-color-gray-darker' : 'c-btn--gray-darker u-bg-gray-darker'  %}
+                        {% include "parts/button.twig" with { button : card.button_two, classes : classes~' u-text-size-epsilon u-text-medium'} %}
+                    {% endif %}
+
+                </div>
+
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

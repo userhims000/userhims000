@@ -1,0 +1,9 @@
+{% if posts|length > 0 %}
+	<div class="c-cards-wrapper">
+		<div class="c-cards">
+            {% for card in posts %}
+                {% include 'parts/cards/card-treatment-type.twig' %}
+            {% endfor %}
+        </div>
+	</div>
+{% endif %}

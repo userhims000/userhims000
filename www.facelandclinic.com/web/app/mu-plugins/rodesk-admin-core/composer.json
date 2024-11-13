@@ -1,0 +1,27 @@
+{
+    "name": "rodesk/rodesk-admin-core",
+    "homepage": "https://bitbucket.org/web-nl/rodesk-admin-core/",
+    "authors": [
+        {
+            "name": "Jasper Rooduijn",
+            "email": "jasper.r@rodesk.nl",
+            "homepage": "http://rodesk.nl"
+        },
+        {
+            "name": "Miljan Janjetovic",
+            "email": "miljan@rodesk.nl",
+            "homepage": "http://rodesk.nl"
+        },
+        {
+            "name": "Joeri Abbo",
+            "email": "joeri@rodesk.com",
+            "homepage": "https://www.rodesk.com/tribe/joeri-abbo/"
+        },
+        {
+            "name": "Jurgen Oldenburg",
+            "email": "jurgen.oldenburg@rodesk.nl",
+            "homepage": "http://rodesk.nl"
+        }
+    ],
+    "type": "wordpress-muplugin"
+}

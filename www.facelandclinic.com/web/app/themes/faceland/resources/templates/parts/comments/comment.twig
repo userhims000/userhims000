@@ -1,0 +1,28 @@
+{# comment #}
+{% set replyClass = isReply ? 'c-comment--reply' %}
+{% set reactionText = comment.children|length > 1 ? pll__('reacties') : pll__('reactie') %}
+<div class="c-comment {{replyClass}}">
+    <div class="c-comment__head">
+        <h3 class="c-comment__name u-text-bold">{{comment.author.name}}</h3> {# IF FACELAND ADD THIS CLASS: u-text-color-primary #}
+        <time class="u-block u-text-size-zeta u-text-color-gray-light" datetime="{{comment.comment_date}}">{{comment.comment_date|date('d F Y - H:i')}}</time>
+    </div>
+    <div class="c-comment__content u-text-size-epsilon">
+        {{comment.comment_content|wpautop}}
+    </div>
+
+    {% if not isReply %}
+        <div class="c-comment__footer">
+        {% if comment.children|length > 0 %}
+                <span class="u-text-size-zeta">{{ comment.children|length }} {{reactionText|upper}}</span>
+        {% endif %}
+            <button class="o-link c-link--button u-text-bold u-text-color-gray-darkest u-text-size-zeta" data-featherlight="<div class='featherlight-inner'>{% include "parts/comments/comment-form.twig" with { isModal : true } %}</div> .selector" >{{pll__('Reageren')|upper}}</button>
+        </div>
+    {% endif %}
+</div>
+
+{# Replies #}
+{% if comment.children  %}
+    {% for cmt in comment.children %}
+        {% include "parts/comments/comment.twig" with { comment : cmt, hideReply : true, isReply : true } %}
+    {% endfor %}
+{% endif %}

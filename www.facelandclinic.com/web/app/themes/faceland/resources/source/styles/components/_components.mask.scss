@@ -1,0 +1,53 @@
+.c-mask--white {
+
+    .c-mask__background {
+        fill: $color-white;
+    }
+}
+
+.c-mask--smoke-white {
+
+    .c-mask__background {
+        fill: $color-smoke-white;
+    }
+}
+
+.c-mask--bordered {
+
+    .c-mask__background {
+        stroke: $color-gray-lighter;
+        stroke-width: 4px;
+    }
+}
+
+.c-mask--secondary-light {
+
+    .c-mask__background {
+        fill: $color-secondary-light;
+    }
+}
+
+.c-mask--tertiary-light {
+
+    .c-mask__background {
+        fill: $color-tertiary-light;
+    }
+}
+
+.c-mask--tertiary {
+
+    .c-mask__background {
+        fill: $color-tertiary;
+    }
+}
+
+.c-mask--tertiary-dark {
+
+    .c-mask__background {
+        fill: $color-tertiary-dark;
+    }
+}
+
+.c-mask--rotated {
+    transform: rotate(-180deg);
+}

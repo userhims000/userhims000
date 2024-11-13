@@ -1,0 +1,24 @@
+{% if layout|length > 0  and (layout.title or layout.description ) %}
+    <div class="iamhere-section o-grid main-get-in-touch">
+        {% if layout.title or layout.description %}
+            {% set overLayImage = layout.overlay_image ? layout.overlay_image : '' %}
+            <div class="location-info-section get-in-touch" 
+            {% if layout.overlay_image  %}
+                style="background-image:url({{ layout.overlay_image }})"            
+            {% else %}
+                style="background-color:'#F0E8DE'"
+            {% endif %}    
+            >
+                <div class="c-intro--column u-text-center">
+                    {% set titleTag  = layout.title_heading_tag ? layout.title_heading_tag : 'h1'  %}
+                    <{{titleTag}} class="u-text-bold section-title">{{ layout.title }}</{{titleTag}}>
+                    <p class="u-text-size-alpha u-text-color-gray section-description">{{ layout.description }}</p>
+                    {% set external = layout.button_external ? ' rel="external" data-router-disabled' %}
+                    <div class="get-in-touch-cta">    
+                        <a href="{{ layout.button_url }}" {{ external }} title="" class="c-btn u-text-medium f-bg-primary-bg cta-button ">{{ layout.button_text }}</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endif %}

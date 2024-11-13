@@ -1,0 +1,43 @@
+<div class="c-btn-group">
+    <div class="o-grid o-grid--with-gutter-sm u-1of1--sm u-1of2--md">
+        <div class="o-grid__cell">
+            <a class="c-btn c-btn--contact c-btn--phone c-btn--border c-btn--full c-btn--square u-text-size-epsilon u-text-color-gray-dark u-bg-white calltracker-fixed" {{ fn('rokit_get_attribute_aen_code') }} href="tel:{{ contacts.phone.phone|format_tel }}" title="{{ contacts.phone.phone }}" rel="external" data-router-disabled>{{ contacts.phone.phone }}</a>
+        </div>
+
+        {% if is_nl %}
+            <div class="o-grid__cell">
+                <button class="c-btn c-btn--contact c-btn--chat c-btn--border c-btn--full c-btn--square u-text-primary u-text-size-epsilon u-text-color-gray-dark u-bg-white js-open-chat" href="{{ contacts.chat.chat }}">{{ pll__('Start een chat') }}</button>
+            </div>
+        {% endif %}
+
+        <div class="o-grid__cell">
+            <a class="c-btn c-btn--contact c-btn--mail c-btn--border c-btn--full c-btn--square u-text-size-epsilon u-text-color-gray-dark u-bg-white" href="mailto:{{contacts.email.email|antispambot}}" title="{{pll__('Email')}}" rel="external" data-router-disabled>{{pll__('Email')}}</a>
+        </div>
+
+        {% if is_nl %}
+            <div class="o-grid__cell">
+                <a class="c-btn c-btn--contact c-btn--whatsapp c-btn--border c-btn--full c-btn--square u-text-size-epsilon u-text-color-gray-dark u-bg-white" href="https://wa.me/{{ contacts.whatsapp.whatsapp }}" title="{{pll__('Whatsapp')}}" rel="external" data-router-disabled>{{pll__('Whatsapp')}}</a>
+            </div>
+        {% endif %}
+
+        {% if not is_nl %}
+            <div class="o-grid__cell">
+                <a class="c-btn c-btn--contact c-btn--fb-messenger c-btn--border c-btn--full c-btn--square u-text-size-epsilon u-text-color-gray-dark u-bg-white" href="{{ contacts.messenger.chat }}" title="{{contacts.messenger.titles.title}}" rel="external" data-router-disabled>{{contacts.messenger.titles.title}}</a>
+            </div>
+        {% endif %}
+
+        {% if not is_nl %}
+            <div class="o-grid__cell">
+                <div class="c-btn c-btn--contact c-btn--appointment c-btn--border c-btn--full c-btn--square u-text-size-epsilon u-text-color-gray-dark u-bg-white" data-featherlight="#{{ contacts.appointment.featherlight }}" title="{{contacts.appointment.titles.title}}">{{contacts.appointment.titles.title}}</div>
+            </div>
+
+            <div class="modal__wrapper">
+                <div id="{{contacts.appointment.featherlight}}">
+                    <h3 class='u-text-size-delta u-text-bold'>{{contacts.appointment.popup.intro.title}}</h3>
+                    {{contacts.appointment.popup.intro.intro}}
+                </div>
+            </div>
+
+        {% endif %}
+    </div>
+</div>

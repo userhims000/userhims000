@@ -1,0 +1,32 @@
+{
+    "name": "rodesk/theme-translation-for-polylang-fork",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "description": "A custom WordPress plugin to support a styleguide system for Rodesk",
+    "homepage": "https://www.rodesk.nl",
+    "authors": [
+          {
+            "name": "Joeri Abbo",
+            "email": "joeri.abbo@rodesk.nl",
+            "homepage": "https://git.rodesk.nl/rodesk-wp-plugins/theme-translation-for-polylang-rodesk-fork/"
+        },
+        {
+            "name": "Jasper Rooduijn",
+            "email": "Jasper.Rooduijn@rodesk.nl",
+            "homepage": "https://git.rodesk.nl/rodesk-wp-plugins/theme-translation-for-polylang-rodesk-fork/"
+        }
+    ],
+    "keywords": [
+        "rodesk", "wordpress", "composer", "wp"
+    ],
+    "support": {
+        "issues": "http://www.rodesk.nl",
+        "forum": "http://www.rodesk.nl"
+    },
+      "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packagist.org"
+        }  
+    ]
+}

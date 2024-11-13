@@ -1,0 +1,124 @@
+<section class="f-bg-primary-bg pt-28 {{ is_mobile != true ? pb-72 : '' }} mt-0 pt-lg-56 pb-lg-0 quality-and-safety-section">
+  <div class="o-contain o-contain-padding">
+    {% if layout.christmas_quality_safety_title %}
+      <div class="title title-25 u-text-bold u-text-center p-0 mb-24">
+        {% set titleTag = layout.christmas_quality_safety_title_tag ? layout.christmas_quality_safety_title_tag : 'h2' %}
+        <{{titleTag}}>{{ layout.christmas_quality_safety_title }}</{{titleTag}}>
+      </div>
+   {% endif %}
+    
+    
+     <!-- quality-content 2 mobile -->
+    <div class="quality-content 22 mb-24 d-lg-none">
+        {% if layout.christmas_detail_information[1].christmas_detail_information_title %}
+          <div class="quality-title">
+            {% set infoTitleTag = layout.christmas_detail_information[1].christmas_detail_information_title_tag ? layout.christmas_detail_information[1].christmas_detail_information_title_tag : 'h2' %}
+            <{{infoTitleTag}}>{{ layout.christmas_detail_information[1].christmas_detail_information_title }}</{{infoTitleTag}}>
+          </div>
+        {% endif %}
+        {% if layout.christmas_detail_information[1].christmas_detail_information_description %}
+          <div class="quality-discription">
+            {{ layout.christmas_detail_information[1].christmas_detail_information_description }}
+          </div>
+        {% endif %}
+    </div>
+
+     <!-- reting-out-off -->
+    {% if layout.client_review_label or layout.client_rating_plus_value or layout.client_rating_divison_value  %}  
+      <div class="reting-out-off mb-24 mb-lg-48">
+        <p><a href="{{ layout.client_review_url }}" target="_blank">{{ layout.client_review_label }}</a></p>
+        <div class="retings"><p>{{ layout.client_rating_plus_value }}<span>/</span> {{ layout.client_rating_divison_value }}</p></div>
+      </div>
+    {% endif %}
+    {% if layout.google_review_taggbox_widget_mobile %}
+      <div class="google-rating-box d-lg-none">
+         {{ layout.google_review_taggbox_widget_mobile }}
+      </div>
+    {% endif %}
+
+
+    <!-- quality-content 1 mobile -->
+    <div class="quality-content 11 d-lg-none pt-52">
+        {% if layout.christmas_detail_information[0].christmas_detail_information_title %}
+          <div class="quality-title">
+            {% set infoTitleTag = layout.christmas_detail_information[0].christmas_detail_information_title_tag ? layout.christmas_detail_information[0].christmas_detail_information_title_tag : 'h2' %}
+            <{{infoTitleTag}}>{{ layout.christmas_detail_information[0].christmas_detail_information_title }}</{{infoTitleTag}}>
+          </div>
+        {% endif %}
+        {% if layout.christmas_detail_information[0].christmas_detail_information_description %}
+          <div class="quality-discription">
+            {{ layout.christmas_detail_information[0].christmas_detail_information_description }}
+          </div>
+        {% endif %}
+    </div>
+
+
+    <!-- logo-container mobile -->
+    <div class="logo-container mt-12 mb-44 d-lg-none">
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper logo-list">
+        {% for logos in layout.christmas_client_logos %}
+          {% set ctaButtonExternal = logos.christmas_logo_link_external ? ' rel="external" data-router-disabled' %}
+          <div class="swiper-slide" >
+            {% if logos.christmas_logo_link %}
+            <a href="{{ logos.christmas_logo_link ? logos.christmas_logo_link : "javascript:;" }}" {{ ctaButtonExternal }}>
+            {% endif %}
+              {{ rokit_get_image(logos.christmas_logo_image, 'full', '') }}
+            {% if logos.christmas_logo_link %}
+            </a>
+            {% endif %}
+          </div>
+        {% endfor %}
+        </div>
+        <!-- Horizontal Scrollbar -->
+        <div class="swiper-scrollbar"></div>
+      </div>
+    </div>
+
+
+    <!-- quality-content 1 desktop -->
+    <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of2--md u-1of2--lg d-none d-lg-flex">
+      {% for information in layout.christmas_detail_information %}
+        <div class="o-grid__cell mt-0 mb-48">
+          <div class="quality-content">
+            {% if information.christmas_detail_information_title %}
+              <div class="quality-title">
+                {% set infoTitleTag = information.christmas_detail_information_title_tag ? information.christmas_detail_information_title_tag : 'h2' %}
+                <{{infoTitleTag}}>{{ information.christmas_detail_information_title }}</{{infoTitleTag}}>
+              </div>
+            {% endif %}
+            {% if information.christmas_detail_information_description %}
+              <div class="quality-discription">
+                {{ information.christmas_detail_information_description }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if layout.christmas_client_logos|length > 0 %}
+    <!-- logo-container desktop -->
+    <div class="logo-container d-none d-lg-flex">
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper logo-list">
+        {% for logos in layout.christmas_client_logos %}
+          {% set ctaButtonExternal = logos.christmas_logo_link_external ? ' rel="external" data-router-disabled' %}
+          <div class="swiper-slide">
+            {% if logos.christmas_logo_link %}
+              <a href="{{ logos.christmas_logo_link ? logos.christmas_logo_link : "javascript:;" }}" {{ ctaButtonExternal }}>
+            {% endif %}
+              {{ rokit_get_image(logos.christmas_logo_image, 'full', '') }}
+            {% if logos.christmas_logo_link %}
+            </a>
+            {% endif %}
+          </div>
+        {% endfor %}
+        </div>
+        <!-- Horizontal Scrollbar -->
+        <div class="swiper-scrollbar"></div>
+      </div>
+    </div>
+  {% endif %}
+</section>

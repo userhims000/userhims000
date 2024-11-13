@@ -1,0 +1,21 @@
+{# Specialists archive #}
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% include 'parts/panorama-buttons.twig' with { panorama : collection.panorama, filter : collection.filter } %}
+{% endblock %}
+
+{% block content %}
+    {% set posts = collection.treatment_type ? collection.by_treatment_type(collection.treatment_type) : collection.specialists %}
+
+    <div class="o-contain o-contain-padding js-filter-container">
+        <div class="js-filter-items">
+            {% include "parts/collection.twig" with { posts : posts, cardType: 'specialist' } %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block related %}
+    {% include "parts/columns.twig" with { content : collection.bottom } %}
+{% endblock %}

@@ -1,0 +1,434 @@
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    	{% set slider = post.slider %}
+        {% if slider|length > 0 %}
+            <div class="c-carousel-wrapper">
+                {% if slider|length > 1 %}
+                    <div class="c-carousel-nav">
+                        <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--prev u-bg-gray-darker js-carousel-prev">{{pll__('Vorige')}}</button>
+                        <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--next u-bg-gray-darker js-carousel-next">{{pll__('Volgende')}}</button>
+                    </div>
+                {% endif %}
+                <div class="c-carousel c-carousel--default js-panorama-carousel">
+                    {% for panorama in slider %}
+                        <div class="o-panorama c-panorama--mask c-panorama--vh c-panorama--light-background c-panorama--arrow u-flex-sm u-flex-center">
+                            <figure class="o-panorama__image">
+                                {{ rokit_get_image(panorama.image, 'video-panorama', panorama.title, '', '', false) }}
+                            </figure>
+
+                            {% if panorama.title or panorama.subtitle %}
+                                <div class="o-panorama__content u-text-center" style="    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);">
+                                    <div class="o-contain o-contain-padding">
+                                        {% if panorama.title %}
+                                            <h1 class="c-panorama__heading u-text-bold u-text-size-tera u-text-color-white js-animation-element a-fade-in">{{panorama.title}}</h1>
+                                        {% endif %}
+                                        {% if panorama.subtitle %}
+                                            <p class="u-text-size-mega u-text-color-white js-animation-element a-fade-in">{{ panorama.subtitle }}</p>
+                                        {% endif %}
+
+                                        {% if panorama.show_button %}
+                                            {% set external = panorama.button_external ? ' rel="external" data-router-disabled' %}
+                                            <a href="{{ panorama.button_url }}" {{ external }} title="{{ panorama.button_label }}" class="c-btn u-text-medium c-btn--primary  u-text-size-epsilon u-text-medium c-panorama__heading-button">{{ panorama.button_label }}</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                            {% endif %}
+
+                            <span class="c-arrow c-arrow--down">{{pll__('Scroll naar beneden')}}</span>
+                        </div>
+                    {% endfor %}
+                </div>    		
+            	
+                   			                
+            </div>
+        {% endif %}
+    {# {{ dump(post.mobile_slider) }} #}
+{% endblock %}
+
+{% block content %}
+	<div class="luckyshotpage">
+		<div class="c-luckyshot">
+    		<div class="u-text-center">
+				<div class="section-warpper">
+					<div class="deal-sections">
+				  			{% if post.first_deal_banner is not empty %}
+					  		<div class="tab-deal-slider">
+		                    	{% for deal_banner in post.first_deal_banner %}
+			                        <div class="o-panorama c-panorama--mask c-panorama--vh c-panorama--light-background  u-flex-center">
+			                            <figure class="o-panorama__image" style="position:relative;">
+			                            {% if deal_banner.image != "" %}
+			                                <img src="{{ deal_banner.image }}" alt="Title">
+			                            {% endif %}
+			                                <div class="o-panorama__content u-text-center" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); margin-top:0;">
+			                                    <div class="o-contain o-contain-padding">
+			                                    	<div class="upper-banner-content">
+			                                        {% if deal_banner.title %}
+			                                            <h1 class="c-panorama__heading u-text-bold u-text-size-tera u-text-color-white ">
+			                                            	{{deal_banner.title}}
+			                                            </h1>
+			                                        {% endif %}
+			                                        {% if deal_banner.description %}
+			                                            <div class="u-text-size-small u-text-color-white">{{ deal_banner.description }}</div>
+			                                        {% endif %}
+			                                    	</div>
+			                                    	<div class="lower-banner-content">
+			                                    		<h3 class="c-panorama__heading u-text-bold u-text-size-tera u-text-color-white">
+			                                    			{{deal_banner.subtitle|upper}}
+			                                    		</h3>
+			                                            <div class="u-text-size-small u-text-color-white js-animation-element a-fade-in">
+			                                            	{{ deal_banner.sub_description }}
+			                                            </div>
+			                                        {% if deal_banner.show_button %}
+			                                        	{% if deal_banner.first_deal_url != "" %}
+			                                        		{% set buttonLink = deal_banner.first_deal_url	%}
+			                                        		{% set buttonLinkExternal = deal_banner.first_deal_button_external	%}
+				                                        		{% if buttonLinkExternal == "true"	%}
+				                                        			{% set target = "_blank" %}
+				                                        		{% endif %}	
+			                                        	{% else %}
+			                                        		{% set buttonLink = "#eerste"	%}	
+			                                        		{% set buttonLinkExternal = ""	%}	
+			                                        	{% endif %}		
+			                                            <a href="{{ buttonLink }}" target="{{ target }}" title="{{ deal_banner.button_label }}" class="c-btn u-text-medium c-btn--primary  u-text-size-epsilon u-text-medium c-panorama__heading-button first-deal-btn">{{ deal_banner.button_label }}</a>
+			                                        {% endif %}
+			                                    	</div>
+			                                    </div>
+			                                </div>
+			                            </figure>
+			                        </div>
+		                    	{% endfor %}
+		                	</div>
+		                    {% endif %}
+		                    {% if post.first_deal_behandelaar is not empty %}
+								<div class="small-deal-information c-btn-group c-copy" id="eerste">	
+					        		<div class="c-accordion js-toggle-wrapper">
+					        			{% for key, deal_behandelaar  in post.first_deal_behandelaar %}
+						                    <div class="c-accordion__item js-toggle-parent" id="{{ key }}">
+										        <h2 class="c-accordion__heading u-text-size-epsilon u-text-bold js-toggle-trigger" data-animation-type="jquery" data-parent-id="{{ key }}">{{ deal_behandelaar.title }}</h2>
+										        <div class="c-accordion__content u-text-size-epsilon js-toggle-content" style="display: none;">
+										            <p>{{ deal_behandelaar.description }}</p>
+										        </div>
+										    </div>
+					        			{% endfor %}
+									</div>
+								</div>
+								{% endif %}
+							{% if post.second_deal_banner is not empty %}
+						  		<div class="tab-deal-slider">
+			                    	{% for deal_banner in post.second_deal_banner %}
+				                        <div class="o-panorama c-panorama--mask c-panorama--vh c-panorama--light-background  u-flex-center">
+				                            <figure class="o-panorama__image" style="position:relative;">
+				                            {% if deal_banner.image != "" %}
+				                                <img src="{{ deal_banner.image }}" alt="Title">
+				                            {% endif %}
+				                                <div class="o-panorama__content u-text-center" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); margin-top:0;">
+				                                    <div class="o-contain o-contain-padding">
+				                                    	<div class="upper-banner-content">
+				                                        {% if deal_banner.title %}
+				                                            <h1 class="c-panorama__heading u-text-bold u-text-size-tera u-text-color-white ">
+				                                            	{{deal_banner.title}}
+				                                            </h1>
+				                                        {% endif %}
+				                                        {% if deal_banner.description %}
+				                                            <div class="u-text-size-small u-text-color-white">{{ deal_banner.description }}</div>
+				                                        {% endif %}
+				                                    	</div>
+				                                    	<div class="lower-banner-content">
+				                                    		<h3 class="c-panorama__heading u-text-bold u-text-size-tera u-text-color-white">
+				                                    			{{deal_banner.subtitle|upper}}
+				                                    		</h3>
+				                                            <div class="u-text-size-small u-text-color-white js-animation-element a-fade-in">
+				                                            	{{ deal_banner.sub_description }}
+				                                            </div>
+				                                        {% if deal_banner.show_button %}
+				                                        	{% if deal_banner.second_deal_url != "" %}
+			                                        		{% set buttonLink = deal_banner.second_deal_url	%}
+			                                        		{% set buttonLinkExternal = deal_banner.second_deal_external	%}
+				                                        		{% if buttonLinkExternal == "true"	%}
+				                                        			{% set target = "_blank" %}
+				                                        		{% endif %}	
+				                                        	{% else %}
+				                                        		{% set buttonLink = "#tweede"	%}	
+				                                        		{% set buttonLinkExternal = ""	%}	
+				                                        	{% endif %}
+				                                            <a href="{{ buttonLink }}" target="{{ target }}" title="{{ deal_banner.button_label }}" class="c-btn u-text-medium c-btn--primary  u-text-size-epsilon u-text-medium c-panorama__heading-button second-deal-btn">{{ deal_banner.button_label }}</a>
+				                                        {% endif %}
+				                                    	</div>
+				                                    </div>
+				                                </div>
+				                            </figure>
+				                        </div>
+			                    	{% endfor %}
+			                	</div>
+		                    {% endif %}
+		                    {% if post.second_deal_behandelaar is not empty %}
+								<div class="small-deal-information c-btn-group c-copy" id="tweede">	
+					        		<div class="c-accordion js-toggle-wrapper">
+					        			{% for key, deal_behandelaar  in post.second_deal_behandelaar %}
+						                    <div class="c-accordion__item js-toggle-parent" id="second-{{ key }}">
+										        <h2 class="c-accordion__heading u-text-size-epsilon u-text-bold js-toggle-trigger" data-animation-type="jquery" data-parent-id="second-{{ key }}">{{ deal_behandelaar.title }}</h2>
+										        <div class="c-accordion__content u-text-size-epsilon js-toggle-content" style="display: none;">
+										            <p>{{ deal_behandelaar.description }}</p>
+										        </div>
+										    </div>
+					        			{% endfor %}
+									</div>
+								</div>
+							{% endif %}
+							{% if post.third_deal_banner is not empty %}
+					  			<div class="tab-deal-slider">
+		                    	{% for deal_banner in post.third_deal_banner %}
+			                        <div class="o-panorama c-panorama--mask c-panorama--vh c-panorama--light-background  u-flex-center">
+			                            <figure class="o-panorama__image" style="position:relative;">
+			                            {% if deal_banner.image != "" %}
+			                                <img src="{{ deal_banner.image }}" alt="Title">
+			                            {% endif %}
+			                                <div class="o-panorama__content u-text-center" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); margin-top:0;">
+			                                    <div class="o-contain o-contain-padding">
+			                                    	<div class="upper-banner-content">
+			                                        {% if deal_banner.title %}
+			                                            <h1 class="c-panorama__heading u-text-bold u-text-size-tera u-text-color-white ">
+			                                            	{{deal_banner.title}}
+			                                            </h1>
+			                                        {% endif %}
+			                                        {% if deal_banner.description %}
+			                                            <div class="u-text-size-small u-text-color-white">{{ deal_banner.description }}</div>
+			                                        {% endif %}
+			                                    	</div>
+			                                    	<div class="lower-banner-content">
+			                                    		<h3 class="c-panorama__heading u-text-bold u-text-size-tera u-text-color-white">
+			                                    			{{deal_banner.subtitle|upper}}
+			                                    		</h3>
+			                                            <div class="u-text-size-small u-text-color-white js-animation-element a-fade-in">
+			                                            	{{ deal_banner.sub_description }}
+			                                            </div>
+			                                        {% if deal_banner.show_button %}
+			                                        	{% if deal_banner.third_deal_url != "" %}
+		                                        		{% set buttonLink = deal_banner.third_deal_url	%}
+		                                        		{% set buttonLinkExternal = deal_banner.third_deal_external_url	%}
+			                                        		{% if buttonLinkExternal == "true"	%}
+			                                        			{% set target = "_blank" %}
+			                                        		{% endif %}	
+			                                        	{% else %}
+			                                        		{% set buttonLink = "#derde"	%}	
+			                                        		{% set buttonLinkExternal = ""	%}	
+			                                        	{% endif %}
+			                                            <a href="{{ buttonLink }}" target="{{ target }}" title="{{ deal_banner.button_label }}" class="c-btn u-text-medium c-btn--primary  u-text-size-epsilon u-text-medium c-panorama__heading-button third-deal-btn">{{ deal_banner.button_label }}</a>
+			                                        {% endif %}
+			                                    	</div>
+			                                    </div>
+			                                </div>
+			                            </figure>
+			                        </div>
+		                    	{% endfor %}
+		                		</div>
+		                    {% endif %}
+		                    {% if post.third_deal_behandelaar is not empty %}
+								<div class="small-deal-information c-btn-group c-copy" id="derde">	
+					        		<div class="c-accordion js-toggle-wrapper">
+					        			{% for key, deal_behandelaar  in post.third_deal_behandelaar %}
+						                    <div class="c-accordion__item js-toggle-parent" id="third-{{ key }}">
+										        <h2 class="c-accordion__heading u-text-size-epsilon u-text-bold js-toggle-trigger" data-animation-type="jquery" data-parent-id="third-{{ key }}">{{ deal_behandelaar.title }}</h2>
+										        <div class="c-accordion__content u-text-size-epsilon js-toggle-content" style="display: none;">
+										            <p>{{ deal_behandelaar.description }}</p>
+										        </div>
+										    </div>
+					        			{% endfor %}
+									</div>
+								</div>
+							{% endif %}
+							{% if post.fourth_deal_banner is not empty %}
+						  		<div class="tab-deal-slider">
+			                    	{% for deal_banner in post.fourth_deal_banner %}
+				                        <div class="o-panorama c-panorama--mask c-panorama--vh c-panorama--light-background  u-flex-center">
+				                            <figure class="o-panorama__image" style="position:relative;">
+				                            {% if deal_banner.image != "" %}
+				                                <img src="{{ deal_banner.image }}" alt="Title">
+				                            {% endif %}
+				                                <div class="o-panorama__content u-text-center" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); margin-top:0;">
+				                                    <div class="o-contain o-contain-padding">
+				                                    	<div class="upper-banner-content">
+				                                        {% if deal_banner.title %}
+				                                            <h1 class="c-panorama__heading u-text-bold u-text-size-tera u-text-color-white ">
+				                                            	{{deal_banner.title}}
+				                                            </h1>
+				                                        {% endif %}
+				                                        {% if deal_banner.description %}
+				                                            <div class="u-text-size-small u-text-color-white">{{ deal_banner.description }}</div>
+				                                        {% endif %}
+				                                    	</div>
+				                                    	<div class="lower-banner-content">
+				                                    		<h3 class="c-panorama__heading u-text-bold u-text-size-tera u-text-color-white">
+				                                    			{{deal_banner.subtitle|upper}}
+				                                    		</h3>
+				                                            <div class="u-text-size-small u-text-color-white js-animation-element a-fade-in">
+				                                            	{{ deal_banner.sub_description }}
+				                                            </div>
+				                                        {% if deal_banner.show_button %}
+				                                        	{% if deal_banner.fourth_deal_url != "" %}
+			                                        		{% set buttonLink = deal_banner.fourth_deal_url	%}
+			                                        		{% set buttonLinkExternal = deal_banner.fourth_deal_external_button	%}
+				                                        		{% if buttonLinkExternal == "true"	%}
+				                                        			{% set target = "_blank" %}
+				                                        		{% endif %}	
+				                                        	{% else %}
+				                                        		{% set buttonLink = "#vierde"	%}	
+				                                        		{% set buttonLinkExternal = ""	%}	
+				                                        	{% endif %}
+				                                            <a href="{{ buttonLink }}" target="{{ target }}"  title="{{ deal_banner.button_label }}" class="c-btn u-text-medium c-btn--primary  u-text-size-epsilon u-text-medium c-panorama__heading-button fourth-deal-btn">{{ deal_banner.button_label }}</a>
+				                                        {% endif %}
+				                                    	</div>
+				                                    </div>
+				                                </div>
+				                            </figure>
+				                        </div>
+			                    	{% endfor %}
+			                	</div>
+		                    {% endif %}
+		                    {% if post.fourth_deal_behandelaar is not empty %}
+								<div class="small-deal-information c-btn-group c-copy" id="vierde">	
+					        		<div class="c-accordion js-toggle-wrapper">
+					        			{% for key, deal_behandelaar  in post.fourth_deal_behandelaar %}
+						                    <div class="c-accordion__item js-toggle-parent" id="fourth-{{ key }}">
+										        <h2 class="c-accordion__heading u-text-size-epsilon u-text-bold js-toggle-trigger" data-animation-type="jquery" data-parent-id="fourth-{{ key }}">{{ deal_behandelaar.title }}</h2>
+										        <div class="c-accordion__content u-text-size-epsilon js-toggle-content" style="display: none;">
+										            <p>{{ deal_behandelaar.description }}</p>
+										        </div>
+										    </div>
+					        			{% endfor %}
+									</div>
+								</div>
+							{% endif %}
+							<div class="luckyshotpage-content c-copy ">
+								{% if post.first_cta_section.0 != "" or post.first_cta_section.2  != "" %}
+									<div class="orange-section o-panorama__content  u-text-center o-contain  js-filter-container">
+										{% if post.first_cta_section.0 is not empty %}
+											<h2 class="c-panorama__heading u-text-bold js-animation-element a-fade-in a-inview">{{ post.first_cta_section.0 }}</h2>
+										{% endif %}
+										{% if post.first_cta_section.2 is not empty %}	
+											{% set external = post.first_cta_section.3 ? ' rel="external" data-router-disabled' %}
+											<a href="{{ post.first_cta_section.1 }}" {{ external  }} title="Maak afspraak" class="c-btn u-text-medium c-btn--primary  u-text-size-epsilon u-text-medium">{{ post.first_cta_section.2 }}</a>
+										{% endif %}
+									</div>
+								{% endif %}
+								<div class="deal-images-section">
+									{% if post.first_deal_images.title or post.first_deal_images.description %}
+										<div class="o-panorama__content  u-text-center">    
+											<h1 class="c-panorama__heading u-text-bold u-text-size-tera js-animation-element a-fade-in a-inview">
+												{{ post.first_deal_images.title }}
+											</h1>
+											<div class="c-panorama__text u-text-size-small u-text-color-gray-dark js-animation-element a-fade-in a-inview">
+												{{ post.first_deal_images.description }}
+											</div>
+										</div>
+									{% endif %}
+									<div class="o-contain o-contain-padding js-filter-container">
+					        			<div class="js-filter-items">        
+											<div class="c-cards-wrapper">
+												<div class="c-cards">
+													<div class="o-grid js-filter-wrapper u-1of1--sm u-1of2--md u-1of3--lg o-grid--with-gutter o-grid--with-gutter-vertical ">
+														{% for images  in post.first_deal_images.images %}
+															{% if images.deal_expire == "true"  %}
+																{% set cls = "deal-expire"	%}
+															{% endif  %}
+															{% if images.deal_image is not empty  %}
+																<div class="o-grid__cell js-animation-element a-fade-in-up a-inview {{ cls }}">
+																    <div class="o-card c-card--simple c-card--bordered js-block " style="transform: scale(1);">
+																		<figure class="o-card__image">
+																			<img class="js-lazy-load is-lazy-loaded" data-aspect="0.71428571428571" data-src="{{ images.deal_image }}" data-src-retina="" alt="Ingevallen wangen" src="{{ images.deal_image }}">
+																			<svg class="c-mask c-mask--white" viewBox="0 0 1280 60" version="1.1" preserveAspectRatio="none">
+																		    <g class="c-mask__background" fill-rule="evenodd" fill="tertiary">
+																		        <path d="M518.144406,0 L0,0 L0,60 L1280,60 L1280,0 L759.481797,0 C733.051101,3.439395 711.574276,11.206205 695.038718,23.287486 C660.993966,48.161409 617.529875,48.324208 586.565214,23.257322 C570.586572,10.3221 547.785386,2.560243 518.144403,0 L518.144406,0 Z"></path>
+																		    </g>
+																		</svg>
+																		</figure>
+																		{% if images.deal_image_lable is not empty  %}
+																			<div class="o-card__content u-bg-white js-match-height" style="height: 89.4531px;">
+																		        <h3 class="o-card__heading u-text-size-beta u-text-bold">{{ images.deal_image_lable }}</h3>
+																		        <time class="o-card__time u-text-size-zeta" datetime=""></time>
+																		    </div>
+																		{% endif  %}			    
+										    						</div>
+																</div>
+															{% endif  %}
+														{% endfor  %}
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>		
+							{% if post.terms_and_conditions is not empty %}
+								<div class="luckyshot-terms-section">	
+									<div class="c-copy">
+										<div class="c-btn-group">
+											{% if post.terms_and_conditions.lable or post.terms_and_conditions.description %}
+												<div class="o-panorama__content  u-text-center">    
+													<h1 class="c-panorama__heading u-text-bold u-text-size-tera js-animation-element a-fade-in a-inview">
+														{{ post.terms_and_conditions.lable }}
+													</h1>
+													<p class="c-panorama__text u-text-size-small u-text-color-gray-dark js-animation-element a-fade-in a-inview">
+														{{ post.terms_and_conditions.description }}
+													</p>
+												</div>
+											{% endif %}
+											<div class="c-accordion js-toggle-wrapper">
+												{% for key, terms_and_condition  in post.terms_and_conditions.terms_condition_list %}
+							                        <div class="c-accordion__item js-toggle-parent" id="list-{{ key }}">
+												        <h2 class="c-accordion__heading u-text-size-epsilon u-text-bold js-toggle-trigger" data-animation-type="jquery" data-parent-id="list-{{ key }}">{{ terms_and_condition.terms_condition_title }}</h2>
+												        <div class="c-accordion__content u-text-size-epsilon js-toggle-content" style="display: none;">
+												            <p>{{ terms_and_condition.terms_condition_description }}</p>
+												        </div>
+												    </div>
+												{% endfor  %}		
+											</div>
+										</div>
+									</div>
+								</div>
+							{% endif  %}
+							<div class="o-contain o-contain-padding js-filter-container show-deals">
+								<div class="c-cards-wrapper">
+								   <div class="c-cards">
+								      <div class="o-grid js-filter-wrapper u-1of1--sm u-1of2--md u-1of3--lg o-grid--with-gutter o-grid--with-gutter-vertical">
+								        {% for deals in post.show_deals %}
+									        {% set external = deals.page_show_deals_external ? ' rel="external" data-router-disabled' %}
+									        <div class="o-grid__cell js-animation-element a-fade-in-up a-inview">
+									        	{% if deals.image or deals.page_show_deals_title or deals.page_show_deals_description  %}
+									            <div class="o-card c-card--simple c-card--bordered js-block">
+									            	{% if deals.image %}
+									            		<figure class="o-card__image c-card__image--background u-bg-injectable-light u-flex-sm u-flex-center">
+											            	<a href="{{ deals.page_show_deals_url }}" title="{{ deals.page_show_deals_title }}">{{rokit_get_image(deals.image, 'avatar-sm', deals.page_show_deals_title, 'o-image--sm o-image--round')}}
+											            </a>
+											        	</figure>
+										            {% endif %}
+										            {% if deals.page_show_deals_title or deals.page_show_deals_description %}
+										               	<div class="o-card__content u-bg-white js-match-height">
+										               		{% if deals.page_show_deals_title  %}
+											                  	<h3 class="o-card__heading u-text-size-mega u-text-bold"><a href="{{ deals.page_show_deals_url }}" title="{{ deals.page_show_deals_title }}" {{ external }} >{{ deals.page_show_deals_title }}</a>
+											                  	</h3>
+										                  	{% endif %}
+										                  	{% if deals.page_show_deals_description %}
+										                  		<p>{{ deals.page_show_deals_description }}</p>
+										                  	{% endif %}
+										                </div>
+									               {% endif %}
+									            </div>
+									        {% endif %}
+									        </div>
+								        {% endfor %}	
+
+								      </div>
+								   </div>
+								</div>
+							</div>
+					</div>  
+				</div>
+        	</div>	
+		</div>
+    	
+	</div>		
+{% endblock %}
+

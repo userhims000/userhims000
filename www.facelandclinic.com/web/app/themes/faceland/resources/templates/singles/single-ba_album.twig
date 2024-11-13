@@ -1,0 +1,35 @@
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% include 'parts/panorama-buttons.twig' with { panorama : post.panorama, filter : post.filter } %}
+{% endblock %}
+
+{% block content %}
+    <div class="o-contain o-contain-padding">
+
+        {% if function('is_singular', 'ba_album') != true and rokit_get_query_param('debug') != 'development' %}
+            <div class="c-copy">
+        {% endif %}
+        
+            {% include 'parts/content-modules.twig' %}
+            {% for card in post.items %}
+                {% if card.show == 'single' %}
+                    {% include "layouts/layout-image.twig" with { layout : card.single_image } %}
+                {% else %}
+                    {% include "layouts/layout-before_after.twig" with { layout : card.ba } %}
+                {% endif %}
+            {% endfor %}
+
+        {% if function('is_singular', 'ba_album') != true and rokit_get_query_param('debug') != 'development' %}
+        </div>
+        {% endif %}
+
+    </div>
+{% endblock %}
+
+{% block related %}
+    {% if function('is_singular', 'ba_album') != true and rokit_get_query_param('debug') != 'development' %}
+        {% include "parts/cta/cta-default.twig" with { cta : post.cta, white_background : true} %}
+       {% include "parts/ba/related.twig" with { related : post.related } %}
+    {% endif %}
+{% endblock %}

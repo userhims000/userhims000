@@ -1,0 +1,47 @@
+{
+    "name": "rokit/languages",
+    "type": "wordpress-muplugin",
+    "description": "The Rokit languages package. A package to manage translations in WordPress projects.",
+    "keywords": ["wordpress", "polylang", "translations"],
+    "homepage": "http://rodesk.com",
+    "authors": [
+        {
+            "name":     "Jasper Rooduijn",
+            "email":    "jasper.rooduijn@rodesk.nl",
+            "homepage": "http://rodesk.com",
+            "role":     "Lead Developer"
+        },
+        {
+            "name":     "Joeri Abbo",
+            "email":    "joeri.abbo@rodesk.nl",
+            "homepage": "http://rodesk.com",
+            "role":     "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Rokit\\Languages\\": "src/"
+        },
+        "files": [
+            "src/Helpers.php"
+        ]
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://wpackagist.org"
+        },
+        {
+            "type": "composer",
+            "url": "https://wp.rodeskpackages.nl/satispress"
+        },
+        {
+            "type": "composer",
+            "url": "https://packages.webnl.io/GWsbg0rmLlkPDqSzxoyRj21yy"
+        }
+    ],
+    "require": {
+        "rodesk/theme-translation-for-polylang-fork": "~1.0.1",
+        "rodeskwp/polylang-pro": "2.9.1"
+    }
+}

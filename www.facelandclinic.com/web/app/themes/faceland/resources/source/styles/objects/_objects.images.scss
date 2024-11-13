@@ -1,0 +1,92 @@
+/*----------------------------------------------------------------------------*\
+    #OBJECTS IMAGES
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Non-fluid images explicitly.
+ */
+
+// .o-image { max-width: none; }
+
+/**
+ * Rounded images.
+ */
+
+.o-image--round {
+    border-radius: 50%;
+}
+
+/**
+ * images shadows.
+ */
+
+.o-image--shadow {
+    box-shadow: 0 9px 54px 0 rgba(0, 0, 0, .05);
+}
+
+/**
+ * Images sizes
+ */
+
+.o-image--micro {
+    @include square(33px);
+}
+
+.o-image--mini {
+    @include square(52px);
+}
+
+.o-image--tiny {
+    @include square(86px);
+}
+
+.o-image--little {
+    @include square(104px);
+}
+
+.o-image--sm {
+    @include square(180px);
+}
+
+.o-image--md {
+    @include square(204px);
+}
+
+.o-image--lg {
+    @include square(260px);
+}
+
+.o-image--hg {
+    @include square(274px);
+}
+
+.o-image--mg {
+    @include square(280px);
+
+    @include breakpoint(large) {
+        @include square(350px);
+    }
+}
+
+/**
+ * Image placement variations.
+ */
+
+// .o-image--right {
+//     margin-bottom: rhythm(.5);
+//     margin-left: rhythm(.5);
+//     float: right;
+// }
+
+// .o-image--left {
+//     margin-right: rhythm(.5);
+//     margin-bottom: rhythm(.5);
+//     float: left;
+// }
+
+// .o-image--center {
+//     display: block;
+//     margin-right: auto;
+//     margin-bottom: rhythm(.5);
+//     margin-left: auto;
+// }

@@ -1,0 +1,40 @@
+{% set isFoldable = list.data|length > 0 ? true %}
+
+<li class="c-list__item u-text-size-epsilon {{ isFoldable ? 'c-list__item--hover c-list__item--accordion js-toggle-parent'}}" id="{{loop.index}}{{list.ID}}">
+    <div class="c-list__header {{ isFoldable ? 'js-toggle-trigger'}}" data-animation-type="jquery" data-parent-id="{{loop.index}}{{list.ID}}">
+        <div class="u-flex-md u-flex-center-y">
+
+            {% block listHeader %}
+                {% if list.date_of_academy %}
+                    <time class="c-list__heading u-text-bold u-size-1of5--md" datetime="{{ list.date_of_academy|date("Y-m-d") }}">{{ list.date_of_academy|date("d M")|upper }}</time>
+                {% endif %}
+                {% if list.title %}
+                    <span>{{ list.title }}</span>
+                {% endif %}
+            {% endblock %}
+
+            {% if isFoldable %}
+                <button class="o-link c-link--arrow-inline">{{pll__('Open')}}</button>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="c-list__content u-text-size-epsilon u-bg-smoke-white u-text-italic js-toggle-content" style="display: none;">
+        {% block listData %}
+            {% for data in list.data %}
+                <div class="u-flex-md u-flex-center-y">
+                    {% if data.column_one %}
+                        <time class="c-list__heading u-size-1of5--md" datetime="{{ data.column_one }}">{{ data.column_one }}</time>
+                    {% endif %}
+                    {% if data.column_two %}
+                        <span><a href="{{ data.column_two.link }}" title="{{ data.column_two.title }}">{{ data.column_two.title }}</a></span>
+                    {% endif %}
+                    {% if data.column_three.panorama.title %}
+                        <span class="u-text-color-gray-darkest u-text-right u-align-right"><a href="{{data.column_three.link}}" title="{{data.column_three.panorama.title}}">{{data.column_three.panorama.title}}</a></span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% endblock %}
+    </div>
+</li>
+

@@ -1,0 +1,20 @@
+{# Location taxonomy country #}
+{% extends "base/base.twig" %}
+{% set collection = taxonomy.collection %}
+
+{% block panorama %}
+    {% include 'parts/panorama-buttons.twig' with { panorama : { title : collection.headers.title,  subtitle : collection.headers.intro }, filter : collection.filter } %}
+{% endblock %}
+
+{% block content %}
+    <div class="o-contain o-contain-padding js-filter-container">
+        <div class="js-filter-items">
+            {% include "parts/collection.twig" with { posts: taxonomy.items, cardType: 'location'} %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block related %}
+    {% include "parts/columns.twig" with { content : collection.bottom } %}
+{% endblock %}
+

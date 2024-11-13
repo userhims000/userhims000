@@ -1,0 +1,115 @@
+{% if is_mobile  %}
+    {% set slider = layout.page_mobile_slider %}
+    {% if slider|length > 0 %}
+        {% set sliderCls = [] %}
+        {% for panorama in slider %}
+                {% if panorama.show_video == true and panorama.video_file != 'true' %}
+                    {% set sliderCls = 'video-mobile-slider' %}
+                {% else %}
+                    {% set sliderCls = '' %}
+                {% endif %}
+        {% endfor %}
+        <div class="c-carousel-wrapper {{ sliderCls }}">
+            {% if slider|length > 1 %}
+                <div class="c-carousel-nav">
+                    <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--prev u-bg-gray-darker js-carousel-prev">{{pll__('Vorige')}}</button>
+                    <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--next u-bg-gray-darker js-carousel-next">{{pll__('Volgende')}}</button>
+                </div>
+            {% endif %}
+            <div class="c-carousel c-carousel--default js-panorama-carousel component-mobile-slider {{ sliderCls }}">
+                {% for panorama in slider %}
+                    {% if panorama.show_video == true and panorama.video_file != 'true' %}
+                        {% set slider_iv_class = 'mobile-video-part'  %}
+                    {% else %}
+                        {% set slider_iv_class = ''  %}
+                    {% endif %}
+                    <div class="o-panorama c-panorama--mask c-panorama--vh c-panorama--light-background c-panorama--arrow u-flex-sm u-flex-center {{ slider_iv_class }}">
+                        {% if panorama.show_video == true and panorama.video_file != 'true' %}
+                            <div class="mobile-video-section">
+                                <video loop="loop" autoplay="autoplay" id="vid" muted playsinline>
+                                    <source src="{{ panorama.video_file }}" type="video/mp4">
+                                </video>
+                            </div>
+                        {% else %}
+                            <figure class="o-panorama__image">
+                                {{ rokit_get_image(panorama.image, 'video-panorama', panorama.title, '', '', false) }}
+                            </figure>
+                        {% endif %}
+                        {% if panorama.title or panorama.subtitle %}
+                            <div class="o-panorama__content u-text-center" style="    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);">
+                                <div class="o-contain o-contain-padding">
+                                    {% if panorama.title %}
+                                        {% set titleTag  = panorama.title_heading_tag ? panorama.title_heading_tag : 'h1'  %}
+                                        <{{titleTag}} class="c-panorama__heading hello u-text-bold u-text-size-tera u-text-color-white js-animation-element a-fade-in">{{panorama.title|upper}} </{{titleTag}}>
+                                    {% endif %}
+                                    {% if panorama.subtitle %}
+                                        <p class="u-text-size-mega u-text-color-white js-animation-element a-fade-in">{{ panorama.subtitle }}</p>
+                                    {% endif %}
+
+                                    {% if panorama.show_button %}
+                                        {% set external = panorama.button_external ? ' rel="external" data-router-disabled' %}
+                                        <a href="{{ panorama.button_url }}" {{ external }} title="" class="u-text-small c-btn f-bg-primary-bg cta-button u-text-size-epsilon c-panorama__heading-button">{{ panorama.button_label }}</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% else  %}
+    {% set slider = layout.page_slider %}
+    {% if slider|length > 0 %}
+        <div class="c-carousel-wrapper component-slider">
+            {% if slider|length > 1 %}
+                <div class="c-carousel-nav">
+                    <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--prev u-bg-gray-darker js-carousel-prev">{{pll__('Vorige')}}</button>
+                    <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--next u-bg-gray-darker js-carousel-next">{{pll__('Volgende')}}</button>
+                </div>
+            {% endif %}
+            <div class="c-carousel c-carousel--default js-panorama-carousel">
+                {% for panorama in slider %}
+                    {% if panorama.show_video == true and panorama.video_file != 'true' %}
+                        {% set slider_iv_class = 'video-part'  %}
+                    {% else %}
+                        {% set slider_iv_class = 'image-part'  %}    
+                    {% endif %}    
+                    <div class="o-panorama c-panorama--mask {{ panorama.show_video == true ? 'c-panorama--vh' : ''  }} c-panorama--light-background c-panorama--arrow u-flex-sm u-flex-center {{ slider_iv_class }} ">
+                        {% if panorama.show_video == true and panorama.video_file != 'true' %}
+                            <div class="video-section">
+                                <video loop="loop" autoplay="autoplay" id="vid" muted>
+                                    <source src="{{ panorama.video_file }}" type="video/mp4">
+                                </video>
+                            </div>
+                        {% else %}
+                            <figure class="o-panorama__image">
+                                {{ rokit_get_image(panorama.image, 'home-slider-image', panorama.title, '', '', false) }}
+                            </figure>
+                        {% endif %}
+                        {% if panorama.title or panorama.subtitle %}
+                            <div class="o-panorama__content u-text-center" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);">
+                                <div class="o-contain o-contain-padding">
+                                    {% if panorama.title %}
+                                        {% set desktopTitleTag  = panorama.title_heading_tag ? panorama.title_heading_tag : 'h2'  %}
+                                        <{{desktopTitleTag}} class="c-panorama__heading hello u-text-bold u-text-size-tera u-text-color-white js-animation-element a-fade-in">{{panorama.title|upper}}</{{desktopTitleTag}}>
+                                    {% endif %}
+                                    {% if panorama.subtitle %}
+                                        <p class="u-text-size-mega u-text-color-white js-animation-element a-fade-in">{{ panorama.subtitle }}</p>
+                                    {% endif %}
+
+                                    {% if panorama.show_button %}
+                                        {% set external = panorama.button_external ? ' rel="external" data-router-disabled' %}
+                                        <a href="{{ panorama.button_url }}" {{ external }} title="" class="u-text-small c-btn f-bg-primary-bg cta-button u-text-size-epsilon c-panorama__heading-button">{{ panorama.button_label }}</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endif %}
+

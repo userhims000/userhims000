@@ -1,0 +1,52 @@
+{% if post.barometer|length > 0 %}
+  {% set cardType = cardType ? cardType : 'progress' %}
+
+  <div class="o-grid o-grid--with-gutter o-grid--with-gutter-vertical u-1of1--sm u-1of2--lg">
+    <div class="o-grid__cell u-center">
+      <div class="c-list-wrapper">
+
+        {# {% if title or subtitle %} #}
+        <div class="c-list__intro c-heading--icon c-heading--agenda progress-list">
+          {# {% if title %} #}
+          <h2 class="c-list__intro-heading c-heading u-text-bold u-text-size-beta">{{ "Claim your spot!"|upper }}</h2>
+          {# {% endif %} #}
+          {# {% if subtitle %} #}
+          <span class="c-list__intro-heading-sub">{{ "De agendabezetting van Faceland voor de aankomende weken" }}</span>
+          {# {% endif %} #}
+        </div>
+        {# {% endif %} #}
+
+        <div class="u-flex u-flex-center-x">
+          <ul class="o-list-plain progress-list-action c-list c-list--seamless c-list--accordion c-list--big u-flex u-flex-direction-column js-match-min-height {{ isFoldable ? 'js-toggle-wrapper' }}"
+              data-multiple="true">
+            {% for key, items in post.barometer %}
+              <li class="c-list__item u-text-size-epsilon" id="{{ loop.index }}">
+                <div class="c-list__header">
+                  {% if items.appointment_title %}
+                    {{ items.appointment_title }}
+                  {% else %}
+                    {{ "Afspraak maken" }}
+                  {% endif %}
+                  <div class="u-flex-md u-flex-center-y">
+                    <time class="c-list__heading u-text-bold u-size-1of5--md">{{ items.title|upper }}</time>
+                    <div class="progress-bar">
+                      <div data-size="{{ items.percentage }}" class="progress" style="width: {{ items.percentage }}%;"></div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            {% endfor %}
+
+            <li class="c-list__item u-text-center" style="margin-top: auto; border-top:none;">
+              <div class="c-list__header">
+                <a href="/nl/maak-een-afspraak/" title="{{ pll__('Afspraak maken') }}"
+                   class="c-btn u-text-medium c-btn--primary u-bg-primary u-text-medium">{{ pll__('Afspraak maken') }}</a>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

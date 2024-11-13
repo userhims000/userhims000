@@ -1,0 +1,20 @@
+{% set color = card.color ? 'secondary' : 'tertiary' %}
+<div class="o-card c-card--big">
+    <div class="o-grid">
+        <div class="o-grid__cell u-cell-1of1--sm u-cell-1of3--lg u-cell-1of2--wd  u-bg-{{color}}-light">
+            <div class="o-card__background u-flex-sm u-flex-center u-bg-{{color}}-light">
+                {{rokit_get_image(card.image, 'avatar-hg', card.title, 'o-image--hg' )}}
+            </div>
+        </div>
+        <div class="o-grid__cell u-cell-1of1--sm u-cell-2of3--lg u-cell-1of2--wd">
+            <div class="o-card__content">
+                <h2 class="o-card__heading u-text-size-beta u-text-bold">{{card.title}}</h2>
+                <p class="o-card__text u-text-size-epsilon">{{card.description}}</p>
+                <a class="c-btn c-btn--gray-darker u-text-size-zeta u-text-medium" href="{{card.link}}" title="{{pll__('Bekijk alles')}}" target="_blank">{{ (card.lable) ? card.lable : pll__('Maak afspraak') }}</a>
+                <div class="c-mask-wrapper">
+                    {% include "parts/mask-vertical.twig" with { classes : 'c-mask--' ~ color ~ '-light' } %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

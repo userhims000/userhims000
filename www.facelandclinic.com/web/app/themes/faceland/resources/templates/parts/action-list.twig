@@ -1,0 +1,10 @@
+{% set centerClass = list.lists|length < 2 ? 'u-center' %}
+<div class="c-lists">
+    <div class="o-grid o-grid--with-gutter o-grid--with-gutter-vertical u-1of1--sm u-1of2--lg">
+        {% for key, items in list.lists %}
+            <div class="o-grid__cell {{ centerClass }}">
+                {% include "parts/collection-list.twig" with { title : items.title, subtitle : items.subtitle, posts: items.items, cardType : key } %}
+            </div>
+        {% endfor %}
+    </div>
+</div>

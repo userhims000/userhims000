@@ -1,0 +1,23 @@
+{% if layout.treatment_title or layout.treatment_price_information  %}
+    <div class="treatment-price-information o-contain o-contain-padding">
+      {% if layout.treatment_title  %}
+        <div class="w-treatment-title u-text-center">
+          <h2 class="u-text-bold section-title">{{ layout.treatment_title }}</h2>
+        </div>
+      {% endif %}
+      {% if layout.treatment_price_information %}
+        <div class="w-row">
+        {% for info in layout.treatment_price_information  %}
+          {% for subInfo in info.locations_with_information %}
+              {% if subInfo.title or subInfo.price_information %}
+              <div class="w-column-50">
+                <h3 class="u-text-bold">{{ subInfo.title }}</h3>
+                {{ subInfo.price_information }}
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+     {% endif %}
+    </div>
+{% endif %}

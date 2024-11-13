@@ -1,0 +1,27 @@
+{% if offer|length > 0 %}
+    {% set image = fn('rodesk_is_mobile') and offer.image_mobile ? offer.image_mobile : offer.image %}
+    
+    <div class="o-panorama c-panorama--action u-layout-max-width js-block">
+        {% if image %}
+            <figure class="o-panorama__image">
+                {{ rokit_get_image(image, 'offer-image', offer.title) }}
+            </figure>
+        {% endif %}
+        <div class="o-panorama__content u-text-center">
+            {% if offer.label %}
+                <span class="c-panorama__label o-label u-bg-primary u-text-size-nano u-text-bold u-text-uppercase u-text-color-white">{{offer.label}}</span>
+            {% endif %}
+            <div class="u-flex-md u-flex-center-x u-flex-center-y">
+                <h3 class="c-panorama__heading u-text-bold u-text-size-beta u-text-color-white u-text-uppercase">
+                    {% if offer.title %}
+                        {{offer.title}}
+                    {% endif %}
+                    {% if offer.link|length > 0 %}
+                        {% set external = offer.link.external ? ' rel="external" data-router-disabled' %}
+                        <a href="{{ offer.link.url }}" {{ external }} class="o-link c-panorama__btn c-link--arrow-inline">{{ offer.link.label }}</a>
+                    {% endif %}
+                </h3>
+            </div>
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,9 @@
+{% set seporator  = seporator ? ' • '  %}
+
+{% for row in urls %}
+    {% if row.url and row.label %}
+        <li class="c-footer__list-item {{class}}">
+            <a href="{{ row.url }}" title="{{ row.label }}" {{ row.admin_class ? 'class="' ~ row.admin_class ~ '"'}}>{{ row.label }}</a>{{seporator}}
+        </li>
+    {% endif %}
+{% endfor %}

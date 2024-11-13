@@ -1,0 +1,38 @@
+/*----------------------------------------------------------------------------*\
+    #BASE LISTS
+\*----------------------------------------------------------------------------*/
+
+ul {
+    counter-reset: list;
+
+    li {
+        display: list-item;
+        position: relative;
+        padding-left: rhythm(.75);
+
+        &::before {
+            @include offset(absolute, null, null, null, 0);
+            content: '•';
+        }
+
+        > ul,
+        > ol {
+            margin-left: rhythm(1);
+        }
+    }
+}
+
+ol {
+    counter-reset: list;
+
+    > li {
+        position: relative;
+        counter-increment: list; /* Increment the section counter*/
+        padding-left: rhythm(.75);
+
+        &::before {
+            @include offset(absolute, null, null, null, 0);
+            content: counter(list) '.'; /* Display the counter */
+        }
+    }
+}

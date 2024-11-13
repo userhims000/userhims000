@@ -1,0 +1,19 @@
+{% set cardClasses = carouselItem ? 'c-carousel__item u-bg-white' %}
+{% set lazyload = carouselItem ? false : true %}
+
+{% if card.fullname and card.job_function  %}
+    <div class="o-card c-card--simple c-card--bordered js-block {{cardClasses}}">
+        <figure class="o-card__image">
+            {% if card.thumbnail %}
+                {{rokit_get_image(card.thumbnail, 'card', card.fullname ~ ' ' ~ card.job_function, '', lazyload)}}
+            {% endif %}
+
+            {% include "parts/mask.twig" with { classes : 'c-mask--white' } %}
+        </figure>
+
+        <div class="o-card__content u-bg-white">
+            <p class="o-card__heading u-text-size-beta u-text-bold"><a href="{{card.link}}" title="{{card.fullname}}">{{card.fullname}}</a></p>
+            <span class="o-label u-bg-secondary u-text-size-pico u-text-bold">{{card.job_function|upper}}</span>
+        </div>
+    </div>
+{% endif %}

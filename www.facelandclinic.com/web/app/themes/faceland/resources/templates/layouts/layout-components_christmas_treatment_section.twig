@@ -1,0 +1,47 @@
+<section class="mt-56 mb-28 mt-lg-48 mb-lg-48 two-col-section">
+  <div class="o-contain o-contain-padding">
+    <div class="odd-even-two-col-container p-md-24 px-xl-48 py-xl-28">
+        {% if layout.christmas_page_treatment_title %}
+          <div class="odd-even-two-col-title u-text-bold u-text-center d-md-none p-0 mb-28">
+            {% set titleTag = layout.christmas_page_treatment_title_tag ? layout.christmas_page_treatment_title_tag : 'h2' %}
+            <{{titleTag}}>{{ layout.christmas_page_treatment_title }}</{{titleTag}}>
+          </div>
+        {% endif %}
+        <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of2--md u-1of2--lg mb-n-20 align-items-center {{ layout.show_image_right_side == true ? 'odd-even-two-col-right' : "" }}">
+          <div class="o-grid__cell mt-0 mb-20">
+            <div class="odd-even-two-col-img">
+              {# <img src="{{ layout.christmas_page_treatment_section_image }}" width="610" height="512" alt="What are christmas deals?"> #}
+              {{ rokit_get_image(layout.christmas_page_treatment_section_image, 'christmas-treatment-deal', layout.christmas_page_treatment_title, '', '', false) }}
+              {% if layout.christmas_page_treatment_save_up_to_text %}
+                <div class="save-up-to-text">
+                  <p>{{ layout.christmas_page_treatment_save_up_to_text }}</p>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="o-grid__cell mt-0 mb-20">
+            <div class="odd-even-two-col-spacing p-md-24">
+              <div class="odd-even-two-col-title u-text-bold d-none d-md-block p-0 mb-28">
+                {% set titleTag = layout.christmas_page_treatment_title_tag ? layout.christmas_page_treatment_title_tag : 'h2' %}
+                <{{titleTag}}>{{ layout.christmas_page_treatment_title }}</{{titleTag}}>
+              </div>
+              {% if layout.christmas_page_treatment_description %}
+                <div class="odd-even-two-col-description">
+                  {{ layout.christmas_page_treatment_description }}
+                </div>
+              {% endif %}
+
+              {% if layout.christmas_page_treatment_cta_label %}
+                <div class="mt-28">
+                  {% set external = layout.christmas_page_treatment_cta_external ? ' rel="external" data-router-disabled' %}
+                  <a href="{{ layout.christmas_page_treatment_cta_url }}" {{ external }} class="c-btn u-text-medium c-btn--gray-darker c-btn-gradient w-100" title="{{ layout.christmas_page_treatment_cta_label }}">
+                    <span class="btn-content">{{ layout.christmas_page_treatment_cta_label }}</span>
+                  </a> 
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>

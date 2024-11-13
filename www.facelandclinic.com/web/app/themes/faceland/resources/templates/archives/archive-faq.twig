@@ -1,0 +1,147 @@
+{# FAQ archive #}
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% if is_nl != true and is_en_uk != true and is_en != true  %}
+        {% include 'parts/panorama-default.twig' with { panorama : { title : collection.headers.title,  subtitle : collection.headers.intro} } %}
+    {% endif %}
+    {% if is_nl == true or is_en_uk == true or is_en == true %}
+        <div class="o-panorama c-panorama--background c-panorama--treatment c-new-panorama--treatment f-bg-primary-bg u-margin-trailer-base">
+           <div class="o-contain o-contain-padding">
+              <div class="o-panorama__content u-text-center">
+                 <h1 class="c-panorama__heading u-text-bold u-text-size-tera js-animation-element a-fade-in a-inview">{{ collection.headers.title }}</h1>
+                 <div class="treatment-panorama-description">
+                    <p>{{ collection.headers.intro  }}
+                    </p>
+                 </div>
+                 <div class="treatment-thumbanil-image">
+                    {{ rokit_get_image(collection.panorama_image.image, 'thumbnail', post.title) }}
+                 </div>
+              </div>
+           </div>
+        </div>
+    {% endif %}
+{% endblock panorama %}
+
+{% block content %}
+    {% if is_nl != true and is_en_uk != true and is_en != true %}
+    <div class="o-contain o-contain-padding">
+    {% endif %} 
+        {% if is_nl == true or is_en_uk == true or is_en == true %}
+
+            {# <div class="o-contain o-contain-padding">
+                <div class="faq-search">
+                    <form role="search" method="get" class="o-form c-form--search js-search-form" id="searchform" action="/" autocomplete="off">
+                        <div class="c-form__item--search u-text-size-epsilon">
+                            <input class="o-form__input o-form__input--full c-form__input--search js-search-input" type="search" name="s" id="s" value="" data-focussed="true" placeholder="Typ hier je zoekopdracht…">
+                            <input type="hidden" name="lang" value="nl">
+                            <button type="submit" class="c-form__submit c-form__submit--search"></button>
+                            <button class="c-icon c-icon--close js-clean-search" style="opacity: 0;">{{ pll__('Verwijder zoekopdracht') }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div> #}
+
+            {% if is_mobile != true %}
+                <div class="navigation-info-title u-text-center u-text-bold navigation-info-heading">
+                  <{{ collection.navigation.navigation_title_heading ? collection.navigation.navigation_title_heading : 'h3'  }}>{{ collection.navigation.navigation_title }}</{{ collection.navigation.navigation_title_heading ? collection.navigation.navigation_title_heading : 'h3'  }}>
+               </div>
+               {% if collection.faq_topics|length > 0 %}
+                    <div class="u-flex u-flex-center-x">
+                        <div class="treatment-filters c-filters c-filters--button c-new-treatment-filters c-filters--square-sm u-flex u-flex-center-y u-flex-space-around-x u-text-size-epsilon u-text-color-gray f-bg-primary-bg">
+                        {% for topics in collection.faq_topics %}
+                             <a href="#{{ topics.name }}" title="{{ topics.name }}" class="c-filter  is-not-active " data-transition="filter">{{ topics.name }}</a>
+                        {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}    
+            {% endif %}
+            {% if is_mobile == true %}
+                <div class="go-to-direction">
+                    <div class="go-to-direction-title">
+                      <{{ collection.navigation.navigation_title_heading ? collection.navigation.navigation_title_heading : 'h2' }}>{{ collection.navigation.navigation_title }}</{{ collection.navigation.navigation_title_heading ? collection.navigation.navigation_title_heading : 'h2' }}>
+                    </div>
+                     {% for topics in collection.faq_topics %}
+                            <a href="#{{ topics.name }}">
+                               <span class="section-link">
+                               <span class="link-icon">{% if collection.faq_navigation_image[topics.ID] %}<img src="{{ collection.faq_navigation_image[topics.ID] }}">{% endif %}</span>  <span class="link-text">{{ topics.name }}</span>
+                               </span>
+                            </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if is_mobile != true %}
+                {% for topic, faqPosts in collection.faq_topics_by_posts %} 
+                    {% set parentIndex = loop.index  %}          
+                    <div class="o-contain o-contain-padding treatment-tab-section faq-topic-item" id="{{ topic }}">
+                        <div class="title u-text-bold">
+                          <h2>{{ topic  }}</h2>
+                        </div>
+                        <div class="treatment-tab treatment-tab-two ">
+                            {% for post in faqPosts %}
+                                <button class="tabTwolinks {{ parentIndex == 1 ? 'active' : '' }}" onclick="openTab3(event, {{ post.ID }})" id="defaultOpenTwo">
+                                    <span>{{ post.faq_title }}</span>
+                                </button>
+                            {% endfor %}
+                        </div>
+                        {% for post in faqPosts %}
+                            <div id="{{ post.ID }}" class="treatmentTabTwoContent {{ 'first-list-' ~ loop.index  }}" >
+                              <p>{{ post.faq_text }}</p>
+                            </div>
+                         {% endfor %}
+                    </div>
+                    {% if parentIndex == 3 %}
+                        {% if collection.faq_information.faq_info != ''  %}
+                            <div class="u-text-center faq-information">
+                               {{ collection.faq_information.faq_info }}
+                            </div>
+                        {% endif %}        
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% if is_mobile %}
+                {% for topic, faqPosts in collection.faq_topics_by_posts %}
+                    <div class="o-contain treatment-tab-section faq-topic-item" id="{{ topic }}">
+                        {% if topic %}
+                            <div class="title u-text-bold o-contain-padding">
+                                <h2>{{ topic }}</h2>
+                            </div>
+                        {% endif %}
+                        {% for post in faqPosts %}
+                            <div class="faceland-accordion">
+                                {% if post.faq_title %}
+                                    <div class="accordian-title">
+                                        <label class="accordian-label">{{ post.faq_title }}</label>
+                                    </div>
+                                    <span class="accordian-arrow"></span>
+                                {% endif %}
+                            </div>
+                            {% if post.faq_text %}
+                                <div class="faceland-accordion-panel">
+                                    <p>{{ post.faq_text }}</p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% if loop.index == 3 %}
+                        {% if collection.faq_information.faq_info != ''  %}
+                            <div class="u-text-center faq-information">
+                                {{ collection.faq_information.faq_info }}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+    
+        {% if is_nl != true and is_en_uk != true and is_en != true %}
+             {% include "parts/collection.twig" with { posts : collection.types, gridSize: 'u-1of1--sm u-1of2--lg', cardType: 'faq-taxonomy', gridCellClass: 'u-min-width' } %}
+        {% endif %}
+    {% if is_nl != true and is_en_uk != true and is_en != true  %}
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block related %}
+    {% include "parts/faq/cta.twig" with { title: collection.contact.long, description: collection.contact.description, social_icons: collection.contact.icons  } %}
+{% endblock %}

@@ -1,0 +1,16 @@
+{% if cta.title and cta.intro and cta.image %}
+    <div class="u-bg-tertiary-light u-margin-rhythm-base u-padding-base">
+        <div class="o-grid o-grid--with-gutter u-1of2--md u-margin-rhythm-base">
+            <div class="o-grid__cell">
+                <h1 class="u-text-bold u-text-size-mega">{{ cta.title }}</h1>
+                {{ cta.intro }}
+                {% if cta.show_button %}
+                    {% include "parts/button.twig" with { button : cta.button} %}
+                {% endif %}
+            </div>
+            <div class="o-grid__cell">
+                {{ rokit_get_image(cta.image, 'cta') }}
+            </div>
+        </div>
+    </div>
+{% endif %}

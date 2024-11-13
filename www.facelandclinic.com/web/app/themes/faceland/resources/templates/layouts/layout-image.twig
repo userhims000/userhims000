@@ -1,0 +1,30 @@
+{% if post.offer_post_type == "offer" %}
+    <div class="o-contain o-contain-padding">
+        {% include "parts/action-list.twig" with { list : post.action_list } %}
+    </div>
+{% endif %}
+{% if layout.image %}
+    {% set imageSize = campaign ? 'campaign-image' : 'module-image' %}
+    {% set is_mobile = is_mobile == true ? 'treatment-mobile-image' : 'module-image' %}
+
+    <figure class="c-figure {{ is_mobile }} {{ post.offer_post_type }} {{ layout.do_you_want_to_show_image_on_right_place == true ? 'blog-image-right-place' : '' }} ">
+        {% if layout.image_title %}
+            <h2 class="image-section-title">{{layout.image_title}}</h2>
+        {% endif %}
+        {% if post.offer_post_type == "treatment" or post.offer_post_type == "blog_article" %}
+            {{ rokit_get_image(layout.image, 'auto', layout.caption) }}
+        {% else %}
+            {{ rokit_get_image(layout.image, imageSize, layout.caption) }}
+        {% endif %}    
+        {% if campaign %}
+            {% if layout.show_mask %}
+                {% include "parts/mask.twig" with { classes : 'c-mask--campaign' } %}
+            {% endif %}
+        {% else %}
+            {% if layout.caption %}
+                <figcaption class="u-text-size-epsilon u-text-color-gray-dark js-animation-element a-fade-in">{{ layout.caption }}</figcaption>
+            {% endif %}
+        {% endif %}
+
+    </figure>
+{% endif %}

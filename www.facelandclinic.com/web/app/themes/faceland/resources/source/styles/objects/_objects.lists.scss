@@ -1,0 +1,25 @@
+/*----------------------------------------------------------------------------*\
+    #OBJECTS LISTS
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Plain list (no bullets, etc.).
+ */
+
+.o-list-plain {
+
+    li {
+        padding-left: 0;
+
+        &::before {
+            display: none;
+        }
+    }
+}
+
+.o-list-inline {
+
+    li {
+        display: inline-block;
+    }
+}

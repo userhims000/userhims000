@@ -1,0 +1,12 @@
+{% if layout|length > 0 and ( layout.title or layout.description or layout.label) %}
+    <div class="c-intro--column treatment-finder-section" style="background-image: linear-gradient( rgb(255 255 255 / 72%), rgb(255 255 255 / 72%) ), url('{{ layout.image }}'); ">
+        <div class="u-text-center">
+            <h2 class="u-text-bold section-title">{{ layout.title }}</h2>
+            <p class="u-text-size-alpha u-text-color-gray section-description">{{ layout.description }}</p>
+            {% if layout.label %}
+                {% set external = layout.external ? ' rel="external" data-router-disabled' %}
+                <a href="{{ layout.url }}" {{ external }} title="{{ layout.label }}" class="c-btn u-text-medium f-bg-primary-bg cta-button ">{{ layout.label }}</a>
+            {% endif %}
+        </div> 
+    </div>
+{% endif %}

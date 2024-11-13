@@ -1,0 +1,20 @@
+{% if pagination.prev or pagination.next %}
+    <div class="u-flex u-flex-center-x">
+        <div class="c-pagination u-text-size-zeta u-flex-sm u-flex-center-y u-text-color-gray-darker">
+            {% if pagination.prev %}
+                <a href="{{ pagination.prev.link }}" class="o-link c-pagination__item c-link--arrow-inline c-link--arrow-small c-link--arrow-prev {{ pagination.prev.link|length ? '' : 'is-hidden' }}">Prev</a>
+            {% endif %}
+            {% for page in pagination.pages %}
+                {% set activeClass = page.current ? 'is-active' %}
+                {% if page.link %}
+                    <a href="{{ page.link }}" class="c-pagination__item {{ activeClass }} {{ page.class }}">{{ page.title }}</a>
+                {% else %}
+                    <span class="c-pagination__item {{ activeClass }} {{ page.class }}">{{ page.title }}</span>
+                {% endif %}
+            {% endfor %}
+            {% if pagination.next %}
+                <a href="{{ pagination.next.link }}" class="o-link c-pagination__item c-link--arrow-inline c-link--arrow-small c-link--arrow-next {{ pagination.next.link|length ? '' : 'is-hidden' }}">Next</a>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

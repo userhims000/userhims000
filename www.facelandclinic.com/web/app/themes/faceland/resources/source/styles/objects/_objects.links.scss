@@ -1,0 +1,22 @@
+/*----------------------------------------------------------------------------*\
+    #OBJECTS LINKS
+\*----------------------------------------------------------------------------*/
+
+.o-link {
+    position: relative;
+    transition: color .24s ease-out;
+    color: $color-gray;
+    text-decoration: underline;
+
+    // &:visited { color: $color-gray-light; }
+
+    // &:hover,
+    // &:focus { color: $color-gray-dark; }
+
+    // &:active { color: $color-gray-light; }
+}
+
+.o-link--active {
+    color: $color-primary;
+    font-weight: 700;
+}

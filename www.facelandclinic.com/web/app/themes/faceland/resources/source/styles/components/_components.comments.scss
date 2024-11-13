@@ -1,0 +1,60 @@
+.c-comments {
+    @include contain-margin(auto);
+    @include rhythm-padding(1.5, 3);
+    max-width: rhythm(25.375);
+
+    > .c-form {
+        margin-bottom: rhythm(3);
+    }
+
+    .c-form__fieldset {
+        @include last-child {
+            margin-top: rhythm(1.25);
+        }
+    }
+
+    @include breakpoint(large) {
+        @include rhythm-padding(2, 4);
+
+        > .c-form {
+            margin-bottom: rhythm(4);
+        }
+    }
+}
+
+.c-comment {
+    padding: rhythm(1.25);
+    border: 1px solid $color-gray-lighter;
+    border-radius: 6px;
+    background-color: $color-white;
+    box-shadow: 0 9px 54px 0 rgba($color-black, .05);
+
+    & + & {
+        margin-top: rhythm(.75);
+    }
+}
+
+.c-comment--reply {
+    width: calc(100% - 23px);
+    margin-left: auto;
+}
+
+.c-comment__content {
+    margin-top: rhythm(.5);
+
+    a {
+        text-decoration: underline;
+    }
+
+    strong {
+        font-weight: 700;
+    }
+}
+
+.c-comment__footer {
+    margin-top: rhythm(.5);
+
+    span + .c-link--button {
+        margin-left: rhythm(.25);
+    }
+}

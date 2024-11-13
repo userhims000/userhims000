@@ -1,0 +1,30 @@
+<div class="o-grid__cell">
+    <ul class="o-list-plain c-footer__list">
+        <li>
+            <p class="c-footer__list-heading u-text-bold">{{ pll__('Socials') }}</p>
+        </li>
+    </ul>
+    <ul class="c-socials u-text-color-gray-darker u-text-size-epsilon">
+        {% if socials.facebook.url and socials.facebook.show_url_worldwide == true %}
+            <li class="c-socials__item c-socials__item--facebook c-footer__list-item"><a href="{{ socials.facebook.url }}" rel="external"  data-router-disabled title="{{ pll__('Facebook') }}">{{ pll__('Facebook') }}</a></li>
+        {% endif %}
+        {% if socials.instagram.url and socials.instagram.show_url_worldwide == true %}
+            <li class="c-socials__item c-socials__item--instagram c-footer__list-item"><a href="{{ socials.instagram.url }}" rel="external"  data-router-disabled title="{{ pll__('Instagram') }}">{{ pll__('Instagram') }}</a></li>
+        {% endif %}
+        {% if socials.youtube.url and socials.youtube.show_url_worldwide == true %}
+            <li class="c-socials__item c-socials__item--youtube c-footer__list-item"><a href="{{ socials.youtube.url }}" rel="external"  data-router-disabled title="{{ pll__('Youtube') }}">{{ pll__('Youtube') }}</a></li>
+        {% endif %}
+        {% if socials.pinterest.url and socials.pinterest.show_url_worldwide == true %}
+            <li class="c-socials__item c-socials__item--pinterest c-footer__list-item"><a href="{{ socials.pinterest.url }}" rel="external"  data-router-disabled title="{{ pll__('Pinterest') }}">{{ pll__('Pinterest') }}</a></li>
+        {% endif %}
+        {% if socials.linkedin.url and socials.linkedin.show_url_worldwide == true %}
+            <li class="c-socials__item c-socials__item--linkedin c-footer__list-item"><a href="{{ socials.linkedin.url }}" rel="external"  data-router-disabled title="{{ pll__('LinkedIn') }}">{{ pll__('LinkedIn') }}</a></li>
+        {% endif %}
+        {% if socials.tiktok.url and socials.tiktok.show_url_worldwide == true %}
+            <li class="c-socials__item c-socials__item--tiktok c-tiktok c-footer__list-item"><a href="{{ socials.tiktok.url }}" rel="external"  data-router-disabled title="{{ pll__('Tik Tok') }}">{{ pll__('Tik Tok') }}</a></li>
+        {% endif %}
+        {% if socials.facebook_group.url and socials.facebook_group.show_url_worldwide == true %}
+            <li class="c-socials__item c-socials__item--facebook c-footer__list-item"><a href="{{ socials.facebook_group.url }}" rel="external"  data-router-disabled title="{{ pll__('Facebook Group') }}">{{ pll__('Facebook Group') }}</a></li>
+        {% endif %}
+    </ul>
+</div>

@@ -1,0 +1,21 @@
+<div class="modal__wrapper">
+    <div id="{{modal.featherlight}}">
+
+        {% if modalkey == 'whatsapp' %}
+            <h2 class='u-text-size-beta u-text-bold'>{{pll__('Whatsapp ons')}}</h2>
+        {% endif %}
+
+        {% for item in modal.popup %}
+            <h3 class='u-text-size-delta u-text-bold'>{{item.title}}</h3>
+            {{item.intro}}
+        {% endfor %}
+
+        {% if modalkey == 'email' and modal.formid %}
+            <script type="text/javascript">
+                var ss_form={account:"MzawMDE3MzMxBwA",formID:"{{modal.formid}}",width:"100%",height:"auto",domain:"app-3QNJIEKQ16.marketingautomation.services"};
+            </script>
+            <script type="text/javascript" src="https://koi-3QNJIEKQ16.marketingautomation.services/client/form.js?ver=2.0.1"></script>
+        {% endif %}
+
+    </div>
+</div>

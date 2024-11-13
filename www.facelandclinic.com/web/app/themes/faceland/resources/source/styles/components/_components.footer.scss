@@ -1,0 +1,91 @@
+/*----------------------------------------------------------------------------*\
+    #COMPONENTS FOOTER
+\*----------------------------------------------------------------------------*/
+
+.c-footer-image {
+    @include rhythm-padding(.875);
+    display: none;
+}
+
+.c-footer {
+    @include rhythm-padding(2.25, 2);
+
+    .c-content + & {
+        padding-top: 0;
+    }
+
+    @include breakpoint(large) {
+        @include rhythm-padding(4.25, 4);
+
+        .c-content + & {
+            padding-top: 0;
+        }
+    }
+}
+
+.c-footer--bordered {
+    margin-top: rhythm(3);
+    border-top: 1px solid $color-gray-lighter;
+}
+
+.c-footer-sub {
+    @include rhythm-padding(.375);
+}
+
+.c-footer__list {
+    margin-bottom: rhythm(1);
+
+    @include breakpoint(large) {
+        margin-bottom: 0;
+    }
+}
+
+.c-footer__list-heading {
+    margin-bottom: rhythm(.5);
+}
+
+.c-footer__list-item {
+
+    & + & {
+        margin-top: rhythm(.375);
+    }
+
+    .c-btn {
+        margin-top: rhythm(.75);
+    }
+}
+
+.c-footer__shop-usps {
+    @include rhythm-padding(.5);
+    @include contain-padding();
+    margin-bottom: rhythm(3);
+    border-top: 1px solid $color-gray-lighter;
+    border-bottom: 1px solid $color-gray-lighter;
+
+    div + div {
+        margin-top: rhythm(1);
+    }
+
+    .c-icon--shipping,
+    .c-icon--box {
+        margin-right: rhythm(.5);
+    }
+
+    @include breakpoint(medium) {
+        @include contain-padding(0);
+
+        div + div {
+            margin-top: 0;
+            margin-left: rhythm(1);
+        }
+    }
+}
+
+.c-footer__payment-method {
+    @include rhythm-padding(.5);
+    border-top: 1px solid $color-gray-lighter;
+
+    img {
+        @include contain-margin(rhythm(.5));
+    }
+}

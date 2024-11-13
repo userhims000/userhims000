@@ -1,0 +1,48 @@
+{
+    "key": "group_5d78b169294dc",
+    "title": "Album : Panorama",
+    "fields": [
+        {
+            "key": "field_5d78b173b1058",
+            "label": "Panorama",
+            "name": "ba_album",
+            "type": "clone",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "clone": [
+                "field_5d43f1c82df36",
+                "field_5d1daa43da20b",
+                "field_5d1daa43da223",
+                "field_5d1daa43da218"
+            ],
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "ba_album"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "modified": 1705493440
+}

@@ -1,0 +1,57 @@
+{% extends "base/base.twig" %}
+{% set collection = taxonomy.collection ? taxonomy.collection : collection %}
+
+{% block panorama %}
+    {% if collection.is_overview %}
+        {% include 'parts/panorama-default.twig' with { panorama : collection.news_overview.panorama } %}
+    {% elseif collection.is_tag %}
+        {% include 'parts/panorama-default.twig' with { panorama : collection.tag.panorama } %}
+    {% else %}
+        {% include 'parts/panorama-buttons.twig' with { panorama : { title : collection.headers.title,  subtitle : collection.headers.intro }, filter : collection.filter  } %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if collection.is_overview %}
+
+        <div class="o-contain o-contain-padding">
+            {% if collection.news_overview.blog.posts|length > 0 %}
+                {# BLOG CARDS #}
+                {% include "parts/titles.twig" with { titles : collection.news_overview.blog.titles, center : true } %}
+                {% include "parts/collection.twig" with { posts :  collection.news_overview.blog.posts, gridSize: 'u-1of1--sm u-1of2--md u-1of3--lg', cardType: 'article' } %}
+                {% include "parts/loadmore.twig" with { button : collection.news_overview.blog.button } %}
+            {% endif %}
+
+            {% if collection.news_overview.article.posts|length > 0 %}
+                {# UPDATE CARDS #}
+                {% include "parts/titles.twig" with { titles : collection.news_overview.article.titles, center : true } %}
+                {% include "parts/collection.twig" with { posts :  collection.news_overview.article.posts, gridSize: 'u-1of1--sm u-1of2--md u-1of3--lg', cardType: 'article' } %}
+                {% include "parts/loadmore.twig" with { button : collection.news_overview.article.button } %}
+            {% endif %}
+
+            {% if collection.news_overview.video.posts|length > 0 %}
+                {# VIDEO SLIDER #}
+                <div class="c-video-slider-wrapper">
+                    {% include "parts/titles-media.twig" with { titles: collection.news_overview.video.titles }%}
+                    {% include "parts/video-slider.twig" with { videos : collection.news_overview.video.posts } %}
+                    {% include "parts/loadmore.twig" with { button : collection.news_overview.video.button } %}
+                </div>
+            {% endif %}
+        </div>
+
+    {% else %}
+
+        {% set posts = collection.is_tag ? collection.tag.items : collection.items  %}
+        <div class="o-contain o-contain-padding js-filter-container">
+            <div class="js-filter-items">
+                {% include "parts/collection.twig" with { posts : posts, cardType: 'article', gridSize : 'u-1of1--sm u-1of2--md u-1of3--lg' } %}
+            </div>
+        </div>
+
+    {% endif %}
+
+{% endblock %}
+
+{% block related %}
+    {% include "parts/cta-newsletter.twig" with { cta : collection.is_overview  ?  collection.news_overview.cta : collection.cta } %}
+{% endblock %}

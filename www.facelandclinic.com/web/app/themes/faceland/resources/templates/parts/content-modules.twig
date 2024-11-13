@@ -1,0 +1,3 @@
+{% for layout in post.content_modules %}
+	{% include ['layouts/layout-' ~ layout.acf_fc_layout ~ '.twig', 'layouts/layout-default.twig'] %}
+{% endfor %}

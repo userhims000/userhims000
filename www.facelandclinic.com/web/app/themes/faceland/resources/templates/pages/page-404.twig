@@ -1,0 +1,42 @@
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+	<div class="o-panorama c-panorama--background u-bg-gray-lightest c-panorama--mask">
+
+		<div class="o-panorama__content u-text-center">
+			<div class="o-contain o-contain-padding">
+				<h1 class="c-panorama__heading u-text-bold u-text-size-tera js-animation-element a-fade-in a-inview">{{post.title}}</h1>
+				{% if post.image %}
+					<div class="title-subtitle-image">
+						<img src="{{ post.image }}" alt="404-page-image">
+					</div>
+				{% endif %}
+				<p class="c-panorama__text u-text-size-mega u-text-color-gray-dark js-animation-element a-fade-in a-inview">{{ post.subtitle }}</p>
+			</div>
+		</div>
+
+		{% include "parts/mask.twig" with { classes : 'c-mask--white' } %}
+    </div>
+{% endblock %}
+
+{% block content %}
+<pre>{{ dump(post) }}</pre>
+    <div class="o-contain o-contain-padding">
+        <article class="c-copy u-text-center">
+			<p>{{ post.text }}</p>
+			{% if post.show_search_btn == true %}
+			<div class="fournotfour-search-form">
+				<form role="search" method="get" class="o-form c-form--search js-search-form" id="searchform" action="{{ fn('pll_home_url') }}" autocomplete="off">
+				    <div class="c-form__item--search u-text-size-epsilon">
+				        <input class="o-form__input o-form__input--full c-form__input--search js-search-input" type="search" name="s" id="s" value="{{ query }}" {{focus}} placeholder="{{ post.search_btn_placeholder ?   pll__(post.search_btn_placeholder) : pll__('Type hier je zoekopdracht…') }}">
+				        <input type="hidden" name="lang" value="{{current_lang}}" />
+				        <button type="submit" class="c-form__submit c-form__submit--search"></button>
+				        <button class="c-icon c-icon--close js-clean-search">{{ pll__('Verwijder zoekopdracht') }}</button>
+				    </div>
+				</form>
+			</div>
+			{% endif %}
+        </article>
+    </div>
+
+{% endblock %}

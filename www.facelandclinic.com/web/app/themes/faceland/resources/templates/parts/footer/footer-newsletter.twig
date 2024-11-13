@@ -1,0 +1,14 @@
+<div class="o-grid__cell">
+    <ul class="o-list-plain c-footer__list">
+        <li>
+            <h4 class="c-footer__list-heading u-text-bold">{{pll__('Meld je nu aan')}}</h4>
+        </li>
+
+        <li class="c-footer__list-item {{class}}">
+            <p class="u-text-size-epsilon u-text-color-gray-dark">{{pll__('Meld je aan op de nieuwsbrief en blijf op de hoogte van acties en nieuwe producten')}}</p> 
+            {% if newsletter.show_newsletter_form.show_webshop == true %}        
+                <a class="c-btn c-btn--gray-darker u-text-size-zeta u-bg-gray-darker u-text-bold js-modal-newsletter-trigger" href="#" title="{{pll__('Aanmelden')}}">{{pll__('Aanmelden')}}</a>
+            {% endif %}
+        </li>
+    </ul>
+</div>

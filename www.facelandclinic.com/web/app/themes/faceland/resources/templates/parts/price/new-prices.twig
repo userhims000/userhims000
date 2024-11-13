@@ -1,0 +1,1288 @@
+{% set showCurrency = areaMapImageWithTreatments.show_currency %}
+{% set youSavedText = areaMapImageWithTreatments.you_saved_text %}
+
+<article class="c-copy mt-0 p-0 mt-20 mt-lg-56">
+    <section class="mt-20 mt-lg-72 mb-20 mb-lg-72">
+      <div class="o-contain o-contain-padding treatment-title-content new-price-layout">
+        <div class="pb-0">
+          <div class="price-tab-top-content {{ is_mobile == true ? 'remove-border' : '' }}  border border-4 border-pink rounded py-lg-32 px-lg-48">
+            <div class="title u-text-bold u-text-center p-0 mb-24 d-none d-lg-block">
+              <h2>{{ page_section_title }}</h2>
+            </div>
+            <div class="price-tab-menu">
+              <!-- Price tab menu main start -->
+              {# <ul class="price-tab-menu-main d-none d-lg-flex">
+                <li><a href="#" title="Fillers" data-target=".fillers" class="active">Fillers</a></li>
+                <li><a href="#" title="Muscle Relaxants" data-target=".muscle-relaxants">Muscle Relaxants</a></li>
+                <li><a href="#" title="Surgery" data-target=".surgery">Surgery</a></li>
+              </ul> #}
+
+              {% if is_mobile != true %}
+                {% if filter.options|length > 0 %}
+                    <ul class="price-tab-menu-main d-none d-lg-flex">
+                        {% if filter.all %}
+                            <li><a class="{{filter.active ? 'active clicked'}}" href="{{ filter.all.url }}" title="{{filter.all.name}}" data-target=".{{filter.all.name|lower}}">{{filter.all.name}}</a></li>
+                        {% endif %}
+                        {% if filter.christmas_price_types|length > 0 %}
+                            {% for key, filter in filter.christmas_price_types %}
+                                <li><a href="{{filter.link}}" title="{{filter.name}}" data-target=".{{filter.name|lower|replace({' ': '_'})}}" class="{{filter.active ? 'active clicked'}}">{{filter.name}}</a></li>
+                            {% endfor %}
+                        {% else %}
+                            {% for key, filter in filter.options %}
+                                <li><a href="{{filter.link}}" title="{{filter.name}}" data-target=".{{filter.name|lower|replace({' ': '_'})}}}}" class="{{filter.active ? 'active clicked'}}">{{filter.name}}</a></li>
+                            {% endfor %}
+                        {% endif %}    
+                    </ul>
+                {% endif %}
+              {% endif %}
+              <!-- Price tab sub menu main start -->
+              <ul class="price-tab-menu-sub">
+                <li><a href="javascript:;" title="Face" data-sub-target="Face" class="active">Face</a></li>
+                <li><a href="javascript:;" title="Body" data-sub-target="Body">Body</a></li>
+              </ul>
+            </div>
+            <div class="price-tab-main-content mt-32 mt-lg-0">
+
+              {# <pre>{{ dump(areaMapImageWithTreatments) }}</pre> #}
+
+              <!-- Fillers tab main start -->
+              <div class="price-tab-content active {{ areaMapImageWithTreatments.current_price_type_name }}">
+                <!-- Fillers for Face content start -->
+                <div class="price-tab-sub-content" data-sub-content="Face">
+                  <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of1--md u-1of2--lg mb-n-20">
+                    <div class="o-grid__cell price-tab-left-call mt-0 mb-20">
+                        {% if areaMapImageWithTreatments.face_image or areaMapImageWithTreatments.face_list_treatments|length > 0 %}
+                          <div class="price-tab-image">
+                              {% if areaMapImageWithTreatments.face_image %}
+                                <img src="{{ areaMapImageWithTreatments.face_image }}" loading="lazy" alt="fillers-face" width="532"
+                              height="559" />
+                              {% endif %}
+                            {% for faceListTreatments in areaMapImageWithTreatments.face_list_treatments %}
+                              <a href="#{{ 'face_' ~ faceListTreatments.list_of_treatments[0].post_title|lower|replace({' ': '_'}) }}" class="price-image-clickable" title="{{ faceListTreatments.list_of_treatments[0].post_title }} "
+                                style="left: {{ faceListTreatments.clickable_number_style_left_position }}%; top: {{ faceListTreatments.clickable_number_style_top_position }}%">{{ loop.index }}</a>
+                            {% endfor %}
+                          </div>
+                        {% endif %}
+                    </div>
+                    <!-- for desktop view  -->
+                    <div class="o-grid__cell price-tab-right-call mt-0 mb-20">
+                      {% if areaMapImageWithTreatments.face_list_treatments|length > 0 %}
+                        <div class="treatment-lists">
+                            <ul>
+                              {% for faceListTreatments in areaMapImageWithTreatments.face_list_treatments %}
+                                <li><a href="#{{ 'face_' ~ faceListTreatments.list_of_treatments[0].post_title|lower|replace({' ': '_'}) }}" title="{{ faceListTreatments.list_of_treatments[0].post_title }}">
+                                  {{ faceListTreatments.list_of_treatments[0].post_title }}
+                                </a></li>
+                              {% endfor %}
+                            </ul>
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <!-- Fillers for Body content start -->
+                <div class="price-tab-sub-content" data-sub-content="Body">
+                  <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of1--md u-1of2--lg mb-n-20">
+                    <div class="o-grid__cell price-tab-left-call mt-0 mb-20">
+                      {% if areaMapImageWithTreatments.body_image or areaMapImageWithTreatments.body_list_treatments|length > 0 %}
+                        <div class="price-tab-image">
+                          {% if areaMapImageWithTreatments.body_image %}
+                            <img src="{{ areaMapImageWithTreatments.body_image }}" loading="lazy" alt="Body" width="574"
+                          height="600" />
+                          {% endif %}
+                          {% for bodyListTreatments in areaMapImageWithTreatments.body_list_treatments %}
+                            <a href="#{{ 'body_' ~ bodyListTreatments.body_list_of_treatments[0].post_title|lower|replace({' ': '_'}) }}" class="price-image-clickable" title="{{ bodyListTreatments.body_list_of_treatments[0].post_title }} "
+                              style="left: {{ bodyListTreatments.body_clickable_number_style_left_position }}%; top: {{ bodyListTreatments.body_clickable_number_style_top_position }}%">{{ loop.index }}</a>
+                          {% endfor %}
+                        </div>
+                      {% endif %}
+                    </div>
+                    <div class="o-grid__cell price-tab-right-call mt-0 mb-20">
+                      {% if areaMapImageWithTreatments.body_list_treatments|length > 0 %}
+                        <div class="treatment-lists">
+                          <ul>
+                            {% for bodyListTreatments in areaMapImageWithTreatments.body_list_treatments %}
+                              {% for treatmentList in bodyListTreatments.body_list_of_treatments %}
+                                  <li><a href="#{{ 'body_' ~ treatmentList.post_title|lower|replace({' ': '_'}) }}" title="{{ treatmentList[0].post_title }}">
+                                  {{ treatmentList.post_title }}
+                                  </a></li>
+                              {% endfor %}
+                            {% endfor %}
+                          </ul>
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="price-tab-bottom-content f-bg-primary-bg mt-40 p-12 pt-20 px-lg-28 py-lg-32">
+            {% if areaMapImageWithTreatments.price_page_label %}
+              <h2 class="price-tab-title d-lg-none">{{ areaMapImageWithTreatments.price_page_label }}</h2>
+            {% endif %}
+            <div class="price-tab-main-content">
+              
+              <!-- Fillers tab main start -->
+              <div class="price-tab-content active {{ areaMapImageWithTreatments.current_price_type_name }}">
+                <!-- Fillers for Face sub content start -->
+                <div class="price-tab-sub-content" data-sub-content="Face">
+                  {% if areaMapImageWithTreatments.face_clinic_deals_toggle == true %}
+                    <!-- What is a Clinic Deal? block -->
+                    <div class="clinic-deal">
+                      <div class="clinic-deal-inner d-flex">
+                        <div class="clinic-deal-col clinic-deal-col-left">
+                          <div class="clinic-deal-img">
+                            <picture>
+                              <source srcset="{{ areaMapImageWithTreatments.face_clinic_deal_image_mobile }}" media="(max-width:1023px)"
+                                loading="lazy" alt="CD" width="30" height="30">
+                              <img src="{{ areaMapImageWithTreatments.face_clinic_deal_image  }}" loading="lazy" alt="CD" width="110"
+                                height="110" />
+                            </picture>
+                          </div>
+                        </div>
+                        <div class="clinic-deal-col clinic-deal-col-right">
+                          <div class="clinic-deal-title">
+                            <h2>{{ areaMapImageWithTreatments.face_clinic_deal_label }}</h2>
+                          </div>
+                          <!-- clinic-deal for desktop -->
+                          <div class="clinic-deal-dec d-none d-lg-block">
+                            {{ areaMapImageWithTreatments.face_clinic_deal_description }}
+                          </div>
+                        </div>
+                        <!-- clinic-deal for mobile arrow -->
+                        <span class="clinic-deal-arrow d-lg-none"><i class="arrow down"></i></span>
+                      </div>
+                      <!-- clinic-deal for mobile -->
+                      <div class="clinic-deal-body d-lg-none">
+                        <div class="clinic-deal-dec">
+                          {{ areaMapImageWithTreatments.face_clinic_deal_description }}
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+
+                  {% if areaMapImageWithTreatments.face_show_combination == true %}
+                    <!-- Combinations block -->
+                    <div class="combinations-accordion mb-24">
+                      <div class="combinations-header">
+                        <div class="combinations-header-content">
+                          <div class="combinations-col combinations-col-left">
+                            <div class="combinations-image">
+                              <picture>
+                                <source srcset="/assets/images/combinations-mobile.svg" media="(max-width:1023px)"
+                                  loading="lazy" alt="Body" width="46" height="46">
+                                <img src="/assets/images/combinations-desktop.svg" loading="lazy" alt="Body"
+                                  width="125" height="125" />
+                              </picture>
+                            </div>
+                          </div>
+                          <div class="combinations-col combinations-col-right">
+                            {% if areaMapImageWithTreatments.combination_section_label  %}
+                              <h3 class="combinations-title">{{ areaMapImageWithTreatments.combination_section_label }}</h3>
+                            {% endif %}
+                            {% if areaMapImageWithTreatments.combination_section_description  %}
+                              <div class="combinations-short-dec">
+                                <p>{{ areaMapImageWithTreatments.combination_section_description }}</p>
+                              </div>
+                            {% endif %}
+                          </div>
+                        </div>
+                        <span class="combinations-arrow"><i class="arrow down"></i></span>
+                      </div>
+
+                      <div class="combinations-body">
+                        <div class="pt-12">
+                          <div class="combinations-table">
+                            <table>
+                              <tbody>
+                                {% for combinationInformation in areaMapImageWithTreatments.combination_information %}
+                                  <tr>
+                                    <td>
+                                      <p>{{ combinationInformation.combination_price_label }}</p>
+                                    </td>
+                                    <td class="u-text-medium">
+                                      <p><span
+                                          class="discounted-price d-inline-block pr-16"><s> {{ showCurrency == true ? combinationInformation.price_currency : "" }}&nbsp;{{combinationInformation.combination_main_price }},-</s></span><span
+                                          class="spacial-price d-inline-block">{{ showCurrency == true ? combinationInformation.price_currency : "" }}&nbsp;{{ combinationInformation.combination_discount_price }},-</span></p>
+                                      <p><span class="you-saved-text 4 d-inline-block">{{ combinationInformation.combination_you_saved_text }} {{ showCurrency == true ? combinationInformation.price_currency : "" }}&nbsp;{{ ( combinationInformation.combination_main_price - combinationInformation.combination_discount_price ) }},-</span></p>
+                                    </td>
+                                  </tr>
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                  {% if is_mobile == true %}
+                    <!-- Price deal card for mobile -->
+                    <div class="price-deal-cards d-lg-none">
+                    {% for fetchedTreatmentInfo in areaMapImageWithTreatments.show_treatments_with_prices %}
+                      <div class="price-deal-card">
+                        <a class="price-deal-card-box" href="#{{ 'face_' ~ fetchedTreatmentInfo.treatment_title|lower|replace({' ': '_'}) }}">
+                          {% if fetchedTreatmentInfo.treatment_price_image_desktop  %}
+                            <div class="price-deal-card-box-col">
+                              <div class="price-deal-card-image">
+                                <img src="{{ fetchedTreatmentInfo.treatment_price_image_desktop }}" loading="lazy" alt="{{ fetchedTreatmentInfo.treatment_title }}"
+                                  width="100" height="100">
+                              </div>
+                            </div>
+                          {% endif %}
+                          <div class="price-deal-card-box-col">
+                            
+                            {% if fetchedTreatmentInfo.show_advance_treatment == true %}
+                              <span class="price-nudge mb-12">{{ areaMapImageWithTreatments.price_page_advance_label_text }}</span>
+                            {% endif %}
+
+                            <div class="price-deal-card-title">
+                              {% if fetchedTreatmentInfo.treatment_title %}
+                                <h3>{{ fetchedTreatmentInfo.treatment_title }}</h3>
+                              {% endif %}
+                              {% if fetchedTreatmentInfo.show_treatment_price_clinic_deals == true and areaMapImageWithTreatments.face_clinic_deals_toggle == true  %}
+                                <span class="cd-small-image">
+                                  <img src="/assets/images/cd-logo-small.svg" alt="CD" loading="lazy" width="35" height="35">
+                                </span>
+                              {% endif %}
+                            </div>
+                            {% if fetchedTreatmentInfo.treatment_overwrite_price_label %}
+                              <div class="special-price mt-12">
+                                {% if showCurrency == true %}
+                                <p>{{ fetchedTreatmentInfo.treatment_overwrite_price_label }}</p>
+                                {% else %}
+                                <p>{{ fetchedTreatmentInfo.treatment_overwrite_price_label|replace({'€': '', '£': '', '$': ''}) }}</p>
+                                {% endif %}
+                              </div>
+                            {% endif %}
+                          </div>
+                        </a>
+                        <div class="price-deal-modal" id="{{ 'face_' ~ fetchedTreatmentInfo.treatment_title|lower|replace({' ': '_'}) }}">
+                          <button class="price-deal-modal-close">
+                            <img src="/assets/images/modal-close.svg" loading="lazy" alt="Close" width="26.66"
+                              height="26.66">
+                          </button>
+
+                          <div class="price-deal-modal-body">
+                            {% if fetchedTreatmentInfo.treatment_price_image_desktop  %}
+                              <div class="price-deal-modal-img">
+                                <img src="{{ fetchedTreatmentInfo.treatment_price_image_desktop }}" loading="lazy" alt="{{ fetchedTreatmentInfo.treatment_title }}"
+                                  width="106" height="106">
+                              </div>
+                            {% endif %}
+
+                            <div class="price-modal-contener">
+                              {% if fetchedTreatmentInfo.treatment_title %}
+                                <div class="price-modal-title u-text-center mb-24">
+                                  <h3>{{ fetchedTreatmentInfo.treatment_title }}</h3>
+                                </div>
+                              {% endif %}
+                              {# <div class="price-symbole">
+                                  <select>
+                                    <option value="euro" selected>Euro</option>
+                                    <option value="pound">Pound</option>
+                                    <option value="dollar">Dollar</option>
+                                  </select>
+                              </div> #}
+                              <div class="treatment-timing-box px-20 py-12 mb-24">
+                                <div class="d-flex treatment-timing-box-inner">
+                                  <div class="treatment-timing w-50">
+                                    {% if fetchedTreatmentInfo.treatment_length %}
+                                      <div class="treatment-timing-cell"><span class="timing-ico"><img
+                                          src="/assets/images/watch-icon.svg" loading="lazy" alt="watch-icon" width="24"
+                                          height="24"></span>{{ fetchedTreatmentInfo.treatment_length }}</div>
+                                    {% endif %}
+
+                                    {% if fetchedTreatmentInfo.treatment_control %}
+                                      <div class="treatment-timing-cell"><span class="timing-ico"><img
+                                          src="/assets/images/bandage.svg" loading="lazy" alt="bandage-icon" width="24"
+                                          height="24"></span>{{ fetchedTreatmentInfo.treatment_control }}</div>
+                                    {% endif %}
+
+                                    {% if fetchedTreatmentInfo.treatment_effect %}
+                                      <div class="treatment-timing-cell"><span class="timing-ico"><img
+                                          src="/assets/images/effect.svg" loading="lazy" alt="effect-icon" width="24"
+                                          height="24"></span>{{ fetchedTreatmentInfo.treatment_effect }}</div>
+                                    {% endif %}
+                                  </div>
+                                  {% if fetchedTreatmentInfo.treatment_overwrite_price_label %}
+                                    <div class="treatment-modal-price align-self-center u-text-center w-50 pl-16">
+                                      {% if showCurrency == true %}
+                                      {{ fetchedTreatmentInfo.treatment_overwrite_price_label }}
+                                      {% else %}
+                                      {{ fetchedTreatmentInfo.treatment_overwrite_price_label|replace({'€': '', '£': '', '$': ''}) }}
+                                      {% endif %}
+                                    </div>
+                                  {% endif %}
+                                </div>
+                              </div>
+
+                              {% if fetchedTreatmentInfo.treatment_price_list_description %}
+                                <div class="price-modal-discription mb-24">
+                                    {{ fetchedTreatmentInfo.treatment_price_list_description }}
+                                </div>
+                              {% else %}
+                                  <p style="visibility:hidden">Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in</p>  
+                              {% endif %}
+
+                              <div class="btn-assets mt-12 mb-24">
+                                {% if fetchedTreatmentInfo.treatment_cta.label %}
+                                  {% set external = fetchedTreatmentInfo.treatment_cta.external ? ' rel="external" data-router-disabled' %}
+                                  <div class="btn-cell"><a href="{{ fetchedTreatmentInfo.treatment_cta.url }}"
+                                    class="c-btn u-text-medium c-btn--gray-darker c-btn-gradient u-text-size-epsilon"
+                                    title="{{ fetchedTreatmentInfo.treatment_cta.label }}" {{ external }}><span class="btn-content">{{ fetchedTreatmentInfo.treatment_cta.label }}</span></a></div>
+                                {% endif %}
+
+                                {% if fetchedTreatmentInfo.treatment_detail_page_link %}
+                                  <div class="btn-cell"><a href="{{ fetchedTreatmentInfo.treatment_detail_page_link }}"
+                                    class="c-btn c-btn--border c-btn--border-black u-text-medium c-btn--gray-darker u-text-size-epsilon"
+                                    title="{{ areaMapImageWithTreatments.price_page_view_treatment_label_text }}">{{ areaMapImageWithTreatments.price_page_view_treatment_label_text ? areaMapImageWithTreatments.price_page_view_treatment_label_text : 'View treatment page'  }}</a></div>
+                                {% endif %}    
+                              </div>
+
+                              <div class="treatment-price-list">
+                                {% set pricesInformation = areaMapImageWithTreatments.show_treatments_with_prices[fetchedTreatmentInfo.treatment_post_id].treatment_price_new_layout_information %}
+                                {% for key, pricesInfoDetails in pricesInformation %}
+                                  <h4 class="treatment-table-title">{{ key }}</h4>
+                                  <div class="treatment-table">
+                                    <table class="table">
+                                        <tbody>
+                                          {% for subPriceDetails in pricesInfoDetails  %}
+                                            <tr>
+                                                <td>{{ subPriceDetails.treatment_specification_volume }}
+                                                  {% if subPriceDetails.treatment_prices.show_euro_price_clinic_deal == true or subPriceDetails.treatment_prices.show_pound_price_clinic_deal == true or subPriceDetails.treatment_prices.show_doller_price_clinic_deal == true  %}
+                                                    <span class="cd-small-image">
+                                                      <img src="/assets/images/cd-logo-small.svg" alt="CD" loading="lazy"
+                                                        width="35" height="35">
+                                                    </span>
+                                                  {% endif %}
+                                                </td>
+                                                <td>{{ subPriceDetails.treatment_price_panorama_title }}
+                                                  {% if subPriceDetails.treatment_prices.show_euro_price_clinic_deal == true %}
+                                                    <span class="you-saved-text 5">
+                                                      {% set savedPrice = (subPriceDetails.treatment_prices.euro_behandelaar_prijs - subPriceDetails.treatment_prices.euro_behandelaar_prijs__discount) %}
+                                                      {{ youSavedText }} {{ savedPrice }} {{ showCurrency == true ? subPriceDetails.treatment_prices.euro_currency : "" }}
+                                                    </span>
+                                                  {% endif %}
+                                                  {% if subPriceDetails.treatment_prices.show_pound_price_clinic_deal == true %}
+                                                    <span class="you-saved-text 6">
+                                                      {% set savedPoundPrice = (subPriceDetails.treatment_prices.pound_behandelaar_prijs - subPriceDetails.treatment_prices.pound_behandelaar_prijs__discount) %}
+                                                      {{ youSavedText }} {{ savedPoundPrice }} {{ showCurrency == true ? subPriceDetails.treatment_prices.pound_price_currency : "" }}
+                                                    </span>
+                                                  {% endif %}
+                                                  {% if subPriceDetails.treatment_prices.show_doller_price_clinic_deal == true %}
+                                                    <span class="you-saved-text 7">
+                                                      {% set savedDollerPrice = (subPriceDetails.treatment_prices.doller_behandelaar_prijs - subPriceDetails.treatment_prices.doller_behandelaar_prijs_discount) %}
+                                                      {{ youSavedText }} {{ savedDollerPrice }} {{ showCurrency == true ? subPriceDetails.treatment_prices.doller_price_currency : ""}}
+                                                    </span>
+                                                  {% endif %}  
+                                                </td>
+                                                <td>
+                                                  {% if subPriceDetails.treatment_prices.euro_behandelaar_prijs %}
+                                                    <p class="discounted-price">{{ showCurrency == true ? subPriceDetails.treatment_prices.euro_currency : "" }} 
+                                                      {% if subPriceDetails.treatment_prices.euro_behandelaar_prijs_striketrough == true %}
+                                                        <s>{{ subPriceDetails.treatment_prices.euro_behandelaar_prijs }},-</s>
+                                                      {% else %}
+                                                        {{ subPriceDetails.treatment_prices.euro_behandelaar_prijs }},-
+                                                      {% endif %}
+                                                    </p>
+                                                  {% endif %}
+                                                  {% if subPriceDetails.treatment_prices.euro_behandelaar_prijs__discount %}
+                                                    <p class="spacial-price">
+                                                      {% if subPriceDetails.treatment_prices.euro_behandelaar_prijs_discount_striketrough == true %}
+                                                        <s>{{ showCurrency == true ? subPriceDetails.treatment_prices.euro_currency : "" }} 
+                                                        {{ subPriceDetails.treatment_prices.euro_behandelaar_prijs__discount }},-</s>
+                                                      {% else %}
+                                                        {{ showCurrency == true ? subPriceDetails.treatment_prices.euro_currency : "" }} 
+                                                        {{ subPriceDetails.treatment_prices.euro_behandelaar_prijs__discount }},-
+                                                      {% endif %}  
+                                                    </p>
+                                                  {% endif %}
+                                                  
+                                                  {% if subPriceDetails.treatment_prices.pound_behandelaar_prijs %}
+                                                    <p class="discounted-price"> {{ showCurrency == true ? subPriceDetails.treatment_prices.pound_price_currency : "" }}
+                                                      {% if subPriceDetails.treatment_prices.pound_behandelaar_prijs_striketrough == true %}
+                                                        <s>{{ subPriceDetails.treatment_prices.pound_behandelaar_prijs }},-</s>
+                                                      {% else %} 
+                                                        {{ subPriceDetails.treatment_prices.pound_behandelaar_prijs }},-
+                                                      {% endif %}
+                                                    </p>
+                                                  {% endif %}
+                                                  {% if subPriceDetails.treatment_prices.pound_behandelaar_prijs__discount %}
+                                                    <p class="spacial-price">{{ showCurrency == true ? subPriceDetails.treatment_prices.pound_price_currency : ""}}
+                                                      {% if subPriceDetails.treatment_prices.pound_behandelaar_prijs_discount_striketrough == true %}
+                                                        <s>{{ subPriceDetails.treatment_prices.pound_behandelaar_prijs__discount }},-</s>
+                                                      {% else %}
+                                                        {{ subPriceDetails.treatment_prices.pound_behandelaar_prijs__discount }},-
+                                                      {% endif %}
+                                                    </p>
+                                                  {% endif %}
+
+                                                  {% if subPriceDetails.treatment_prices.doller_behandelaar_prijs %}
+                                                    <p class="discounted-price">{{ showCurrency == true ? subPriceDetails.treatment_prices.doller_price_currency : "" }} 
+                                                      {% if subPriceDetails.treatment_prices.doller_behandelaar_prijs_striketrough == true %}
+                                                        <s>{{ subPriceDetails.treatment_prices.doller_behandelaar_prijs }},-</s>
+                                                      {% else %}
+                                                        {{ subPriceDetails.treatment_prices.doller_behandelaar_prijs }},-
+                                                      {% endif %}
+                                                    </p>
+                                                  {% endif %}
+                                                  {% if subPriceDetails.treatment_prices.doller_behandelaar_prijs_discount %}
+                                                    <p class="spacial-price">{{ showCurrency == true ? subPriceDetails.treatment_prices.doller_price_currency : ""}}
+                                                      {% if subPriceDetails.treatment_prices.doller_behandelaar_prijs_striketrough == true %}
+                                                        <s>{{ subPriceDetails.treatment_prices.doller_behandelaar_prijs_discount }},-</s>
+                                                      {% else %}
+                                                        {{ subPriceDetails.treatment_prices.doller_behandelaar_prijs_discount }},-
+                                                      {% endif %}  
+                                                    </p>
+                                                  {% endif %}
+                                                </td>
+                                              
+                                            </tr>
+                                          {% endfor %}
+                                        </tbody>
+                                    </table>
+                                  </div>
+                                {% endfor %}
+                              </div>
+                              <div class="u-text-center mt-24">
+                                <button
+                                  class="c-btn c-btn--border c-btn--border-black u-text-medium c-btn--gray-darker modal-back-btn">Back</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    {% endfor %}
+                    </div>
+                  {% endif %}
+
+
+                  {% if is_mobile != true %}
+                    <!-- Price deal accordion for desktop block -->
+                    <div class="price-deal-accordion d-none d-lg-block">
+    
+                      {% for fetchedTreatmentInfo in areaMapImageWithTreatments.show_treatments_with_prices %}
+                        <div class="price-accordion" id="{{ 'face_' ~ fetchedTreatmentInfo.treatment_title|lower|replace({' ': '_'}) }}">
+                          <div class="price-accordion-header">
+                            {% if fetchedTreatmentInfo.treatment_price_image_desktop  %}
+                            <div class="price-accordion-header-first">
+                              <div class="price-accordion-image">
+                                <img src="{{ fetchedTreatmentInfo.treatment_price_image_desktop }}" loading="lazy" alt="lips" width="135"
+                                  height="135" />
+                              </div>
+                            </div>
+                            {% endif %}
+                            <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of1--lg u-2of2--xl mb-n-24">
+                              <div class="o-grid__cell mt-0 mb-24 price-accordion-header-mid">
+                                <div class="price-accordion-title">
+                                  {% if fetchedTreatmentInfo.treatment_title %}
+                                    <h3>{{ fetchedTreatmentInfo.treatment_title }}</h3>
+                                  {% endif %}
+                                  {% if fetchedTreatmentInfo.show_treatment_price_clinic_deals == true and areaMapImageWithTreatments.face_clinic_deals_toggle == true  %}
+                                    <span class="cd-small-image">
+                                      <img src="/assets/images/cd-logo-small.svg" alt="CD" loading="lazy" alt="lips"
+                                        width="35" height="35" />
+                                    </span>
+                                  {% else %} 
+                                  {% endif %}
+                                  {% if fetchedTreatmentInfo.show_advance_treatment == true %}
+                                    <span class="price-nudge">{{ areaMapImageWithTreatments.price_page_advance_label_text }}</span>
+                                  {% endif %}
+                                </div>
+                                {% if fetchedTreatmentInfo.treatment_price_list_description %}
+                                  <div class="price-accordion-discription">
+                                      {{ fetchedTreatmentInfo.treatment_price_list_description }}
+                                  </div>
+                                {% else %}
+                                    <p style="visibility:hidden">Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in</p>  
+                                {% endif %}
+                                {% if fetchedTreatmentInfo.treatment_overwrite_price_label %}
+                                  <div class="special-price mt-12">
+                                    {% if showCurrency == true %}
+                                      <p>{{ fetchedTreatmentInfo.treatment_overwrite_price_label }}</p>
+                                    {% else %}
+                                      <p>{{ fetchedTreatmentInfo.treatment_overwrite_price_label|replace({'€': '', '£': '', '$': ''}) }}</p>
+                                    {% endif %}
+                                  </div>
+                                {% endif %}
+                              </div>
+                              <div class="o-grid__cell mt-0 mb-24 price-accordion-header-last">
+                                <div class="treatment-timing">
+                                  {% if fetchedTreatmentInfo.treatment_length %}
+                                    <div class="treatment-timing-cell"><span class="timing-ico"><img
+                                        src="/assets/images/watch-icon.svg" loading="lazy" alt="lips" width="24"
+                                        alt="" height="24" /></span>{{ fetchedTreatmentInfo.treatment_length }}</div>
+                                  {% endif %}
+                                  {% if fetchedTreatmentInfo.treatment_control %}
+                                    <div class="treatment-timing-cell"><span class="timing-ico"><img
+                                        src="/assets/images/bandage.svg" loading="lazy" alt="lips" width="24" alt=""
+                                        height="24" /></span>{{ fetchedTreatmentInfo.treatment_control }}</div>
+                                  {% endif %}
+
+                                  {% if fetchedTreatmentInfo.treatment_effect %}
+                                    <div class="treatment-timing-cell"><span class="timing-ico"><img
+                                        src="/assets/images/effect.svg" loading="lazy" alt="lips" width="24" alt=""
+                                        height="24" /></span>{{ fetchedTreatmentInfo.treatment_effect }}</div>
+                                  {% endif %}
+                                </div>
+
+                                <div class="btn-assets mt-12">
+                                  {% if fetchedTreatmentInfo.treatment_cta.label %}
+                                    {% set external = fetchedTreatmentInfo.treatment_cta.external ? ' rel="external" data-router-disabled' %}
+                                    <div class="btn-cell"><a href="{{ fetchedTreatmentInfo.treatment_cta.url }}"
+                                        class="c-btn u-text-medium c-btn--gray-darker u-text-size-epsilon"
+                                        title="{{ fetchedTreatmentInfo.treatment_cta.label }}" {{ external }} >{{ fetchedTreatmentInfo.treatment_cta.label }}</a>
+                                    </div>
+                                  {% endif %}
+                                  {% if fetchedTreatmentInfo.treatment_detail_page_link %}
+                                    <div class="btn-cell"><a href="{{ fetchedTreatmentInfo.treatment_detail_page_link }}"
+                                      class="c-btn c-btn--border c-btn--border-black u-text-medium c-btn--gray-darker u-text-size-epsilon"
+                                      title="{{ areaMapImageWithTreatments.price_page_view_treatment_label_text }}">{{ areaMapImageWithTreatments.price_page_view_treatment_label_text ? areaMapImageWithTreatments.price_page_view_treatment_label_text : 'View treatment page'  }}</a>
+                                    </div>
+                                  {% endif %}    
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="price-accordion-body">
+                            {# <div class="price-symbole">
+                              <select>
+                                <option value="euro" selected>Euro</option>
+                                <option value="pound">Pound</option>
+                                <option value="dollar">Dollar</option>
+                              </select>
+                            </div> #}
+                            <div class="treatment-price-list">
+                              
+                              {% set pricesInformation = areaMapImageWithTreatments.show_treatments_with_prices[fetchedTreatmentInfo.treatment_post_id].treatment_price_new_layout_information %}
+                               {% for key, pricesInfoDetails in pricesInformation %} 
+                                  <h4 class="treatment-table-title">{{ key }}</h4>
+                                  <div class="treatment-table">
+                                     <table class="table">
+                                      <tbody>
+                                        {% for subPriceDetails in pricesInfoDetails  %}
+                                          {# <pre>{{ dump(subPriceDetails.treatment_prices) }}</pre> #}
+                                          <tr>
+                                            <td>{{ subPriceDetails.treatment_specification_volume }}</td>
+                                            <td>{{ subPriceDetails.treatment_price_panorama_title }}</td>
+                                            <td>
+                                              {% if subPriceDetails.treatment_prices.show_euro_price_clinic_deal == true %}
+                                                {% if subPriceDetails.treatment_prices.euro_behandelaar_prijs and subPriceDetails.treatment_prices.euro_behandelaar_prijs__discount %}
+                                                <div class="you-saved">
+                                                  <span class="cd-small-image">
+                                                    <img src="/assets/images/cd-logo-small.svg" alt="CD" loading="lazy"
+                                                      width="35" height="35">
+                                                  </span>
+                                                  <span class="you-saved-text 8">
+                                                    {% set savedPrice = (subPriceDetails.treatment_prices.euro_behandelaar_prijs - subPriceDetails.treatment_prices.euro_behandelaar_prijs__discount) %}
+                                                    {{ youSavedText }} {{ showCurrency == true ? subPriceDetails.treatment_prices.euro_currency : "" }}  {{ savedPrice }},-
+                                                  </span>
+                                                </div>
+                                                {% endif %}
+                                              {% endif %}
+
+                                              {% if subPriceDetails.treatment_prices.show_pound_price_clinic_deal == true %}
+                                                {% if subPriceDetails.treatment_prices.pound_behandelaar_prijs and subPriceDetails.treatment_prices.pound_behandelaar_prijs__discount %}
+                                                  <div class="you-saved">
+                                                    <span class="cd-small-image">
+                                                      <img src="/assets/images/cd-logo-small.svg" alt="CD" loading="lazy"
+                                                        width="35" height="35">
+                                                    </span>
+                                                    <span class="you-saved-text 9">
+                                                      {% set savedPoundPrice = (subPriceDetails.treatment_prices.pound_behandelaar_prijs - subPriceDetails.treatment_prices.pound_behandelaar_prijs__discount) %}
+                                                      {{ youSavedText }} {{ showCurrency == true ? subPriceDetails.treatment_prices.pound_price_currency : "" }} {{ savedPoundPrice }},-
+                                                    </span>
+                                                  </div>
+                                                {% endif %}
+                                              {% endif %}
+
+                                              {% if subPriceDetails.treatment_prices.show_doller_price_clinic_deal == true %}
+                                                {% if subPriceDetails.treatment_prices.doller_behandelaar_prijs and subPriceDetails.treatment_prices.doller_behandelaar_prijs_discount %}
+                                                  <div class="you-saved">
+                                                    <span class="cd-small-image">
+                                                      <img src="/assets/images/cd-logo-small.svg" alt="CD" loading="lazy"
+                                                        width="35" height="35">
+                                                    </span>
+                                                    <span class="you-saved-text 10">
+                                                      {% set savedDollerPrice = (subPriceDetails.treatment_prices.doller_behandelaar_prijs - subPriceDetails.treatment_prices.doller_behandelaar_prijs_discount) %}
+                                                      {{ youSavedText }} {{ showCurrency == true ? subPriceDetails.treatment_prices.doller_price_currency : "" }} {{ savedDollerPrice }},-
+                                                    </span>
+                                                  </div>
+                                                {% endif %}
+                                              {% endif %}
+
+                                            </td>
+                                            <td>
+                                              {% if subPriceDetails.treatment_prices.euro_behandelaar_prijs %}
+                                                <p class="discounted-price">{{ showCurrency == true ? subPriceDetails.treatment_prices.euro_currency : "" }} 
+                                                  {% if subPriceDetails.treatment_prices.euro_behandelaar_prijs_striketrough == true %}
+                                                    <s>{{ subPriceDetails.treatment_prices.euro_behandelaar_prijs }},-</s>
+                                                  {% else %}
+                                                    {{ subPriceDetails.treatment_prices.euro_behandelaar_prijs }},-
+                                                  {% endif %}
+                                                </p>
+                                              {% endif %}
+                                              {% if subPriceDetails.treatment_prices.euro_behandelaar_prijs__discount %}
+                                                <p class="spacial-price">
+                                                  {% if subPriceDetails.treatment_prices.euro_behandelaar_prijs_discount_striketrough == true %}
+                                                    <s>{{ showCurrency == true ? subPriceDetails.treatment_prices.euro_currency : "" }} 
+                                                    {{ subPriceDetails.treatment_prices.euro_behandelaar_prijs__discount }},-</s>
+                                                  {% else %}
+                                                    {{ showCurrency == true ? subPriceDetails.treatment_prices.euro_currency : "" }} 
+                                                    {{ subPriceDetails.treatment_prices.euro_behandelaar_prijs__discount }},-
+                                                  {% endif %}  
+                                                </p>
+                                              {% endif %}
+                                              
+                                              {% if subPriceDetails.treatment_prices.pound_behandelaar_prijs %}
+                                                <p class="discounted-price"> {{ showCurrency == true ? subPriceDetails.treatment_prices.pound_price_currency : "" }}
+                                                  {% if subPriceDetails.treatment_prices.pound_behandelaar_prijs_striketrough == true %}
+                                                    <s>{{ subPriceDetails.treatment_prices.pound_behandelaar_prijs }},-</s>
+                                                  {% else %} 
+                                                    {{ subPriceDetails.treatment_prices.pound_behandelaar_prijs }},-
+                                                  {% endif %}
+                                                </p>
+                                              {% endif %}
+                                              {% if subPriceDetails.treatment_prices.pound_behandelaar_prijs__discount %}
+                                                <p class="spacial-price">{{ showCurrency == true ? subPriceDetails.treatment_prices.pound_price_currency : "" }}
+                                                  {% if subPriceDetails.treatment_prices.pound_behandelaar_prijs_discount_striketrough == true %}
+                                                    <s>{{ subPriceDetails.treatment_prices.pound_behandelaar_prijs__discount }},-</s>
+                                                  {% else %}
+                                                    {{ subPriceDetails.treatment_prices.pound_behandelaar_prijs__discount }},-
+                                                  {% endif %}
+                                                </p>
+                                              {% endif %}
+
+                                              {% if subPriceDetails.treatment_prices.doller_behandelaar_prijs %}
+                                                <p class="discounted-price">{{ showCurrency == true ? subPriceDetails.treatment_prices.doller_price_currency : "" }} 
+                                                  {% if subPriceDetails.treatment_prices.doller_behandelaar_prijs_striketrough == true %}
+                                                    <s>{{ subPriceDetails.treatment_prices.doller_behandelaar_prijs }},-</s>
+                                                  {% else %}
+                                                    {{ subPriceDetails.treatment_prices.doller_behandelaar_prijs }},-
+                                                  {% endif %}
+                                                </p>
+                                              {% endif %}
+                                              {% if subPriceDetails.treatment_prices.doller_behandelaar_prijs_discount %}
+                                                <p class="spacial-price">{{ showCurrency == true ? subPriceDetails.treatment_prices.doller_price_currency : "" }}
+                                                  {% if subPriceDetails.treatment_prices.doller_behandelaar_prijs_discount_striketrough == true %}
+                                                    <s>{{ subPriceDetails.treatment_prices.doller_behandelaar_prijs_discount }},-</s>
+                                                  {% else %}
+                                                    {{ subPriceDetails.treatment_prices.doller_behandelaar_prijs_discount }},-
+                                                  {% endif %}  
+                                                </p>
+                                              {% endif %}
+                                            </td>
+                                          </tr>
+                                        {% endfor %}
+                                      </tbody>
+                                    </table>
+                                  </div>
+                               {% endfor %}
+                                
+                                {# <h4 class="treatment-table-title">Lips Russian Method</h4>
+                                <div class="treatment-table">
+                                  <table class="table">
+                                    <tbody>
+                                      <tr>
+                                        <td>0.55mL</td>
+                                        <td>Juvederm</td>
+                                        <td></td>
+                                        <td>
+                                          <p class="spacial-price">170,-</p>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>0.55mL</td>
+                                        <td>Juvederm</td>
+                                        <td>
+                                          <div class="you-saved">
+                                            <span class="cd-small-image">
+                                              <img src="/assets/images/cd-logo-small.svg" alt="CD" loading="lazy"
+                                                width="35" height="35">
+                                            </span>
+                                            <span class="you-saved-text">
+                                              You save 90,-
+                                            </span>
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <p class="discounted-price"><s>270,-</s></p>
+                                          <p class="spacial-price">170,-</p>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>0.55mL</td>
+                                        <td>Juvederm</td>
+                                        <td></td>
+                                        <td>
+                                          <p class="spacial-price">170,-</p>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>0.55mL</td>
+                                        <td>Juvederm</td>
+                                        <td></td>
+                                        <td>
+                                          <p class="spacial-price">170,-</p>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div> #}
+
+                            </div>
+                          </div>
+                          <button class="price-accordion-arrow"><i class="arrow down"></i></button>
+                        </div>
+                      {% endfor %}
+
+                      <!-- Pagination Controls with Numbered Pagination -->
+                      <div class="pagination-block">
+                        <div class="pagination"></div>
+                      </div>
+                    </div>
+                  {% endif %}
+
+                </div>
+                <!-- Fillers for Face sub content start -->
+                <div class="price-tab-sub-content" data-sub-content="Body">
+                  {% if is_mobile == true %}
+                    <!-- Price deal card for mobile -->
+                    <div class="price-deal-cards d-lg-none">
+                      {% for fetchedTreatmentInfo in areaMapImageWithTreatments.show_body_treatments_with_prices %}
+                        <div class="price-deal-card">
+                          <a class="price-deal-card-box" href="#{{ 'body_' ~ fetchedTreatmentInfo.treatment_title|lower|replace({' ': '_'}) }}">
+                            {% if fetchedTreatmentInfo.treatment_price_image_desktop  %}
+                              <div class="price-deal-card-box-col">
+                                <div class="price-deal-card-image">
+                                  <img src="{{ fetchedTreatmentInfo.treatment_price_image_desktop }}" loading="lazy" alt="{{ fetchedTreatmentInfo.treatment_title }}"
+                                    width="100" height="100">
+                                </div>
+                              </div>
+                            {% endif %}
+                            <div class="price-deal-card-box-col">
+                              
+                              {% if fetchedTreatmentInfo.show_advance_treatment == true %}
+                                <span class="price-nudge mb-12">{{ areaMapImageWithTreatments.price_page_advance_label_text }}</span>
+                              {% endif %}
+
+                              <div class="price-deal-card-title">
+                                {% if fetchedTreatmentInfo.treatment_title %}
+                                  <h3>{{ fetchedTreatmentInfo.treatment_title }}</h3>
+                                {% endif %}
+                                {% if fetchedTreatmentInfo.show_treatment_price_clinic_deals == true and areaMapImageWithTreatments.face_clinic_deals_toggle == true  %}
+                                  <span class="cd-small-image">
+                                    <img src="/assets/images/cd-logo-small.svg" alt="CD" loading="lazy" width="35" height="35">
+                                  </span>
+                                {% endif %}
+                              </div>
+                              {% if fetchedTreatmentInfo.treatment_overwrite_price_label %}
+                                <div class="special-price mt-12">
+                                  {% if showCurrency == true %}
+                                  <p>{{ fetchedTreatmentInfo.treatment_overwrite_price_label }}</p>
+                                  {% else %}  
+                                  <p>{{ fetchedTreatmentInfo.treatment_overwrite_price_label|replace({'€': '', '£': '', '$': ''}) }}</p>
+                                  {% endif %}
+                                </div>
+                              {% endif %}
+                            </div>
+                          </a>
+                          <div class="price-deal-modal" id="{{ 'body_' ~ fetchedTreatmentInfo.treatment_title|lower|replace({' ': '_'}) }}">
+                            <button class="price-deal-modal-close">
+                              <img src="/assets/images/modal-close.svg" loading="lazy" alt="Close" width="26.66"
+                                height="26.66">
+                            </button>
+
+                            <div class="price-deal-modal-body">
+                              {% if fetchedTreatmentInfo.treatment_price_image_desktop  %}
+                                <div class="price-deal-modal-img">
+                                  <img src="{{ fetchedTreatmentInfo.treatment_price_image_desktop }}" loading="lazy" alt="{{ fetchedTreatmentInfo.treatment_title }}"
+                                    width="106" height="106">
+                                </div>
+                              {% endif %}
+
+                              <div class="price-modal-contener">
+                                {% if fetchedTreatmentInfo.treatment_title %}
+                                  <div class="price-modal-title u-text-center mb-24">
+                                    <h3>{{ fetchedTreatmentInfo.treatment_title }}</h3>
+                                  </div>
+                                {% endif %}
+                                {# <div class="price-symbole">
+                                    <select>
+                                      <option value="euro" selected>Euro</option>
+                                      <option value="pound">Pound</option>
+                                      <option value="dollar">Dollar</option>
+                                    </select>
+                                </div> #}
+                                <div class="treatment-timing-box px-20 py-12 mb-24">
+                                  <div class="d-flex treatment-timing-box-inner">
+                                    <div class="treatment-timing w-50">
+                                      {% if fetchedTreatmentInfo.treatment_length %}
+                                        <div class="treatment-timing-cell"><span class="timing-ico"><img
+                                            src="/assets/images/watch-icon.svg" loading="lazy" alt="watch-icon" width="24"
+                                            height="24"></span>{{ fetchedTreatmentInfo.treatment_length }}</div>
+                                      {% endif %}
+
+                                      {% if fetchedTreatmentInfo.treatment_control %}
+                                        <div class="treatment-timing-cell"><span class="timing-ico"><img
+                                            src="/assets/images/bandage.svg" loading="lazy" alt="bandage-icon" width="24"
+                                            height="24"></span>{{ fetchedTreatmentInfo.treatment_control }}</div>
+                                      {% endif %}
+
+                                      {% if fetchedTreatmentInfo.treatment_effect %}
+                                        <div class="treatment-timing-cell"><span class="timing-ico"><img
+                                            src="/assets/images/effect.svg" loading="lazy" alt="effect-icon" width="24"
+                                            height="24"></span>{{ fetchedTreatmentInfo.treatment_effect }}</div>
+                                      {% endif %}
+                                    </div>
+                                    {% if fetchedTreatmentInfo.treatment_overwrite_price_label %}
+                                      <div class="treatment-modal-price align-self-center u-text-center w-50 pl-16">
+                                        {{ fetchedTreatmentInfo.treatment_overwrite_price_label }}
+                                      </div>
+                                    {% endif %}
+                                  </div>
+                                </div>
+
+                                {% if fetchedTreatmentInfo.treatment_price_list_description %}
+                                  <div class="price-modal-discription mb-24">
+                                      {{ fetchedTreatmentInfo.treatment_price_list_description }}
+                                  </div>
+                                {% else %}
+                                    <p style="visibility:hidden">Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in</p>  
+                                {% endif %}
+
+                                <div class="btn-assets mt-12 mb-24">
+                                  {% if fetchedTreatmentInfo.treatment_cta.label %}
+                                    {% set external = fetchedTreatmentInfo.treatment_cta.external ? ' rel="external" data-router-disabled' %}
+                                    <div class="btn-cell"><a href="{{ fetchedTreatmentInfo.treatment_cta.url }}"
+                                      class="c-btn u-text-medium c-btn--gray-darker c-btn-gradient u-text-size-epsilon"
+                                      title="{{ fetchedTreatmentInfo.treatment_cta.label }}" {{ external }}><span class="btn-content">{{ fetchedTreatmentInfo.treatment_cta.label }}</span></a></div>
+                                  {% endif %}
+
+                                  {% if fetchedTreatmentInfo.treatment_detail_page_link %}
+                                    <div class="btn-cell"><a href="{{ fetchedTreatmentInfo.treatment_detail_page_link }}"
+                                      class="c-btn c-btn--border c-btn--border-black u-text-medium c-btn--gray-darker u-text-size-epsilon"
+                                      title="{{ areaMapImageWithTreatments.price_page_view_treatment_label_text }}">{{ areaMapImageWithTreatments.price_page_view_treatment_label_text ? areaMapImageWithTreatments.price_page_view_treatment_label_text : 'View treatment page'  }}</a></div>
+                                  {% endif %}    
+                                </div>
+
+                                <div class="treatment-price-list">
+                                  {% set pricesInformation = areaMapImageWithTreatments.show_body_treatments_with_prices[fetchedTreatmentInfo.treatment_post_id].treatment_price_new_layout_information %}
+                                  {% for key, pricesInfoDetails in pricesInformation %}
+                                    <h4 class="treatment-table-title">{{ key }}</h4>
+                                    <div class="treatment-table">
+                                      <table class="table">
+                                          <tbody>
+                                            {% for subPriceDetails in pricesInfoDetails  %}
+                                              <tr>
+                                                  <td>{{ subPriceDetails.treatment_specification_volume }}
+                                                    {% if subPriceDetails.treatment_prices.show_euro_price_clinic_deal == true or subPriceDetails.treatment_prices.show_pound_price_clinic_deal == true or subPriceDetails.treatment_prices.show_doller_price_clinic_deal == true  %}
+                                                      <span class="cd-small-image">
+                                                        <img src="/assets/images/cd-logo-small.svg" alt="CD" loading="lazy"
+                                                          width="35" height="35">
+                                                      </span>
+                                                    {% endif %}
+                                                  </td>
+                                                  <td>{{ subPriceDetails.treatment_price_panorama_title }}
+                                                    {% if subPriceDetails.treatment_prices.show_euro_price_clinic_deal == true %}
+                                                      <span class="you-saved-text 11">
+                                                        {% set savedPrice = (subPriceDetails.treatment_prices.euro_behandelaar_prijs - subPriceDetails.treatment_prices.euro_behandelaar_prijs__discount) %}
+                                                        {{ youSavedText }} {{ savedPrice }} {{ showCurrency == true ? subPriceDetails.treatment_prices.euro_currency : "" }}
+                                                      </span>
+                                                    {% endif %}
+                                                    {% if subPriceDetails.treatment_prices.show_pound_price_clinic_deal == true %}
+                                                      <span class="you-saved-text 12">
+                                                        {% set savedPoundPrice = (subPriceDetails.treatment_prices.pound_behandelaar_prijs - subPriceDetails.treatment_prices.pound_behandelaar_prijs__discount) %}
+                                                        {{ youSavedText }} {{ savedPoundPrice }} {{ showCurrency == true ? subPriceDetails.treatment_prices.pound_price_currency : "" }}
+                                                      </span>
+                                                    {% endif %}
+                                                    {% if subPriceDetails.treatment_prices.show_doller_price_clinic_deal == true %}
+                                                      <span class="you-saved-text 13">
+                                                        {% set savedDollerPrice = (subPriceDetails.treatment_prices.doller_behandelaar_prijs - subPriceDetails.treatment_prices.doller_behandelaar_prijs_discount) %}
+                                                        {{ youSavedText }} {{ savedDollerPrice }} {{ showCurrency == true ? subPriceDetails.treatment_prices.doller_price_currency : "" }}
+                                                      </span>
+                                                    {% endif %}  
+                                                  </td>
+                                                  <td>
+                                                    {% if subPriceDetails.treatment_prices.euro_behandelaar_prijs %}
+                                                      <p class="discounted-price">{{ showCurrency == true ? subPriceDetails.treatment_prices.euro_currency : "" }} 
+                                                        {% if subPriceDetails.treatment_prices.euro_behandelaar_prijs_striketrough == true %}
+                                                          <s>{{ subPriceDetails.treatment_prices.euro_behandelaar_prijs }},-</s>
+                                                        {% else %}
+                                                          {{ subPriceDetails.treatment_prices.euro_behandelaar_prijs }},-
+                                                        {% endif %}
+                                                      </p>
+                                                    {% endif %}
+                                                    {% if subPriceDetails.treatment_prices.euro_behandelaar_prijs__discount %}
+                                                      <p class="spacial-price">
+                                                        {% if subPriceDetails.treatment_prices.euro_behandelaar_prijs_discount_striketrough == true %}
+                                                          <s>{{ showCurrency == true ? subPriceDetails.treatment_prices.euro_currency : "" }} 
+                                                          {{ subPriceDetails.treatment_prices.euro_behandelaar_prijs__discount }},-</s>
+                                                        {% else %}
+                                                          {{ showCurrency == true ? subPriceDetails.treatment_prices.euro_currency : "" }} 
+                                                          {{ subPriceDetails.treatment_prices.euro_behandelaar_prijs__discount }},-
+                                                        {% endif %}  
+                                                      </p>
+                                                    {% endif %}
+                                                    
+                                                    {% if subPriceDetails.treatment_prices.pound_behandelaar_prijs %}
+                                                      <p class="discounted-price"> {{ showCurrency == true ? subPriceDetails.treatment_prices.pound_price_currency : "" }}
+                                                        {% if subPriceDetails.treatment_prices.pound_behandelaar_prijs_striketrough == true %}
+                                                          <s>{{ subPriceDetails.treatment_prices.pound_behandelaar_prijs }},-</s>
+                                                        {% else %} 
+                                                          {{ subPriceDetails.treatment_prices.pound_behandelaar_prijs }},-
+                                                        {% endif %}
+                                                      </p>
+                                                    {% endif %}
+                                                    {% if subPriceDetails.treatment_prices.pound_behandelaar_prijs__discount %}
+                                                      <p class="spacial-price">{{ showCurrency == true ? subPriceDetails.treatment_prices.pound_price_currency : "" }}
+                                                        {% if subPriceDetails.treatment_prices.pound_behandelaar_prijs_discount_striketrough == true %}
+                                                          <s>{{ subPriceDetails.treatment_prices.pound_behandelaar_prijs__discount }},-</s>
+                                                        {% else %}
+                                                          {{ subPriceDetails.treatment_prices.pound_behandelaar_prijs__discount }},-
+                                                        {% endif %}
+                                                      </p>
+                                                    {% endif %}
+
+                                                    {% if subPriceDetails.treatment_prices.doller_behandelaar_prijs %}
+                                                      <p class="discounted-price">{{ showCurrency == true ? subPriceDetails.treatment_prices.doller_price_currency : "" }} 
+                                                        {% if subPriceDetails.treatment_prices.doller_behandelaar_prijs_striketrough == true %}
+                                                          <s>{{ subPriceDetails.treatment_prices.doller_behandelaar_prijs }},-</s>
+                                                        {% else %}
+                                                          {{ subPriceDetails.treatment_prices.doller_behandelaar_prijs }},-
+                                                        {% endif %}
+                                                      </p>
+                                                    {% endif %}
+                                                    {% if subPriceDetails.treatment_prices.doller_behandelaar_prijs_discount %}
+                                                      <p class="spacial-price">{{ showCurrency == true ? subPriceDetails.treatment_prices.doller_price_currency : "" }}
+                                                        {% if subPriceDetails.treatment_prices.doller_behandelaar_prijs_striketrough == true %}
+                                                          <s>{{ subPriceDetails.treatment_prices.doller_behandelaar_prijs_discount }},-</s>
+                                                        {% else %}
+                                                          {{ subPriceDetails.treatment_prices.doller_behandelaar_prijs_discount }},-
+                                                        {% endif %}  
+                                                      </p>
+                                                    {% endif %}
+                                                  </td>
+                                                
+                                              </tr>
+                                            {% endfor %}
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                  {% endfor %}
+                                </div>
+                                <div class="u-text-center mt-24">
+                                  <button
+                                    class="c-btn c-btn--border c-btn--border-black u-text-medium c-btn--gray-darker modal-back-btn">Back</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+
+                  {% if is_mobile != true %}
+                  <!-- Price deal accordion for desktop block -->
+                  <div class="price-deal-accordion d-none d-lg-block">
+                     {% for fetchedTreatmentInfo in areaMapImageWithTreatments.show_body_treatments_with_prices %}
+                      <div class="price-accordion" id="{{ 'body_' ~ fetchedTreatmentInfo.treatment_title|lower|replace({' ': '_'}) }}">
+                        <div class="price-accordion-header">
+                          {% if fetchedTreatmentInfo.treatment_price_image_desktop  %}
+                          <div class="price-accordion-header-first">
+                            <div class="price-accordion-image">
+                              <img src="{{ fetchedTreatmentInfo.treatment_price_image_desktop }}" loading="lazy" alt="lips" width="135"
+                                height="135" />
+                            </div>
+                          </div>
+                          {% endif %}
+                          <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of1--lg u-2of2--xl mb-n-24">
+                            <div class="o-grid__cell mt-0 mb-24 price-accordion-header-mid">
+                              <div class="price-accordion-title">
+                                {% if fetchedTreatmentInfo.treatment_title %}
+                                  <h3>{{ fetchedTreatmentInfo.treatment_title }}</h3>
+                                {% endif %}
+                                {% if fetchedTreatmentInfo.show_treatment_price_clinic_deals == true and areaMapImageWithTreatments.face_clinic_deals_toggle == true  %}
+                                  <span class="cd-small-image">
+                                    <img src="/assets/images/cd-logo-small.svg" alt="CD" loading="lazy" alt="lips"
+                                      width="35" height="35" />
+                                  </span>
+                                {% else %} 
+                                {% endif %}
+                                {% if fetchedTreatmentInfo.show_advance_treatment == true %}
+                                  <span class="price-nudge">{{ areaMapImageWithTreatments.price_page_advance_label_text }}</span>
+                                {% endif %}
+                              </div>
+                              {% if fetchedTreatmentInfo.treatment_price_list_description %}
+                                <div class="price-accordion-discription">
+                                    {{ fetchedTreatmentInfo.treatment_price_list_description }}
+                                </div>
+                              {% else %}
+                                  <p style="visibility:hidden">Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in</p>  
+                              {% endif %}
+                              {% if fetchedTreatmentInfo.treatment_overwrite_price_label %}
+                                <div class="special-price mt-12">
+                                  {% if showCurrency == true %}
+                                  <p>{{ fetchedTreatmentInfo.treatment_overwrite_price_label }}</p>
+                                  {% else %}
+                                  <p>{{ fetchedTreatmentInfo.treatment_overwrite_price_label|replace({'€': '', '£': '', '$': ''}) }}</p>
+                                  {% endif %}
+                                </div>
+                              {% endif %}
+                            </div>
+                            <div class="o-grid__cell mt-0 mb-24 price-accordion-header-last">
+                              <div class="treatment-timing">
+                                {% if fetchedTreatmentInfo.treatment_length %}
+                                  <div class="treatment-timing-cell"><span class="timing-ico"><img
+                                      src="/assets/images/watch-icon.svg" loading="lazy" alt="lips" width="24"
+                                      alt="" height="24" /></span>{{ fetchedTreatmentInfo.treatment_length }}</div>
+                                {% endif %}
+                                {% if fetchedTreatmentInfo.treatment_control %}
+                                  <div class="treatment-timing-cell"><span class="timing-ico"><img
+                                      src="/assets/images/bandage.svg" loading="lazy" alt="lips" width="24" alt=""
+                                      height="24" /></span>{{ fetchedTreatmentInfo.treatment_control }}</div>
+                                {% endif %}
+
+                                {% if fetchedTreatmentInfo.treatment_effect %}
+                                  <div class="treatment-timing-cell"><span class="timing-ico"><img
+                                      src="/assets/images/effect.svg" loading="lazy" alt="lips" width="24" alt=""
+                                      height="24" /></span>{{ fetchedTreatmentInfo.treatment_effect }}</div>
+                                {% endif %}
+                              </div>
+
+                              <div class="btn-assets mt-12">
+                                {% if fetchedTreatmentInfo.treatment_cta.label %}
+                                  {% set external = fetchedTreatmentInfo.treatment_cta.external ? ' rel="external" data-router-disabled' %}
+                                  <div class="btn-cell"><a href="{{ fetchedTreatmentInfo.treatment_cta.url }}"
+                                      class="c-btn u-text-medium c-btn--gray-darker u-text-size-epsilon"
+                                      title="{{ fetchedTreatmentInfo.treatment_cta.label }}" {{ external }} >{{ fetchedTreatmentInfo.treatment_cta.label }}</a>
+                                  </div>
+                                {% endif %}
+                                {% if fetchedTreatmentInfo.treatment_detail_page_link %}
+                                  <div class="btn-cell"><a href="{{ fetchedTreatmentInfo.treatment_detail_page_link }}"
+                                    class="c-btn c-btn--border c-btn--border-black u-text-medium c-btn--gray-darker u-text-size-epsilon"
+                                    title="{{ areaMapImageWithTreatments.price_page_view_treatment_label_text }}">{{ areaMapImageWithTreatments.price_page_view_treatment_label_text ? areaMapImageWithTreatments.price_page_view_treatment_label_text : 'View treatment page'  }}</a>
+                                  </div>
+                                {% endif %}    
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="price-accordion-body">
+                          {# <div class="price-symbole">
+                            <select>
+                              <option value="euro" selected>Euro</option>
+                              <option value="pound">Pound</option>
+                              <option value="dollar">Dollar</option>
+                            </select>
+                          </div> #}
+                          <div class="treatment-price-list">
+                            
+                            {% set pricesInformation = areaMapImageWithTreatments.show_body_treatments_with_prices[fetchedTreatmentInfo.treatment_post_id].treatment_price_new_layout_information %}
+                             {% for key, pricesInfoDetails in pricesInformation %} 
+                                <h4 class="treatment-table-title">{{ key }}</h4>
+                                <div class="treatment-table">
+                                   <table class="table">
+                                    <tbody>
+                                      {% for subPriceDetails in pricesInfoDetails  %}
+                                        {# <pre>{{ dump(subPriceDetails.treatment_prices) }}</pre> #}
+                                        <tr>
+                                          <td>{{ subPriceDetails.treatment_specification_volume }}</td>
+                                          <td>{{ subPriceDetails.treatment_price_panorama_title }}</td>
+                                          <td>
+                                            {% if subPriceDetails.treatment_prices.show_euro_price_clinic_deal == true %}
+                                              {% if subPriceDetails.treatment_prices.euro_behandelaar_prijs and subPriceDetails.treatment_prices.euro_behandelaar_prijs__discount %}
+                                              <div class="you-saved">
+                                                <span class="cd-small-image">
+                                                  <img src="/assets/images/cd-logo-small.svg" alt="CD" loading="lazy"
+                                                    width="35" height="35">
+                                                </span>
+                                                <span class="you-saved-text 1">
+                                                  {% set savedPrice = (subPriceDetails.treatment_prices.euro_behandelaar_prijs - subPriceDetails.treatment_prices.euro_behandelaar_prijs__discount) %}
+                                                  {{ youSavedText }} {{ subPriceDetails.treatment_prices.euro_currency }} {{ savedPrice }},-
+                                                </span>
+                                              </div>
+                                              {% endif %}
+                                            {% endif %}
+
+                                            {% if subPriceDetails.treatment_prices.show_pound_price_clinic_deal == true %}
+                                              {% if subPriceDetails.treatment_prices.pound_behandelaar_prijs and subPriceDetails.treatment_prices.pound_behandelaar_prijs__discount %}
+                                                <div class="you-saved">
+                                                  <span class="cd-small-image">
+                                                    <img src="/assets/images/cd-logo-small.svg" alt="CD" loading="lazy"
+                                                      width="35" height="35">
+                                                  </span>
+                                                  <span class="you-saved-text 2">
+                                                    {% set savedPoundPrice = (subPriceDetails.treatment_prices.pound_behandelaar_prijs - subPriceDetails.treatment_prices.pound_behandelaar_prijs__discount) %}
+                                                    {{ youSavedText }} {{ showCurrency == true ? subPriceDetails.treatment_prices.pound_price_currency : "" }} {{ savedPoundPrice }},-
+                                                  </span>
+                                                </div>
+                                              {% endif %}
+                                            {% endif %}
+
+                                            {% if subPriceDetails.treatment_prices.show_doller_price_clinic_deal == true %}
+                                              {% if subPriceDetails.treatment_prices.doller_behandelaar_prijs and subPriceDetails.treatment_prices.doller_behandelaar_prijs_discount %}
+                                                <div class="you-saved">
+                                                  <span class="cd-small-image">
+                                                    <img src="/assets/images/cd-logo-small.svg" alt="CD" loading="lazy"
+                                                      width="35" height="35">
+                                                  </span>
+                                                  <span class="you-saved-text 3">
+                                                    {% set savedDollerPrice = (subPriceDetails.treatment_prices.doller_behandelaar_prijs - subPriceDetails.treatment_prices.doller_behandelaar_prijs_discount) %}
+                                                    {{ youSavedText }} {{ showCurrency == true ? subPriceDetails.treatment_prices.doller_price_currency : "" }} {{ savedDollerPrice }},-
+                                                  </span>
+                                                </div>
+                                              {% endif %}
+                                            {% endif %}
+
+                                          </td>
+                                          <td>
+                                            {% if subPriceDetails.treatment_prices.euro_behandelaar_prijs %}
+                                              <p class="discounted-price">{{ showCurrency == true ? subPriceDetails.treatment_prices.euro_currency : "" }} 
+                                                {% if subPriceDetails.treatment_prices.euro_behandelaar_prijs_striketrough == true %}
+                                                  <s>{{ subPriceDetails.treatment_prices.euro_behandelaar_prijs }},-</s>
+                                                {% else %}
+                                                  {{ subPriceDetails.treatment_prices.euro_behandelaar_prijs }},-
+                                                {% endif %}
+                                              </p>
+                                            {% endif %}
+                                            {% if subPriceDetails.treatment_prices.euro_behandelaar_prijs__discount %}
+                                              <p class="spacial-price">
+                                                {% if subPriceDetails.treatment_prices.euro_behandelaar_prijs_discount_striketrough == true %}
+                                                  <s>{{ showCurrency == true ? subPriceDetails.treatment_prices.euro_currency : "" }} 
+                                                  {{ subPriceDetails.treatment_prices.euro_behandelaar_prijs__discount }},-</s>
+                                                {% else %}
+                                                  {{ showCurrency == true ? subPriceDetails.treatment_prices.euro_currency : "" }} 
+                                                  {{ subPriceDetails.treatment_prices.euro_behandelaar_prijs__discount }},-
+                                                {% endif %}  
+                                              </p>
+                                            {% endif %}
+                                            
+                                            {% if subPriceDetails.treatment_prices.pound_behandelaar_prijs %}
+                                              <p class="discounted-price"> {{ showCurrency == true ? subPriceDetails.treatment_prices.pound_price_currency : "" }}
+                                                {% if subPriceDetails.treatment_prices.pound_behandelaar_prijs_striketrough == true %}
+                                                  <s>{{ subPriceDetails.treatment_prices.pound_behandelaar_prijs }},-</s>
+                                                {% else %} 
+                                                  {{ subPriceDetails.treatment_prices.pound_behandelaar_prijs }},-
+                                                {% endif %}
+                                              </p>
+                                            {% endif %}
+                                            {% if subPriceDetails.treatment_prices.pound_behandelaar_prijs__discount %}
+                                              <p class="spacial-price">{{ showCurrency == true  ? subPriceDetails.treatment_prices.pound_price_currency : "" }}
+                                                {% if subPriceDetails.treatment_prices.pound_behandelaar_prijs_discount_striketrough == true %}
+                                                  <s>{{ subPriceDetails.treatment_prices.pound_behandelaar_prijs__discount }},-</s>
+                                                {% else %}
+                                                  {{ subPriceDetails.treatment_prices.pound_behandelaar_prijs__discount }},-
+                                                {% endif %}
+                                              </p>
+                                            {% endif %}
+
+                                            {% if subPriceDetails.treatment_prices.doller_behandelaar_prijs %}
+                                              <p class="discounted-price">{{ showCurrency == true ? subPriceDetails.treatment_prices.doller_price_currency : "" }} 
+                                                {% if subPriceDetails.treatment_prices.doller_behandelaar_prijs_striketrough == true %}
+                                                  <s>{{ subPriceDetails.treatment_prices.doller_behandelaar_prijs }},-</s>
+                                                {% else %}
+                                                  {{ subPriceDetails.treatment_prices.doller_behandelaar_prijs }},-
+                                                {% endif %}
+                                              </p>
+                                            {% endif %}
+                                            {% if subPriceDetails.treatment_prices.doller_behandelaar_prijs_discount %}
+                                              <p class="spacial-price">{{ showCurrency == true ? subPriceDetails.treatment_prices.doller_price_currency : "" }}
+                                                {% if subPriceDetails.treatment_prices.doller_behandelaar_prijs_striketrough == true %}
+                                                  <s>{{ subPriceDetails.treatment_prices.doller_behandelaar_prijs_discount }},-</s>
+                                                {% else %}
+                                                  {{ subPriceDetails.treatment_prices.doller_behandelaar_prijs_discount }},-
+                                                {% endif %}  
+                                              </p>
+                                            {% endif %}
+                                          </td>
+                                        </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                             {% endfor %}
+                          </div>
+                        </div>
+                        <button class="price-accordion-arrow"><i class="arrow down"></i></button>
+                      </div>
+                    {% endfor %}
+
+                    <!-- Pagination Controls with Numbered Pagination -->
+                    <div class="pagination-block">
+                      <div class="pagination"></div>
+                    </div>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          {% set appointmentButtonLabel = areaMapImageWithTreatments.book_appointment.label %}
+          {% set appointmentButtonURL = areaMapImageWithTreatments.book_appointment.url %}
+          {% set appointmentButtonExternal = areaMapImageWithTreatments.book_appointment.external ? ' rel="external" data-router-disabled' %}
+          <div class="floting-btn">
+            <a href="{{ appointmentButtonURL }}" class="c-btn u-text-medium c-btn--gray-darker c-btn-gradient u-text-size-epsilon" title="{{ appointmentButtonLabel }}" {{ appointmentButtonExternal }} >
+              <span class="btn-content">{{ appointmentButtonLabel }}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {% if is_mobile != true %}
+      <div class="o-contain o-contain-padding treatment-tab-section mt-72 mb-72" id="">
+        <div class="border border-pink rounded p-24">
+            <div class="title u-text-bold u-text-center p-0 mb-16 mb-lg-72">
+               <{{ areaMapImageWithTreatments.price_page_faq_section_title_heading }}>{{ areaMapImageWithTreatments.price_page_faq_section_title }}</{{ areaMapImageWithTreatments.price_page_faq_section_title_heading }}>
+            </div>
+            <div class="d-flex">
+               <div class="treatment-tab">
+                  {% for key, tabInfo in areaMapImageWithTreatments.price_page_faq_section_list %}
+                      {% if tabInfo.title %}
+                          <button class="tabTwolinks h-auto px-24 py-16" onclick="openTab2(event, '{{ tabInfo.title }}')"  id="{{ (key == 0) ? 'defaultOpenTwo' : '' }}">
+                              <span>{{ tabInfo.title }}</span>
+                          </button>
+                      {% endif %}
+                  {% endfor %}
+               </div>
+               {% for key, tabInfo in areaMapImageWithTreatments.price_page_faq_section_list %}
+                  {% if tabInfo.title %}
+                      <div id="{{ tabInfo.title }}" class="treatmentTabTwoContent">
+                          {{ tabInfo.content }}
+                      </div>
+                  {% endif %}
+              {% endfor %}
+            </div>
+        </div>
+      </div>
+    {% endif %}
+    {% if is_mobile == true %}
+      <div class="o-contain o-contain-padding treatment-tab-section faq-new-section">
+          {% if areaMapImageWithTreatments.price_page_faq_section_title %}
+              <div class="title u-text-bold o-contain-padding u-text-center">
+                  <{{ areaMapImageWithTreatments.price_page_faq_section_title_heading }}>{{ areaMapImageWithTreatments.price_page_faq_section_title }}</{{ areaMapImageWithTreatments.price_page_faq_section_title_heading }}>
+              </div>
+          {% endif %}
+          {% for key, tabInfo in areaMapImageWithTreatments.price_page_faq_section_list %}
+              <div class="faceland-accordion border border-pink rounded px-24 py-16 py-16 mb-12 d-block">
+                  {% if tabInfo.title %}
+                      <div class="accordian-title justify-content-between">
+                          <label class="accordian-label mt-0 mr-20 temeraire-font u-text-bold u-text-size-base">{{ tabInfo.title }}</label>
+                          <span class="accordian-arrow mt-0 bg-transparent"></span>
+                      </div>
+                  {% endif %}
+                  {% if tabInfo.content %}
+                      <div class="faceland-accordion-panel p-0 pt-8 bg-transparent">
+                          <p>{{ tabInfo.content }}</p>
+                      </div>
+                  {% endif %}
+              </div>
+          {% endfor %}
+      </div>
+    {% endif %}
+
+</article>

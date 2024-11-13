@@ -1,0 +1,58 @@
+{
+    "key": "group_5d9738e845652",
+    "title": "Label Color ( Taxonomy )",
+    "fields": [
+        {
+            "key": "field_5d9738e85b4b4",
+            "label": "Choose color",
+            "name": "blog_article_taxonomy_color",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "surgery": "Surgery (#bb7457)",
+                "injectable": "Injectable (#bb7457)",
+                "other": "Other (#F0E8DE)"
+            },
+            "default_value": false,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "translations": "copy_once",
+            "ajax": 0,
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "blog_article_taxonomy"
+            }
+        ],
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "treatment_bodypart"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "modified": 1714011248
+}

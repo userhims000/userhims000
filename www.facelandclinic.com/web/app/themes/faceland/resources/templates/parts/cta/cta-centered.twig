@@ -1,0 +1,17 @@
+{% if cta|length > 0 %}
+    <div class="c-content c-content--narrow u-bg-tertiary-light">
+        {% include "parts/mask.twig" with { classes : 'c-mask--tertiary-light u-bg-white' } %}
+        <div class="c-content__item">
+            <div class="o-contain o-contain-padding">
+
+                <h2 class="o-content__heading u-text-size-beta u-text-bold">{{cta.titles.title|upper}}</h2>
+                <p class="o-content__text u-text-size-delta u-text-color-black">{{cta.titles.intro}}</p>
+
+                {% if cta.button|length > 0 %}
+                    {% include "parts/button.twig" with { button : cta.button, classes: 'c-btn--gray-darker u-bg-gray-darker u-text-size-zeta u-text-medium u-flex-center', upperFilter : true } %}
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,220 @@
+/*----------------------------------------------------------------------------*\
+    #BASE COPY
+\*----------------------------------------------------------------------------*/
+
+.c-copy {
+    padding-top: rhythm(2.125);
+
+    > h2,
+    > h3,
+    > h4,
+    > p,
+    > ul,
+    > ol,
+    > table,
+    > .c-intro,
+    > .c-highlight,
+    > .c-compare,
+    > .c-figure,
+    > .c-carousel-wrapper,
+    > .c-accordion .c-accordion__item,
+    > .c-copy__info,
+    > .c-copy__maxwidth,
+    > .c-btn-wrapper,
+    > .c-btn-group,
+    > .c-card--simple,
+    > .c-sharing,
+    > .c-list-wrapper,
+    > .o-form--sharpspring,
+    > .c-message--info,
+    > .c-reviews,
+    > .c-review-intro {
+        @include contain-margin(auto);
+        max-width: rhythm(24);
+    }
+
+    > .c-intro {
+        @include rhythm-margin(0);
+    }
+
+    /**
+     * Set default vertical spacing for all elements:
+     * 1. every second, third, etc. element that has not a `.o-grid` class.
+     *
+     * Based on 'The "Leftover Glue" problem' solution:
+     * http://slides.com/heydon/effortless-style/#/22
+     */
+
+    > * + *  /* 1 */ {
+        margin-top: rhythm(1.625);
+    }
+
+    /**
+    * Reset some margins for better typography (proximity)
+    * See: http://zellwk.com/blog/wrong-about-vertical-rhythm/
+    */
+
+    * + .c-accordion {
+        margin-top: rhythm(1) !important;
+    }
+
+    > .c-figure + *,
+    > * + .c-figure,
+    > .c-accordion + *,
+    > .c-highlight + *,
+    > * + .c-highlight,
+    > .c-intro + *,
+    > * + .c-intro {
+        margin-top: rhythm(1) !important;
+    }
+
+    > h2 + p,
+    > h2 + .c-accordion,
+    > h3 + p,
+    > * + p,
+    > * + ul,
+    > * + ol {
+        margin-top: rhythm(.5) !important;
+    }
+
+    > .c-copy__info + *,
+    > * + .c-reviews,
+    > .c-reviews + * {
+        margin-top: rhythm(2.25) !important;
+    }
+
+    > * + table,
+    > .c-figure + .c-figure,
+    > .c-compare + .c-compare,
+    > .c-card--horizontal + .c-card--horizontal {
+        margin-top: rhythm(1) !important;
+    }
+
+    > * + .c-sharing {
+        margin-top: rhythm(3);
+    }
+
+    /**
+    * Specific copy styling.
+    *
+    */
+
+    > p,
+    > ul,
+    > ol {
+        color: $color-gray-dark;
+
+        &.u-text-campaign {
+            color: var(--text-color);
+        }
+
+        a {
+            text-decoration: underline;
+        }
+
+        strong {
+            font-weight: 700;
+        }
+    }
+
+    .c-carousel-nav {
+        @include contain-padding(0);
+
+        .c-icon--prev {
+            transform: translateX(-25%);
+        }
+
+        .c-icon--next {
+            transform: translateX(25%);
+        }
+    }
+
+    @include breakpoint(medium) {
+
+        .c-icon--prev {
+            transform: translateX(-50%);
+        }
+
+        .c-icon--next {
+            transform: translateX(50%);
+        }
+
+        > .c-figure + .c-figure,
+        > .c-compare + .c-compare,
+        > .c-card--horizontal + .c-card--horizontal {
+            margin-top: rhythm(.5) !important;
+        }
+    }
+}
+
+.c-copy__info {
+    padding-bottom: rhythm(2);
+    border-bottom: 1px solid $color-gray-lighter;
+
+    li + li {
+        margin-top: rhythm(.125);
+    }
+}
+
+.c-copy__info-column {
+
+    & + & {
+        margin-top: rhythm(.25);
+    }
+
+    @include breakpoint(medium) {
+
+        & + & {
+            margin-top: 0;
+        }
+
+        &:first-child {
+            width: rhythm(13.5);
+            margin-right: rhythm(1.5);
+        }
+    }
+
+    @include breakpoint(large) {
+
+        &:first-child {
+            margin-right: rhythm(3);
+        }
+    }
+}
+
+.c-copy--mt {
+    margin-top: rhythm(3);
+}
+
+.c-copy--paper {
+    @include contain-padding($contain-percentage);
+    @include contain-margin(-$contain-percentage);
+    border: 1px solid $color-gray-lighter;
+    border-radius: 5px;
+    box-shadow: 0 9px 54px 0 rgba($color-black, .05);
+
+    .c-accordion {
+        padding-top: rhythm(1.5);
+        border-top: 1px solid $color-gray-lighter;
+    }
+
+    @include breakpoint(large) {
+        @include rhythm-padding(2.125, 1.825);
+        @include contain-margin(0);
+        width: percentage(2/3);
+        margin-left: rhythm(2);
+    }
+
+    @include breakpoint(wide) {
+        @include contain-padding(rhythm(1.825));
+    }
+}
+
+.c-copy-wrapper {
+    margin-top: rhythm(1);
+    padding-bottom: rhythm(3);
+
+    .c-breadcrumbs {
+        margin-bottom: rhythm(1.25);
+    }
+}

@@ -1,0 +1,50 @@
+.c-header {
+    @include offset(fixed, 0, null, null, 0);
+    width: 100%;
+    height: 59px;
+    box-shadow: 0 1px 4px 0 rgba($color-black, .05);
+    z-index: $layer-5;
+
+    .o-contain {
+        height: 100%;
+    }
+
+    .c-icon--round {
+        margin-right: rhythm(.375);
+        border: 1px solid $color-gray-lighter;
+        border-radius: 50%;
+
+        &::after {
+            display: none;
+        }
+    }
+
+    @include breakpoint(wide) {
+        position: sticky;
+        height: auto;
+
+        .c-icon--round:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.c-header__sub {
+    @include rhythm-padding(.5);
+
+    .c-masthead {
+        @include offset(absolute, 50%, null, null, 50%);
+        transform: translate(-50%, -50%);
+    }
+}
+
+.c-header__cart-summary {
+    margin-right: rhythm(.375);
+    padding: rhythm(.175) rhythm(1) rhythm(.175) rhythm(.125);
+    border: 1px solid $color-gray-lighter;
+    border-radius: 30px;
+
+    > .c-icon + span {
+        @include contain-padding(rhythm(.5));
+    }
+}

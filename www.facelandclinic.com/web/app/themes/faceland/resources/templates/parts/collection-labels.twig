@@ -1,0 +1,15 @@
+{% if labels|length > 0 %}
+	{% for label in labels %}
+		{% set getLabelColor = get_label_color(label.id, label.taxonomy) %}
+		{% if getLabelColor == 'surgery' %}
+            {% set labelColor = 'surgery'  %}
+        {% elseif getLabelColor == 'injectable'  %}
+            {% set labelColor = 'injectable' %}
+        {% elseif getLabelColor == 'other'  %}
+            {% set labelColor = 'other' %}
+        {% else %}
+            {% set labelColor = 'secondary' %}            
+        {% endif %}
+		<span class="o-label u-bg-{{ labelColor }}-light u-text-size-pico u-text-bold">{{label.title|upper}}</span>
+	{% endfor %}
+{% endif %}

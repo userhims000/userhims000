@@ -1,0 +1,26 @@
+{% if get_query_object.slug == "borstcorrectie" or get_query_object.slug == "ooglidcorrectie-facelift" %}
+    {% if why.show == true %}
+    <div class="c-usps why-additional-content">    
+        <div class="o-grid u-1of1--sm o-grid--with-gutter">
+            <div class="o-grid__cell">
+                <div class="c-usp__text u-text-size-epsilon">{{ why.content|raw }}</div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% else %}
+    {% if why.blocks|length > 0 %}
+        <div class="c-usps">
+            {% if why.title %}
+                <h2 class="c-usps__heading u-text-size-giga u-text-bold u-text-center">{{why.title|upper}}</h2>
+            {% endif %}
+            <div class="o-grid u-1of1--sm u-1of2--md o-grid--with-gutter">
+                {% for card in why.blocks %}
+                    <div class="o-grid__cell">
+                        {% include "parts/cards/card-why.twig" %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endif %}

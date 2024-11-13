@@ -1,0 +1,146 @@
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% set maskClass =  contacts.online|length > 0 ? 'c-mask--smoke-white appointment-page-mask-white' %}
+    {% include 'parts/panorama-default.twig' with { panorama : post.panorama, maskClass : maskClass} %}
+{% endblock %}
+
+{% block content %}
+    <div class="appointment-page-section hello">    
+        {% if post.intro %}
+            <div class="u-text-size-mega u-text-color-gray-dark u-text-center intro-section">{{ post.intro }}</div>
+        {% endif %}
+        {% if post.appointment_book.items|length > 0 %}
+            <div class="o-contain o-contain-padding" id="appointment-cards">
+                <div class="c-cards-wrapper">
+                    <div class="c-cards" >
+                        {% for card in post.appointment_book.items %}
+                            {% include 'parts/cards/card-appointments.twig' %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if post.questions.items|length > 0 %}
+            <div class="o-contain o-contain-padding question-section">
+                {% if post.questions.title %}
+                       {% if is_nl == true or is_be == true %}
+                            {% set clickVariable = post.questions.title|replace({'hier':"<a class='click-btn' href='javascript:;'>hier</a>"})  %}
+                        {% else %}
+                            {% set clickVariable = post.questions.title  %}    
+                       {% endif %} 
+                    <div class="c-intro u-text-size-mega u-text-color-gray-dark u-text-center" >{{ clickVariable }}</div>
+                {% endif %}
+                {% for card in post.questions.items %}
+                    <div class="o-grid__cell o-grid__cell--center js-animation-element a-fade-in-up" {{ card.featherlight ? 'data-featherlight="#' ~ card.featherlight ~ '"'}}>
+                        <div class="c-contacts c-contacts-btn" ></div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        {% if post.contacts.items|length > 0 %}
+        <div class="o-contain o-contain-padding contact-section">    
+            <div class="c-copy">
+                <div class="c-intro c-intro--small u-text-color-gray-dark u-text-center pad-bottom">
+                    <h2 class="u-text-size-giga u-text-bold">{{ post.contacts.title }}</h2>
+                    {% if post.contacts.sub_title != "" %}
+                        <p class="u-text-color-gray-dark sub-title">{{ post.contacts.sub_title }}</p>
+                    {% endif %}
+                </div>
+                <div class="c-btn-group contact-icons">
+                    <div class="o-grid o-grid--with-gutter-sm u-1of1--sm u-1of2--md">
+                    {% for key, card in post.contacts.items %}
+
+                        {% set LinkPrefix = '' %}
+                        {% set Link = '' %}
+                        {% if card.icon == 'c-btn--phone' %}
+                            {% set LinkPrefix = 'tel:' %}
+                            {% set Link = card.contact_icon_text|replace({' ': '', '+':''}) %}
+                        {% elseif card.icon == 'c-btn--chat' %}
+                            {% set LinkPrefix = '' %}
+                            {% set Link = 'javascript:;' %}
+                        {% elseif card.icon == 'c-btn--mail' %}
+                            {% set LinkPrefix = 'mailto:' %}
+                            {% set Link = card.contact_icon_text %}
+                        {% elseif card.icon == 'c-btn--whatsapp' %}
+                            {% set LinkPrefix = 'https://wa.me/' %}
+                            {% set Link = card.contact_icon_text|replace({' ': ''}) %}
+                        {% elseif card.icon == 'c-btn--fb-messenger' %}
+                            {% set LinkPrefix = 'https://www.facebook.com/' %}
+                            {% set Link = card.contact_icon_text %}        
+                        {% elseif card.icon == 'c-btn--appointment' %}
+                            {% set LinkPrefix = '' %}
+                            {% set Link = card.contact_icon_text|replace({' ': ''}) %}            
+                        {% endif %}
+
+                         <div class="o-grid__cell">
+                            <a class="c-btn c-btn--contact {{card.icon}}  c-btn--border c-btn--full c-btn--square u-text-size-epsilon u-text-color-gray-dark u-bg-white  {{ (card.icon == 'c-btn--chat'   ) ? 'js-open-chat' : ''  }}" {{ fn('rokit_get_attribute_aen_code') }} href="{{LinkPrefix}}{{Link}}" title="{{ card.label }}" {{ (card.icon == 'c-btn--chat' or card.icon == 'c-btn--phone' or card.icon == 'c-btn--mail'  ) ? '' : "rel='external'"  }} data-router-disabled><span>{{ (card.icon == 'c-btn--phone' ) ? "<strong>"~card.label~"</strong>" : card.label  }}</span><br><span>{{ card.contact_icon_additional_text }}</span></a>
+                        </div>
+                        
+                        {% endfor %}
+                    </div>
+                </div>    
+            </div>
+        </div>    
+        {% endif %}
+
+        <div class="modal__wrapper">
+            {% for card in post.contacts.items %}
+                <div id="{{ card.featherlight }}">
+                    <h3 class='u-text-size-delta u-text-bold'>{{ card.popup_title }}</h3>
+                    {{card.popup_text}}
+                </div>
+            {% endfor %}
+            {% for card in post.questions.items %}
+            <div id="{{ card.featherlight }}">
+                <h3 class='u-text-size-delta u-text-bold'>{{ card.popup_title }}</h3>
+                <p>{{card.popup_text}}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    {% if post.fixed_days.items|length > 0 %}
+        <div class="o-contain o-contain-padding">
+            {% include 'parts/intro.twig' with { intro : {title : post.fixed_days.titles.title, subtitle : post.fixed_days.titles.intro }, subtitleClass : 'u-text-color-gray' } %}
+
+            <div class="o-grid o-grid--with-gutter o-grid--with-gutter-vertical u-1of1--sm u-1of2--md u-1of3--lg">
+                {% for card in post.fixed_days.items %}
+                    <div class="o-grid__cell js-animation-element a-fade-in-up">
+                        <div class="o-card c-card--simple c-card--bordered c-card--centered js-block">
+                            {% if card.image %}
+                                <figure class="o-card__image u-flex u-flex-center">
+                                        {{ rokit_get_image(card.image, 'card-location', card.title) }}
+                                        {% include "parts/mask.twig" with { classes : 'c-mask--white' } %}
+                                </figure>
+                            {% endif %}
+                            {% if card.title or card.subtitle %}
+                                <div class="o-card__content u-text-center helllo">
+                                    {% if card.title %}
+                                        <h2 class="o-card__heading u-text-size-beta u-text-bold">{{card.title|upper}}</h2>
+                                    {% endif %}
+                                    {% if card.subtitle %}
+                                        <p class="o-card__text u-text-size-epsilon">{{ card.subtitle }}</p>
+                                    {% endif %}
+                                    {% include "parts/button.twig" with { button : card.button, classes: 'c-btn--gray-darker u-bg-gray-darker u-text-size-zeta u-text-medium u-flex-center', upperFilter : true} %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if post.content_modules|length > 0 %}
+        <div class="o-contain o-contain-padding">
+            <article class="c-copy c-copy--mt">
+                {% include 'parts/content-modules.twig' %}
+            </article>
+        </div>
+    {% endif %}
+{% endblock %}

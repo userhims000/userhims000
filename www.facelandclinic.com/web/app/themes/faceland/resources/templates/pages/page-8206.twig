@@ -1,0 +1,186 @@
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% set maskClass =  contacts.online|length > 0 ? 'c-mask--smoke-white' %}
+    {% include 'parts/panorama-default.twig' with { panorama : post.panorama, maskClass : maskClass} %}
+{% endblock %}
+
+{% block content %}
+    <div class="u-bg-smoke-white">
+
+        {% if post.questions.items|length > 0 %}
+            <div class="o-contain o-contain-padding ">
+                {% if post.questions.title %}
+                       {% if is_nl == true or is_be == true %}
+                            {% set clickVariable = post.questions.title|replace({'hier':"<a class='click-btn' href='javascript:;'>hier</a>"})  %}
+                        {% else %}
+                            {% set clickVariable = post.questions.title  %}    
+                       {% endif %} 
+                    <div class="c-intro u-text-size-mega u-text-color-gray-dark u-text-center" >{{ clickVariable }}</div>
+                {% endif %}
+                {% for card in post.questions.items %}
+                    <div class="o-grid__cell o-grid__cell--center js-animation-element a-fade-in-up" {{ card.featherlight ? 'data-featherlight="#' ~ card.featherlight ~ '"'}}>
+                        <div class="c-contacts c-contacts-btn" ></div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        {% if post.appointment_book.items|length > 0 %}
+            <div class="o-contain o-contain-padding">
+            {% if is_nl %}
+                {% set class = "c-cards-wrapper" %}
+            {% else %}
+                {% set class = "c-cards-wrappers" %}   
+            {% endif %}    
+            <div class="{{class}} ">
+                <div class="c-cards">
+                    {% for card in post.appointment_book.items %}
+                        {% include 'parts/cards/card-appointments.twig' %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+{#         {% if contacts.online|length > 0 %}
+            <div class="o-contain o-contain-padding">
+                <div class="c-cards c-cards--narrow c-card-padding-zero">
+                    {% if post.intro %}
+                        <div class="c-intro u-text-size-mega u-text-color-gray-dark u-text-center">{{ post.intro }}</div>
+                    {% endif %}
+                    <div class="o-grid o-grid--center-y o-grid--with-gutter-tiny u-1of1--sm u-1of2--md u-1of3--lg">
+                        {% for key, card in contacts.online %}
+                            {% if key == "appointment" %}
+                                {% set className = "show-appointment-modal" %}
+                            {% else %}
+                                {% set className = "" %}    
+                            {% endif %}                                    
+                            {% if card|length > 0 and card.show %}
+                                <div class="o-grid__cell js-animation-element a-fade-in-up {{ className }} {{ card.open_chat ? 'js-open-chat'}}" {{ card.featherlight ? 'data-featherlight="#' ~ card.featherlight ~ '"'}}>
+                                    <div class="o-card c-card--simple c-card--bordered u-cursor-pointer">
+                                        {% if card.label and card.show_label %}
+                                            <span class="o-card__label o-label u-bg-gray-darker u-text-center u-text-color-white u-text-size-nano u-text-bold">{{ card.label|upper }}</span>
+                                        {% endif %}
+
+                                        {% if card.image %}
+                                            <figure class="o-card__image">
+                                                {{ rokit_get_image(card.image, 'card', card.titles.title) }}
+                                                {% include "parts/mask.twig" with { classes : 'c-mask--white c-mask--bordered' } %}
+                                            </figure>
+                                        {% endif %}
+
+                                        {% if card.titles|length > 0 %}
+                                            <div class="o-card__content u-bg-white u-text-center">
+                                                <h2 class="o-card__heading u-text-size-delta u-text-bold">{{ card.titles.title }}</h2>
+                                                <p class="o-card__text u-text-size-epsilon">{{ card.titles.subtitle }}</p>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% for modalkey, modal in contacts.online %}
+                {% if modal.featherlight %}
+                    {% include "parts/modalbox.twig" %}
+                {% endif %}
+            {% endfor %}
+        {% endif %} #}
+        
+        {% if post.contacts.items|length > 0 %}
+        <div class="o-contain o-contain-padding">    
+            <div class="c-copy">
+            {% if post.contacts.title %}
+                <div class="c-intro c-intro--small u-text-color-gray-dark u-text-left pad-bottom">{{ post.contacts.title }}</div>
+            {% endif %}
+                <div class="c-btn-group contact-icons">
+                    <div class="o-grid o-grid--with-gutter-sm u-1of1--sm u-1of2--md">
+                    {% for key, card in post.contacts.items %}
+                    
+                        {% if key == 0 %}
+                            {% set cls = "c-btn--phone" %}
+                        {% elseif key == 1 %}
+                            {% set cls = "c-btn--chat" %}
+                        {% elseif key == 2 %}
+                            {% set cls = "c-btn--whatsapp" %}
+                        {% elseif key == 3 %}
+                            {% set cls = "c-btn--mail" %}            
+                        {% endif %}
+
+                         <div class="o-grid__cell" {{ card.featherlight ? 'data-featherlight="#' ~ card.featherlight ~ '"'}}>
+                            <a class="c-btn c-btn--contact {{ cls }}  c-btn--border c-btn--full c-btn--square u-text-size-epsilon u-text-color-gray-dark u-bg-white calltracker-fixed" {{ fn('rokit_get_attribute_aen_code') }} href="javascript:;" title="{{ card.popup_title }}"  data-router-disabled>{{ card.popup_title }}</a>
+                        </div>
+                        <div class="c-mask-wrapper">
+                                        {% include "parts/mask-vertical.twig" with { classes : 'c-mask--' ~ color ~ '-light' } %}
+                                    </div>
+                        {% endfor %}
+                    </div>
+                </div>    
+            </div>
+        </div>    
+        {% endif %}
+
+        <div class="modal__wrapper">
+            {% for card in post.contacts.items %}
+                <div id="{{ card.featherlight }}">
+                    <h3 class='u-text-size-delta u-text-bold'>{{ card.popup_title }}</h3>
+                    {{card.popup_text}}
+                </div>
+            {% endfor %}
+            {% for card in post.questions.items %}
+            <div id="{{ card.featherlight }}">
+                <h3 class='u-text-size-delta u-text-bold'>{{ card.popup_title }}</h3>
+                <p>{{card.popup_text}}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+
+    {% if post.fixed_days.items|length > 0 %}
+        <div class="o-contain o-contain-padding">
+            {% include 'parts/intro.twig' with { intro : {title : post.fixed_days.titles.title, subtitle : post.fixed_days.titles.intro }, subtitleClass : 'u-text-color-gray' } %}
+
+            <div class="o-grid o-grid--with-gutter o-grid--with-gutter-vertical u-1of1--sm u-1of2--md u-1of3--lg">
+                {% for card in post.fixed_days.items %}
+                    <div class="o-grid__cell js-animation-element a-fade-in-up">
+                        <div class="o-card c-card--simple c-card--bordered c-card--centered js-block">
+                            {% if card.image %}
+                                <figure class="o-card__image u-flex u-flex-center">
+                                        {{ rokit_get_image(card.image, 'card-location', card.title) }}
+                                        {% include "parts/mask.twig" with { classes : 'c-mask--white' } %}
+                                </figure>
+                            {% endif %}
+                            {% if card.title or card.subtitle %}
+                                <div class="o-card__content u-text-center">
+                                    {% if card.title %}
+                                        <h2 class="o-card__heading u-text-size-beta u-text-bold">{{card.title|upper}}</h2>
+                                    {% endif %}
+                                    {% if card.subtitle %}
+                                        <p class="o-card__text u-text-size-epsilon">{{ card.subtitle }}</p>
+                                    {% endif %}
+                                    {% include "parts/button.twig" with { button : card.button, classes: 'c-btn--gray-darker u-bg-gray-darker u-text-size-zeta u-text-medium u-flex-center', upperFilter : true} %}
+                                     
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if post.content_modules|length > 0 %}
+        <div class="o-contain o-contain-padding">
+            <article class="c-copy c-copy--mt">
+                {% include 'parts/content-modules.twig' %}
+            </article>
+        </div>
+    {% endif %}
+{% endblock %}

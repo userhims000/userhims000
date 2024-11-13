@@ -1,0 +1,134 @@
+/*----------------------------------------------------------------------------*\
+    #SETTINGS TYPOGRAPHY
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Font stacks.
+ */
+
+$sans-font: 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, ArialMT, sans-serif;
+$serif-font: 'Lucida Bright', 'LucidaBright', Georgia, serif;
+
+$primary-font: 'Montserrat', $sans-font;
+
+/**
+ * Text max-width.
+ */
+
+$text-max-width: 40rem;
+
+/**
+ * Text sizing.
+ *
+ * If no line-height at all is explicitly set, a vertical rhythm line-height is
+ * calculated and maintained automatically! But if a line-height is explicitly
+ * set (out out-commented), vertical rhythm will break for that speceific
+ * breakpoint!
+ *
+ * IMPORTANT!
+ * base:                                // <= base text size name
+ *      small:                          // <= default breakpoint (mobile first!)
+ *           font-size:          1rem,  // <= base font size (never change!)
+ *           line-height:        1.375  // <= base line height (never out-comment!)
+ *                                      // <= no need to (pointless) add more base breakpoints!
+ */
+
+$text-sizing: (
+    pico: (
+        small: (
+            font-size: .4667rem,
+            line-height: 1.393,
+            letter-spacing: 1.25px
+        )
+    ),
+    nano: (
+        small: (
+            font-size: .5333rem,
+            line-height: 1.3,
+            letter-spacing: 1.38px
+        )
+    ),
+    zeta: (
+        small: (
+            font-size: .733rem,
+            line-height: 1.4
+        )
+    ),
+    epsilon: (
+        small: (
+            font-size: .8667rem,
+            line-height: 1.8
+        )
+    ),
+    delta: (
+        small: (
+            font-size: 1rem,
+            line-height: 1.3,
+            letter-spacing: .25px
+        )
+    ),
+    base: (
+        small: (
+            font-size: 1rem,
+            line-height: 1.733
+        )
+    ),
+    // gamma: (
+    //     small: (
+    //         font-size: 1.2rem,
+    //         line-height: 1.4444
+    //     )
+    // ),
+    beta: (
+        small: (
+            font-size: 1.2rem,
+            line-height: 1.264,
+            letter-spacing: .5px
+        )
+    ),
+    alpha: (
+        small: (
+            font-size: 1.2rem,
+            line-height: 1.806,
+        )
+    ),
+    mega: (
+        small: (
+            font-size: 1.2rem,
+            line-height: 1.778
+        ),
+        large: (
+            font-size: 1.333rem,
+            line-height: 1.7875
+        )
+    ),
+    giga: (
+        small: (
+            font-size: 1.333rem,
+            line-height: 1.2,
+            letter-spacing: .5px
+        ),
+        large: (
+            font-size: 1.733rem,
+            line-height: 1.25,
+            letter-spacing: 1px
+        )
+    ),
+    tera: (
+        small: (
+            font-size: 1.65rem,
+            line-height: 1.219,
+            letter-spacing: 1px
+        ),
+        compact: (
+            font-size: 2.133rem,
+            line-height: 1.219,
+            letter-spacing: 1px
+        ),
+        large: (
+            font-size: 2.8rem,
+            line-height: 1.238,
+            letter-spacing: 1.5px
+        )
+    )
+);

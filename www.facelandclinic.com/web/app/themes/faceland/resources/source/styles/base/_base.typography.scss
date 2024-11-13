@@ -1,0 +1,34 @@
+/*----------------------------------------------------------------------------*\
+    #BASE TYPOGRAPHY
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Paragraphs
+ */
+
+/* p:first-of-type { } */
+
+/* p:first-child { } */
+
+/* p + p {
+    margin-top: rhythm(-1);
+    text-indent: rhythm(1);
+} */
+
+/* p:first-child::first-letter { } */
+
+
+/**
+ * In-line elements
+ */
+
+// i,
+// em,
+// cite { font-style: italic; }
+
+// b,
+// strong { font-weight: 700; }
+
+// small { @include responsive-text-size('nano'); }
+
+// time { text-transform: uppercase; }

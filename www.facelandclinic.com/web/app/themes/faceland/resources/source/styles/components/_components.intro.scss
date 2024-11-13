@@ -1,0 +1,32 @@
+.c-intro {
+    padding-top: rhythm(1);
+    padding-bottom: rhythm(1);
+
+    @include breakpoint(large) {
+        padding-top: rhythm(1);
+        padding-bottom: rhythm(2);
+    }
+}
+
+.c-intro__heading {
+    margin-bottom: rhythm(.375);
+}
+
+.c-intro-media {
+    max-width: rhythm(23.25);
+
+    p {
+
+        strong {
+            font-weight: 700;
+        }
+
+        a {
+            text-decoration: underline;
+        }
+    }
+}
+
+.c-intro--small {
+    margin-top: rhythm(1);
+}

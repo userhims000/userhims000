@@ -1,0 +1,39 @@
+{% if card.color == 'surgery' %}
+    {% set color = 'surgery' %}
+{% elseif card.color == 'injectable' %}
+    {% set color = 'injectable' %}
+{% elseif card.color == 'other' %}
+    {% set color = 'other' %}
+{% else %}
+    {% set color = 'secondary' %}            
+{% endif %} 
+
+
+<div class="o-card c-card--simple c-card--bordered js-block">
+    <figure class="o-card__image c-card__image--background {# u-bg-{{color}}-light #} u-flex-sm u-flex-center">
+        {{rokit_get_image(card.image, 'avatar-sm', card.title, 'o-image--sm o-image--round')}}
+        {% include "parts/mask.twig" with { classes : 'c-mask--white' } %}
+    </figure>
+
+    <div class="o-card__content u-bg-white js-match-height">
+        {% if card.labels|length > 0 %}
+
+            {% for label in card.labels  %}
+                {% if label.color == 'surgery' %}
+                    {% set labelColor = 'surgery'  %}
+                {% elseif label.color == 'injectable'  %}
+                    {% set labelColor = 'injectable' %}
+                {% elseif label.color == 'other'  %}
+                    {% set labelColor = 'other' %}
+                {% else %}
+                    {% set labelColor = 'secondary' %}            
+                {% endif %}
+                <span class="o-card__label o-label u-bg-{{ labelColor }}-light u-text-size-pico u-text-bold">{{ label.name|upper }}</span>
+            {% endfor %}
+        {% endif %}
+
+        <h3 class="o-card__heading u-text-size-beta u-text-bold"><a href="{{card.link}}" title="{{card.title}}">{{card.title}}</a></h3>
+        {% set date = card.date_formated ? card.date_formated : card.date("d M") %}
+        <time class="o-card__time u-text-size-zeta" datetime="{{ card.date("Y-m-d h:i") }}">{{ date }}</time>
+    </div>
+</div>

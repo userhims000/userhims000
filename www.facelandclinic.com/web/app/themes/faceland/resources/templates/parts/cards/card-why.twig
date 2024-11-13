@@ -1,0 +1,9 @@
+{% if card.title and card.short %}
+    <div class="c-usp">
+        <h3 class="c-usp__heading u-text-size-delta u-text-bold">{{card.title|upper}}</h3>
+        <div class="c-usp__text u-text-size-epsilon">{{card.short}}</div>
+        {% if card.show_more and card.long %}
+            <button class="c-usp__link u-text-size-nano u-text-bold" data-featherlight="{{card.long|replace({'"':'\''})|raw}}">{{pll__('Meer lezen')|upper}}</button>
+        {% endif %}
+    </div>
+{% endif %}

@@ -1,0 +1,149 @@
+/*----------------------------------------------------------------------------*\
+    #PRINT STYLES
+\*----------------------------------------------------------------------------*/
+
+* {
+    position: static !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    clear: both;
+    background: transparent !important;
+    color: black !important;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    letter-spacing: .2pt;
+    line-height: 1.4;
+    text-shadow: none !important;
+    word-spacing: 1.1pt;
+    box-shadow: none !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 { font-family: Helvetica, Arial, sans-serif; }
+
+h1 { font-size: 18pt; }
+
+h2 { font-size: 15pt; }
+
+h3 { font-size: 13pt; }
+
+h4,
+h5,
+h6 { font-size: 11pt; }
+
+p,
+h2,
+h3 {
+    orphans: 3;
+    widows: 3;
+}
+
+h2,
+h3 { page-break-after: avoid; }
+
+pre,
+blockquote {
+    margin: 1.5em;
+    padding: 1em;
+    border: 1px solid rgb(153, 153, 153);
+    page-break-inside: avoid;
+}
+
+hr { background-color: rgb(204, 204, 204); }
+
+
+// Page break (define page breaks in HTML for print (add class 'PageBreak'))
+
+@page { margin: .5cm; }
+
+.page-break {
+    display: block;
+    page-break-after: always;
+}
+
+
+// Images (basic styling of images for print)
+
+img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+}
+
+a img { border: 0; }
+
+
+// Styling of links (anchors) in print
+
+a,
+a:visited {
+    text-decoration: underline;
+}
+
+a[href]::after { content: ' (' attr(href) ')'; }
+
+abbr[title]::after { content: ' (' attr(title) ')'; }
+
+
+// Tables (basic table styling for print)
+
+table {
+    margin: 1px;
+    text-align: left;
+}
+
+th {
+    border-bottom: 1px solid rgb(51, 51, 51);
+    font-weight: 700;
+}
+
+td { border-bottom: 1px solid rgb(51, 51, 51); }
+
+th,
+td { padding: 4px 10px 4px 0; }
+
+tfoot { font-style: italic; }
+
+caption {
+    margin-bottom: 2em;
+    background: white;
+    text-align: left;
+}
+
+thead { display: table-header-group; }
+
+tr { page-break-inside: avoid; }
+
+
+
+
+
+/*------------------------------------*\
+   #PRINT SPECIFIC OVERRIDES
+\*------------------------------------*/
+
+// Typography and defaults
+
+body {
+    width: 75% !important;
+    margin: 20pt 15% auto 10% !important;
+}
+
+p { margin-bottom: 1em !important; }
+
+blockquote {
+    margin-bottom: 1em !important;
+    padding: 1em 0 0 1em !important;
+}
+
+h1,
+h2,
+h3 {
+    margin-top: 1em !important;
+    margin-bottom: .5em !important;
+    color: black;
+}

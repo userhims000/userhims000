@@ -1,0 +1,15 @@
+{% if post.next or post.prev %}
+
+    <ul class="">
+
+        {% if post.prev %}
+            <li><a href="{{post.prev.link}}" class="" title="{{ post.prev.title }}">{{ __('Next', 'faceland') }}</a></li>
+        {% endif %}
+
+        {% if post.next %}
+            <li><a href="{{post.next.link}}" class="" title="{{ post.next.title }}">{{ __('Previous', 'faceland') }}</a></li>
+        {% endif %}
+
+    </ul>
+
+{% endif %}

@@ -1,0 +1,8 @@
+{% if card.question and card.answer %}
+    <div class="c-accordion__item js-toggle-parent" id="{{card.id ~ loop.index}}">
+        <h2 class="c-accordion__heading u-text-size-epsilon u-text-bold js-toggle-trigger" data-animation-type="jquery" data-parent-id="{{card.id ~ loop.index}}">{{ card.question|upper }}</h2>
+        <div class="c-accordion__content u-text-size-epsilon js-toggle-content" style="display: none;">
+            {{ card.answer }}
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,29 @@
+{% if layout.blocks|length > 0 %}
+    {% for zigzag in layout.blocks %}
+        {% if zigzag|length > 0 %}
+            {% set reverseClass = loop.index is odd ? 'o-grid--reverse' %}
+            <div class="o-card c-card--zigzag c-copy__maxwidth">
+                <div class="o-grid u-flex u-flex-center-y u-1of1--sm u-1of2--md {{reverseClass}}">
+                    <div class="o-grid__cell">
+                        <figure class="o-card__image">
+                            {{ rokit_get_image(zigzag.image, 'campaign-zigzag', zigzag.title) }}
+                        </figure>
+                    </div>
+                    <div class="o-grid__cell">
+                        <div class="o-card__content">
+                            {% if zigzag.title|length > 0 %}
+                                <h3 class="o-card__heading u-text-size-beta u-text-bold u-title-campaign">{{zigzag.title}}</h3>
+                            {% endif %}
+                            {% if zigzag.intro|length > 0 %}
+                                <p class="o-card__text u-text-campaign">{{ zigzag.intro }}</p>
+                            {% endif %}
+                            {% if zigzag.button|length > 0 %}
+                                {% include "parts/button.twig" with { button : zigzag.button, classes : 'c-btn--gray-darker c-btn--tall u-text-size-zeta u-bg-cta-campaign', upperFilter : true} %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}

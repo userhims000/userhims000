@@ -1,0 +1,18 @@
+{% if fn('comments_open') %}
+    <div class="o-contain o-contain-padding">
+        <h2 class="c-related__heading u-text-size-tera u-text-bold u-text-center">{{ pll__('Reacties')|upper }}</h2>
+
+        <div class="c-comments">
+            {% include "parts/comments/comment-form.twig" %}
+
+            {% if post.comments %}
+                {% for cmt in post.comments %}
+                    {% include "parts/comments/comment.twig" with { comment : cmt } %}
+                {% endfor %}
+            {% endif %}
+            {% if post.comment_status == "closed" %}
+                <p>{{ pll__('Reacties op dit bericht zijn gesloten.') }}</p>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

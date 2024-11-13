@@ -1,0 +1,294 @@
+<div class="c-header js-header-top">
+    <div class="c-header__sub">
+        <div class="o-contain o-contain-padding">
+            <a class="c-icon c-icon--round c-icon--email-big u-desktop-hide calltracker-fixed" {{ fn('rokit_get_attribute_aen_code') }} href="mailto:{{contacts.online.email.email}}" title="{{ pll__('Mail') }} {{site.name}}">{{ pll__('Mail') }}</a>
+            <div class="c-masthead {{ is_mobile != true ? 'desktop-c-masthead' : '' }}">
+                <div class="c-hamburger desktop-hamburger u-desktop-show">
+                    <span></span>
+                </div>
+                <div class="logo">
+                    {% set logoURL = logo_url.worldwide_logo_url %}
+                    {% if logoURL %}
+                        {% set logoURL = logoURL %}
+                    {% else %}
+                        {% set logoURL = site.url|replace({ 'nl': 'worldwide'}) %}
+                    {% endif %}
+                    <a href="{{logoURL}}" title="{{site.name}}">{{ rokit_get_static_image('images/logo.svg', null, site.name, '', false) }}</a>
+                </div>
+            </div>
+
+            <ul class="o-list-plain o-list-inline u-text-size-zeta u-text-medium">
+                {% if header|length > 0 %}
+                    {# <div class="u-desktop-show" data-set="register-menu"></div> #}
+                {% endif %}
+
+                <div class="u-desktop-show" data-set="language-menu"></div>
+            </ul>
+
+            <div class="c-hamburger u-mobile-show js-toggle-menu">
+                <span></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if menu.main.get_items %}
+    <nav role="navigation" class="o-nav c-nav-main js-mainnav js-header-bottom {{ is_mobile != true ? 'desktop-o-nav' : '' }} ">
+        <div class="c-nav-sub u-mobile-show">
+
+            <div class="o-contain o-contain-padding u-flex-sm u-flex-end-x u-flex-center-y">
+                <div class="new-en-langugage-switcher">
+                    {% if is_mobile == true %}
+                        {% if current_language_translated_page != "" and is_en_uk != true %}
+                            {% if is_nl == true or is_en == true %}
+                                <span class="js-append-around" id="english-language-switcher"><span> <a href="{{ is_nl == true ? current_page_url : current_language_translated_page  }}">NL</a> | <a href="{{ is_en == true ? current_page_url : current_language_translated_page  }}">EN</a></span></span>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <ul class="o-list-plain o-list-inline c-languages u-mobile-show " data-set="language-menu">
+                    <li class="js-append-around u-mobile-hide n-appointment-book-btn">
+                        {% include "parts/button.twig" with { button : menu.appointment, classes : 'c-btn--primary u-bg-primary u-text-size-epsilon u-text-medium make-an-appointment-modal u-mobile-show-n '} %}
+                    </li>
+                    
+                    {% if menu.lang %}
+                        {% set current_lang_slug = fn('pll_current_language', 'slug') %}
+                        <li class="c-language js-append-around">
+                            {% for lang in menu.lang %}
+                                {% if current_lang_slug == lang.slug %}
+                                {% if menu.page_wordwide == true and current_lang_slug == 'en'  %}
+                                    {% set langSlug = 'en' %} 
+                                {% else %}
+                                    {% set langSlug = lang.slug %} 
+                                {% endif %}
+                                    <a class="c-icon c-icon--language c-icon--round c-icon--{{langSlug}}" href="#" title="">{{lang.name}}</a>
+                                {% endif %}
+                            {% endfor %}
+                            <div class="o-nav__item c-language__dropdown u-text-size-zeta u-text-medium js-lang-switch">
+                                {% for lang in menu.lang %}
+                                    {% if lang.name == 'Nederland' %}
+                                        {% set langName = 'Netherlands' %}
+                                    {% elseif lang.name == 'Deutschland'  %}
+                                        {% set langName = 'Deutschland' %}
+                                    {% elseif lang.name == 'België'  %}
+                                        {% set langName = 'België' %}
+                                    {% elseif lang.name == 'Français'  %}
+                                        {% set langName = 'Belgique' %}
+                                    {% elseif lang.name == 'Schweiz'  %}
+                                        {% set langName = 'Schweiz' %}
+                                    {% elseif lang.name == 'United Kingdom'  %}
+                                        {% set langName = 'United Kingdom' %}        
+                                    {% else %}
+                                        {% set langName = '' %}             
+                                    {% endif  %}
+                                    <a href="{{lang.url}}" title="{{langName}}" data-router-disabled>{{ langName }}</a>
+                                {% endfor %}
+                            </div>
+                        </li>
+                    {% endif %}
+                    <li class="js-append-around">
+                        <a class="c-icon c-icon--round c-icon--search n-search-icon" href="{{ function('get_search_link', ' ') }}" title="{{ pll__('Zoeken') }}">{{ pll__('Zoeken') }}</a>
+                    </li>
+                    <li class="js-append-around">
+                        {# <a class="c-icon c-icon--round c-icon--search n-search-icon" href="{{ function('get_search_link', ' ') }}" title="{{ pll__('Zoeken') }}"><span class="cart-icon"></span></a> #}
+                        {% if langNewsletter == true %}
+                            <a class="c-icon--round round-newsletter c-btn-newsletter js-modal-newsletter" href="#open-newsletter" title="{{ pll__('Nieuwsbrief') }}"><span class="envelope-icon"></span></a>
+                        {% endif %}
+                    </li>
+                    <li class="js-append-around">
+                        {# <a class="c-icon c-icon--round c-icon--search n-search-icon" href="{{ function('get_search_link', ' ') }}" title="{{ pll__('Zoeken') }}"><span class="cart-icon"></span></a> #}
+                        {# {% if langNewsletter == true %} #}
+                            <a class="c-icon c-icon--round c-icon--phone n-phone-icon" href="{{ contacts.online.phone.phone|format_tel }}" title="{{ pll__('Telefoon') }}">{{ pll__('Telefoon') }}</a>
+                        {# {% endif %} #}
+                    </li>
+                    {% if is_mobile != true %}
+                        {% if current_language_translated_page != "" and is_en_uk != true %}
+                            {% if is_nl == true or is_en == true %}
+                                <li class="js-append-around" id="english-language-switcher"><span> <a href="{{ is_nl == true ? current_page_url : current_language_translated_page  }}">NL</a> | <a href="{{ is_en == true ? current_page_url : current_language_translated_page  }}">EN</a></span></li>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </ul>
+                <div class="c-hamburger u-mobile-show js-toggle-menu">
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="c-btn-wrapper u-mobile-show">
+            <div class="u-mobile-btn-wrapper">
+                {% if newsletter.show_newsletter_form == true  %}
+                    <a class="c-btn u-text-medium webshop-btn c-btn c-btn--primary u-bg-gray-lighter u-text-color-black u-text-size-epsilon c-btn--full u-text-medium u-text-ls-medium js-modal-newsletter" href="#open-newsletter" title="{{ pll__('Nieuwsbrief')|upper }}">{{ pll__('Nieuwsbrief' )|upper}}</a>
+                {% endif %}
+                {% include "parts/button.twig" with { button : menu.appointment, classes : 'c-btn--full c-btn u-text-medium c-btn--primary u-bg-primary u-text-size-epsilon u-text-medium  u-text-ls-medium make-an-appointment-btn-mobile', upperFilter : true} %}
+            </div>
+        </div>
+
+        {% if is_mobile %}
+            <div class="new-mobile-navigation">
+                <div class="u-mobile-menu" id="navigation">
+                    <ul class="top-level">
+                        {% for key, item in menu.mobile_menu.get_items %}
+                        <li class="parent-menu-item {{ item.class }}">
+                            {% if key == 0 %} 
+                                {% if is_nl == true %}
+                                    {% set frontPageURL = '/nl' %} 
+                                {% elseif is_be == true %}
+                                    {% set frontPageURL = '/be' %}
+                                {% elseif is_ch == true %}
+                                    {% set frontPageURL = '/ch' %}
+                                {% elseif is_de == true %}
+                                    {% set frontPageURL = '/de/' %}
+                                {% elseif is_be_fr == true %}
+                                    {% set frontPageURL = '/be-fr' %}
+                                {% elseif is_en == true %}
+                                    {% set frontPageURL = '/en' %}
+                                {% elseif is_en_uk == true %}
+                                    {% set frontPageURL = '/en-gb' %}                    
+                                {% endif %}    
+                                {% set homeURL = frontPageURL  %}
+                            {% else %}
+                                {% set homeURL = ''  %}
+                            {% endif %}
+                            <a href="{{ homeURL }}" class="top-level-item">{{ item.title }} {% if key != 0 %} <i class="arrow right"></i> {% endif %}</a>
+                            <ul class="sub-level">
+                                {% for subitem in item.children %}
+                                    <li class="sub-child-menu-item {{ subitem.class }}"><a href="{{ subitem.url }}">{{ subitem.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>    
+        {% endif %}
+
+        <div class="o-contain o-contain-padding u-desktop-show">
+            <ul class="o-list-plain o-nav__list js-navigation-items">
+                {% for item in menu.main.get_items %}
+                    <li class="o-nav__item c-nav-main__item u-text-color-gray-dark u-text-size-epsilon js-navigation-item {{ item.class }}">
+                        <a href="{{ item.link }}" class="o-nav__link c-nav-main__link" title="{{ item.title }}">{{ item.title }}</a>
+                        {% if item.children|length > 0 and item.menu_object._menu_item_classes.0 != 'new-sub-menu' %}
+                            <div class="c-nav__list-sub">
+                                <div class="o-contain o-contain-padding">
+                                    {# <span class="c-nav__list-sub__heading u-text-size-base u-text-bold u-text-color-gray">{{ item.title }}</span> #}
+                                    {% if item.children|length <= 3  %}
+                                        {% set class = "border-bottom-hidden" %}
+                                    {% else %}
+                                        {% set class = "" %}
+                                    {% endif %}    
+                                    <div class="o-grid o-grid--with-gutter u-1of3--lg">
+                                        {% for subitem in item.children %}
+                                            <div class="o-grid__cell sub-menu-item">
+                                                <div class="c-nav__list-sub__item js-block {{ class }}">
+                                                    <span class="c-nav__list-sub__heading-sub u-text-size-base">{{ subitem.title }}</span>
+                                                    <div class="menu-item-description">
+                                                        <p>{{subitem.description}}</p>
+                                                    </div>
+                                                    <div class="menu-btn">
+                                                        <a class="c-btn u-text-small f-bg-primary-bg cta-button" href="{{ subitem.url }}" title="{{subitem.title}}">{{ pll__('Bekijk') }} {{ subitem.title }}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if item.children|length > 0 and item.menu_object._menu_item_classes.0 == 'new-sub-menu' %}
+                            <div class="c-nav__list-sub">
+                                <div class="o-contain o-contain-padding">
+                                    <div class="o-grid o-grid--with-gutter u-1of3--lg">
+                                        {% for subitem in item.children %}
+                                            <div class="o-grid__cell sub-menu-item">
+                                                {% if 'sub-menu' in subitem.menu_object._menu_item_classes  %}
+                                                    <div class="c-nav__list-sub__item {{ ('click-none' in subitem.menu_object._menu_item_classes) ? 'click-event-none' : '' }}">
+                                                        <span class="c-nav__list-sub__heading-sub u-text-size-base">{{ subitem.title }}</span>
+                                                    </div>
+                                                {% endif %}
+                                                {% for subitem1 in subitem.children %}
+                                                        {% if 'col2-start' in subitem1.menu_object._menu_item_classes  %}
+                                                            <div class="child-menu">
+                                                        {% endif %}
+                                                        {% if 'col4-start' in subitem1.menu_object._menu_item_classes  %}
+                                                            <div class="four-item-child-menu">
+                                                        {% endif %}
+                                                        {% if 'external' not in subitem1.menu_object._menu_item_classes  %}
+                                                            {% if 'first-start' in subitem1.menu_object._menu_item_classes  %}
+                                                                <div class="two-item-wrap">
+                                                            {% endif %}
+                                                            {% if 'first-start-full' in subitem1.menu_object._menu_item_classes  %}
+                                                                <div class="single-item-wrap">
+                                                            {% endif %}
+                                                            <div class="wrapper {{ ('external-link' in subitem1.menu_object._menu_item_classes) ? 'external-link' : '' }}">
+                                                                {% if 'outside-external' in subitem1.menu_object._menu_item_classes  %}
+                                                                    <div class="menu-item-description allview">
+                                                                        <p><a href="{{ subitem1.url }}">{{ subitem1.title }}</a></p>
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% for subitem2 in subitem1.children %}
+                                                                    {% if 'show-mobile' in subitem2.menu_object._menu_item_classes  %}
+                                                                        {% set boldText = 'text-bold' %}
+                                                                    {% elseif 'menu-item-hide' in subitem2.menu_object._menu_item_classes %}
+                                                                        {% set boldText = 'menu-item-hide' %}
+                                                                    {% else %}
+                                                                        {% set boldText = '' %}
+                                                                    {% endif %} 
+                                                                    <div class="menu-item-description {{ boldText }}">
+                                                                        <p><a href="{{ subitem2.url }}">{{ subitem2.title }}</a></p>
+                                                                    </div>
+                                                                {% endfor %}
+                                                                {% if subitem1.description is not empty %}
+                                                                    <div class="description">
+                                                                        <p>{{ subitem1.description }}</p>
+                                                                    </div>
+                                                                {% endif %}
+                                                                {# <div class="menu-btn">
+                                                                    <a class="c-btn u-text-small f-bg-primary-bg cta-button" href="{{ subitem1.url }}" title="{{subitem1.title}}">
+                                                                        {% if item.menu_object._menu_item_classes.0 == 'new-sub-menu' %}
+                                                                            {{ pll__('Bekijk') }} {{ pll__('alle') }} {{ subitem1.title }}
+                                                                        {%  else %}
+                                                                            {{ pll__('Bekijk') }} {{ subitem1.title }}
+                                                                        {%  endif %}
+                                                                    </a>
+                                                                </div> #}
+                                                            </div>
+                                                            {% if 'first-end-full' in subitem1.menu_object._menu_item_classes  %}
+                                                                </div>
+                                                            {% endif %}
+                                                            {% if 'first-end' in subitem1.menu_object._menu_item_classes  %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% endif  %}
+                                                        {% if 'col2-end' in subitem1.menu_object._menu_item_classes  %}
+                                                            </div>
+                                                        {% endif %}
+                                                        {# {% if '4-item-external' in subitem1.menu_object._menu_item_classes  %}
+                                                            <div class="menu-btn allexternal-btn">
+                                                                <a class="c-btn u-text-small f-bg-primary-bg cta-button" href="{{ subitem1.url }}" title="{{subitem1.title}}">{{ pll__('Bekijk') }} {{ pll__('alle') }} {{ subitem1.title }}</a>
+                                                            </div>
+                                                        {% endif %} #}    
+                                                        {% if 'col4-end' in subitem1.menu_object._menu_item_classes  %}
+                                                            </div>
+                                                        {% endif %}
+                                                {% endfor %}            
+                                            </div>    
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>        
+                        {% endif %} 
+                    </li>
+                {% endfor %}
+            </ul>
+            {% if current_page_slug == 'termin-vereinbaren' or current_page_slug == "maak-een-afspraak"   %}
+                {% set cls = "make-an-appointment-modal" %}
+            {% else %}
+                {% set cls = "" %}    
+            {% endif %}
+            {% if is_mobile %}
+                {% include "parts/button.twig" with { button : menu.appointment, classes : 'u-text-size-epsilon c-btn--gray-darker u-bg-gray-darker u-text-medium make-an-appointment-modal'} %}
+            {% endif %}
+        </div>
+    </nav>
+{% endif %}

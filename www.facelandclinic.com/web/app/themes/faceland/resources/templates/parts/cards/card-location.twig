@@ -1,0 +1,21 @@
+{% set carousel = carouselItem ? 'c-carousel__item u-bg-white' %}
+{% set lazyload = carouselItem ? false : true %}
+<div class="o-card c-card--simple c-card--location u-bg-white js-block {{ carousel }}">
+    <figure class="o-card__image">
+        {{rokit_get_image(card.image, 'card-location', card.title, '', lazyload)}}
+        {% include "parts/mask.twig" with { classes : 'c-mask--tertiary-light' } %}
+    </figure>
+
+    <div class="o-card__content-sub u-flex-sm u-flex-space-between-x u-bg-tertiary-light">
+        <a class="c-icon c-icon--phone js-block-skip calltracker-fixed calltracker-fixed" href="{{card.phone|format_tel}}" {{ fn('rokit_get_attribute_aen_code') }} title="{{pll__('Telefoonnummer')}} {{card.title}}">Phone</a>
+        {# <a class="c-icon c-icon--whatsapp js-block-skip" href="https://api.whatsapp.com/send?phone=31{{contacts.online.whatsapp.injectables}}" title="{{pll__('Whatsapp')}} {{card.title}}" rel="external" data-router-disabled>Whatsapp</a> #}
+        <a class="c-icon c-icon--location js-block-skip" href="{{card.mapslink}}" title="{{pll__('Google maps link')}} {{card.title}}" rel="external" data-router-disabled>Location</a>
+    </div>
+
+    <div class="o-card__content u-bg-white js-match-height">
+        <h3 class="o-card__heading u-text-size-beta u-text-bold"><a href="{{card.link}}">{{card.title}}</a></h3>
+
+        {% include "parts/location/info.twig" with { info : card.openinghours } %}
+        {% include "parts/location/info.twig" with { info : card.availability } %}
+    </div>
+</div>

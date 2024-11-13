@@ -1,0 +1,36 @@
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% include "parts/panorama-search.twig" with { panorama : { title : collection.title }, showMask : collection.search_query } %}
+{% endblock %}
+
+{% block content %}
+
+    {% if collection.search_query %}
+        <div class="c-search">
+            <div class="o-contain o-contain-padding">
+                <div class="c-search__wrapper">
+                    {% if collection.results|length > 0 %}
+                        <div class="c-search__total">
+                            <span class="u-text-delta u-text-color-gray">{{ collection.results_title }} <strong>{{ collection.search_query }}</strong></span>
+                        </div>
+                        {% for card in collection.results %}
+                            <div class="c-search__item js-block">
+                                <h3 class="c-search__heading u-text-size-delta u-text-bold">{{card.search_title|upper}}</h3>
+                                <a href="{{ card.search_link }}" class="c-search__link u-text-size-zeta u-text-italic u-text-color-primary" title="{{card.search_title}}">{{ card.search_link }}</a>
+                                <div class="c-search__text u-text-size-epsilon">{{ card.search_excerpt|truncate('350') }}</div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="c-search__total">
+                            <span class="u-text-delta u-text-color-gray">{{ pll__('Geen zoekresultaten voor: ') }} <strong>{{ collection.search_query }}</strong></span>
+                        </div>
+                    {% endif %}
+                </div>
+
+                {% include "parts/pagination.twig" with { pagination: collection.pagination } %}
+            </div>
+        </div>
+
+    {% endif %}
+{% endblock %}

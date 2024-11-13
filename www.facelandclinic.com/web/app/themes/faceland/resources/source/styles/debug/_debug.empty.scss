@@ -1,0 +1,12 @@
+/*----------------------------------------------------------------------------*\
+    #DEBUG EMPTY
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Are there any empty elements in your page?
+ */
+
+:empty:not(hr) {
+    @include debug-text('empty element');
+    outline: 5px solid yellow;
+}

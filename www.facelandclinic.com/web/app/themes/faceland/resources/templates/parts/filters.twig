@@ -1,0 +1,20 @@
+{% if filter.options|length > 0 %}
+    <div class="c-filters c-filters--button c-filters--bordered c-filters--square-sm u-text-size-epsilon u-text-color-gray u-bg-white js-animation-element a-fade-in a-delay">
+        <div class="c-filters__wrapper heellllllll">
+            {% if filter.all %}
+                <a class="c-filter {{filter.all.active ? 'is-active'}} u-text-center" href="{{filter.all.url}}" title="{{filter.all.name}}" data-transition="filter">{{filter.all.name}}</a>
+            {% endif %}
+            {% if filter.christmas_price_types|length > 0 %}
+                {% for key, filter in filter.christmas_price_types %}
+                    <a class="c-filter {{filter.active ? 'is-active'}} u-text-center" href="{{filter.link}}" title="{{filter.name}}" data-transition="filter">{{filter.name}}</a>
+                {% endfor %}
+            {% else %}
+                {% for key, filter in filter.options %}
+                    {% if filter.name != 'Huidaandoeningen' %}
+                        <a class="c-filter {{filter.active ? 'is-active'}} u-text-center" href="{{filter.link}}" title="{{filter.name}}" data-transition="filter">{{filter.name}}</a>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}            
+        </div>
+    </div>
+{% endif %}

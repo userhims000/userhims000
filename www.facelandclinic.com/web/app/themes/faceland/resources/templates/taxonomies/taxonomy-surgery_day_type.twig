@@ -1,0 +1,20 @@
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% include 'parts/panorama-buttons.twig' with { panorama : taxonomy.collection.panorama, filter : taxonomy.collection.filter } %}
+{% endblock %}
+
+{% block content %}
+    <div class="o-contain o-contain-padding js-filter-container">
+        <div class="c-copy js-filter-items">
+            {% include "layouts/layout-title_text.twig" with { layout : taxonomy.intro } %}
+
+            {% for card in taxonomy.items %}
+                {% include "parts/collection-list.twig" with { title : card.treatment.title, posts : card.items, cardType : 'surgery-day' } %}
+            {% endfor %}
+
+            {% include "layouts/layout-title_text.twig" with { layout : taxonomy.collection.appointment } %}
+            {% include "parts/connect.twig" with { contacts : contacts.online  } %}
+        </div>
+    </div>
+{% endblock %}

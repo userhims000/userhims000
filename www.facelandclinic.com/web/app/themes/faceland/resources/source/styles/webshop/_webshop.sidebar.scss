@@ -1,0 +1,28 @@
+.c-sidebar--bordered {
+    margin-top: rhythm(2);
+    border: 1px solid $color-gray-lighter;
+    box-shadow: none;
+
+    .c-sidebar__list {
+        padding: 0;
+    }
+
+    .c-sidebar__item {
+        padding: rhythm(.375) rhythm(.75);
+        border-bottom: 1px solid $color-gray-lighter;
+
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
+
+    .c-link--arrow::after {
+        right: 0;
+    }
+
+    @include breakpoint(large) {
+        @include offset(static, 0, null, null, 0);
+        width: percentage(1/3);
+        margin-top: rhythm(4);
+    }
+}

@@ -1,0 +1,38 @@
+/*----------------------------------------------------------------------------*\
+    #BASE QUOTES
+\*----------------------------------------------------------------------------*/
+
+q {
+    quotes: none;
+
+    &::before {
+        content: '“';
+    }
+
+    &::after {
+        content: '”';
+    }
+}
+
+blockquote {
+    quotes: none;
+
+    p {
+        display: inline;
+
+        &::before {
+            content: '“';
+        }
+
+        &::after {
+            content: '”';
+        }
+    }
+
+    figcaption {
+
+        &::before {
+            content: '— ';
+        }
+    }
+}

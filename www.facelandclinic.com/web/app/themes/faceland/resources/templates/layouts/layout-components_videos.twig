@@ -1,0 +1,235 @@
+{% if not is_mobile %}
+   {% set counter = 0 %}
+   {% set desktop_titles = [] %}
+   {% for data in layout.video_section_content %}
+       {% set desktopTitle = data.title %}
+      {% if data.gif_image_desktop is not empty or data.video_desktop is not empty %}
+         {% set desktop_titles = desktop_titles|merge([data.title]) %}
+         {% set counter = counter + 1 %}
+      {% endif %}
+   {% endfor %}
+   <div class="video__component__wrapper {{ counter == 1 ? '' : 'custom_video_slider' }} video__slider  {{ layout.show_dots_or_anchor_navigation == 1 ? 'show-anchor' : 'show-dots' }}">
+    {% for data_desktop in layout.video_section_content %}
+         {% set external1 = data_desktop.btn_external_one ? ' rel="external" data-router-disabled' %}
+         {% set external2 = data_desktop.btn_external_two ? ' rel="external" data-router-disabled' %}
+         {% set wrapperClass = data_desktop.what_needs_video_or_gif == "Image" ? 'image__wrap' : 'video__wrap'%}
+         {% set overlayWrap  = data_desktop.what_needs_video_or_gif == "Image" ? 'image_overlay' : 'video_overlay' %}
+         {% set setWrapCta  = data_desktop.button_label_two != '' ? 'enable_two' : '' %}
+      {% if loop.index == 1 %}
+         {% if data_desktop.gif_image_desktop != '' or data_desktop.video_desktop != '' %}
+            <div class="item {{ wrapperClass }} container__wrap__below">
+               {% if data_desktop.what_needs_video_or_gif == "Image" and data_desktop.gif_image_desktop != '' %}
+                  <img src="{{ data_desktop.gif_image_desktop }}" title="{{ data_desktop.title }}" alt="{{ data_desktop.title }}" src="{{ data_desktop.gif_image_desktop }}" width="{{ rokit_get_image_width_height_attr(data_desktop.gif_image_desktop)['width'] }}" height="{{ rokit_get_image_width_height_attr(data_desktop.gif_image_desktop)['height'] }}">
+               {% endif %}
+               {% if data_desktop.what_needs_video_or_gif == "Video" and data_desktop.video_desktop != '' %}
+                  <video class="video" loop="loop" autoplay="autoplay" id="vid" muted playsinline>
+                     <source src="{{ data_desktop.video_desktop }}" type="video/mp4">
+                  </video>
+               {% endif %}
+               {% if desktop_titles is not empty %}
+                  <div class="slick-bottom-nav">
+                     <div class="slick-bottom-nav__wrap">
+                     {% for index , titles in desktop_titles %}
+                           <a href="javascript:void(0)" data-slide="{{ index }}" class="sbn-item">{{ titles }}</a>
+                     {% endfor %}
+                   </div>
+               </div>
+               {% endif %}
+               {% if data_desktop.title != '' %}
+                  <div class="content-details details_wrapper">
+                     <h2 class="section-main-title">{{ data_desktop.title }}</h2>
+                     <p class="sub-description">{{ data_desktop.description }}</p>
+                     {% if data_desktop.show_button_links %}
+                        <div class="cta_links_main">
+                        {% if data_desktop.button_label_one != '' %}
+                           <a class="web-btn {{ setWrapCta }} c-btn u-text-small f-bg-primary-bg cta-button" href="{{ data_desktop.button_url_one }}" title="" {{ external1 }}>{{ data_desktop.button_label_one }}</a>
+                        {% endif  %}
+                        {% if data_desktop.button_label_two != '' %}
+                           <a class="apn-btn c-btn u-text-medium c-btn--full c-btn u-text-ls-medium make-an-appointment-btn-mobile apn-btn" href="{{ data_desktop.button_url_two }}" title="" {{ external2 }}>{{ data_desktop.button_label_two }}</a>
+                        {% endif  %}
+                        </div>
+                     {% endif %}
+                  </div>
+               {% endif %}
+            </div>
+         {% endif  %}
+      {% else  %}
+         {% if data_desktop.gif_image_desktop != '' or data_desktop.video_desktop != '' %}
+            <div class="item {{ wrapperClass }} container__wrap">
+               {% if data_desktop.what_needs_video_or_gif == "Image" and data_desktop.gif_image_desktop != '' %}
+                  <img src="{{ data_desktop.gif_image_desktop }}" title="{{ data_desktop.title }}" alt="{{ data_desktop.title }}" src="{{ data_desktop.gif_image_desktop }}" width="{{ rokit_get_image_width_height_attr(data_desktop.gif_image_desktop)['width'] }}" height="{{ rokit_get_image_width_height_attr(data_desktop.gif_image_desktop)['height'] }}">
+               {% endif %}
+               {% if data_desktop.what_needs_video_or_gif == "Video" and data_desktop.video_desktop != '' %}
+                  <video class="video" loop="loop" autoplay="autoplay" id="vid" muted playsinline>
+                     <source src="{{ data_desktop.video_desktop }}" type="video/mp4">
+                  </video>
+               {% endif %}
+               {% if data_desktop.title != '' %}
+               <div class="overlay {{ overlayWrap }}">
+                  <div class="overlay-content details_wrapper">
+                     <h2 class="heading">{{ data_desktop.title }}</h2>
+                     <p class="sub-description">{{ data_desktop.description }}</p>
+                     {% if data_desktop.show_button_links %}
+                        <div class="cta_links_main">
+                        {% if data_desktop.button_label_one != '' %}
+                           <a class="web-btn {{ setWrapCta }} c-btn u-text-small f-bg-primary-bg cta-button" href="{{ data_desktop.button_url_one }}" title="" {{ external1 }}>{{ data_desktop.button_label_one }}</a>
+                        {% endif  %}
+                        {% if data_desktop.button_label_two != '' %}
+                           <a class="apn-btn c-btn u-text-medium c-btn--full c-btn u-text-ls-medium make-an-appointment-btn-mobile apn-btn" href="{{ data_desktop.button_url_two }}" title="" {{ external2 }}>{{ data_desktop.button_label_two }}</a>
+                        {% endif  %}
+                        </div>
+                     {% endif %}
+                  </div>
+               </div>
+               {% endif %}
+               {% if desktop_titles is not empty %}
+                  <div class="slick-bottom-nav slick-bottom-nav--two">
+                     <div class="slick-bottom-nav__wrap">
+                     {% for index , titles in desktop_titles %}
+                        <a href="javascript:void(0)" data-slide="{{ index }}" class="sbn-item">{{ titles }}</a>
+                     {% endfor %}
+                     </div>
+                  </div>
+               {% endif  %}
+            </div>
+         {% endif  %}
+      {% endif  %}
+    {% endfor %}
+      <div class="item {{ wrapperClass }} lastElement">
+         {# Include the footer #}
+         {# {% include 'base/footer.twig' %} #}
+            {% if fn('is_front_page') and is_mobile != true or current_page_slug == 'home' and is_mobile != true %}
+               <footer class="c-footer {{ fn('show_border_in_footer') ? 'c-footer--bordered'}} js-footer" role="contentinfo">
+                 <div class="o-contain o-contain-padding">
+                     {% include 'parts/footer/footer-links.twig' %}
+                 </div>
+               </footer>
+               {% if is_nl %}
+                 <div class="c-footer-image u-flex-center-x">
+                     {{ rokit_get_static_image('images/disclaimer.svg', 'disclaimer', pll__('disclaimer') , '', false) }}
+                 </div>
+               {% endif %}
+               <div class="c-footer-sub u-bg-gray-darker u-flex u-flex-center-x">
+                    <div class="o-contain o-contain-padding">
+                        <ul class="o-list-plain o-list-inline">
+                            <li class="u-text-size-zeta u-text-color-white">&copy; {{ date.year }} {{ site.name }}  •</li>
+                            {% include 'parts/footer/footer-row.twig' with { urls : footer.bottom, seporator : true, class : 'u-text-size-zeta u-text-color-white' } %}
+
+                            <li class="u-text-size-zeta u-text-color-white">
+                                {{pll__('Website door')}} <a href="https://en-masse.nl" title="En-Masse" rel="external" data-router-disabled>En-Masse</a>
+                            </li>
+                        </ul>
+                    </div>
+               </div>
+            {% endif %} 
+      </div>
+  </div>
+{% endif %}
+{% if is_mobile %}
+   <div class="o-contain o-contain-padding video-section-wrap" 
+   {% if layout.show_christmas_snowflake_image == true %}
+      {% set snowFlakeURL = snowflake_img_url ? snowflake_img_url : 'https://www.facelandclinic.com/app/assets/snow_opacity_change2.png' %}
+      style="background-image:url({{ layout.snowflake_image ? layout.snowflake_image : snowFlakeURL  }}); background-repeat: repeat; background-position: center bottom; padding-bottom: 8rem;"
+      
+   {% endif %}
+   >
+      <div class="c-intro--column   c-d-global-section ">
+         <div class="c-cards-wrapper c-no-carousel-wrapper ">
+            <div class="c-cards o-contain o-contain-padding full-background-image-section">
+               <div class="c-cards">
+                  <div class="o-contain o-contain-padding m-auto js-filter-wrapper u-1of1--sm u-1of2--md u-1of4--lg o-grid--with-gutter o-grid--with-gutter-vertical">
+                     {% for data in layout.video_section_content %}
+                        {% set mobile_external = data.mobile_external ? ' rel="external" data-router-disabled' %}
+                        {% if loop.index == 1 %}    
+                           {% if data.gif_image != '' or data.video != '' %}
+                              <div class="o-grid__cell  a-inview">
+                                 <div class="o-card">
+                                    {% if data.what_needs_video_or_gif == "Image" and data.gif_image != '' %}
+                                       <div class="image-element">
+                                             <figure class="o-card__image">
+                                                <img class="js-lazy-load is-lazy-loaded"  data-src-retina="" title="{{ data.title }}" alt="{{ data.title }}" src="{{ data.gif_image }}" width="{{ rokit_get_image_width_height_attr(data.gif_image)['width'] }}" height="{{ rokit_get_image_width_height_attr(data.gif_image)['height'] }}">
+                                             </figure>
+                                       </div>
+                                    {% else %}
+                                       {% if data.video != '' %}
+                                          <div class="video-element">
+                                                <video class="video" loop="loop" autoplay="autoplay" id="vid" muted playsinline>
+                                                   <source src="{{ data.video }}" type="video/mp4">
+                                                </video>
+                                          </div>
+                                        {% endif %}    
+                                    {% endif %}         
+                                 {% if data.title != '' %}
+                                    <div class="o-card__content  u-text-center">
+                                       <div class="specilist_wrapper">
+                                             <div class="specilist-info">
+                                                <h2 class="sub-heading-caption">{{ data.title }}</h2>  
+                                                <p  {% if layout.show_christmas_snowflake_image == true %} style="background-color: rgb(255 255 255 / 67%);" {% endif %} >{{ data.description }}</p>
+                                             </div>
+                                          {% if data.show_button_links %}
+                                             <div class="btn-wrapper">
+                                                {% if data.button_label_one != '' %}
+                                                   <a class="web-btn webshop-btn c-btn u-text-medium c-btn--primary u-bg-gray-lighter u-text-color-black u-text-size-epsilon c-btn--full u-text-medium u-text-ls-medium" href="{{ data.button_url_one }}" title="" {{ external1 }}>{{ data.button_label_one }}</a>
+                                                {% endif %}
+                                                {% if data.button_label_two != '' %}
+                                                   <a class="c-btn u-text-medium c-btn--full c-btn c-btn--primary u-bg-primary  u-text-ls-medium make-an-appointment-btn-mobile apn-btn" href="{{ data.button_url_two }}" title="" {{ external2 }}>{{ data.button_label_two }}</a>
+                                                {% endif %}
+                                             </div>
+                                          {% endif %}
+                                       </div>
+                                    </div>
+                                {% endif %}
+                                </div>
+                              </div>
+                           {% endif %}
+                        {% else %}   
+                           {% if data.what_needs_video_or_gif == "Image" %}
+                              {% if data.gif_image != '' %}
+                                 <a href="{{ data.mobile_url }}" {{ mobile_external }}><div class="o-grid__cell  a-inview">
+                                    <div class="o-card">
+                                       <div class="image-element">
+                                          <figure class="o-card__image">
+                                             <img class="js-lazy-load is-lazy-loaded"  data-src-retina="" title="{{ data.title }}" alt="{{ data.title }}" src="{{ data.gif_image }}" width="{{ rokit_get_image_width_height_attr(data.gif_image)['width'] }}" height="{{ rokit_get_image_width_height_attr(data.gif_image)['height'] }}">
+                                          </figure>
+                                          {% if data.title != '' %}
+                                             <div class="description-wrap-img">
+                                                <div class="description-inner scroll-anim">
+                                                   <h2>{{ data.title }}</h2>
+                                                   <p>{{ data.description|slice(0, 50) }}</p>
+                                                </div>
+                                             </div>
+                                          {% endif %}
+                                       </div>
+                                    </div>
+                                 </div></a>
+                              {% endif %}
+                           {% else %}
+                              {% if data.video != '' %}
+                                 <a href="{{ data.mobile_url }}" {{ mobile_external }}><div class="o-grid__cell  a-inview">
+                                 <div class="o-card">
+                                    <div class="video-element">
+                                          <video class="video" loop="loop" autoplay="autoplay" id="vid" muted playsinline>
+                                             <source src="{{ data.video }}" type="video/mp4">
+                                          </video>
+                                          {% if data.title != '' %}
+                                             <div class="description-wrap">
+                                                <div class="description-inner scroll-anim">
+                                                   <h2>{{ data.title }}</h2>
+                                                   <p>{{ data.description }}</p>
+                                                </div>     
+                                             </div>
+                                          {% endif %}   
+                                    </div>    
+                                 </div>
+                                 </div></a>
+                              {% endif %}    
+                           {% endif %}  
+                        {% endif %}
+                     {% endfor %}
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+{% endif %}

@@ -1,0 +1,160 @@
+{% if post.all_locations|length > 0 or post.all_specialist|length > 0 %}
+<div class="clinic-specialisten-section treatment-single-specialist">
+    {% if post.all_locations|length > 0 %}
+
+        {% set treatmentIDs = [] %}
+        {% set currentTreatmentId = [] %}
+        {% set allLocations = [] %}
+            {% for locations in post.all_locations %}
+                {% for locationId in locations.location_show_in_treatment %}
+                    {% set treatmentIDs = treatmentIDs|merge([locationId])  %}
+                    {% set currentTreatmentId = currentTreatmentId|merge([locations.current_treatment_id])  %}
+                    {% if currentTreatmentId[0] == locationId %}
+                        {% set allLocations = allLocations|merge([locations])  %}
+                    {% endif %}    
+                {% endfor %}    
+            {% endfor %}
+            {% if currentTreatmentId[0] in treatmentIDs %}
+                {% set showFetchedLocation = allLocations %}
+                
+                <div class="c-carousel-wrapper">
+                    {% if showFetchedLocation|length > 4 and is_mobile != true or showFetchedLocation|length > 2 and is_mobile == true   %}
+                        <div class="c-carousel-nav">
+                            <button class="{{ is_mobile != true ? 'c-icon' : ''  }} c-icon--round c-icon--lg c-icon--arrow js-carousel-prev slick-arrow" aria-disabled="false" style="">                                     
+                                <i class="arrow left"></i>
+                            </button>
+                            <button class="{{ is_mobile != true ? 'c-icon' : ''  }} c-icon--round c-icon--lg c-icon--arrow js-carousel-next slick-arrow slick-disabled" aria-disabled="true" style="">                                     
+                                <i class="arrow right"></i>
+                            </button>
+                        </div>
+                    {% endif %}
+
+                    {% if showFetchedLocation[0].location_section_title  %}
+                        <h2 class="clinic-specialisten-title u-text-bold">{{ showFetchedLocation[0].location_section_title }}</h2>
+                    {% endif %}
+
+                    {% if showFetchedLocation|length > 0 %}
+                    
+
+                        <div class="clinic-specialisten-list c-carousel c-carousel--default o-grid js-filter-wrapper u-1of1--sm u-1of2--md u-1of4--lg o-grid--with-gutter o-grid--with-gutter-vertical {{ (showFetchedLocation|length > 4 and is_mobile != true or showFetchedLocation|length > 2 and is_mobile == true  ) ? 'js-clinic-specialisten-list-carousel' : 'custom-clinic-specialisten-list-carousel' }} ">
+                           
+                           {% for location in showFetchedLocation %}
+                                <div class="clinic-carousel-img-container o-panorama u-flex-sm u-flex-center o-grid__cell  a-inview {{ showFetchedLocation|length <= 4 ? 'slick-slide' : '' }} ">
+                                    <figure class="o-panorama__image c-img-wrapper">
+                                        <a href="{{ location.location_url }}">
+                                            {% if location.location_show_video != true  %}
+                                                <img class="clinic-carousel-img" data-src="{{ location.location_image }}" src="{{ location.location_image }}">
+                                            {% endif %}
+                                            {% if location.location_show_video == true  %}
+                                                <video class="video" loop="loop" autoplay="autoplay" id="vid" muted playsinline>
+                                                    <source src="{{ location.location_video_url }}" type="video/mp4">
+                                                </video>
+                                            {% endif %}
+                                        </a>
+                                        {% if is_mobile == true  %}
+                                            {% if location.location_show_video != true  %}
+                                                <div class="overlay"></div>
+                                            {% endif %}
+                                            <div class="u-text-center clinic-image-below-title">
+                                                <a href="{{ location.location_url }}" class="u-flex-center" target=""><span>{{ location.location_title }}</span></a>
+                                            </div>
+                                        {% endif %}
+                                    </figure>
+                                    {% if is_mobile != true %}
+                                        <div class="u-text-center clinic-image-below-title">
+                                            <a href="{{ location.location_url }}" class="u-flex-center" target=""> <span>{{ location.location_title }}</span></a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% if showFetchedLocation|length > 0 and showFetchedLocation[0].location_section_button.btn_label != '' %}
+                        <div class="u-text-center clinic_and_specialisten_button {{ (is_mobile == true ) ? : 'mt-2'  }}">
+                            <a href="{{ showFetchedLocation[0].location_section_button.btn_url }}" title="{{ showFetchedLocation.location_section_button.btn_label }}" class="c-btn u-text-medium c-btn--primary u-bg-primary u-text-size-epsilon u-text-medium make-an-appointment-modal" target="{{ (showFetchedLocation.location_section_button.external == true) ? '_blank' : '' }}">{{ showFetchedLocation.location_section_button.btn_label }}</a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% else %}
+                {% set showFetchedLocation = [] %}
+            {% endif %}    
+
+    {% endif %}
+    {% if post.all_specialist|length > 0 %}
+
+        {% set treatmentIDs = [] %}
+        {% set currentTreatmentId = [] %}
+        {% set allSpecialists = [] %}
+            {% for specialists in post.all_specialist %}
+                {% set currentTreatmentId = currentTreatmentId|merge([specialists.current_treatment_id])  %}
+                {% for treatmentId in specialists.specialist_show_in_treatment %}
+                    {% set treatmentIDs = treatmentIDs|merge([treatmentId])  %}
+                    {% if currentTreatmentId[0] == treatmentId %}
+                        {% set allSpecialists = allSpecialists|merge([specialists])  %}
+                    {% endif %}    
+                {% endfor %}
+            {% endfor %}
+            {% if currentTreatmentId[0] in treatmentIDs %}
+                {% set showFetchedallSpecialist = allSpecialists %}
+
+                <div class="c-carousel-wrapper">
+                    {% if showFetchedallSpecialist|length > 4 and is_mobile != true or showFetchedallSpecialist|length > 2 and is_mobile == true   %}
+                        <div class="c-carousel-nav">
+                            <button class="{{ is_mobile != true ? 'c-icon' : ''  }} c-icon--round c-icon--lg c-icon--arrow js-carousel-prev slick-arrow" aria-disabled="false" style="">                                     
+                                <i class="arrow left"></i>
+                            </button>
+                            <button class="{{ is_mobile != true ? 'c-icon' : ''  }} c-icon--round c-icon--lg c-icon--arrow js-carousel-next slick-arrow slick-disabled" aria-disabled="true" style="">                                     
+                                <i class="arrow right"></i>
+                            </button>
+                        </div>
+                    {% endif %}
+
+                    {% if showFetchedallSpecialist[0].specialist_section_title  %}
+                        <h2 class="clinic-specialisten-title u-text-bold">{{ showFetchedallSpecialist[0].specialist_section_title }}</h2>
+                    {% endif %}
+                    {% if showFetchedallSpecialist|length > 0 %}
+                        <div class="clinic-specialisten-list c-carousel c-carousel--default o-grid js-filter-wrapper u-1of1--sm u-1of2--md u-1of4--lg o-grid--with-gutter o-grid--with-gutter-vertical {{ (showFetchedallSpecialist|length > 4 and is_mobile != true or showFetchedallSpecialist|length > 2 and is_mobile == true  ) ? 'js-clinic-specialisten-list-carousel' : 'custom-clinic-specialisten-list-carousel' }} ">
+                           {% for specialist in showFetchedallSpecialist %}
+                                <div class="clinic-carousel-img-container o-panorama u-flex-sm u-flex-center o-grid__cell  a-inview {{ showFetchedallSpecialist|length <= 4 ? 'slick-slide' : '' }} ">
+                                    <figure class="o-panorama__image c-img-wrapper">
+                                        <a href="{{ location.location_url }}">
+                                            {# {% if specialist.location_show_video != true  %} #}
+                                                <img class="clinic-carousel-img" data-src="{{ specialist.specialist_image }}" src="{{ specialist.specialist_image }}">
+                                            {# {% endif %} #}
+                                            {# {% if specialist.location_show_video == true  %}
+                                                <video class="video" loop="loop" autoplay="autoplay" id="vid" muted playsinline>
+                                                    <source src="{{ location.location_video_url }}" type="video/mp4">
+                                                </video>
+                                            {% endif %} #}
+                                        </a>
+                                        {% if is_mobile == true  %}
+                                            <div class="overlay"></div>
+                                            <div class="u-text-center clinic-image-below-title">
+                                                <a href="{{ specialist.specialist_url }}" class="u-flex-center" target=""><span>{{ specialist.specialist_title }}</span></a>
+                                            </div>
+                                        {% endif %}
+                                    </figure>
+                                    {% if is_mobile != true %}
+                                        <div class="u-text-center clinic-image-below-title">
+                                            <a href="{{ specialist.specialist_url }}" class="u-flex-center" target=""> <span>{{ specialist.specialist_title }}</span></a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% if showFetchedallSpecialist|length > 0 and showFetchedallSpecialist[0].specialist_section_button.btn_label != '' %}
+                        <div class="u-text-center clinic_and_specialisten_button {{ (is_mobile == true ) ? : 'mt-2'  }}">
+                            <a href="{{ showFetchedallSpecialist[0].specialist_section_button.btn_url }}" title="{{ showFetchedallSpecialist[0].specialist_section_button.btn_label }}" class="c-btn u-text-medium c-btn--primary u-bg-primary u-text-size-epsilon u-text-medium make-an-appointment-modal" target="{{ (showFetchedallSpecialist[0].specialist_section_button.external == true) ? '_blank' : '' }}">{{ showFetchedallSpecialist[0].specialist_section_button.btn_label }}</a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% else %}
+                {% set showFetchedallSpecialist = [] %}
+            {% endif %}
+
+    {% endif %}
+</div>
+{% endif %}

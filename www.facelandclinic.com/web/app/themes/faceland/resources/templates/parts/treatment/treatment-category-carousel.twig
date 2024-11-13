@@ -1,0 +1,29 @@
+{% if catcarousels.data|length > 0 %}
+<div class="iamhere-section o-grid treatment-iamhere-section">
+    <div class="treatment-slider location-info-section">
+        <div class="u-text-left ">
+            <h2 class="u-text-bold">{{ catcarousels.title }}</h2>
+            <p>{{ catcarousels.description|raw }}</p>
+        </div>
+    </div>
+    <div class="treatment-image-slider location-slider">
+        <div class="c-carousel-wrapper">
+                <div class="c-carousel-nav">
+                    <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--prev u-bg-gray-darker js-carousel-prev">{{pll__('Vorige')}}
+                    </button>
+                    <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--next u-bg-gray-darker js-carousel-next">{{pll__('Volgende')}}
+                    </button>
+                </div>
+            <div class="c-carousel c-carousel--default js-panorama-carousel">
+                {% for item in catcarousels.data %}
+                    <div class="o-panorama u-flex-sm u-flex-center">
+                        <figure class="o-panorama__image">
+                            <img class="js-lazy-load is-lazy-loaded" data-src="{{item.category_image}}" src="{{item.category_image}}">
+                        </figure>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

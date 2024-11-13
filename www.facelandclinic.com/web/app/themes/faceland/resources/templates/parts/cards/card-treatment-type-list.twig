@@ -1,0 +1,98 @@
+{% if rokit_get_query_param('debug') != 'development' %}
+
+{% set treatmentTypePosts = treatmentTypePosts ? treatmentTypePosts : treatmentType.posts %}
+
+<div class="c-list c-list--bordered u-bg-white">
+    <span class="c-list__heading u-text-size-delta u-text-bold">{{treatmentType.term.title|upper}}</span>
+
+    {% if treatmentTypePosts %}
+        <ul class="o-list-plain c-list__content u-text-size-epsilon">
+            {% for treatment in treatmentTypePosts %}
+                <li>
+                    <a class="o-link c-link--arrow u-text-color-gray-darker" href="{{treatment.link}}" title="{{treatment.title}}">{{treatment.title}}</a>
+                </li>
+            {% endfor %}
+            {% if showAll and treatmentTypePosts|length > 1 %}
+                <li>
+                    <a class="c-list__link c-list__link--overview u-text-color-gray-darker u-text-bold u-text-size-zeta" href="{{ treatmentType.term.link  }}" title="">{{pll__('Bekijk alle behandelingen')|upper}}</a>
+                </li>
+            {% endif %}
+        </ul>
+
+    {% else %}
+        {% if fallback %}
+            <div class="c-list__content">
+                <p class="u-text-color-gray-darker u-text-size-epsilon">{{fallback.text}}</p>
+                {% if fallback.button.label and fallback.button.url %}
+                    <a class="c-list__link c-list__link--overview u-text-color-gray-darker u-text-bold u-text-size-zeta" href="{{ fallback.button.url ~ '/' }}" title="{{fallback.button.label}}">{{fallback.button.label|upper}}</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+{% endif %}
+
+
+{% if rokit_get_query_param('debug') == 'development' %}
+    
+    {% set treatmentTypePosts = treatmentTypePosts ? treatmentTypePosts : treatmentType.posts %}
+    {% if is_mobile != true %}
+    <div class="c-list c-list--bordered u-bg-white my-br-30px">
+        <span class="c-list__heading  border-none u-text-size-delta u-text-bold">{{ treatmentType.term.title }}</span>
+
+        {% if treatmentTypePosts %}
+            <ul class="o-list-plain c-list__content u-text-size-epsilon">
+                {% for treatment in treatmentTypePosts %}
+                    <li>
+                        <a class="o-link  u-text-color-gray-darker" href="{{treatment.link}}" title="{{treatment.title}}">{{treatment.title}}</a><i class="arrow right"></i>
+                    </li>
+                {% endfor %}
+                {% if showAll and treatmentTypePosts|length > 1 %}
+                    <li>
+                        <a class="c-list__link c-list__link--overview u-text-color-gray-darker u-text-bold u-text-size-zeta" href="{{ treatmentType.term.link  }}" title="">{{pll__('Bekijk alle behandelingen')|upper}}</a>
+                    </li>
+                {% endif %}
+            </ul>
+
+        {% else %}
+            {% if fallback %}
+                <div class="c-list__content c-list__content-padding">
+                    <p class="u-text-color-gray-darker u-text-size-epsilon">{{fallback.text}}</p>
+                    {% if fallback.button.label and fallback.button.url %}
+                        <a class="c-list__link my-btn c-list__link--overview u-text-color-gray-darker u-text-bold u-text-size-zeta" href="{{ fallback.button.url ~ '/' }}" title="{{fallback.button.label}}">{{fallback.button.label|upper}}</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+    {% endif %}
+        
+    {% if is_mobile %}
+    <div class="o-contain treatment-tab-section">
+      <div class="faceland-accordion">
+          {% if treatmentType.term.title %}
+              <div class="accordian-title">
+                  <label class="accordian-label">{{ treatmentType.term.title }}</label>
+              </div>
+              <span class="accordian-arrow"></span>
+          {% endif %}
+      </div>
+        <div class="faceland-accordion-panel">
+            {% if treatmentTypePosts %}
+                {% for key, tabInfo in treatmentTypePosts %}
+                    <a class="o-link  u-text-color-gray-darker" href="{{tabInfo.link}}" title="{{tabInfo.title}}">{{tabInfo.title}}<i class="arrow right"></i></a>
+                {% endfor %}
+            {% else %}
+                {% if fallback %}
+                    <div class="c-list__content c-list__content-padding">
+                        <p class="u-text-color-gray-darker u-text-size-epsilon">{{fallback.text}}</p>
+                        {% if fallback.button.label and fallback.button.url %}
+                            <a class="c-list__link my-btn c-list__link--overview u-text-color-gray-darker u-text-bold u-text-size-zeta" href="{{ fallback.button.url ~ '/' }}" title="{{fallback.button.label}}">{{fallback.button.label|upper}}</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endif %}    
+          </div>
+    </div>
+    {% endif %}
+{% endif %}

@@ -1,0 +1,1 @@
+Versie v1.0.0 gebruikt theme-translation-for-polylang 3.0.0 van https://nl.wordpress.org/plugins/theme-translation-for-polylang/

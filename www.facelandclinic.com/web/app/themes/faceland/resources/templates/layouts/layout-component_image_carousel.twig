@@ -1,0 +1,103 @@
+<div class="video_image_carousel specialist-section {{ is_mobile == true and get_clinic_post_type_slug == true ? 'o-contain-padding' : '' }}" id="{{ layout.scroll_section_element }}">
+    <div class="o-contain">
+        <div class="c-carousel-wrapper {{ layout.show_three_column == true and layout.image_carousel_slider_content|length == 3  ? 'show-slider-three-col' : '' }}">
+            {% if layout.image_carousel_slider_content|length > 2 %}  
+               <div class="c-carousel-nav">
+                    <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--prev js-carousel-prev">
+                        <i class="arrow left"></i>
+                    </button>
+                    <button class="c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--next js-carousel-next">
+                        <i class="arrow right"></i>
+                    </button>
+                </div>
+            {% endif %} 
+            {% if layout.image_carousel_slider_title != '' %}
+                {% set titleTag  = layout.title_heading_tag ? layout.title_heading_tag : 'h1'  %}
+                <{{ titleTag }} class="image-carousel-title {{ is_mobile == true and get_clinic_post_type_slug == true ? 'u-text-center' : '' }}">{{ layout.image_carousel_slider_title }}</{{ titleTag }}>
+            {% endif %}
+            <div class="c-carousel c-carousel--default js-video-image-slider {{ layout.show_two_column == true ? 'image_video_slider' : '' }} {{ layout.show_three_column == true ? 'image_video_slider_three_col' : '' }}" {{ layout.image_carousel_slider_content|length }} >
+                {% for item in layout.image_carousel_slider_content %}
+                    <div class="image_carousel o-panorama unique u-flex-sm u-flex-center {{ item.image_carousel_what_needs == 'Image' ? 'carousel-image' : '' }} ">
+                        {% if item.image_carousel_what_needs == 'Image' %}
+                            <figure class="o-panorama__image c-img-wrapper {{ item.show_blur_effect == true ? 'show-blur-image' : '' }}">
+                                <img class="js-lazy-load is-lazy-loaded m-carousel-img" data-src="{{item.image_carousel_fillers_image}}" src="{{item.image_carousel_fillers_image}}" alt="{{ rokit_get_image_alt(rokit_get_image_id_img_carousel(item.image_carousel_fillers_image)) }}" width="{{ rokit_get_image_width_height_attr(item.image_carousel_fillers_image)['width'] }}" height="{{ rokit_get_image_width_height_attr(item.image_carousel_fillers_image)['height'] }}" >
+                                {% if item.show_blur_effect == true %}
+                                    {% if item.show_blur_effect_notice_title or item.show_blur_effect_notice_description or item.show_blur_image_button_text %}    
+                                        <div class="show-blur-image-content">
+                                            <div class="blur-img">{{ rokit_get_static_image('images/eyeoff.png', null, 'blur-image', '', false) }}</div>
+                                            <div class="blur-notice-title">{{ item.show_blur_effect_notice_title }}</div>
+                                            <div class="blur-notice-description">{{ item.show_blur_effect_notice_description }}</div>
+                                            <a class="blur-image-view" href="javascript:;">{{ item.show_blur_image_button_text }}</a>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </figure>
+                            {% if item.do_you_want_to_show_image == 'Yes' %}
+                                    <div class=" u-text-center c-text-center" >
+                                        {% if item.image_carousel_section_title  %}
+                                            <a href="{{ item.image_carousel_button_link }}"><h3 class="c-panorama-inner-title" style="font-size:{{ item.button_title_font_size ? item.button_title_font_size ~ 'px' : ''}}">{{ item.image_carousel_section_title }}</h3></a>
+                                        {% endif %}
+                                        <div class="{{ is_mobile == true and get_clinic_post_type_slug == true ? '' : 'o-contain o-contain-padding'  }} btn-title">
+                                            <a href="{{ item.image_carousel_button_link }}" title="" class="img-btn c-btn u-text-medium f-bg-primary-bg u-text-size-epsilon c-innter-body-button">{{ item.image_carousel_button_title }}</a>
+                                        </div> 
+                                    </div>
+                            {% endif %}
+                        {% endif %}
+                        {% if item.image_carousel_what_needs == 'Video' %}
+                                {% set figureClass = campaign ? 'c-copy__maxwidth' %}
+                                {% set spanClass = campaign ? 'c-video__play--big u-bg-cta-campaign' : 'u-bg-gray-darker' %}
+                                {% set figcaptionClass = campaign ? 'c-figure__caption--below u-text-campaign' : 'u-text-color-gray-dark' %}
+                                {% set imageSize = campaign ? 'campaign-video' : 'module-image-treatment' %}
+                                {% if item.image_carousel_video.image and item.image_carousel_video.id and item.image_carousel_video.type %}
+                                    <figure class="test c-figure c-panoaram-video {{ figureClass }} {{ item.show_blur_effect == true ? 'show-blur-image' : '' }}">
+                                        <div class="c-video js-video-wrapper">
+                                            {{ rokit_get_image(item.image_carousel_video.image, imageSize,item.image_carousel_video.caption) }}
+                                            <span class="c-video__play {% if is_mobile %}js-video-play{% else %}js-video-popup-plays{% endif %} {{ spanClass }}" data-id="{{ item.image_carousel_video.id }}" data-type="{{ item.image_carousel_video.type }}" ><span><!-- {{pll__('Bekijk video')}} --></span></span>
+                                        </div>
+                                        {% if item.image_carousel_video.caption %}
+                                            <figcaption class="u-text-size-epsilon {{ figcaptionClass }} js-animation-element a-fade-in">{{item.image_carousel_video.caption}}</figcaption>
+                                        {% endif %}
+                                        {% if item.show_blur_effect == true %}
+                                            {% if item.show_blur_effect_notice_title or item.show_blur_effect_notice_description or item.show_blur_image_button_text %}    
+                                                <div class="show-blur-image-content">
+                                                    <div class="blur-img">{{ rokit_get_static_image('images/eyeoff.png', null, 'blur-image', '', false) }}</div>
+                                                    <div class="blur-notice-title">{{ item.show_blur_effect_notice_title }}</div>
+                                                    <div class="blur-notice-description">{{ item.show_blur_effect_notice_description }}</div>
+                                                    <a class="blur-image-view" href="javascript:;">{{ item.show_blur_image_button_text }}</a>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+                                    </figure>
+                                {% endif %}
+                        {% endif %}
+                        {% if item.title_below_image %}
+                            <div class="treatment-video-image-heading u-text-center">
+                                <p class="image-video-heading">{{item.title_below_image}}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            
+           
+            </div>
+        </div>
+    </div>
+</div>
+{% if not is_mobile %}
+<div class="modal videoModal" id="videoModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="c-modal__close js-modal-close" data-dismiss="modal" aria-label="Close" onclick="closePopup()"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <div id="iframe-play-video">
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

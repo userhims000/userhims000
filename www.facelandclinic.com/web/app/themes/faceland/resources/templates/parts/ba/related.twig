@@ -1,0 +1,20 @@
+{% if related.posts|length > 0 %}
+    <div class="c-related c-related--mt u-bg-tertiary-light js-toggle-wrapper">
+
+        {% include "parts/mask.twig" with { classes : 'c-mask--tertiary-light u-bg-white' } %}
+
+        <div class="o-contain o-contain-padding">
+
+            {% if related.title %}
+                <h2 class="c-related__heading u-text-size-giga u-text-bold u-text-center">{{related.title|upper}}</h2>
+            {% endif %}
+
+            {% include "parts/collection.twig" with { posts : related.posts, gridSize: 'u-1of1--sm u-1of2--md u-1of3--lg' } %}
+
+            {% if related.button.label and related.button.url %}
+                {% include "parts/button.twig" with { button : related.button, center : true, classes : 'c-btn--gray-darker u-bg-gray-darker u-text-size-zeta' } %}
+            {% endif %}
+        </div>
+
+    </div>
+{% endif %}

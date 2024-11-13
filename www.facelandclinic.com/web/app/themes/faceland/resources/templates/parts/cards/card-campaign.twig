@@ -1,0 +1,14 @@
+<div class="o-panorama c-panorama--image c-panorama--narrow c-panorama--light-background js-campaign-card" data-background-color={{card.color_background}}>
+    <figure class="o-panorama__image">
+        {{ rokit_get_image(card.thumbnail, 'campaign-thumbnail', card.title) }}
+    </figure>
+
+    <div class="o-panorama__content u-text-center">
+        <div class="o-contain o-contain-padding">
+            <h1 class="c-panorama__heading u-text-bold u-text-size-tera u-text-color-white js-animation-element a-fade-in">{{ card.title|upper }}</h1>
+            <div class="c-btn-group">
+                <a class="c-btn c-btn--white u-text-size-epsilon u-text-color-white u-text-medium" href="{{ card.link }}" title="{{ card.title|upper }}">{{  pll__('Bekijk campagne')|upper}}</a>
+            </div>
+        </div>
+    </div>
+</div>

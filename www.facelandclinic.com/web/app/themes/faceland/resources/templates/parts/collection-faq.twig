@@ -1,0 +1,7 @@
+{% if posts|length > 0 %}
+    <div class="c-accordion js-toggle-wrapper">
+        {% for card in posts %}
+            {% include "parts/cards/card-faq.twig"  %}
+        {% endfor %}
+    </div>
+{% endif %}

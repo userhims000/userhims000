@@ -1,0 +1,52 @@
+{% set showCarousel = (deals.show_carousel == true) ? 'specialist-section' : 'c-d-global-section'  %}
+<div id="{{ section_label }}" class="o-contain o-contain-padding specialist-main-section deals-category">
+   <div class="c-intro--column specialist-section c-d-global-section">
+      <div class="u-text-center">
+         {% if deals.title %}
+                {% set titleTag = deals.deal_tag ? deals.deal_tag : 'h2' %}
+                <{{ titleTag }} class="u-text-bold section-sub-title">{{ deals.title }}</{{ titleTag }}>
+         {% endif %}
+         {% if deals.intro %}
+               {{ deals.intro }}
+         {% endif %}
+      </div>
+      {% set showCarouselYes = (deals.show_carousel == true and deals.data|length > 3) or ((deals.show_carousel == true and deals.data|length > 2) and is_mobile)  ? 'c-carousel-wrapper' : 'c-no-carousel-wrapper'  %}
+      {% if deals.data|length %}
+      <div class="c-cards-wrapper {{ showCarouselYes }}">
+         <div class="c-cards o-contain o-contain-padding special_wrap">
+            <div class="c-cards">
+                {% if deals.show_carousel == true and deals.data|length > 3 or ((deals.show_carousel == true and deals.data|length > 2) and is_mobile)  %}
+                <div class="c-carousel-nav">
+                    <button class="deal-lft c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--prev js-carousel-prev">
+                        <i class="arrow left"></i>
+                    </button>
+                    <button class="deal-rht c-icon c-icon--round c-icon--lg c-icon--arrow c-icon--next js-carousel-next">
+                        <i class="arrow right"></i>
+                    </button>
+                </div>
+                {% endif %}
+               {% set showCarouselClass = ((deals.show_carousel == true) and deals.data|length > 3) or ((deals.show_carousel == true and deals.data|length > 2) and is_mobile) ? 'c-carousel deals-slider' : 'o-contain o-contain-padding m-auto'  %}
+               <div class="{{ showCarouselClass }} o-contain o-contain-padding m-auto o-grid u-1of1--sm u-1of2--md u-1of4--lg o-grid--with-gutter o-grid--with-gutter-vertical">
+                  {% for deal_image in deals.data %}
+                    {% set mobile_external = deal_image.deal_link_external ? ' rel="external" data-router-disabled' %}    
+                    <a href="{{ deal_image.deal_image_url }}" {{ mobile_external }}><div class="o-grid__cell  a-inview">
+                        <div class="o-card">
+                            <figure class="o-card__image">
+                               <img class="js-lazy-load is-lazy-loaded"  src="{{ deal_image.deal_image }}">
+                            </figure>
+                        </div>
+                    </div></a>
+                  {% endfor %}  
+               </div>
+            </div>
+         </div>
+      </div>    
+      {% endif %}
+      {% if deals.show_deals_button == true %}
+       {% set external = deals.deals_external ? ' rel="external" data-router-disabled' %}
+        <div class="c-btn-group">
+            <a class="c-btn u-text-small f-bg-primary-bg cta-button" href="{{ deals.deals_button_link }}" title="" {{ external }}>{{ deals.deals_button_label }}</a>
+        </div>
+    {% endif %}
+   </div>
+</div>

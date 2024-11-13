@@ -1,0 +1,5 @@
+{% if posts|length > 0 %}
+    {% for card in posts %}
+        {% include 'parts/cards/card-video-playlist.twig' %}
+    {% endfor %}
+{% endif %}

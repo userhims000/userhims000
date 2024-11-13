@@ -1,0 +1,172 @@
+{% if layout.show_before_after_new_layout != true %}
+<div class="c-compare js-compare-container">
+    <span class="c-compare__indicator js-compare-indicator">{{pll__('Indicator')}}</span>
+    <figure class="c-compare__image">
+        {{ rokit_get_image(layout.image_1, 'compare-slider', rokit_get_image_alt(layout.image_1)) }}
+
+    </figure>
+
+    <figure class="c-compare__image">
+        {{rokit_get_image(layout.image_2, 'compare-slider', rokit_get_image_alt(layout.image_2))}}
+    </figure>
+    <span class="c-compare__label u-text-bold u-text-size-nano u-text-color-white u-text-center">{{ pll__('Voor')|upper}}</span>
+    <span class="c-compare__label u-text-bold u-text-size-nano u-text-color-white u-text-center">{{ pll__('Na')|upper}}</span>
+</div>
+{% endif %}
+
+{% if layout.show_before_after_new_layout == true %}
+    <section class="mt-20 mt-lg-72 mb-20 mb-lg-72">
+        <div class="treatment-title-content client-story-main-section">               
+          <div class="o-grid o-grid--with-gutter u-1of1--sm u-1of2--md u-1of2--lg mb-n-20 client-story-section">
+            <div class="o-grid__cell mt-0 mb-20">                                             
+              <div class="client-story-content border border-pink rounded p-24 px-lg-32">
+                <div class="story-icon-box mb-12">
+                  <div class="story-icon"><span>“</span></div>
+                </div>
+                <{{ layout.client_story_one_title_tag ? layout.client_story_one_title_tag : 'h2'  }} class="story-title u-text-center">{{ layout.client_story_one_title }}</{{ layout.client_story_one_title_tag ? layout.client_story_one_title_tag : 'h2'  }}>
+                {% if is_mobile != true %}
+                    <div class="treatment-content-description">                          
+                        {{ layout.client_story_one_description }}
+                    </div>
+                {% endif %}
+                {% if is_mobile == true %}
+                    {% set loopData = [] %}
+                        {% if layout.client_story_one_description %} 
+                            <div class="treatment-content-description">
+                                <div class="show-paragraph-content 1">
+                                    {% if layout.client_story_one_description|length > 200 %}
+                                        {% set truncated_content = layout.client_story_one_description|slice(0, 200) %}
+                                        {% set words = truncated_content|split(' ') %}
+                                        {% set highlight_count = 5 %}
+                                        {% set total_words = words|length %}
+                                        {% set start_highlight_index = total_words > highlight_count ? total_words - highlight_count : 0 %}
+                                        {% set before_highlight_words = words|slice(0, start_highlight_index)|join(' ') %}
+                                        {% set highlight_words = words|slice(start_highlight_index, highlight_count)|join(' ') %}
+                                        {{ before_highlight_words ~ ' <span class="grey-highlight">' ~ highlight_words ~ '...</span>' }}
+                                    {% else %}
+                                        {{ layout.client_story_one_description }}
+                                    {% endif %}
+                                </div>
+                                <div class="read-more-content">
+                                    {{ layout.client_story_one_description }}
+                                </div>
+                                {% if  layout.client_story_one_description|length > 200 %}
+                                    {% set loopData = ['yes'] %}
+                                {% endif %}    
+                            </div>
+                        {% endif %}
+                {% endif %}
+
+                <div class="client-story-after-before">
+                  <div class="client-story-row">
+                      <div class="client-story-col">
+                        <div class="client-story-image">
+                          <div class="client-story-image-box">
+                            {{ rokit_get_image(layout.client_story_one_first_image, 'full', layout.client_story_one_first_image, '', '', false) }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="client-story-col">
+                        <div class="client-story-image">
+                          <div class="client-story-image-box">
+                            {{ rokit_get_image(layout.client_story_one_second_image, 'full', layout.client_story_one_second_image, '', '', false) }}
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+
+                {% if is_mobile == true %}
+                    {% if loopData is not empty %}
+                        <div class="read-more-button load-more-arrow" id="toggleReadMoreButton">
+                            <div class="showMore">
+                                <span><i class="arrow down"></i></span>  
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+              </div>
+            </div>
+            <div class="o-grid__cell mt-0 mb-20">
+              <div class="client-story-content border border-pink rounded p-24 px-lg-32">
+                <div class="story-icon-box mb-12">
+                  <div class="story-icon"><span>“</span></div>
+                </div>
+                <{{ layout.client_story_two_title_tag ? layout.client_story_two_title_tag : 'h2'  }} class="story-title u-text-center">{{ layout.client_story_two_title }}</{{ layout.client_story_two_title_tag ? layout.client_story_two_title_tag : 'h2'  }}>
+                {% if is_mobile != true %}
+                    <div class="treatment-content-description">                          
+                        {{ layout.client_story_two_description }}
+                    </div>
+                {% endif %}
+                {% if is_mobile == true %}
+                    {% set loopData = [] %}
+                        {% if layout.client_story_two_description %} 
+                            <div class="treatment-content-description">
+                                <div class="show-paragraph-content 1">
+                                    {% if layout.client_story_two_description|length > 200 %}
+                                        {% set truncated_content = layout.client_story_two_description|slice(0, 200) %}
+                                        {% set words = truncated_content|split(' ') %}
+                                        {% set highlight_count = 5 %}
+                                        {% set total_words = words|length %}
+                                        {% set start_highlight_index = total_words > highlight_count ? total_words - highlight_count : 0 %}
+                                        {% set before_highlight_words = words|slice(0, start_highlight_index)|join(' ') %}
+                                        {% set highlight_words = words|slice(start_highlight_index, highlight_count)|join(' ') %}
+                                        {{ before_highlight_words ~ ' <span class="grey-highlight">' ~ highlight_words ~ '...</span>' }}
+                                    {% else %}
+                                        {{ layout.client_story_two_description }}
+                                    {% endif %}
+                                </div>
+                                <div class="read-more-content">
+                                    {{ layout.client_story_two_description }}
+                                </div>
+                                {% if  layout.client_story_two_description|length > 200 %}
+                                    {% set loopData = ['yes'] %}
+                                {% endif %}    
+                            </div>
+                        {% endif %}
+                {% endif %}
+                <div class="client-story-compare d-none d-lg-block">
+                  <div class="c-compare js-compare-container">
+                        <span class="c-compare__indicator js-compare-indicator">{{pll__('Indicator')}}</span>
+                        <figure class="c-compare__image">
+                            {{ rokit_get_image(layout.image_1, 'compare-slider', rokit_get_image_alt(layout.image_1)) }}
+
+                        </figure>
+
+                        <figure class="c-compare__image">
+                            {{rokit_get_image(layout.image_2, 'compare-slider', rokit_get_image_alt(layout.image_2))}}
+                        </figure>
+                        <span class="c-compare__label u-text-bold u-text-size-nano u-text-color-white u-text-center">{{ pll__('Voor')|upper}}</span>
+                        <span class="c-compare__label u-text-bold u-text-size-nano u-text-color-white u-text-center">{{ pll__('Na')|upper}}</span>
+                  </div>
+                </div>
+                <div class="client-story-after-before d-lg-none before-after-scroll">
+                 <div class="c-compare js-compare-container">
+                        <span class="c-compare__indicator js-compare-indicator">{{pll__('Indicator')}}</span>
+                        <figure class="c-compare__image">
+                            {{ rokit_get_image(layout.image_1, 'compare-slider', rokit_get_image_alt(layout.image_1)) }}
+
+                        </figure>
+
+                        <figure class="c-compare__image">
+                            {{rokit_get_image(layout.image_2, 'compare-slider', rokit_get_image_alt(layout.image_2))}}
+                        </figure>
+                        <span class="c-compare__label u-text-bold u-text-size-nano u-text-color-white u-text-center">{{ pll__('Voor')|upper}}</span>
+                        <span class="c-compare__label u-text-bold u-text-size-nano u-text-color-white u-text-center">{{ pll__('Na')|upper}}</span>
+                  </div>
+                </div>
+                {% if is_mobile == true %}
+                    {% if loopData is not empty %}
+                        <div class="read-more-button load-more-arrow" id="toggleReadMoreButton">
+                            <div class="showMore">
+                                <span><i class="arrow down"></i></span>  
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+{% endif %}

@@ -1,0 +1,24 @@
+<div class="c-related c-related--mt u-bg-tertiary-light js-toggle-wrapper">
+    {% include "parts/mask.twig" with { classes : 'c-mask--tertiary-light u-bg-white' } %}
+
+    <div class="o-contain o-contain-padding">
+        {% if cta.title %}
+            <h2 class="c-related__heading u-text-size-giga u-text-bold u-text-center">{{cta.title|upper}}</h2>
+        {% endif %}
+        {% if cta.subtitle %}
+            <span class="c-related__heading-sub u-text-size-mega u-text-center">{{cta.subtitle}}</span>
+        {% endif %}
+
+        {% if cta.button|length > 0 and newsletter %}
+            <div class="u-flex-sm u-flex-center-x">
+                <div class="c-btn-group">
+                    {% if cta.button.url != ""  %}
+                        {% include "parts/button.twig" with { button : cta.button, classes : 'c-btn--gray-darker u-text-size-zeta u-bg-gray-darker', disableRouter : false} %}
+                    {% else %}
+                        {% include "parts/button.twig" with { button : cta.button, classes : 'c-btn--gray-darker u-text-size-zeta u-bg-gray-darker js-modal-newsletter-trigger', disableRouter : true} %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>

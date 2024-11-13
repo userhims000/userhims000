@@ -1,0 +1,11 @@
+{% if button.label %}
+    {% set external = button.external ? ' rel="external" data-router-disabled' %}
+    {% set defaultClasses = 'c-btn u-text-medium' %}
+    {% set classes = classes ? ' class="' ~ defaultClasses ~ ' ' ~ classes ~ '"' : ' class="' ~ defaultClasses ~ '"' %}
+    {% set alignClass = center ? ' u-flex-sm u-flex-center-x' %}
+    {% set label = upperFilter ? button.label|upper : button.label %}
+
+    {{ wrapper or center ? '<div class="c-btn-wrapper' ~ alignClass ~ '">'}}
+        <a href="{{button.url}}" title="{{button.label}}"{{classes}}{{external}}{{disableRouter ? ' data-router-disabled'}}>{{label}}</a>
+    {{ wrapper or center ? '</div>'}}
+{% endif %}

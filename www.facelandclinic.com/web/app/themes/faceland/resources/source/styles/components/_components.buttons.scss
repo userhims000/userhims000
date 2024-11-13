@@ -1,0 +1,283 @@
+/*----------------------------------------------------------------------------*\
+    #COMPONENTS BUTTONS
+\*----------------------------------------------------------------------------*/
+
+/**
+ * 1. To remove rounded corners in Safari on iOS 5+.
+ * 2. For anchor button to behave nicely.
+ */
+
+.c-btn {
+    display: inline-block;
+    position: relative;
+    min-width: 160px;
+    padding: rhythm(.45) rhythm(1) rhythm(.5) rhythm(1);
+    transition: .24s ease-in;
+    transition-property: background-color, color, border;
+    border: 0;
+    border-radius: 30px; /* 1 */
+    background: $color-black;
+    color: $color-white;
+    font-family: $primary-font;
+    line-height: inherit; /* 2 */
+    text-align: center;
+    cursor: pointer;
+
+    &:focus {
+        outline: 0;
+    }
+
+    &:hover {
+        outline: 0;
+        text-decoration: none;
+    }
+}
+
+.c-btn--filter {
+    background: $color-gray;
+    color: $color-black;
+
+    &.is-active {
+        background: $color-black;
+        color: $color-white;
+    }
+}
+
+.c-btn--link {
+    display: block;
+    color: $color-primary;
+    text-decoration: underline;
+}
+
+/**
+ * Button size modifiers.
+ */
+
+.c-btn--gray-darker {
+
+    &:hover {
+        background-color: lighten($color-gray-darker, 10%);
+    }
+}
+
+.c-btn--primary {
+
+    &:hover {
+        background-color: lighten($color-primary, 10%);
+    }
+}
+
+.c-btn--transparent {
+    border: 1px solid $color-gray-light;
+    background-color: transparent;
+
+    &:hover {
+        border-color: $color-gray-darker;
+        background-color: $color-gray-darker;
+        color: $color-white;
+    }
+}
+
+.c-btn--outline {
+    border: 1px solid $color-gray-lighter;
+    background-color: transparent;
+    color: $color-gray-darker;
+    padding: 8px 21px;
+    min-width: auto;
+    height: 32px;
+    font-size: 10px;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    &:hover {
+        border-color: $color-gray-darker;
+        background-color: $color-gray-darker;
+        color: $color-white;
+    }
+}
+
+.c-btn--white {
+    border: 1px solid $color-gray-light;
+    background-color: transparent;
+}
+
+.c-btn--border {
+    border: 1px solid $color-gray-lighter;
+    box-shadow: 0 2px 4px 0 rgba($color-black, .03);
+}
+
+.c-btn--border-gray-darker {
+    border: 1px solid $color-gray-darker;
+}
+
+.c-btn--icon {
+    padding-right: rhythm(1.5);
+    padding-left: rhythm(.5);
+    text-align: left;
+
+    &::after {
+        @include offset(absolute, 50%, rhythm(.325), null, null);
+        transform: translateY(-50%);
+        content: '';
+    }
+}
+
+.c-btn--icon-before {
+    padding-right: rhythm(1);
+    padding-left: rhythm(1.75);
+    text-align: left;
+
+    &::before {
+        @include offset(absolute, 50%, null, null, rhythm(.75));
+        transform: translateY(-50%);
+        content: '';
+    }
+
+    &.c-btn--video::before {
+        @include size(17px, 12px);
+        transform: translateY(-60%);
+        background-position: -480px -96px;
+    }
+
+    &.c-btn--cart::before {
+        @include square(15px);
+        background-position: -576px -96px;
+    }
+}
+
+.c-btn--arrow-next {
+    padding-right: rhythm(1.5);
+    padding-left: rhythm(.75);
+
+    &:hover {
+
+        &::after {
+            transform: translate(15%, -50%);
+        }
+    }
+
+    &::after {
+        @include square(16px);
+        right: rhythm(.75);
+        transition: transform .24s ease-in;
+        background-position: -480px -192px;
+    }
+}
+
+.c-btn--sm {
+    margin-bottom: rhythm(.5);
+    padding: rhythm(.25);
+}
+
+.c-btn--tall {
+    padding: rhythm(.5);
+    letter-spacing: .5px;
+}
+
+.c-btn--rectangle {
+    border-radius: 2px;
+}
+
+// .c-btn--lg {
+//     margin-bottom: rhythm(.5);
+//     padding: rhythm(.75) rhythm(1);
+// }
+
+.c-btn--full {
+    display: block;
+    width: 100%;
+}
+
+.c-btn--square {
+    border-radius: 5px;
+}
+
+.c-btn--contact {
+    padding-top: rhythm(.5);
+    padding-bottom: rhythm(.55);
+    padding-left: rhythm(2.5);
+    text-align: left;
+    box-shadow: 0 6px 14px 0 rgba($color-black, .05);
+
+    &::before {
+        @include offset(absolute, 50%, null, null, 30px);
+        transform: translate(-50%, -50%);
+        content: '';
+    }
+
+    &::after {
+        @include offset(absolute, 0, null, null, 55px);
+        width: 1px;
+        height: 100%;
+        background-color: $color-gray-lighter;
+        content: '';
+    }
+}
+
+.c-btn--mail::before {
+    @include size(24px, 20px);
+    background-position: -96px -384px;
+}
+
+.c-btn--chat::before {
+    @include square(24px);
+    background-position: -192px -384px;
+}
+
+.c-btn--phone::before {
+    @include size(24px, 23px);
+    background-position: -288px -384px;
+}
+
+.c-btn--whatsapp::before {
+    @include size(23px, 24px);
+    background-position: -384px -384px;
+}
+
+.c-btn--fb-messenger::before {
+    @include size(23px, 25px);
+    background-position: -864px -384px;
+}
+
+.c-btn--appointment::before {
+    @include square(25px);
+    background-position: -960px -384px;
+}
+
+.c-btn-group {
+
+    .o-grid__cell + .o-grid__cell {
+        margin-top: rhythm(.5);
+    }
+
+    @include breakpoint(medium) {
+
+        .o-grid__cell + .o-grid__cell {
+            margin-top: 0;
+        }
+
+        .o-grid__cell {
+            @include after-first(2) {
+                margin-top: rhythm(1);
+            }
+        }
+    }
+}
+
+.c-btn--mt{
+    margin-top: 12px;
+}
+
+
+.chatLauncher__2dhHx{
+    border-radius: 100px;
+}
+
+.c-btn-newsletter {
+    display: none;
+
+    @include breakpoint(medium) {
+        display: block;
+    }
+}

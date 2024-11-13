@@ -1,0 +1,14 @@
+.c-highlight {
+
+    p {
+
+        &::before,
+        &::after {
+            display: none;
+        }
+    }
+
+    footer {
+        margin-top: rhythm(.5);
+    }
+}

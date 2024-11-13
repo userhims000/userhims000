@@ -1,0 +1,17 @@
+/*----------------------------------------------------------------------------*\
+    #DEBUG LISTS
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Ensure any lists only contain `li`s as children.
+ */
+
+ul,
+ol {
+
+    > *:not(li) {
+        @include debug-text('not a list item');
+        outline: 5px solid red;
+    }
+}
+

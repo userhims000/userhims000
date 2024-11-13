@@ -1,0 +1,64 @@
+
+<div class="new-deal-component-filter">
+    <div class="c-filters c-filters--button c-filters--bordered c-filters--square-sm u-text-size-epsilon u-text-color-gray u-bg-white">
+       <div class="c-filters__wrapper">
+            {% set seen_labels = [] %}
+            <a class="c-filter u-text-center all-items-shows is-active" href="" attr-id="Alle" title="{{ pll__('Alle') }}">{{ pll__('Alle') }}</a>
+            {% for key, dealsInformation in layout.new_deals %}
+                {% set label = dealsInformation.filter_item_label %}
+                {% if label not in seen_labels %}
+                    <a class="c-filter u-text-center" href="" attr-id="#{{ label|lower|replace({' ': '-'}) }}" title="{{ label }}" >{{ label }}</a>
+                    {% set seen_labels = seen_labels|merge([label]) %}
+                {% endif %}
+            {% endfor %}
+       </div>
+    </div>
+</div>
+
+<section class="testimonial-slider-section bg-white new-deal-component">
+    <div class="o-contain {{ is_mobile != true ? 'o-contain-padding' : ''}} ">
+        <div class="testimonial-slider">
+            {% for dealsInformation in layout.new_deals %}
+                <div class="testimonial-slider-item" id="{{ dealsInformation.filter_item_label|lower|replace({' ': '-'}) }}"  >
+                    {% if dealsInformation.deal_image %}
+                        <div>
+                            <div class="testimonial-slider-user-photo testimonial-slider-user-absolute">
+                                <img src="{{ dealsInformation.deal_image }}" alt="deals-image" class="user-photo deal-desktop-img">
+                                <img src="{{ dealsInformation.deal_mobile_image ? dealsInformation.deal_mobile_image :  dealsInformation.deal_image }}" alt="deals-image" class="user-photo deal-mobile-img">
+                                <img src="{{ dealsInformation.deal_tab_image ? dealsInformation.deal_tab_image : dealsInformation.deal_image  }}" alt="deals-image" class="user-photo deal-tab-img">
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="testimonial-slider-user-info testimonial-slider-user-space-mannage bg-gray u-text-center">
+                        {% if dealsInformation.deal_title %}
+                            <div class="testimonial-slider-user-name">
+                                {% set titleTag = dealsInformation.deal_title ? dealsInformation.deal_title : 'h2' %}
+                                <{{ dealsInformation.title_tag }}>
+                                    {{ dealsInformation.deal_title }}
+                                </{{ dealsInformation.title_tag }}>
+                            </div>
+                        {% endif %}
+                        {% if dealsInformation.deal_subtitle %}
+                            <div class="testimonial-slider-post">
+                                <p>{{ dealsInformation.deal_subtitle }}</p>
+                            </div>
+                        {% endif %}
+                        {% if dealsInformation.deal_description %}
+                            <div class="testimonial-slider-discription">
+                                {{ dealsInformation.deal_description }}
+                            </div>
+                        {% endif %}
+                        {% if dealsInformation.deal_cta_label %}
+                            <div class="slider-btn">
+                                {% set external = dealsInformation.deal_cta_external ? ' rel="external" data-router-disabled' %}
+                                <a href="{{ dealsInformation.deal_cta_url }}"  >
+                                    {{ dealsInformation.deal_cta_label }}
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

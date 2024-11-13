@@ -1,0 +1,87 @@
+{% if not is_mobile %}
+    <div class="o-contain o-contain-padding blog-specialist-section">    
+        {% if layout.specialist_information_section_title %}
+            <div class="title u-text-bold">
+                <{{ layout.specialist_information_title_tag }}>{{ layout.specialist_information_section_title }}</{{ layout.specialist_information_title_tag }}>
+            </div>
+        {% endif %}
+        <div class="blog-specialist-info-raw">
+            <div class="blog-specialist-info-left">
+                {% if layout.specialist_image %}
+                    <div class="blog-specialist-img">                    
+                        {{ rokit_get_image(layout.specialist_image, 'full', layout.specialist_information_section_title, '', '', false) }}
+                    </div>
+                {% endif %}
+                {% if layout.specialist_name or layout.specialist_designation or layout.big_information %}
+                    <div class="blog-specialist-information">
+                        {% if layout.specialist_name %}
+                            <h3>{{ layout.specialist_name }}</h3>
+                        {% endif %}
+                        {% if layout.specialist_designation %}
+                            <p>{{ layout.specialist_designation }}</p>
+                        {% endif %}
+                        {% if layout.big_information %}
+                            <p>{{ layout.big_information }}</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+            {% if layout.specialist_information_details or layout.cta_button_label %}
+                <div class="blog-specialist-info-right">
+                    
+                    {{ layout.specialist_information_details }}
+
+                    {% if layout.cta_button_label %}
+                        <div class="cta_links_main blog-specialist-cta">
+                            <a class="web-btn c-btn u-text-small f-bg-primary-bg cta-button" href="{{ layout.cta_button_url }}" {{ layout.cta_button_external == true ? 'target=_blank' : '' }}>{{ layout.cta_button_label }}</a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}    
+        </div>
+    </div>
+{% endif %}
+
+{% if is_mobile %}
+    <div class="o-contain o-contain-padding blog-specialist-section">    
+        {% if layout.specialist_information_section_title %}
+            <div class="title u-text-bold">
+                <{{ layout.specialist_information_title_tag }}>{{ layout.specialist_information_section_title }}</{{ layout.specialist_information_title_tag }}>
+            </div>
+        {% endif %}
+        <div class="blog-specialist-info-raw">
+            <div class="blog-specialist-info-left">
+                {% if layout.specialist_image %}
+                    <div class="blog-specialist-img">                    
+                        {{ rokit_get_image(layout.specialist_image, 'full', layout.specialist_information_section_title, '', '', false) }}
+                    </div>
+                {% endif %}
+                {% if layout.specialist_name or layout.specialist_designation or layout.big_information %}
+                    <div class="blog-specialist-information">
+                        {% if layout.specialist_name %}
+                            <h3>{{ layout.specialist_name }}</h3>
+                        {% endif %}
+                        {% if layout.specialist_designation %}
+                            <p>{{ layout.specialist_designation }}</p>
+                        {% endif %}
+                        {% if layout.big_information %}
+                            <p>{{ layout.big_information }}</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+            {% if layout.specialist_information_details or layout.cta_button_label %}
+                <div class="blog-specialist-info-right">
+                    
+                    {{ layout.specialist_information_details }}
+
+                    {% if layout.cta_button_label %}
+                        <div class="cta_links_main blog-specialist-cta">
+                            <a class="c-btn u-text-medium c-btn--gray-darker u-text-size-zeta u-text-medium f-bg-primary-bg" href="{{ layout.cta_button_url }}" {{ layout.cta_button_external == true ? 'target=_blank' : '' }}>{{ layout.cta_button_label }}</a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}    
+        </div>
+    </div>
+{% endif %}

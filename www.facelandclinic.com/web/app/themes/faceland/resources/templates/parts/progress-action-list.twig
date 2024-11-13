@@ -1,0 +1,8 @@
+{% set centerClass = list.lists|length < 2 ? 'u-center' %}
+<div class="c-lists">
+    <div class="o-grid o-grid--with-gutter o-grid--with-gutter-vertical u-1of1--sm">
+        <div class="o-grid__cell {{ centerClass }}">
+            {% include "parts/progress-collection-list.twig" with { title : items.title, percentage : items.percentage } %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+.c-sharing {
+    padding-top: rhythm(1.25);
+    border-top: 1px solid $color-gray-lighter;
+}
+
+.c-sharing__heading {
+    display: block;
+    margin-bottom: rhythm(.5);
+}
+
+.c-sharing__item {
+    @include contain-margin(rhythm(.25));
+}

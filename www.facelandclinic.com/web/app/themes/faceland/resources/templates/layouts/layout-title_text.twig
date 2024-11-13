@@ -1,0 +1,116 @@
+{% if layout.title or layout.text or layout.first_column_title or layout.first_column_content or layout.second_column_title or layout.second_column_content %}
+
+    {% if get_query_object.taxonomy == 'faq_taxonomy' %}
+        {% set titleTag = layout.title_heading ? layout.title_heading : 'h2' %}    
+    {% else %}
+        {% set titleTag = layout.tag ? layout.tag : 'h2' %}
+    {% endif %}    
+
+    {% if campaign %}
+        {% set titleDefaultClass = campaign ? 'c-columns__heading u-title-campaign' %}
+        {% set titleClass = titleTag == 'h2' ? titleDefaultClass ~ ' u-text-size-beta' %}
+        {% set titleClass = titleTag == 'h3' ? titleDefaultClass ~ ' u-text-size-delta' : titleClass %}
+        {% set titleClass = titleTag == 'h4' ? titleDefaultClass ~ ' u-text-size-delta' : titleClass%}
+    {% else %}
+        {% set titleClass = titleTag == 'h2' ? titleDefaultClass ~ ' u-text-size-delta' %}
+        {% set titleClass = titleTag == 'h3' ? titleDefaultClass ~ ' u-text-size-epsilon' : titleClass %}
+        {% set titleClass = titleTag == 'h4' ? titleDefaultClass ~ ' u-text-size-epsilon' : titleClass%}
+    {% endif %}
+    
+    {% if layout.background_color == true %} 
+        {% set greyBackground = "greyBackground" %} 
+    {% else %}
+        {% set greyBackground = "" %} 
+    {% endif %}
+
+    {% if campaign %}
+        <div class="c-columns c-copy__maxwidth" id="{{ layout.component_id }}"> 
+    {% else %}
+        <div class="c-copy__maxwidth content-data {{ greyBackground }}" id="{{ layout.component_id }}">
+    {% endif %}        
+    {% if layout.title %}
+        <{{ titleTag }} class="u-text-bold {{ titleClass }}">
+            {% if layout.b_tag %}
+                <b>
+            {% endif %}
+                {{layout.title|upper}}
+
+            {% if layout.b_tag %}
+                </b>
+            {% endif %}
+        </{{ titleTag }}>
+    {% endif %}
+    {# {% if layout.text %} #}
+        {{ campaign ? '<div class="c-columns__text u-text-campaign">' }}
+            
+            {% if layout.text %}    
+                <div class="title-content" >{{ layout.text }}</div>
+            {% endif %}
+            {% if layout.show_two_column_layout == 1 %}
+                {% if layout.first_column_title or layout.first_column_content or layout.second_column_title or layout.second_column_content %}
+                    <div class="treatment-title-content title-text-two-column-content">
+                        <div class="treatment-two-col-content">
+                            {% if layout.first_column_title or layout.first_column_content %}
+                                <div class="first-column">
+                                    {% if layout.first_column_title %}
+                                        {% set titleTag = layout.first_column_title_tag ? layout.first_column_title_tag : 'h2' %}
+                                        {% set titleClass = titleTag == 'h2' ? titleDefaultClass ~ ' u-text-size-delta' %}
+                                        {% set titleClass = titleTag == 'h3' ? titleDefaultClass ~ ' u-text-size-epsilon' : titleClass %}
+                                        {% set titleClass = titleTag == 'h4' ? titleDefaultClass ~ ' u-text-size-epsilon' : titleClass %}
+                                        <{{ titleTag }} class="u-text-bold {{ titleClass }}">
+                                            {% if layout.first_column_title_add_b_tag %}
+                                                <b>
+                                            {% endif %}
+                                                {{layout.first_column_title|upper}}
+                                            {% if layout.first_column_title_add_b_tag %}
+                                                </b>
+                                            {% endif %}
+                                        </{{ titleTag }}>
+                                    {% endif %}
+                                    {% if layout.first_column_content %}
+                                        <div class="treatment-content-description">
+                                            {{ layout.first_column_content }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            {% if layout.second_column_title or layout.second_column_content %}
+                                <div class="second-column">
+                                    {% if layout.second_column_title %}
+                                        {% set titleTag = layout.second_column_title_tag ? layout.second_column_title_tag : 'h2' %}
+                                        {% set titleClass = titleTag == 'h2' ? titleDefaultClass ~ ' u-text-size-delta' %}
+                                        {% set titleClass = titleTag == 'h3' ? titleDefaultClass ~ ' u-text-size-epsilon' : titleClass %}
+                                        {% set titleClass = titleTag == 'h4' ? titleDefaultClass ~ ' u-text-size-epsilon' : titleClass %}
+                                        <{{ titleTag }} class="u-text-bold {{ titleClass }}">
+                                            {% if layout.second_column_title_add_b_tag %}
+                                                <b>
+                                            {% endif %}
+                                                {{layout.second_column_title|upper}}
+                                            {% if layout.second_column_title_add_b_tag %}
+                                                </b>
+                                            {% endif %}
+                                        </{{ titleTag }}>
+                                    {% endif %}
+                                    {% if layout.second_column_content %}
+                                        <div class="treatment-content-description">
+                                            {{ layout.second_column_content }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+    
+        {{ campaign ? '</div>' }}
+
+    {# {% endif %} #}
+    {% if campaign %}
+        </div> 
+    {% else %}
+        </div>
+    {% endif %}
+{% endif %}
+    {# background: #d3d3d357;
+    padding: 20px; #}

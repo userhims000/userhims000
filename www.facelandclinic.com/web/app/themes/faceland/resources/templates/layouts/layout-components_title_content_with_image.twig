@@ -1,0 +1,37 @@
+{% if layout.title or layout.title_content or layout.image %}
+  <div class="treatment-why-faceland title-description-with-image  {{ layout.show_section_with_bg_color == true ? 'f-bg-primary-bg' : 'no-bg-color' }}" id="{{ layout.scroll_section_element }}">
+     <div class="o-contain why-faceland-section">
+        <div class="title-description-wrap">
+           <div class="why-faceland-section-title title-description-left-section">
+            {% if layout.title %}
+              <h2 class="why-faceland-title u-text-bold">{{ layout.title }}</h2>
+            {% endif %}
+            {% if layout.title_content %}
+              {{ layout.title_content }}
+            {% endif %}
+              {% if is_mobile == true %}  
+                 {% if layout.image %}
+                    <div class="title-description-right-section">
+                       {{ rokit_get_image(layout.image, 'full', layout.title) }}
+                    </div>
+                 {% endif %}
+              {% endif %}
+             
+            {% if layout.button_label %}
+              {% set external = layout.button_external ? ' rel="external" data-router-disabled' %}
+              <div class="cta_links_main">
+                 <a class="u-text-medium c-btn--full c-btn u-text-ls-medium cta-button {{ layout.show_section_with_bg_color == true ? '' : 'f-bg-primary-bg' }}" href="{{ layout.button_url }}" title="" tabindex="-1" {{ external }}>{{ layout.button_label }}</a>
+              </div>
+            {% endif %}
+           </div>
+           {% if is_mobile != true %}
+              {% if layout.image %}
+                 <div class="title-description-right-section">
+                    {{ rokit_get_image(layout.image, 'full', layout.title) }}
+                 </div>
+              {% endif %}
+           {% endif %}
+        </div>
+     </div>
+  </div>
+{% endif %}

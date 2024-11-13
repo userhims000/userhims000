@@ -1,0 +1,32 @@
+{# Include the HTML head #}
+{% include 'base/header-worldwide.twig' %}
+
+{# Include the loader #}
+{% include 'base/loader.twig' %}
+
+<div class="c-body-wrapper">
+    {# Include the header #}
+    {% include 'base/header-worldwide-menu.twig' %}
+
+    <main role="main" data-router-wrapper>
+        <section data-router-view="{{ rokit_get_view_name() }}" >
+
+            {# Load the block with the panorama #}
+            {% block panorama %}{% endblock %}
+
+            {# Load the block with the main content #}
+            {% block content %}
+                <article class="c-copy">
+                    {% include 'parts/content-modules.twig' %}
+                </article>
+            {% endblock %}
+
+            {# Load the block with related #}
+            {% block related %}{% endblock %}
+
+        </section>
+    </main>
+</div>
+
+{# Include the footer #}
+{% include 'base/footer-worldwide.twig' %}

@@ -1,0 +1,17 @@
+<div class="c-modal js-modal-show-site-direction">
+    <button class="c-modal__close js-modal-close">Sluiten</button>
+    <div class="c-modal__content u-bg-white js-modal-content-site-direction">
+        <div class="c-form-wrapper js-form-wrapper" style="min-height: 200px;">
+            {% if be_site_direction_popup.title %}
+                <h2 class="c-title-wrapper__heading u-text-size-delta u-text-bold">{{be_site_direction_popup.title|upper}}</h2>
+            {% endif %}
+            {% if be_site_direction_popup.description %}
+                <p class="c-description-wrapper__text u-text-size-epsilon">{{ be_site_direction_popup.description }}</p>
+            {% endif %}
+            <div class="site-direction-button">
+                <a href="{{ be_site_direction_popup.buttons.firstButtonURL }}" title="{{ be_site_direction_popup.buttons.firstButtonLabel }}" class="c-btn u-text-medium c-btn--primary u-text-size-epsilon u-text-medium"  target="{{ (be_site_direction_popup.buttons.firstButtonExternal == true) ? '_blank' : '' }}" data-router-disabled="">{{ be_site_direction_popup.buttons.firstButtonLabel }}</a>
+                <a href="{{ be_site_direction_popup.buttons.secondButtonURL }}" title="{{ be_site_direction_popup.buttons.secondButtonLabel }}" class="c-btn u-text-medium c-btn--primary u-text-size-epsilon u-text-medium " target="{{ (be_site_direction_popup.buttons.secondButtonExternal == true) ? '_blank' : '' }}">{{ be_site_direction_popup.buttons.secondButtonLabel }}</a>
+            </div>
+        </div>
+    </div>
+</div>

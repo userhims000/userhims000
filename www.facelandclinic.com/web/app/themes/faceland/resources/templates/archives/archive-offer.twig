@@ -1,0 +1,18 @@
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% include 'parts/panorama-default.twig' with { panorama : collection.panorama } %}
+{% endblock %}
+
+{% block content %}
+    <div class="o-contain o-contain-padding">
+        {% include "parts/collection.twig" with { posts : collection.items,  gridSize: 'u-1of1--sm u-1of2--md u-1of3--lg', cardType: 'offer', gutterSize : 'o-grid--with-gutter o-grid--with-gutter-vertical' } %}
+    </div>
+{% endblock %}
+
+{% block related %}
+    {# <div class="o-contain o-contain-padding">
+        {% include "parts/action-list.twig" with { list : collection.action_list } %}
+    </div> #}
+    {% include "parts/cta-newsletter.twig" with { cta : collection.cta } %}
+{% endblock %}

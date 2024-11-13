@@ -1,0 +1,102 @@
+<div class="c-list-wrapper academy-component">
+    {% if layout.title or layout.subtitle %}
+        <div class="c-list__intro c-heading--icon c-heading--agenda">
+            {% if layout.title %}
+                <h2 class="c-list__intro-heading c-heading u-text-bold u-text-size-beta">{{layout.title|upper}}</h2>
+            {% endif %}
+            {% if layout.subtitle %}
+                <span class="c-list__intro-heading-sub">{{layout.subtitle}}</span>
+            {% endif %}
+            <div class="open-down-arrow">
+            	<i class="arrow down"></i>
+            </div>
+        </div>
+    {% endif %}
+	<div class="u-flex u-flex-center-x">
+		<ul class="o-list-plain c-list c-list--seamless c-list--accordion c-list--big u-flex u-flex-direction-column js-match-min-height {{ isFoldable ? 'js-toggle-wrapper'}}" data-multiple="true" style="display: none;">
+			
+			{% set acedemyDateArrayStatus = [] %}
+			{% set arr = layout.academy_lists %}
+			{% set newAcademyLists = [] %}
+			{% set hasGreaterThanDate = false %}
+
+			{% for list in arr %}
+				{% set acedemyListDetails =  get_acedemy_list(list.id) %}
+				{% set currentDate = "now"|date("Ymd") %}
+				{% if acedemyListDetails.academy_date >= currentDate %}	
+					{% set isFoldable = acedemyListDetails.academy_treatments|length > 0 ? true %} 
+					<li class="c-list__item u-text-size-epsilon {{ isFoldable ? 'c-list__item--hover c-list__item--accordion js-toggle-parent'}}" id="{{loop.index}}{{list.ID}}">
+					    <div class="c-list__header {{ isFoldable ? 'js-toggle-trigger'}}" data-animation-type="jquery" data-parent-id="{{loop.index}}{{list.ID}}" data-disable-trigger-match-height="true">
+					        <div class="u-flex-md u-flex-center-y">
+				                {% if acedemyListDetails.academy_date %}
+				                    <time class="c-list__heading u-text-bold u-size-1of5--md" datetime="{{ acedemyListDetails.academy_date|date("Y-m-d") }}">{{ acedemyListDetails.academy_date|date("d M")|upper }}</time>
+				                {% endif %}
+				                {% if acedemyListDetails.academy_title %}
+				                    <span>{{ acedemyListDetails.academy_title }}</span>
+				                {% endif %}
+
+					            {% if isFoldable %}
+					                <button class="o-link c-link--arrow-inline">{{pll__('Open')}}</button>
+					            {% endif %}
+					        </div>
+					    </div>
+
+					    <div class="c-list__content u-text-size-epsilon u-bg-smoke-white u-text-italic js-toggle-content" style="display: none;">
+				            {% for data in acedemyListDetails.academy_treatments %}
+				                <div class="u-flex-md u-flex-center-y">
+				                    {% set price = data.price ?  fn('rokit_format_money', data.price) %}
+				                    <span class="c-list__heading u-size-1of5--md">{{ price }}</span>
+
+				                    {% if data.column_two %}
+				                        <span><a href="{{ data.column_two.link }}" title="{{ data.column_two.title }}">{{ data.column_two.title }}</a></span>
+				                    {% endif %}
+				                    {% if data.column_three %}
+				                        <span class="u-text-color-gray-darkest u-text-right u-align-right"><a href="{{data.column_three.link}}" title="{{data.column_three.title}}">{{data.column_three.title}}</a></span>
+				                    {% endif %}
+				                </div>
+				            {% endfor %}
+					    </div>
+					</li>
+				    {% if loop.last and items.button.url and items.button.label %}
+				        <li class="c-list__item u-text-center" style="margin-top: auto;">
+				            <div class="c-list__header">
+				                <a class="u-text-color-gray-darker u-text-bold u-text-size-zeta" href="{{items.button.url}}" title="{{items.button.label}}">{{items.button.label|upper}}</a>
+				            </div>
+				        </li>
+				    {% endif %}
+					{% set newAcademyLists = newAcademyLists|merge([list]) %}
+        			{% set acedemyDateArrayStatus = 'Yes' %}
+        			{% set hasGreaterThanDate = true %}	
+			    {% endif %}
+
+				{% else %}
+			    {# <li class="c-list__item u-text-size-epsilon u-flex u-flex-center u-stretch-height">
+			        <div class="c-list__header u-text-center">
+			            <p>{{ pll__('Geen %s gevonden')|format(title|lower) }}</p>
+			        </div>
+			    <li> #}
+			{% endfor %}
+			
+			{% if acedemyDateArrayStatus == 'Yes' %}
+			    {% set layout = layout|merge({'academy_lists': newAcademyLists}) %}
+			{% endif %}
+			
+			{% if not hasGreaterThanDate %}
+			    <li class="c-list__item u-text-size-epsilon u-flex u-flex-center u-stretch-height">
+			        <div class="c-list__header u-text-center">
+			            <p>{{ pll__('Geen %s gevonden')|format(title|lower) }}</p>
+			        </div>
+			    <li>
+			    {% set layout = layout|merge({'academy_lists': []}) %}
+			{% endif %}
+
+			{# {% if layout.academy_lists is empty %}
+				<li class="c-list__item u-text-size-epsilon u-flex u-flex-center u-stretch-height">
+			        <div class="c-list__header u-text-center">
+			            <p>{{ pll__('Geen %s gevonden')|format(title|lower) }}</p>
+			        </div>
+			    <li>
+		   {% endif %} #}
+		</ul>
+	 </div>
+</div>	 	

@@ -1,0 +1,23 @@
+{# Academy archive #}
+{% extends "base/base.twig" %}
+
+{% block panorama %}
+    {% include 'parts/panorama-plus.twig' with { panorama : collection.panorama, maskClass : 'c-mask--white'} %}
+{% endblock %}
+
+{% block content %}
+    {# <pre>{{ dump(collection.intro) }}</pre> #}
+    <div class="o-contain o-contain-padding">
+        <div class="c-copy">
+            {% include "layouts/layout-video.twig" with { layout : collection.video } %}
+            {% include "layouts/layout-title_text.twig" with { layout : collection.intro } %}
+            {% include "parts/collection-list.twig" with { tag: collection.list.title_tag, title : collection.list.title, subtitle : collection.list.subtitle, posts : collection.list.items } %}
+            {% include "layouts/layout-title_text.twig" with { layout : collection.appointment } %}
+            {% include "parts/connect.twig" with { contacts : contacts.online  } %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block related %}
+    {% include "parts/cta/cta-default.twig" with { cta : collection.cta } %}
+{% endblock %}
